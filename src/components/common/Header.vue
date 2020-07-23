@@ -70,7 +70,8 @@ export default {
         handleCommand(command) {
             if (command == 'loginout') {
                 localStorage.removeItem('ms_username');
-                this.$router.push('/login');
+                // window.location.href="https://kingsunfather.github.io/buaa-tias-preview/";
+                this.$router.push('/entry');
             }
         },
         // 侧边栏折叠

@@ -1,7 +1,7 @@
 <template>
     <div style="display: flex;height: inherit">
         <!--<a id="go" href='../../public/entrypage.html'/>-->
-        <iframe ref="iframe" src="/entrypage.html" frameborder="0"style="width: 100%"></iframe>
+        <iframe ref="iframe" v-bind:src="getPageUrl" frameborder="0"style="width: 100%"></iframe>
     </div>
 
 </template>
@@ -10,11 +10,16 @@
     export default {
         data: function() {
             return {
-                iframeWin: {}
+                getPageUrl: 'https://kingsunfather.github.io/buaa-tias-preview/',
+                iframeWin: {},
+                // publicPath: process.env.BASE_URL
             };
         },
         name: 'entrypage',
         methods: {
+            openEntrypage(){
+                window.location.href="https://kingsunfather.github.io/buaa-tias-preview/"
+            },
             //向iframe传数据
             sendMessage2Vue(){
                 this.iframeWin.postMessage(
@@ -42,6 +47,7 @@
         mounted(){
             window.addEventListener("message",this.handleMessage);
             this.iframeWin = this.$refs.iframe.contentWindow;
+            // this.openEntrypage();
         }
     };
 </script>
