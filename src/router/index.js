@@ -4,14 +4,12 @@ import Router from 'vue-router';
 Vue.use(Router);
 
 export default new Router({
+    mode: 'history',//Add this to delete "#" in URL
     routes: [
-        mode: 'history',//Add this to delete "#" in our URL
-        routes: [
         {
-            // Default page is main page
+            // Default page is entry page
             path: '/',
-            component: () => import(/* webpackChunkName: "entrypage" */ '../components/page/entrypage.vue'),
-            meta: { title: 'LDMC-NLP' }
+            redirect: '/entry'
         },
         {
             path: '/',
@@ -118,10 +116,10 @@ export default new Router({
             path: '*',
             redirect: '/404'
         },
-//         {
-//             path: '/entry',
-//             component: () => import(/* webpackChunkName: "entrypage" */ '../components/page/entrypage.vue'),
-//             meta: { title: 'LDMC-NLP' }
-//         }
+        {
+            path: '/entry',
+            component: () => import(/* webpackChunkName: "entrypage" */ '../components/page/entrypage.vue'),
+            meta: { title: 'LDMC-NLP' }
+        }
     ]
 });
