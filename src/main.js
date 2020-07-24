@@ -22,10 +22,11 @@ const i18n = new VueI18n({
 
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
-    document.title = `${to.meta.title} | vue-manage-system`;
+    document.title = `${to.meta.title} | LDMC-智能文本分析系统`;
     const role = localStorage.getItem('ms_username');
-    if (!role && to.path !== '/login') {
-        next('/login');
+    //展示的首页不需要登陆即可看见
+    if (!role && to.path !== '/login' && to.path !== '/entry') {
+        next('/entry');
     } else if (to.meta.permission) {
         // 如果是管理员权限则可进入，这里只是简单的模拟管理员权限而已
         role === 'admin' ? next() : next('/403');
