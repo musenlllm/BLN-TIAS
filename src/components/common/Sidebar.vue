@@ -63,18 +63,18 @@ export default {
                 },
                 {
                     icon: 'el-icon-lx-cascades',
-                    index: 'table',
-                    title: '基础表格'
+                    index: 'summary',
+                    title: '自动摘要'
                 },
                 {
                     icon: 'el-icon-lx-copy',
-                    index: 'tabs',
-                    title: 'tab选项卡'
+                    index: 'recognition',
+                    title: '实体识别'
                 },
                 {
                     icon: 'el-icon-lx-calendar',
                     index: '3',
-                    title: '表单相关',
+                    title: '情感分析',
                     subs: [
                         {
                             index: 'form',
@@ -102,28 +102,18 @@ export default {
                 },
                 {
                     icon: 'el-icon-lx-emoji',
-                    index: 'icon',
-                    title: '自定义图标'
+                    index: 'relation',
+                    title: '关系抽取'
                 },
                 {
                     icon: 'el-icon-pie-chart',
-                    index: 'charts',
-                    title: 'schart图表'
+                    index: 'hotspot',
+                    title: '热点挖掘'
                 },
                 {
                     icon: 'el-icon-rank',
-                    index: '6',
-                    title: '拖拽组件',
-                    subs: [
-                        {
-                            index: 'drag',
-                            title: '拖拽列表'
-                        },
-                        {
-                            index: 'dialog',
-                            title: '拖拽弹框'
-                        }
-                    ]
+                    index: 'classification',
+                    title: '文本主题分类',
                 },
                 {
                     icon: 'el-icon-lx-global',
@@ -145,11 +135,7 @@ export default {
                         }
                     ]
                 },
-                {
-                    icon: 'el-icon-lx-redpacket_fill',
-                    index: '/donate',
-                    title: '支持作者'
-                }
+
             ]
         };
     },
