@@ -38,7 +38,7 @@ export default new Router({
                 },
         
                 // 二级三级表单的示范（留着没删
-               
+                
                 {
                     path: '/form',
                     component: () => import(/* webpackChunkName: "form" */ '../components/page/BaseForm.vue'),
@@ -71,7 +71,9 @@ export default new Router({
                 {
                     // 文本主题分类
                     path: '/classification',
-                    component: () => import(/* webpackChunkName: "drag" */ '../components/page/DragList.vue'),
+                    //component: () => import(/* webpackChunkName: "drag" */ '../components/page/DragList.vue'),
+                    //meta: { title: '文本主题分类' }
+                    component: () => import(/* webpackChunkName: "drag" */ '../components/page/TopicClassification.vue'),
                     meta: { title: '文本主题分类' }
                 },
                 // {
