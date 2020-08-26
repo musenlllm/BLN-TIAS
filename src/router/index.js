@@ -9,7 +9,7 @@ export default new Router({
         {
             // Default page is entry page
             path: '/',
-            redirect: '/entry'
+            redirect: '/dashboard'
         },
         {
             path: '/',
@@ -36,9 +36,8 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "tabs" */ '../components/page/Tabs.vue'),
                     meta: { title: '实体识别' }
                 },
-        
+
                 // 二级三级表单的示范（留着没删
-                
                 {
                     path: '/form',
                     component: () => import(/* webpackChunkName: "form" */ '../components/page/BaseForm.vue'),
