@@ -1,129 +1,143 @@
 <template>
-    <div class="">
-        <div class="crumbs">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-lx-copy"></i> tab选项卡</el-breadcrumb-item>
-            </el-breadcrumb>
-        </div>
-        <div class="container">
-            <el-tabs v-model="message">
-                <el-tab-pane :label="`未读消息(${unread.length})`" name="first">
-                    <el-table :data="unread" :show-header="false" style="width: 100%">
-                        <el-table-column>
-                            <template slot-scope="scope">
-                                <span class="message-title">{{scope.row.title}}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="date" width="180"></el-table-column>
-                        <el-table-column width="120">
-                            <template slot-scope="scope">
-                                <el-button size="small" @click="handleRead(scope.$index)">标为已读</el-button>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                    <div class="handle-row">
-                        <el-button type="primary">全部标为已读</el-button>
-                    </div>
-                </el-tab-pane>
-                <el-tab-pane :label="`已读消息(${read.length})`" name="second">
-                    <template v-if="message === 'second'">
-                        <el-table :data="read" :show-header="false" style="width: 100%">
-                            <el-table-column>
-                                <template slot-scope="scope">
-                                    <span class="message-title">{{scope.row.title}}</span>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="date" width="150"></el-table-column>
-                            <el-table-column width="120">
-                                <template slot-scope="scope">
-                                    <el-button type="danger" @click="handleDel(scope.$index)">删除</el-button>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                        <div class="handle-row">
-                            <el-button type="danger">删除全部</el-button>
-                        </div>
-                    </template>
-                </el-tab-pane>
-                <el-tab-pane :label="`回收站(${recycle.length})`" name="third">
-                    <template v-if="message === 'third'">
-                        <el-table :data="recycle" :show-header="false" style="width: 100%">
-                            <el-table-column>
-                                <template slot-scope="scope">
-                                    <span class="message-title">{{scope.row.title}}</span>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="date" width="150"></el-table-column>
-                            <el-table-column width="120">
-                                <template slot-scope="scope">
-                                    <el-button @click="handleRestore(scope.$index)">还原</el-button>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                        <div class="handle-row">
-                            <el-button type="danger">清空回收站</el-button>
-                        </div>
-                    </template>
-                </el-tab-pane>
-            </el-tabs>
-        </div>
-    </div>
-</template>
+    <div>
+        <el-container>
+            <el-header>
+                <h1 style="color: gray">实体识别</h1>
+            </el-header>
+            <el-main style="text-align: center">
+                <!--<span style="font-size: 15px; color: gray;">-->
+                <!--文本摘要生成能够实现文本内容的理解、精简提炼，生成简短、准确、流畅的摘要，并能根据需求灵活控制生成的摘要长度。文本摘要生成可用于文本内容理解、新闻自动生成、冗余文档检测、智能写作等，是智能媒体行业必备的AI能力之一。-->
+                <!--</span>-->
+                <!--<span style="font-size: 15px; color: gray;">-->
 
+                <!--</span>-->
+                <el-input
+                        type="textarea"
+                        placeholder="请输入内容"
+                        v-model="summaryText"
+                        maxlength="400"
+                        show-word-limit
+                        :autosize="{ minRows: 5, maxRows: 8}"
+                        clearable
+                        style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); font-size: 15px"
+                >
+                </el-input>
+                <el-row style="margin-top: 30px; display: flex; justify-content: center">
+                    <el-button v-on:click="getData" type="primary" style="background: #242f42; border: 0px">开始识别</el-button>
+                    <el-button >随便试试</el-button>
+                </el-row>
+                <div class="tag-group" style="margin-top: 30px; display: flex; flex-direction: row; flex-wrap: wrap;">
+                    <el-tag style="margin: 2px; border-radius: 0px; font-size: 15px"
+                            v-for="item in itemtypes"
+                            :key="item.label"
+                            :type="item.type"
+                            size="medium"
+                            effect="dark">
+                        {{ item.label }}
+                    </el-tag>
+                </div>
+
+                <div class="tag-group" style="margin-top: 30px; display: flex; flex-direction: row; flex-wrap: wrap;">
+                    <!--<span class="tag-group__title">Dark</span>-->
+
+                    <el-tag style="margin: 2px; border-radius: 0px; font-size: 15px"
+                            v-for="item in items"
+                            :key="item.label"
+                            :type="item.type"
+                            size="medium"
+                            effect="plain">
+                        {{ item.label }}
+                    </el-tag>
+                </div>
+
+            </el-main>
+            <!--<el-footer>Footer</el-footer>-->
+        </el-container>
+    </div>
+
+
+</template>
 <script>
+    import { fetchData } from '../../api/index';
     export default {
-        name: 'tabs',
+        name: 'basetable',
         data() {
             return {
-                message: 'first',
-                showHeader: false,
-                unread: [{
-                    date: '2018-04-19 20:00:00',
-                    title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护',
-                },{
-                    date: '2018-04-19 21:00:00',
-                    title: '今晚12点整发大红包，先到先得',
-                }],
-                read: [{
-                    date: '2018-04-19 20:00:00',
-                    title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
-                }],
-                recycle: [{
-                    date: '2018-04-19 20:00:00',
-                    title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
-                }]
-            }
+                text: '',
+                summaryText: '',
+                summaryRes:'摘要结果',
+                queryURL:'http://61.135.242.193:5000/api/summarization',
+                items: [
+                    // { type: '', label: '标签一' },
+                    // { type: 'success', label: '标签二' },
+                    { type: 'info', label: '继不久前始于' },
+                    { type: 'danger', label: '中国'},
+                    { type: 'info', label: '的召回风波，'},
+                    { type: 'success', label: '宝马'},
+                    { type: 'info', label: '因为车辆的发动机故障，在'},
+                    { type: 'danger', label: '全球'},
+                    { type: 'info', label: '范围召回408万辆车'},
+                    { type: 'success', label: '宝马'},
+                    { type: 'info', label: '总裁'},
+                    { type: 'warning', label: '瞿云涛'},
+                    { type: 'info', label: '表示'},
+                    { type: 'success', label: '宝马' },
+                    { type: 'info', label: '将会对' },
+                    { type: 'danger', label: '中国' },
+                    { type: 'info', label: '用户' },
+                    { type: 'info', label: '用户负责到底' },
+                ],
+                itemtypes:[
+                    { label: '人名', type: 'warning' },
+                    { label: '地名', type: 'danger' },
+                    { label: '组织机构名', type: 'success' },
+                ]
+
+            };
+        },
+        created() {
+            // this.getData();
         },
         methods: {
-            handleRead(index) {
-                const item = this.unread.splice(index, 1);
-                console.log(item);
-                this.read = item.concat(this.read);
-            },
-            handleDel(index) {
-                const item = this.read.splice(index, 1);
-                this.recycle = item.concat(this.recycle);
-            },
-            handleRestore(index) {
-                const item = this.recycle.splice(index, 1);
-                this.read = item.concat(this.read);
-            }
-        },
-        computed: {
-            unreadNum(){
-                return this.unread.length;
-            }
-        }
-    }
+            // 获取 easy-mock 的模拟数据
+            getData() {
+                // this.summaryRes = this.summaryText
+                fetch(this.queryURL, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        docs: [{
+                            "id":123,
+                            "doc":this.summaryText,
+                        }]
+                    }),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
 
+                }).then(res => res.json())
+                    .catch(error => console.error('Error:', error))
+                    .then(response => this.summaryRes =  response.data[0].summary);
+            },
+
+        }
+    };
 </script>
 
-<style>
-.message-title{
-    cursor: pointer;
-}
-.handle-row{
-    margin-top: 30px;
-}
+<style scoped>
+    @import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
+    .el-header, .el-footer {
+        font-size: 20px;
+        color: black;
+        text-align: center;
+        line-height: 60px;
+    }
+    .res-textarea {
+        color: black; margin-top: 30px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+    }
+
+
+
+
+
 </style>
 

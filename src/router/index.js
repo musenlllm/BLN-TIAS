@@ -9,7 +9,7 @@ export default new Router({
         {
             // Default page is entry page
             path: '/',
-            redirect: '/entry'
+            redirect: '/dashboard'
         },
         {
             path: '/',
@@ -23,7 +23,7 @@ export default new Router({
                 },
                 {
                     path: '/relation',
-                    component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
+                    component: () => import(/* webpackChunkName: "icon" */ '../components/page/RelationExtraction.vue'),
                     meta: { title: '关系抽取' }
                 },
                 {
@@ -36,9 +36,8 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "tabs" */ '../components/page/Tabs.vue'),
                     meta: { title: '实体识别' }
                 },
-        
+
                 // 二级三级表单的示范（留着没删
-               
                 {
                     path: '/form',
                     component: () => import(/* webpackChunkName: "form" */ '../components/page/BaseForm.vue'),
@@ -71,7 +70,9 @@ export default new Router({
                 {
                     // 文本主题分类
                     path: '/classification',
-                    component: () => import(/* webpackChunkName: "drag" */ '../components/page/DragList.vue'),
+                    //component: () => import(/* webpackChunkName: "drag" */ '../components/page/DragList.vue'),
+                    //meta: { title: '文本主题分类' }
+                    component: () => import(/* webpackChunkName: "drag" */ '../components/page/TopicClassification.vue'),
                     meta: { title: '文本主题分类' }
                 },
                 // {
