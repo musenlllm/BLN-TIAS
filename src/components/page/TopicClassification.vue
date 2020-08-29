@@ -31,17 +31,22 @@
 </template>
 
 <script>
+
     import 'quill/dist/quill.core.css';
     import 'quill/dist/quill.snow.css';
     import 'quill/dist/quill.bubble.css';
     import { quillEditor } from 'vue-quill-editor';
+    import { fetchData } from '../../api/index';
+
     
-    const typelist = ['政治', '军事', '娱乐', '科技', '教育', '人文', 'case', 'asgdg', 'gasdwe', 'vcd', 'gagaes', 'teqryj', 'werlo'];
+    const typelist = ['体育', '娱乐', '家居', '彩票', '房产', '教育', '时尚', '时政', '星座', '游戏', '社会', 
+        '科技', '股票', '财经'];
 
     export default {
         name: 'markdown',
         data: function(){
             return {
+                queryURL:'http://61.135.242.193:5000/api/summarization',
                 form: {
                     type: [],
                 },
@@ -78,8 +83,26 @@
                 this.content = html;
             },
             submit(){
+                // this.summaryRes = this.summaryText
+                fetch(this.queryURL, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        docs: [{
+                            "id":123,
+                            "doc":this.content,
+                        }],
+                        
+                    }),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                }).then(res => res.json())
+                    .catch(error => console.error('Error:', error))
+                    .then(response => this.summaryRes =  response.data[0].summary);
+
                 console.log(this.content);
-                this.form.type = ['政治', '教育'];
+                this.form.type = ['娱乐', '教育'];
                 this.$message.success('提交成功！');
             }
         }

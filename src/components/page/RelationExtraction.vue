@@ -15,7 +15,7 @@
                         type="textarea"
                         placeholder="请输入内容"
                         v-model="content"
-                        maxlength="400"
+                        maxlength="800"
                         show-word-limit
                         :rows=16
                         clearable
@@ -39,14 +39,14 @@
                                 id="new-person"
                                 placeholder="E.g. Joe Black"
                             >
-                                <p slot="prepend" >Add a person</p>
+                                <p slot="prepend" >添加人物</p>
                                 <el-button slot="append" @click="addNewPerson" icon="el-icon-circle-plus"></el-button>
                             </el-input>
                         </form>
                     </el-row>
 
                     <el-table :show-header="false" :data="personList" 
-                        style="width:100%;height: 180px;max-height: 180px;overflow: auto">
+                        style="width:100%;height: 180px;max-height: 180px;overflow: auto;margin-top:10px">
                         <el-table-column min-width="200">
                             <template slot-scope="scope">
                                 <div
@@ -54,9 +54,9 @@
                                 >{{scope.row.name}}</div>
                             </template>
                         </el-table-column>
-                        <el-table-column min-width="100" align="right">
+                        <el-table-column min-width="100" align="center">
                             <template slot-scope="scope">
-                                <i class="el-icon-edit"></i>
+                                <!-- <i class="el-icon-edit"></i> -->
                                 <el-button icon="el-icon-delete" @click="personList.splice(scope.$index, 1)"></el-button>
                             </template>
                         </el-table-column>
@@ -133,11 +133,11 @@ export default {
             
             {
                 id: 3,
-                name: '赵立坚2',
+                name: '特朗普',
             },
             {
                 id: 4,
-                name: '埃斯珀2',
+                name: '拜登',
             }
             ],
             nextPersonId: 5
