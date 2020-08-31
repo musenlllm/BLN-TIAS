@@ -25,51 +25,9 @@
                         
                     </el-col>
                     
-                    <el-col :span="8" style="padding-left:10px">
-                        
-                <el-card shadow="hover">
-                    <div slot="header" class="clearfix">
-                        <span>人物列表</span>
-                    </div>
-                    
-                    <el-row id="character-list" style="display: flex; justify-content: center">
-                        <form>
-                            <el-input
-                                v-model="newPersonName"
-                                id="new-person"
-                                placeholder="E.g. Joe Black"
-                            >
-                                <p slot="prepend" >添加人物</p>
-                                <el-button slot="append" @click="addNewPerson" icon="el-icon-circle-plus"></el-button>
-                            </el-input>
-                        </form>
-                    </el-row>
-
-                    <el-table :show-header="false" :data="personList" 
-                        style="width:100%;height: 180px;max-height: 180px;overflow: auto;margin-top:10px">
-                        <el-table-column min-width="200">
-                            <template slot-scope="scope">
-                                <div
-                                    class="todo-item"
-                                >{{scope.row.name}}</div>
-                            </template>
-                        </el-table-column>
-                        <el-table-column min-width="100" align="center">
-                            <template slot-scope="scope">
-                                <!-- <i class="el-icon-edit"></i> -->
-                                <el-button icon="el-icon-delete" @click="personList.splice(scope.$index, 1)"></el-button>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                </el-card>
-                    </el-col>
-                </el-row>
-                
-                <el-row style="margin-top: 30px; display: flex; justify-content: center">
-                    <el-button v-on:click="getData" type="primary">开始提取</el-button>
-                </el-row>
-                
-                <div class="tag-group" style="margin-top: 30px; display: flex; flex-direction: row; flex-wrap: wrap;">
+                    <el-col :span="8" style="padding-left:10px;max-height:200px;height:200px;overflow: auto;">
+                        <el-card shadow="hover">
+                                            
                     <template v-for="item in items">
                         <el-tag style="margin: 2px; border-radius: 0px; font-size: 15px"
                                 :key="item.person1+item.id"
@@ -95,17 +53,27 @@
                             {{ item.person2 }}
                         </el-tag>
                     </template>
-                    
-                </div>
-
+                        </el-card>
+                    </el-col>
+                </el-row>
+                
+                <el-row style="margin-top: 30px; display: flex; justify-content: center">
+                    <el-button v-on:click="getData" type="primary">开始提取</el-button>
+                </el-row>
+                
             </el-main>
             <!--<el-footer>Footer</el-footer>-->
         </el-container>
+        <div>
+            <div id="showRelation" :style="{width: '1200px', height: '600px'}"></div>
+        </div>
     </div>
 </template>
 
 <script>
 import { fetchData } from '../../api/index';
+import echarts from 'echarts/lib/echarts'
+import 'echarts/dist/extension/dataTool'
 
 export default {
     name: 'basetable',
@@ -119,34 +87,136 @@ export default {
                 // { type: '', label: '标签一' },
                 // { type: 'success', label: '标签二' },
                 {person1: '曹操', person2: '曹丕', relation: '父子', id:'1'}
-            ],
-            newPersonName: '',
-            personList: [
-            {
-                id: 1,
-                name: '赵立坚',
-            },
-            {
-                id: 2,
-                name: '埃斯珀',
-            },
-            
-            {
-                id: 3,
-                name: '特朗普',
-            },
-            {
-                id: 4,
-                name: '拜登',
-            }
-            ],
-            nextPersonId: 5
+            ]
         };
     },
     created() {
         // this.getData();
     },
     methods: {
+        drawChart() {
+            // 初始化echarts实例
+            let myChart = echarts.init(document.getElementById('showRelation'));
+            
+            var theData = {    
+                nodes:[{
+                name: '曹丕', //	彰显节点
+				x: 300,
+                y: 300,
+                category: 1,
+                label: {
+                show: true
+            },
+            }, {
+                name: '曹操2', //	被覆盖节点
+                x: 800,
+                y: 300,
+                symbolSize: 100,
+                color: 'blue',
+                category: 2,
+                label: {
+                show: false
+            },
+            },{
+                name: '曹操',  
+                x: 800,
+                y: 300,
+                symbolSize: 100,
+                category: 2,
+                color: 'blue'
+            }, {
+                name: '曹植',  
+                x: 400,
+                y: 400,
+                category: 3
+            }],
+                links:[{
+                source: 1,
+                target: 0,
+                value:'父子',
+                lineStyle: {
+                    width: 1,
+                    curveness: 0.1
+                }
+            },{
+                source: 1,
+                target: 0,
+                value:'父子',
+                lineStyle: {
+                    width: 1,
+                    curveness: 0.2
+                }
+            },{
+                source: 0,
+                target: 3,
+                value:'兄弟',
+                lineStyle: {
+                    width: 1,
+                }
+            },{
+                source: 1,
+                target: 3,
+                value:'父子',
+                lineStyle: {
+                    width: 1,
+                }
+            }
+            ]}
+            
+            var categories = [];
+            for (var i = 0; i < 9; i++) {
+                categories[i] = {
+                    name: '类目' + i
+                };
+            }
+            
+            // 绘制图表
+            var option = {
+                title: {
+                    text: '同方向多种联系'
+                },
+                series: [
+                    {
+                        type: 'graph',
+                        layout: 'none',
+                        symbolSize: 60,
+                        label: {
+                            show: true,
+                            fontSize: 26
+                        },
+                        roam: true,
+                        categories: categories,
+                        itemStyle: {
+                            borderColor: '#fff',
+                            borderWidth: 1,
+                            shadowBlur: 10,
+                            shadowColor: 'rgba(0, 0, 0, 0.3)'
+                        },
+                        lineStyle: {
+                            color: 'source',
+                            curveness: 0.3
+                        },
+                        edgeSymbol: ['', 'arrow'],
+                        edgeLabel: { 		// 连接两个关系对象的线上的标签
+                            normal: {
+                            show: true,
+                            textStyle: {
+                            fontSize: 18
+                                },
+                            formatter: function(param) { // 关系标签内容
+                            return param.data.value;
+                                            }
+                                    }
+                                },
+                        data: theData.nodes,
+                        links: theData.links,
+                    }
+                ]
+            }
+            //防止越界，重绘canvas
+            window.onresize = myChart.resize;
+            myChart.setOption(option);//设置option
+        },
         // 获取 easy-mock 的模拟数据
         getData() {
             fetch(this.queryURL, {
@@ -155,9 +225,7 @@ export default {
                     docs: [{
                         "id":123,
                         "doc":this.content,
-                    }],
-                    "person": this.personList
-                    
+                    }]
                 }),
                 headers: {
                     "Content-Type": "application/json"
@@ -166,16 +234,12 @@ export default {
             }).then(res => res.json())
                 .catch(error => console.error('Error:', error))
                 .then(response => console.log(response.data[0].summary));
-        },
-        addNewPerson() {
-            this.personList.push({
-            id: this.nextPersonId++,
-            name: this.newPersonName
-            });
-            this.newPersonName = '';
-            console.log(this.personList);
         }
 
+    },
+    
+    mounted() {
+        this.drawChart();
     }
 };
 </script>
