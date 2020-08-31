@@ -23,19 +23,24 @@
                 </el-row>
             </div>
 
-            <quill-editor ref="myTextEditor" v-model="content" :options="editorOption" @change="initType"></quill-editor>
-            <el-button class="editor-btn" type="primary" @click="submit">提交</el-button>
             
+            <el-input
+                type="textarea"
+                placeholder="请输入内容"
+                v-model="content"
+                maxlength="800"
+                show-word-limit
+                :rows=16
+                clearable
+                style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
+            />
+            
+            <el-button class="editor-btn" type="primary" @click="submit">开始主题分类</el-button>
         </div>
     </div>
 </template>
 
 <script>
-
-    import 'quill/dist/quill.core.css';
-    import 'quill/dist/quill.snow.css';
-    import 'quill/dist/quill.bubble.css';
-    import { quillEditor } from 'vue-quill-editor';
     import { fetchData } from '../../api/index';
 
     
@@ -56,9 +61,6 @@
                 },
                 types: typelist
             }
-        },
-        components: {
-            quillEditor
         },
         methods: {
             initType(){
