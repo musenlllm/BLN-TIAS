@@ -40,13 +40,20 @@
                         </div>
                     </el-card>
 
+                    <el-card class="box-card" style="min-height: 174px; margin-top: 20px">
+                        <div slot="header" class="clearfix">
+                            <span>实体分类树</span>
+                        </div>
+                        <div id="tree" style="width: 600px;height: 600px;"></div>
+                    </el-card>
+
                 </el-aside>
 
 
                 <el-main style="text-align: center; margin-top: 10px">
                     <el-card class="box-card">
                         <div slot="header" class="clearfix">
-                            <span>实体类别图示</span>
+                            <span>可识别实体类别</span>
                         </div>
                         <div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">
                             <el-tag style="width: 100px; margin-right: 10px;margin-bottom: 10px; border-radius: 4px; font-size: 15px; border: 0px;
@@ -61,16 +68,30 @@
                             </el-tag>
                         </div>
                     </el-card>
+                    <el-card class="box-card" style="min-height: 174px; margin-top: 20px">
+                        <div slot="header" class="clearfix">
+                            <span>实体比例图</span>
+                        </div>
+                        <div id="percent" style="width: 600px;height: 600px;"></div>
+                    </el-card>
 
             </el-main>
             </el-container>
             <el-footer>
-                <el-card class="box-card" style="min-height: 174px">
-                    <div slot="header" class="clearfix">
-                        <span>实体分类树</span>
-                    </div>
-                    <div id="tree" style="width: 100px;height: 1000px;"></div>
-                </el-card>
+                <el-container>
+                    <!--<el-aside style="width: 700px">-->
+                        <!--<el-card class="box-card" style="min-height: 174px">-->
+                            <!--<div slot="header" class="clearfix">-->
+                                <!--<span>实体分类树</span>-->
+                            <!--</div>-->
+                            <!--<div id="tree" style="width: 600px;height: 600px;"></div>-->
+                        <!--</el-card>-->
+                    <!--</el-aside>-->
+                    <el-main>
+
+                    </el-main>
+                </el-container>
+
 
             </el-footer>
             <!--<el-footer>Footer</el-footer>-->
@@ -107,46 +128,13 @@
                 treeData:{
 
                 },
-                option : {
-                    tooltip: {
-                        trigger: 'item',
-                        triggerOn: 'mousemove'
-                    },
-                    series: [
-                        {
-                            type: 'tree',
+                percentData:[
 
-                            data: this.treeData,
+                ],
+                entData:[],
 
-                            top: '1%',
-                            left: '7%',
-                            bottom: '1%',
-                            right: '20%',
-
-                            symbolSize: 7,
-
-                            label: {
-                                position: 'left',
-                                verticalAlign: 'middle',
-                                align: 'right',
-                                fontSize: 9
-                            },
-
-                            leaves: {
-                                label: {
-                                    position: 'right',
-                                    verticalAlign: 'middle',
-                                    align: 'left'
-                                }
-                            },
-
-                            expandAndCollapse: true,
-                            animationDuration: 550,
-                            animationDurationUpdate: 750
-                        }
-                    ]
-                },
-                charts: '',
+                treeCharts: '',
+                percentCharts: '',
                 // charts: '',
                 // opinion:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'],
                 // opinionData:[
@@ -171,7 +159,10 @@
                 // for(let j=0; j<this.items.length; j++){
                 //     this.items.pop();
                 // }
-                this.items=[]
+                this.items=[];
+                this.percentData=[];
+                this.entData=[];
+                // this.treeData=[];
                 // mock data
                 var resStr = '[{"start":6,"end":7,"content":"中国","ent":"地点"},{"start":14,"end":15,"content":"宝马","ent":"组织"},{"start":41,"end":42,"content":"宝马","ent":"组织"},{"start":45,"end":47,"content":"瞿云涛","ent":"人名"},{"start":50,"end":51,"content":"宝马","ent":"组织"},{"start":55,"end":56,"content":"中国","ent":"地点"}]'
                 // evel 转化为 数组
@@ -261,7 +252,7 @@
                 for(let k=0;k<this.items.length;k++){
                     var entTemp = this.items[k].ent;
 
-                    if(addedEnt.indexOf(entTemp)==-1){
+                    if(addedEnt.indexOf(entTemp)==-1 && entTemp!='普通'){
                         var treeDataItemTemp={};
                         treeDataItemTemp.name = entTemp;
                         treeDataItemTemp.children = [];
@@ -270,7 +261,8 @@
                             value:this.items[k].value
                         })
                         this.treeData.children.push(treeDataItemTemp);
-                        addedEnt.push(entTemp)
+                        addedEnt.push(entTemp);
+                        continue
                     }
                     for(let h=0; h<this.treeData.children.length;h++){
                         if(this.treeData.children[h].name==entTemp){
@@ -281,9 +273,43 @@
                         }
                     }
                 }
-                console.log(this.treeData)
+                // 准备数量比例饼图片
+                this.entData = addedEnt;
+                for(let i=0; i<this.treeData.children.length; i++){
+                    let colorTemp;
+                    let resEnt = this.treeData.children[i].name;
+                    if(resEnt=="地点"){
+                        colorTemp = '#E6A23C'
+                    }
+                    else if(resEnt == "人名"){
+                        console.log("人名检测！！！！")
+                        colorTemp =  '#F56C6C'
+                    }
+                    else if(resEnt == "组织"){
+                        colorTemp = '#409EFF'
+                    }
+                    else if(resEnt == "时间"){
+                        colorTemp =  '#67C23A'
+                    }
+                    else if(resEnt == "公司"){
+                        colorTemp = '#242f42'
+                    }
+                    else if(resEnt == "产品"){
+                        colorTemp = 'pink'
+                    }
+                    this.percentData.push({
+                        name:this.treeData.children[i].name,
+                        value: this.treeData.children[i].children.length,
+                        itemStyle:{
+                            color: colorTemp
+                        }
+                    })
+                }
 
-                this.drawPie()
+                console.log(this.treeData)
+                // this.option.series[0].data=this.treeData
+
+                this.drawTree()
 
                 // console.log(this.items)
 
@@ -305,10 +331,97 @@
                 //     .catch(error => console.error('Error:', error))
                 //     .then(response => this.summaryRes =  response.data[0].summary);
             },
-            drawPie(){
-                this.charts = echarts.init(document.getElementById('tree'))
+            drawTree(){
 
-                this.charts.setOption(this.option);
+                // const chart = this.$refs.chart
+                // if (chart) {
+                //     const myChart = this.$echarts.init(chart)
+                //     console.log(this.option)
+                //     myChart.setOption(this.option)
+                //     window.addEventListener("resize", function() {
+                //         myChart.resize()
+                //     })
+                // }
+
+                this.treeCharts = echarts.init(document.getElementById('tree'));
+                this.percentCharts = echarts.init(document.getElementById('percent'));
+                // this.charts = echarts.init(document.getElementById('tree'))
+                this.treeCharts.setOption({
+                    tooltip: {
+                        trigger: 'item',
+                            triggerOn: 'mousemove'
+                    },
+                    series: [
+                        {
+                            type: 'tree',
+
+                            data: [this.treeData],
+
+                            top: '1%',
+                            left: '7%',
+                            bottom: '1%',
+                            right: '20%',
+
+                            symbolSize: 7,
+
+                            label: {
+                                position: 'left',
+                                verticalAlign: 'middle',
+                                align: 'right',
+                                fontSize: 9
+                            },
+
+                            leaves: {
+                                label: {
+                                    position: 'right',
+                                    verticalAlign: 'middle',
+                                    align: 'left'
+                                }
+                            },
+
+                            expandAndCollapse: true,
+                            animationDuration: 550,
+                            animationDurationUpdate: 750
+                        }
+                    ]
+                },);
+                this.percentCharts.setOption({
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b}: {c} ({d}%)'
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        left: 5,
+                        data: this.entData
+                    },
+                    series: [
+                        {
+                            name: '实体数量比例图',
+                            type: 'pie',
+                            radius: ['50%', '70%'],
+                            avoidLabelOverlap: false,
+                            label: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: '30',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            labelLine: {
+                                show: false
+                            },
+                            data: this.percentData
+                        }
+                    ]
+                })
+                window.addEventListener("resize", function() {
+                            this.charts.resize()
+                        })
 
             }
 
