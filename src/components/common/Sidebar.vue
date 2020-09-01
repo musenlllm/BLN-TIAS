@@ -73,7 +73,7 @@ export default {
                 },
                 {
                     icon: 'el-icon-lx-calendar',
-                    index: '3',
+                    index: 'sentiment',
                     title: '情感分析',
                     subs: [
                         {

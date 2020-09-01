@@ -156,13 +156,10 @@
         methods: {
             // 获取 easy-mock 的模拟数据
             getData() {
-                // for(let j=0; j<this.items.length; j++){
-                //     this.items.pop();
-                // }
+
                 this.items=[];
                 this.percentData=[];
                 this.entData=[];
-                // this.treeData=[];
                 // mock data
                 var resStr = '[{"start":6,"end":7,"content":"中国","ent":"地点"},{"start":14,"end":15,"content":"宝马","ent":"组织"},{"start":41,"end":42,"content":"宝马","ent":"组织"},{"start":45,"end":47,"content":"瞿云涛","ent":"人名"},{"start":50,"end":51,"content":"宝马","ent":"组织"},{"start":55,"end":56,"content":"中国","ent":"地点"}]'
                 // evel 转化为 数组
@@ -248,7 +245,7 @@
                 this.treeData.children=[];
                 var addedEnt = [];
 
-
+                //构建实体分类树图的数据treeData,O(n^2)复杂度
                 for(let k=0;k<this.items.length;k++){
                     var entTemp = this.items[k].ent;
 
@@ -273,7 +270,7 @@
                         }
                     }
                 }
-                // 准备数量比例饼图片
+                // 准备实体数量比例数据
                 this.entData = addedEnt;
                 for(let i=0; i<this.treeData.children.length; i++){
                     let colorTemp;
@@ -308,8 +305,8 @@
 
                 console.log(this.treeData)
                 // this.option.series[0].data=this.treeData
-
-                this.drawTree()
+                //画图
+                this.drawGraph()
 
                 // console.log(this.items)
 
@@ -331,7 +328,7 @@
                 //     .catch(error => console.error('Error:', error))
                 //     .then(response => this.summaryRes =  response.data[0].summary);
             },
-            drawTree(){
+            drawGraph(){
 
                 // const chart = this.$refs.chart
                 // if (chart) {
@@ -345,7 +342,7 @@
 
                 this.treeCharts = echarts.init(document.getElementById('tree'));
                 this.percentCharts = echarts.init(document.getElementById('percent'));
-                // this.charts = echarts.init(document.getElementById('tree'))
+
                 this.treeCharts.setOption({
                     tooltip: {
                         trigger: 'item',
@@ -362,13 +359,13 @@
                             bottom: '1%',
                             right: '20%',
 
-                            symbolSize: 7,
+                            symbolSize: 10,
 
                             label: {
                                 position: 'left',
                                 verticalAlign: 'middle',
                                 align: 'right',
-                                fontSize: 9
+                                fontSize: 15
                             },
 
                             leaves: {
@@ -380,8 +377,8 @@
                             },
 
                             expandAndCollapse: true,
-                            animationDuration: 550,
-                            animationDurationUpdate: 750
+                            animationDuration: 1000,
+                            animationDurationUpdate: 1000
                         }
                     ]
                 },);
