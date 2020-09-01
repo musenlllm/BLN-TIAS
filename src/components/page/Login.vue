@@ -32,8 +32,8 @@ export default {
     data: function() {
         return {
             param: {
-                username: 'admin',
-                password: '123123',
+                username: 'ldmc',
+                password: 'ldmc',
             },
             rules: {
                 username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
