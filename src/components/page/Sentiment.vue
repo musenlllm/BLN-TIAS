@@ -139,6 +139,7 @@
         data() {
             return {
                 lineChart: {},
+                summaryText: '',
                 charts: "",
                   opinion: ["消极", "积极"],
                   opinionData: [
