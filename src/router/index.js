@@ -23,7 +23,7 @@ export default new Router({
                 },
                 {
                     path: '/relation',
-                    component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
+                    component: () => import(/* webpackChunkName: "icon" */ '../components/page/RelationExtraction.vue'),
                     meta: { title: '关系抽取' }
                 },
                 {
