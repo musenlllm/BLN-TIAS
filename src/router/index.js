@@ -40,8 +40,8 @@ export default new Router({
                 // 二级三级表单的示范（留着没删
                 {
                     path: '/form',
-                    component: () => import(/* webpackChunkName: "form" */ '../components/page/BaseForm.vue'),
-                    meta: { title: '基本表单' }
+                    component: () => import(/* webpackChunkName: "form" */ '../components/page/Sentiment.vue'),
+                    meta: { title: '情感分析' }
                 },
                 {
                     // 富文本编辑器组件
@@ -64,7 +64,7 @@ export default new Router({
                 {
                     // 热点挖掘
                     path: '/hotspot',
-                    component: () => import(/* webpackChunkName: "chart" */ '../components/page/BaseCharts.vue'),
+                    component: () => import(/* webpackChunkName: "chart" */ '../components/page/Hotspot.vue'),
                     meta: { title: '热点挖掘' }
                 },
                 {
