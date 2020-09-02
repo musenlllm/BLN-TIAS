@@ -5,7 +5,7 @@
         <h1 style="color: gray">关系抽取</h1>
       </el-header>
       <el-main style="text-align: center">
-        <el-row style="margin-top:20px">
+        <el-row style="margin: 10px 0">
           <el-input
             type="textarea"
             placeholder="请输入内容"
@@ -18,13 +18,13 @@
           ></el-input>
         </el-row>
 
-        <el-row style="margin-top: 30px; display: flex; justify-content: center">
+        <el-row style="margin:20px 0; display: flex; justify-content: center">
           <el-button v-on:click="getData" type="primary">开始提取</el-button>
         </el-row>
 
-        <el-row style="margin-top: 40px">
+        <el-row style="margin:20px 0">
           <el-col :span="16">
-            <el-card shadow="always">
+            <el-card>
               <div slot="header" class="clearfix">
                 <span>人物关系图</span>
               </div>
@@ -33,7 +33,7 @@
           </el-col>
 
           <el-col :span="8" style="padding-left:24px">
-            <el-card shadow="always">
+            <el-card>
               <div slot="header" class="clearfix">
                 <span>人物关系列表</span>
               </div>
@@ -41,7 +41,7 @@
               <el-table
                 :show-header="true"
                 :data="items"
-                style="height: 540px;max-height: 540px;overflow: auto;align:center"
+                style="height: 540px;max-height: 540px;overflow: auto"
               >
                 <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
                 <el-table-column prop="relation" label="关系" align="center" width="50"></el-table-column>
@@ -100,7 +100,6 @@ export default {
     drawChart() {
       // 初始化echarts实例
       let myChart = echarts.init(document.getElementById("showRelation"));
-
       var theData = {
         nodes: [
           {
@@ -185,6 +184,10 @@ export default {
 
       // 绘制图表
       var option = {
+        grid: {
+          left: "10%",
+          right: "10%",
+        },
         series: [
           {
             type: "graph",
