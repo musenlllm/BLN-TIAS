@@ -68,15 +68,21 @@
           </el-card>
         </el-row>
 
-        <el-row style="margin:20px 0">
+        <el-row style="margin-top:30px">
           <el-col :span="12">
             <el-card>
+              <div slot="header" class="clearfix">
+                <span>实时主题新闻数量统计</span>
+              </div>
               <div id="showBarChart" :style="{width: '100%', height: '400px'}"></div>
             </el-card>
           </el-col>
 
-          <el-col :span="12" style="padding-left:10px">
+          <el-col :span="12" style="padding-left:20px">
             <el-card>
+              <div slot="header" class="clearfix">
+                <span>实时主题新闻比例统计</span>
+              </div>
               <div id="showPieChart" :style="{width: '100%', height: '400px'}"></div>
             </el-card>
           </el-col>
@@ -159,10 +165,6 @@ export default {
       let myChart = echarts.init(document.getElementById("showBarChart"));
       // 绘制图表
       var option = {
-        title: {
-          text: "实时主题新闻数量统计",
-          left: "center",
-        },
         tooltip: {
           trigger: "item",
           formatter: "{b} : {c}",
@@ -211,10 +213,6 @@ export default {
       console.log(dataset);
       // 绘制图表
       var option = {
-        title: {
-          text: "实时主题新闻比例统计",
-          left: "center",
-        },
         tooltip: {
           trigger: "item",
           formatter: "{a} <br/>{b} : {c} ({d}%)",
