@@ -148,42 +148,7 @@
                   ]
             }
         },
-        // data() {
-        //     return {
-        //         text: '',
-        //         summaryText: '',
-        //         summaryRes:'分析结果',
-        //         queryURL:'http://61.135.242.193:5000/api/summarization',
-        //         items: [
-        //             // { type: '', label: '标签一' },
-        //             // { type: 'success', label: '标签二' },
-        //         ],
-        //         // itemtypes:[
-        //         //     { label: '人名', type: '' ,color: '#F56C6C'},
-        //         //     { label: '地名', type: '' ,color:'#E6A23C'},
-        //         //     { label: '组织机构名', type: '',color:'#409EFF' },
-        //         //     { label: '时间', type: '' ,color: '#67C23A'},
-        //         //     { label: '公司', type: '',color:'#242f42' },
-        //         //     { label: '产品', type: '' ,color:'pink'},
-        //         // ],
-        //         treeData:{
-        //         },
-        //         percentData:[
-        //         ],
-        //         entData:[],
-        //         treeCharts: '',
-        //         percentCharts: '',
-        //         // charts: '',
-        //         // opinion:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'],
-        //         // opinionData:[
-        //         //     {value:335, name:'直接访问'},
-        //         //     {value:310, name:'邮件营销'},
-        //         //     {value:234, name:'联盟广告'},
-        //         //     {value:135, name:'视频广告'},
-        //         //     {value:1548, name:'搜索引擎'}
-        //         // ]
-        //     };
-        // },
+       
         created() {
              // this.getData();
         },
@@ -450,7 +415,7 @@
               this.lineChart.setOption(this.echartOption, window.onresize = this.lineChart.resize);
             },
             drawPie(id) {
-              this.charts = this.$echarts.init(document.getElementById(id));
+              this.charts = echarts.init(document.getElementById(id));
               this.charts.setOption({
                 tooltip: {
                   trigger: "item",
@@ -484,6 +449,9 @@
                   }
                 ]
               });
+                window.addEventListener("resize", function () {
+                    this.charts.resize()
+                })
             },
             init() {
                const self = this;//因为箭头函数会改变this指向，指向windows。所以先把this保存
