@@ -151,8 +151,10 @@
                     <el-card class="box-card" style="min-height: 50px; margin-top: 20px">
                         <div slot="header" class="clearfix">
                             <span>新增新闻数</span>
-
                         </div>
+                        <!--柱状图-->
+                        <div id="hot_statistics" style="width: 900px; height:400px "></div>
+
 
                         <div id="number" style="width: 600px;height: 100px;"></div>
                     </el-card>
@@ -240,12 +242,13 @@
         },
         mounted() {
             this.drawChart();
+            this.drawEChart();
         },
         methods: {
             // 画柱状图
             drawChart() {
                 // 基于准备好的dom，初始化echarts实例
-                let myChart = this.$echarts.init(document.getElementById("hottopic"));
+                let myChart = echarts.init(document.getElementById("hottopic"));
                 // 指定图表的配置项和数据
                 let option = {
                     color:['#93bee2'],
@@ -266,7 +269,10 @@
                     ]
                 };
                 // 使用刚指定的配置项和数据显示图表。
-                myChart.setOption(option);
+                myChart.setOption(option,
+                    window.addEventListener("resize", function () {
+                    this.charts.resize()
+                }));
             },
             // 获取 easy-mock 的模拟数据
             getData() {
@@ -515,7 +521,32 @@
                 window.addEventListener("resize", function() {
                             this.charts.resize()
                         })
-            }
+            },
+            drawEChart() {
+                // 基于准备好的dom，初始化echarts实例
+                let myChart = echarts.init(document.getElementById("hot_statistics"));
+                // 指定图表的配置项和数据
+                let option = {
+                    color:['#93bee2'],
+                    title: {
+                        text: ""
+                    },
+                    tooltip: {},
+                    xAxis: {
+                        data:['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                    },
+                    yAxis: {},
+                    series: [
+                        {
+                            name: "阅读量",
+                            type: "bar",
+                            data: [100, 95, 90, 88, 85, 80]
+                        }
+                    ]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            },
         }
     };
 </script>
