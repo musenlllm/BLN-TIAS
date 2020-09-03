@@ -46,7 +46,7 @@
 
         <el-row style="margin:10px 0;max-width:100%;max-height:200px">
           <el-carousel
-            :interval="4000"
+            :interval="10000"
             arrow="never"
             indicator-position="none"
             width="200px"
@@ -56,9 +56,9 @@
           >
             <el-carousel-item v-for="(news, index) in newslist" :key="index">
               <el-card :body-style="{ padding: '5px'}">
-                <el-row>{{news.kind}}</el-row>
+                <el-row>要闻</el-row>
                 <el-row>
-                  <el-col :span="8">
+                  <el-col :span="6">
                     <el-table
                       :show-header="false"
                       :data="news.events.slice(0,4)"
@@ -66,12 +66,12 @@
                     >
                       <el-table-column align="left" :show-overflow-tooltip="true">
                         <template slot-scope="scope">
-                          <a :href="scope.row.url">{{scope.row.event}}</a>
+                          <a :href="scope.row.url">[{{news.kind}}]{{scope.row.event}}</a>
                         </template>
                       </el-table-column>
                     </el-table>
                   </el-col>
-                  <el-col :span="8">
+                  <el-col :span="6">
                     <el-table
                       :show-header="false"
                       :data="news.events.slice(4,8)"
@@ -79,12 +79,12 @@
                     >
                       <el-table-column align="left" :show-overflow-tooltip="true">
                         <template slot-scope="scope">
-                          <a :href="scope.row.url">{{scope.row.event}}</a>
+                          <a :href="scope.row.url">[{{news.kind}}]{{scope.row.event}}</a>
                         </template>
                       </el-table-column>
                     </el-table>
                   </el-col>
-                  <el-col :span="8">
+                  <el-col :span="6">
                     <el-table
                       :show-header="false"
                       :data="news.events.slice(8,12)"
@@ -92,7 +92,20 @@
                     >
                       <el-table-column align="left" :show-overflow-tooltip="true">
                         <template slot-scope="scope">
-                          <a :href="scope.row.url">{{scope.row.event}}</a>
+                          <a :href="scope.row.url">[{{news.kind}}]{{scope.row.event}}</a>
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </el-col>
+                  <el-col :span="6">
+                    <el-table
+                      :show-header="false"
+                      :data="news.events.slice(12,16)"
+                      style="height:180px;max-height:180px;margin-top:5px"
+                    >
+                      <el-table-column align="left" :show-overflow-tooltip="true">
+                        <template slot-scope="scope">
+                          <a :href="scope.row.url">[{{news.kind}}]{{scope.row.event}}</a>
                         </template>
                       </el-table-column>
                     </el-table>
