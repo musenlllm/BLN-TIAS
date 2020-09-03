@@ -16,24 +16,32 @@
                             show-word-limit
                             :autosize="{ minRows: 5, maxRows: 8}"
                             clearable
-                            style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
+                            style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); font-size: 15px;"
                     >
                     </el-input>
-                    <el-row style="margin-top: 30px; display: flex; justify-content: center">
-                        <el-button v-on:click="getData" type="primary">开始摘要</el-button>
-                        <el-button type="success">随便试试</el-button>
+                    <el-row style="margin-top: 30px; display: flex; justify-content: center; ">
+                        <el-button v-on:click="getData" type="primary" style="background: rgb(36, 47, 66); border: 0px">开始摘要</el-button>
+                        <el-button v-on:click="mockData">随便试试</el-button>
                     </el-row>
-                    <el-input
-                            type="textarea"
-                            placeholder="摘要生成结果"
-                            v-model="summaryRes"
-                            maxlength="400"
-                            disabled
-                            :autosize="{ minRows: 5, maxRows: 5 }"
-                            clearable
-                            class="res-textarea"
-                    >
-                    </el-input>
+                    <el-card class="box-card" style="margin-top: 20px; text-align: center;min-height: 250px">
+                        <div slot="header" class="clearfix">
+                            <span>摘要结果</span>
+                        </div>
+                        <div>
+                            {{summaryRes}}
+                        </div>
+                        <!--<el-input-->
+                                <!--type="textarea"-->
+                                <!--placeholder=""-->
+                                <!--v-model="summaryRes"-->
+                                <!--maxlength="400"-->
+                                <!--:autosize="{ minRows: 5, maxRows: 5 }"-->
+                                <!--clearable-->
+                                <!--class="res-textarea"-->
+                        <!--&gt;-->
+                        <!--</el-input>-->
+                    </el-card>
+
                 </el-main>
             </el-container>
         </el-container>
@@ -86,13 +94,13 @@
 
 import { fetchData } from '../../api/index';
 export default {
-    name: 'basetable',
+    name: 'summarization',
     data() {
         return {
             text: '',
             summaryText: '',
-            summaryRes:'摘要结果',
-            queryURL:'http://61.135.242.193:5000/api/summarization'
+            summaryRes:'',
+            queryURL:'http://49.234.217.110:5000/api/summarization'
         };
     },
     created() {
@@ -101,12 +109,13 @@ export default {
     methods: {
         // 获取 easy-mock 的模拟数据
         getData() {
+            var tempRes;
             // this.summaryRes = this.summaryText
-            fetch(this.queryURL, {
+             fetch(this.queryURL, {
                 method: "POST",
                 body: JSON.stringify({
                     docs: [{
-                        "id":123,
+                        "id":0,
                         "doc":this.summaryText,
                     }]
                 }),
@@ -116,8 +125,18 @@ export default {
 
             }).then(res => res.json())
                 .catch(error => console.error('Error:', error))
-                .then(response => this.summaryRes =  response.data[0].summary);
+                .then( (responseJson) => {
+                    this.summaryRes = responseJson.results[0].result.summary
+                    // console.log(tempRes)
+                    }
+                )
+            // console.log(tempRes)
+            // this.summaryRes = tempRes;
         },
+        mockData(){
+            this.summaryText='日前，方舟子发文直指林志颖旗下爱碧丽推销假保健品，引起哗然。调查发现，爱碧丽没有自己的生产加工厂,其胶原蛋白饮品无核心研发，全部代工生产。号称有“逆生长”功效的爱碧丽“梦幻奇迹限量组”售价高达1080元，实际成本仅为每瓶4元！'
+            this.getData()
+        }
 
     }
 };
