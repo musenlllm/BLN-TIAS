@@ -6,31 +6,6 @@
       </el-header>
 
       <el-main style="text-align: center">
-        <el-row v-if="false">
-          <el-link type="primary" @click="openTips">使用帮助</el-link>
-        </el-row>
-
-        <el-row style="margin:10px 0">
-          <el-carousel :interval="4000" type="card" height="200px" :loop="false">
-            <el-carousel-item v-for="(news, index) in newslist" :key="index">
-              <el-card :body-style="{ padding: '5px'}">
-                {{news.kind}}
-                <el-table
-                  :show-header="false"
-                  :data="news.newslist.slice(0,4)"
-                  style="height:180px;max-height:180px;margin-top:5px"
-                >
-                  <el-table-column align="left" :show-overflow-tooltip="true">
-                    <template slot-scope="scope">
-                      <div>{{scope.row}}</div>
-                    </template>
-                  </el-table-column>
-                </el-table>
-              </el-card>
-            </el-carousel-item>
-          </el-carousel>
-        </el-row>
-
         <el-row style="margin:20px 0">
           <el-input
             type="textarea"
@@ -44,8 +19,9 @@
           />
         </el-row>
 
-        <el-row style="margin: 20px 0">
-          <el-button class="editor-btn" type="primary" @click="submit">开始主题分类</el-button>
+        <el-row style="margin-top: 30px">
+          <el-button @click="submit" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>
+          <el-button>随机样例</el-button>
         </el-row>
 
         <el-row style="margin: 20px 0">
@@ -57,7 +33,7 @@
               <template v-for="type in types">
                 <el-button
                   type="success"
-                  size="small"
+                  size="medium"
                   :key="type"
                   v-if="form.type.indexOf(type)>=0"
                   @click="onClick(type)"
@@ -68,7 +44,66 @@
           </el-card>
         </el-row>
 
-        <el-row style="margin-top:30px">
+        <el-row style="margin:10px 0;max-width:100%;max-height:200px">
+          <el-carousel
+            :interval="4000"
+            arrow="never"
+            indicator-position="none"
+            width="200px"
+            height="200px"
+            :loop="true"
+            @change="changePage"
+          >
+            <el-carousel-item v-for="(news, index) in newslist" :key="index">
+              <el-card :body-style="{ padding: '5px'}">
+                <el-row>{{news.kind}}</el-row>
+                <el-row>
+                  <el-col :span="8">
+                    <el-table
+                      :show-header="false"
+                      :data="news.events.slice(0,4)"
+                      style="height:180px;max-height:180px;margin-top:5px"
+                    >
+                      <el-table-column align="left" :show-overflow-tooltip="true">
+                        <template slot-scope="scope">
+                          <a :href="scope.row.url">{{scope.row.event}}</a>
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-table
+                      :show-header="false"
+                      :data="news.events.slice(4,8)"
+                      style="height:180px;max-height:180px;margin-top:5px"
+                    >
+                      <el-table-column align="left" :show-overflow-tooltip="true">
+                        <template slot-scope="scope">
+                          <a :href="scope.row.url">{{scope.row.event}}</a>
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-table
+                      :show-header="false"
+                      :data="news.events.slice(8,12)"
+                      style="height:180px;max-height:180px;margin-top:5px"
+                    >
+                      <el-table-column align="left" :show-overflow-tooltip="true">
+                        <template slot-scope="scope">
+                          <a :href="scope.row.url">{{scope.row.event}}</a>
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </el-col>
+                </el-row>
+              </el-card>
+            </el-carousel-item>
+          </el-carousel>
+        </el-row>
+
+        <el-row style="margin-top:26px">
           <el-col :span="12">
             <el-card>
               <div slot="header" class="clearfix">
@@ -97,6 +132,8 @@ import { fetchData } from "../../api/index";
 import echarts from "echarts/lib/echarts";
 import "echarts/dist/extension/dataTool";
 
+const childtypelist = ["教育", "环境", "财经", "时政", "社会", "运动", "科技"];
+
 const typelist = [
   "体育",
   "娱乐",
@@ -114,11 +151,22 @@ const typelist = [
   "财经",
 ];
 
+const tpclassurl = "http://49.234.217.110:5000/api/tpclassification";
+const carouselurl = "http://49.234.217.110:5000/api/getRealTimeThemeInfo";
+const eng2cn = {
+  education_news: "教育",
+  entertainment_news: "环境",
+  finance_news: "财经",
+  politics_news: "时政",
+  society_news: "社会",
+  sports_news: "运动",
+  technology_news: "科技",
+};
+
 export default {
   name: "markdown",
   data: function () {
     return {
-      queryURL: "http://61.135.242.193:5000/api/summarization",
       form: {
         type: [],
       },
@@ -127,37 +175,11 @@ export default {
         placeholder: "请在这里输入待分类的文本",
       },
       types: typelist,
-      cnt: [120, 200, 150, 80, 70, 110, 130, 602, 23, 256, 445, 56, 92, 13],
+      cnt: [],
       colorSt: {
         "background-color": "#99a9bf",
       },
-      newslist: [
-        {
-          newslist: ["鹿晗关晓彤结婚", "鹿晗关晓彤结婚2", "鹿晗关晓彤结婚3"],
-          kind: "娱乐",
-        },
-        {
-          newslist: [
-            "今天是国庆节",
-            "今天是国庆节2",
-            "今天是国庆节3",
-            "今天是国庆节4",
-            "今天是国庆节5",
-            "今天是国庆节6",
-            "今天是国庆节7",
-          ],
-          kind: "生活",
-        },
-        {
-          newslist: [
-            "今天是国庆节",
-            "今天是国庆节2",
-            "今天是国庆节3",
-            "今天是国庆节4",
-          ],
-          kind: "节日",
-        },
-      ],
+      newslist: [],
     };
   },
   methods: {
@@ -175,7 +197,7 @@ export default {
         },
         xAxis: {
           type: "category",
-          data: typelist,
+          data: childtypelist,
         },
         yAxis: {
           type: "value",
@@ -197,16 +219,16 @@ export default {
     },
     drawPieChart() {
       let myChart = echarts.init(document.getElementById("showPieChart"));
-      
+
       var seriesData = [];
       var selected = {};
 
-      for (var i = 0; i < typelist.length; i++) {
-        seriesData.push({ name: typelist[i], value: this.cnt[i] });
-        selected[typelist[i]] = true;
+      for (var i = 0; i < childtypelist.length; i++) {
+        seriesData.push({ name: childtypelist[i], value: this.cnt[i] });
+        selected[childtypelist[i]] = true;
       }
       var dataset = {
-        legendData: typelist,
+        legendData: childtypelist,
         seriesData: seriesData,
         selected: selected,
       };
@@ -250,20 +272,8 @@ export default {
     initType() {
       this.form.type = [];
     },
-    openTips() {
-      this.$alert(
-        "在下方文本框中输入待分类的文本，点击提交后文本的分类结果将在下方“文本类型”后以颜色改变的形式展示。",
-        "文本主题分类使用方法",
-        {
-          confirmButtonText: "确定",
-          callback: (action) => {
-            /*this.$message({
-                    type: 'info',
-                    message: `action: ${ action }`
-                    });*/
-          },
-        }
-      );
+    changePage() {
+      console.log("change-page");
     },
     onClick(value) {
       alert("你点击了 " + value);
@@ -272,8 +282,7 @@ export default {
       this.content = html;
     },
     submit() {
-      // this.summaryRes = this.summaryText
-      fetch(this.queryURL, {
+      fetch(tpclassurl, {
         method: "POST",
         body: JSON.stringify({
           docs: [
@@ -289,30 +298,54 @@ export default {
       })
         .then((res) => res.json())
         .catch((error) => console.error("Error:", error))
-        .then((response) => (this.summaryRes = response.data[0].summary));
+        .then((response) => (this.form.type = response.results[0].data));
 
-      console.log(this.content);
-      this.form.type = ["娱乐", "教育"];
-      this.$message.success("提交成功！");
+      //this.$message.success("提交成功！");
+    },
+    getRealTimeThemeInfo() {
+      // 获取实时新闻列表
+      fetch(carouselurl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .catch((error) => console.error("Error:", error))
+        .then((response) => {
+          console.log(response);
+          var theme_count = response.results.theme_count;
+          this.cnt = [
+            theme_count.education,
+            theme_count.entertainment,
+            theme_count.finance,
+            theme_count.politics,
+            theme_count.society,
+            theme_count.sports,
+            theme_count.technology,
+          ];
+          var news = response.results;
+          delete news.theme_count;
+          
+          this.newslist = [];
+          for (var key in news) {
+            
+            this.newslist.push({
+              kind: eng2cn[key],
+              events: news[key],
+            });
+          }
+          this.drawBarChart();
+          this.drawPieChart();
+        });
     },
   },
   mounted() {
-    this.drawBarChart();
-    this.drawPieChart();
+    this.getRealTimeThemeInfo();
   },
 };
 </script>
 <style scoped>
-.editor-btn {
-  margin-top: 20px;
-}
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 200px;
-  margin: 0;
-}
 /*
 .el-carousel__item:nth-child(2n){
   background-color: #99a9bf;

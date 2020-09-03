@@ -32,8 +32,8 @@
               <el-row>
                 <div id="showRelation" :style="{width: '100%', height: '540px'}"></div>
               </el-row>
-              <el-row>
-                <div id="showRelation2" :style="{width: '100%', height: '540px'}"></div>
+              <el-row style="padding-top:20px">
+                <div id="showRelation2" :style="{width: '100%', height: '600px'}"></div>
               </el-row>
             </el-card>
           </el-col>
@@ -47,7 +47,7 @@
               <el-table
                 :show-header="true"
                 :data="items"
-                style="height: 1080px;max-height: 1080px;overflow: auto"
+                style="height: 1160px;max-height: 1160px;overflow: auto"
               >
                 <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
                 <el-table-column prop="relation" label="关系" align="center" width="50"></el-table-column>
@@ -82,6 +82,8 @@ const typelist = [
   "同门",
   "亲戚",
 ];
+
+const relationUrl = "http://49.234.217.110:5000/api/relation";
 
 function getPersonList(links) {
   var personList = [];
@@ -119,10 +121,10 @@ export default {
   name: "basetable",
   data() {
     return {
-      content: "",
-      queryURL: "http://61.135.242.193:5000/api/summarization",
+      content:
+        "红楼梦中贾政的五个孩子分别是贾珠、贾元春、贾宝玉、贾探春以及贾环。",
       items: [
-        { person1: "贾政", person2: "贾珠", relation: "亲子" },
+        {person1: "贾政", person2: "贾珠", relation: "亲子"},
         { person1: "贾政", person2: "贾元春", relation: "亲子" },
         { person1: "贾政", person2: "贾宝玉", relation: "亲子" },
         { person1: "贾政", person2: "贾探春", relation: "亲子" },
@@ -144,7 +146,7 @@ export default {
     // this.getData();
   },
   methods: {
-    drawChart() {
+    drawArrowRelation() {
       // 初始化echarts实例
       let myChart = echarts.init(document.getElementById("showRelation"));
 
@@ -152,7 +154,7 @@ export default {
       var personList = restmp[0];
       var personDict = restmp[1];
 
-      var theData = getChartIndex(this.items);
+      var theData = getCircularCoordinate(this.items);
       var categories = [];
       for (var i = 0; i < 8; i++) {
         categories[i] = {
@@ -212,16 +214,14 @@ export default {
       window.onresize = myChart.resize;
       myChart.setOption(option);
 
-      function getChartIndex(items) {
+      function getCircularCoordinate(items) {
         var resData = { nodes: [], links: [] };
         let personNum = personList.length;
         var a = 0;
-        console.log(personNum);
-        console.log(personList);
+
         personList.forEach(function (p) {
-          console.log("a: " + a);
           resData.nodes.push({
-            name: p, //	彰显节点
+            name: p,
             x: 10 * Math.cos((a * Math.PI) / 180),
             y: 10 * Math.sin((a * Math.PI) / 180),
             category: 1,
@@ -232,7 +232,7 @@ export default {
           });
           a += 360 / personNum;
         });
-        console.log(resData.nodes);
+
         items.forEach(function (item) {
           resData.links.push({
             source: personList.indexOf(item.person1),
@@ -246,96 +246,14 @@ export default {
         return resData;
       }
     },
-    drawChart2() {
+    drawCircular() {
       // 初始化echarts实例
       let myChart = echarts.init(document.getElementById("showRelation2"));
 
       var restmp = getPersonList(this.items);
       var personList = restmp[0];
       var personDict = restmp[1];
-      restmp = getCircular(personList, personDict);
-      
-      var nodelist = restmp[0];
-      var nodedict = restmp[1];
-      nodedict = shuffle(nodedict);
-      var i = 0;
-      nodelist.forEach(function (node) {
-        node.label = {
-          normal: {
-            show: node.symbolSize > 0,
-          },
-        };
-        var val_ = 0;
-        if (personDict[nodedict[i]]) {
-          val_ = personDict[nodedict[i]];
-        }
-        node.name = nodedict[i];
-        node.tooltip = {
-          formatter: personDict[nodedict[i]]
-            ? nodedict[i] + " : " + val_
-            : "关系 : " + nodedict[i],
-        };
-        node.category =
-          typelist.indexOf(nodedict[i]) < 0
-            ? typelist.length
-            : typelist.indexOf(nodedict[i]);
-        node.symbolSize = 20 + 5 * val_; //10 * Math.log(10 + val_);
-        i++;
-      });
-
-      var linklist = [];
-      var personRelationLabel = {};
-      this.items.forEach(function (item) {
-        if (personRelationLabel[item.person1 + "-" + item.relation]) {
-          personRelationLabel[item.person1 + "-" + item.relation] =
-            personRelationLabel[item.person1 + "-" + item.relation] +
-            "<br>" +
-            item.person1 +
-            "-" +
-            item.relation +
-            "-" +
-            item.person2;
-        } else {
-          personRelationLabel[item.person1 + "-" + item.relation] =
-            item.person1 + "-" + item.relation + "-" + item.person2;
-        }
-
-        if (personRelationLabel[item.person2 + "-" + item.relation]) {
-          personRelationLabel[item.person2 + "-" + item.relation] =
-            personRelationLabel[item.person2 + "-" + item.relation] +
-            "<br>" +
-            item.person1 +
-            "-" +
-            item.relation +
-            "-" +
-            item.person2;
-        } else {
-          personRelationLabel[item.person2 + "-" + item.relation] =
-            item.person1 + "-" + item.relation + "-" + item.person2;
-        }
-      });
-
-      var id = 0;
-      this.items.forEach(function (item) {
-        id++;
-        linklist.push({
-          source: nodedict.indexOf(item.person1),
-          target: nodedict.indexOf(item.relation),
-          id: id,
-          tooltip: {
-            formatter: personRelationLabel[item.person1 + "-" + item.relation],
-          },
-        });
-        id++;
-        linklist.push({
-          target: nodedict.indexOf(item.person2),
-          source: nodedict.indexOf(item.relation),
-          id: id,
-          tooltip: {
-            formatter: personRelationLabel[item.person2 + "-" + item.relation],
-          },
-        });
-      });
+      restmp = getCircular(this.items);
 
       var categories = [];
       for (var i = 0; i < typelist.length; i++) {
@@ -352,8 +270,8 @@ export default {
         grid: {
           left: "10%",
           right: "10%",
-          top: "10%",
-          bottom: "10%",
+          top: "20%",
+          bottom: "20%",
         },
         legend: [
           {
@@ -373,10 +291,10 @@ export default {
             circular: {
               rotateLabel: true,
             },
-            data: nodelist,
-            links: linklist,
+            data: restmp.nodes,
+            links: restmp.links,
             categories: categories,
-            roam: false,
+            roam: true,
             label: {
               position: "right",
               formatter: "{b}",
@@ -385,11 +303,6 @@ export default {
               color: "source",
               curveness: 0.3,
             },
-            emphasis: {
-                lineStyle: {
-                    width: 10
-                }
-            }
           },
         ],
       };
@@ -397,51 +310,160 @@ export default {
       window.onresize = myChart.resize;
       myChart.setOption(option);
 
-      function getCircular(personList, personDict) {
+      function getCircular(items) {
         var nodeNum = typelist.length + personList.length;
-        var nodelist = [
-          {
-            id: 0,
-            x: 0,
-            y: 100,
-            value: 10,
-            category: 0,
-            name: typelist[0],
-            symbolSize: 10,
-          },
-        ];
-        var nodedict = [typelist[0]];
+        var nodelist = [];
+        var nodedict = [];
 
         var a = 0;
-        for (var i = 1; i < nodeNum; i++) {
-          a += 360 / nodeNum; // Math.sin(2*Math.PI / 360)
-          var val_ = 10;
-          var category = typelist.length;
-          var name;
+        for (var i = 0; i < nodeNum; i++) {
           if (i < typelist.length) {
-            name = typelist[i];
+            var category = i;
+            var name = typelist[i];
             nodedict.push(name);
-            category = i;
           } else {
-            name = personList[i - typelist.length];
+            var category = typelist.length;
+            var name = personList[i - typelist.length];
             nodedict.push(name);
           }
+
           nodelist.push({
             id: i,
+            ac: i,
             x: 60 * Math.sin((a * Math.PI) / 180),
             y: 60 * Math.cos((a * Math.PI) / 180),
-            value: val_,
             category: category,
             name: name,
-            symbolSize: val_,
           });
+          a += 360 / nodeNum; // Math.sin(2*Math.PI / 360)
         }
-        return [nodelist, nodedict];
+
+        //nodedict = shuffle(nodedict);
+        var i = 0;
+        nodelist.forEach(function (node) {
+          var val_ = 0;
+          if (personDict[nodedict[i]]) {
+            val_ = personDict[nodedict[i]];
+          }
+          node.value = val_;
+          node.name = nodedict[i];
+          node.tooltip = {
+            formatter: personDict[nodedict[i]]
+              ? nodedict[i] + " : " + val_
+              : "关系 : " + nodedict[i],
+          };
+          node.category =
+            typelist.indexOf(nodedict[i]) < 0
+              ? typelist.length
+              : typelist.indexOf(nodedict[i]);
+          node.symbolSize = 20 + 5 * val_; //10 * Math.log(10 + val_);
+          node.label = {
+            normal: {
+              show: node.symbolSize > 0,
+            },
+          };
+          i++;
+        });
+
+        var linklist = [];
+        var personRelationLabel = {};
+        var lineCnt = {};
+        // 总结各个人物与关系，为其生成提示信息
+        items.forEach(function (item) {
+          var tKey = item.person1 + "-" + item.relation;
+          if (personRelationLabel[tKey]) {
+            lineCnt[tKey]++;
+            personRelationLabel[tKey] =
+              personRelationLabel[tKey] +
+              "<br>" +
+              item.person1 +
+              "-" +
+              item.relation +
+              "-" +
+              item.person2;
+          } else {
+            lineCnt[tKey] = 1;
+            personRelationLabel[tKey] =
+              item.person1 + "-" + item.relation + "-" + item.person2;
+          }
+          tKey = item.person2 + "-" + item.relation;
+          if (personRelationLabel[tKey]) {
+            lineCnt[tKey]++;
+            personRelationLabel[tKey] =
+              personRelationLabel[tKey] +
+              "<br>" +
+              item.person1 +
+              "-" +
+              item.relation +
+              "-" +
+              item.person2;
+          } else {
+            lineCnt[tKey] = 1;
+            personRelationLabel[tKey] =
+              item.person1 + "-" + item.relation + "-" + item.person2;
+          }
+        });
+
+        var id = 0;
+        // 依据关系列表生成连线
+        items.forEach(function (item) {
+          if (personRelationLabel[item.person1 + "-" + item.relation]) {
+            id++;
+            linklist.push({
+              source: nodedict.indexOf(item.person1),
+              target: nodedict.indexOf(item.relation),
+              id: id,
+              tooltip: {
+                formatter:
+                  personRelationLabel[item.person1 + "-" + item.relation],
+              },
+              lineStyle: {
+                type: "dotted",
+                width: 1,
+              },
+              emphasis: {
+                lineStyle: {
+                  width: 2 + 2 * lineCnt[item.person1 + "-" + item.relation],
+                  type: "solid",
+                },
+              },
+            });
+            //console.log(item.person1 + "-" + item.relation);
+            //console.log(lineCnt[item.person1 + "-" + item.relation]);
+            delete personRelationLabel[item.person1 + "-" + item.relation];
+          }
+          if (personRelationLabel[item.person2 + "-" + item.relation]) {
+            id++;
+            linklist.push({
+              target: nodedict.indexOf(item.person2),
+              source: nodedict.indexOf(item.relation),
+              id: id,
+              tooltip: {
+                formatter:
+                  personRelationLabel[item.person2 + "-" + item.relation],
+              },
+              lineStyle: {
+                type: "dotted",
+                width: 1,
+              },
+              emphasis: {
+                lineStyle: {
+                  width: 2 + 2 * lineCnt[item.person2 + "-" + item.relation],
+                  type: "solid",
+                },
+              },
+            });
+            //console.log(item.person2 + "-" + item.relation);
+            //console.log(lineCnt[item.person2 + "-" + item.relation]);
+            delete personRelationLabel[item.person2 + "-" + item.relation];
+          }
+        });
+        return { nodes: nodelist, links: linklist };
       }
     },
     // 获取 easy-mock 的模拟数据
     getData() {
-      fetch(this.queryURL, {
+      fetch(relationUrl, {
         method: "POST",
         body: JSON.stringify({
           docs: [
@@ -457,13 +479,17 @@ export default {
       })
         .then((res) => res.json())
         .catch((error) => console.error("Error:", error))
-        .then((response) => console.log(response.data[0].summary));
+        .then((response) => {
+          this.items = response.results[0].result;
+          this.drawArrowRelation();
+          this.drawCircular();
+        });
     },
   },
 
   mounted() {
-    this.drawChart();
-    this.drawChart2();
+    this.drawArrowRelation();
+    this.drawCircular();
   },
 };
 </script>
