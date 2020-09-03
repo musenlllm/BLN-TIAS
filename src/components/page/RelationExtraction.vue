@@ -480,6 +480,7 @@ export default {
         .then((res) => res.json())
         .catch((error) => console.error("Error:", error))
         .then((response) => {
+          console.log(response);
           this.items = response.results[0].result;
           this.drawArrowRelation();
           this.drawCircular();
