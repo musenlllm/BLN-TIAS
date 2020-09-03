@@ -6,7 +6,7 @@
                 <el-input
                         type="textarea"
                         placeholder="请输入内容"
-                        v-model="summaryText"
+                        v-model="nerText"
                         maxlength="400"
                         show-word-limit
                         :autosize="{ minRows: 5, maxRows: 8}"
@@ -16,7 +16,7 @@
                 </el-input>
                 <el-row style="margin-top: 30px; display: flex; justify-content: center">
                     <el-button v-on:click="getData" type="primary" style="background: #242f42; border: 0px">开始识别</el-button>
-                    <el-button >随便试试</el-button>
+                    <el-button v-on:click="mockData">随便试试</el-button>
                 </el-row>
             </el-header>
             <el-container>
@@ -108,9 +108,9 @@
         data() {
             return {
                 text: '',
-                summaryText: '',
-                summaryRes:'摘要结果',
-                queryURL:'http://61.135.242.193:5000/api/summarization',
+                nerText: '',
+                nerRes:'实体命名识别结果',
+                queryURL:'http://49.234.217.110:5000/api/ner',
 
                 items: [
                     // { type: '', label: '标签一' },
@@ -135,6 +135,7 @@
 
                 treeCharts: '',
                 percentCharts: '',
+                resStr: '',
                 // charts: '',
                 // opinion:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'],
                 // opinionData:[
@@ -160,153 +161,178 @@
                 this.items=[];
                 this.percentData=[];
                 this.entData=[];
+
                 // mock data
-                var resStr = '[{"start":6,"end":7,"content":"中国","ent":"地点"},{"start":14,"end":15,"content":"宝马","ent":"组织"},{"start":41,"end":42,"content":"宝马","ent":"组织"},{"start":45,"end":47,"content":"瞿云涛","ent":"人名"},{"start":50,"end":51,"content":"宝马","ent":"组织"},{"start":55,"end":56,"content":"中国","ent":"地点"}]'
-                // evel 转化为 数组
-                var resArray=eval("("+resStr+")");
-                // console.log(resArray)
-                //无意义文字开头结尾位置
-                var plainStart=0;
-                var plainEnd=0;
-                var resStart;
-                var resEnd;
-                var resEnt;
-                var colorTemp;
-                for (var i=0; i<resArray.length; i++){
+                fetch(this.queryURL, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        docs: [{
+                            "id":0,
+                            "doc":this.nerText,
+                        }]
+                    }),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
 
-                     resStart = Number(resArray[i].start);
-                    resEnd = Number(resArray[i].end);
-                    resEnt = resArray[i].ent;
-                    //
-                    // console.log(resArray[i])
-                    // console.log("plainStart: "+plainStart)
-                    // console.log("plainEnd:"+plainEnd)
-                    // console.log("resStart: "+resStart)
-                    // console.log("resEnd:"+resEnd)
+                }).then(res => res.json())
+                    .catch(error => console.error('Error:', error))
+                    .then( (responseJson) => {
+                            this.resStr = JSON.stringify(responseJson.results[0].result)
+                            console.log("resStr: "+this.resStr)
+                            console.log("resStrType: "+typeof this.resStr)
 
-                    plainEnd = resStart;
-                    // console.log("plainEnd=resStart:"+plainEnd)
-                    if(plainStart!==plainEnd){
-                        // console.log("push无意义词")
-                        // console.log("无意义词语： "+this.summaryText.slice(plainStart,plainEnd))
-                        this.items.push({
-                            label: this.summaryText.slice(plainStart,plainEnd),
-                            color: 'gray',
-                            type:'',
-                            ent: '普通',
-                            value:'1'
-                        })
-                    }
-                    plainStart = resEnd+1;
-                    plainEnd = resEnd+1;
+                        var resArray=eval("("+this.resStr+")");
+                        // var resArray=resStr
+                        console.log("resArray: "+resArray)
+                        console.log("resArrayType: "+ typeof resArray)
+                        //无意义文字开头结尾位置
+                        var plainStart=0;
+                        var plainEnd=0;
+                        var resStart;
+                        var resEnd;
+                        var resEnt;
+                        var colorTemp;
+                        for (var i=0; i<resArray.length; i++){
 
-                    if(resEnt=="地点"){
-                        colorTemp = '#E6A23C'
-                    }
-                    else if(resEnt == "人名"){
-                        console.log("人名检测！！！！")
-                        colorTemp =  '#F56C6C'
-                    }
-                    else if(resEnt == "组织"){
-                        colorTemp = '#409EFF'
-                    }
-                    else if(resEnt == "时间"){
-                        colorTemp =  '#67C23A'
-                    }
-                    else if(resEnt == "公司"){
-                        colorTemp = '#242f42'
-                    }
-                    else if(resEnt == "产品"){
-                        colorTemp = 'pink'
-                    }
-                    // console.log("push意义词");
-                    // console.log("意义词语: "+this.summaryText.slice(resStart,resEnd+1));
-                    // console.log("颜色: "+colorTemp);
-                    this.items.push({
-                        label: this.summaryText.slice(resStart,resEnd+1),
-                        color: colorTemp,
-                        type: '',
-                        ent: resEnt,
-                        value:'1'
+                            resStart = Number(resArray[i].start);
+                            resEnd = Number(resArray[i].end);
+                            resEnt = resArray[i].ent;
+                            //
+                            // console.log(resArray[i])
+                            // console.log("plainStart: "+plainStart)
+                            // console.log("plainEnd:"+plainEnd)
+                            // console.log("resStart: "+resStart)
+                            // console.log("resEnd:"+resEnd)
 
-                    })
-                }
-                if ((resEnd+1)!=this.summaryText.length) {
-                    this.items.push({
-                        label: this.summaryText.slice(resEnd,this.summaryText.length),
-                        color: 'gray',
-                        type: '',
-                        ent: '普通',
-                        value:'1'
-                    })
-                }
+                            plainEnd = resStart;
+                            // console.log("plainEnd=resStart:"+plainEnd)
+                            if(plainStart!==plainEnd){
+                                // console.log("push无意义词")
+                                // console.log("无意义词语： "+this.nerText.slice(plainStart,plainEnd))
+                                this.items.push({
+                                    label: this.nerText.slice(plainStart,plainEnd),
+                                    color: 'gray',
+                                    type:'',
+                                    ent: '普通',
+                                    value:'1'
+                                })
+                            }
+                            plainStart = resEnd+1;
+                            plainEnd = resEnd+1;
 
-                this.treeData.name="实体分类树";
-                this.treeData.children=[];
-                var addedEnt = [];
+                            if(resEnt=="地点"){
+                                colorTemp = '#E6A23C'
+                            }
+                            else if(resEnt == "人名"){
+                                console.log("人名检测！！！！")
+                                colorTemp =  '#F56C6C'
+                            }
+                            else if(resEnt == "组织"){
+                                colorTemp = '#409EFF'
+                            }
+                            else if(resEnt == "时间"){
+                                colorTemp =  '#67C23A'
+                            }
+                            else if(resEnt == "公司"){
+                                colorTemp = '#242f42'
+                            }
+                            else if(resEnt == "产品"){
+                                colorTemp = 'pink'
+                            }
+                            // console.log("push意义词");
+                            // console.log("意义词语: "+this.nerText.slice(resStart,resEnd+1));
+                            // console.log("颜色: "+colorTemp);
+                            this.items.push({
+                                label: this.nerText.slice(resStart,resEnd+1),
+                                color: colorTemp,
+                                type: '',
+                                ent: resEnt,
+                                value:'1'
 
-                //构建实体分类树图的数据treeData,O(n^2)复杂度
-                for(let k=0;k<this.items.length;k++){
-                    var entTemp = this.items[k].ent;
-
-                    if(addedEnt.indexOf(entTemp)==-1 && entTemp!='普通'){
-                        var treeDataItemTemp={};
-                        treeDataItemTemp.name = entTemp;
-                        treeDataItemTemp.children = [];
-                        treeDataItemTemp.children.push({
-                            name:this.items[k].label,
-                            value:this.items[k].value
-                        })
-                        this.treeData.children.push(treeDataItemTemp);
-                        addedEnt.push(entTemp);
-                        continue
-                    }
-                    for(let h=0; h<this.treeData.children.length;h++){
-                        if(this.treeData.children[h].name==entTemp){
-                            this.treeData.children[h].children.push({
-                                name:this.items[k].label,
-                                value:this.items[k].value
                             })
                         }
-                    }
-                }
-                // 准备实体数量比例数据
-                this.entData = addedEnt;
-                for(let i=0; i<this.treeData.children.length; i++){
-                    let colorTemp;
-                    let resEnt = this.treeData.children[i].name;
-                    if(resEnt=="地点"){
-                        colorTemp = '#E6A23C'
-                    }
-                    else if(resEnt == "人名"){
-                        console.log("人名检测！！！！")
-                        colorTemp =  '#F56C6C'
-                    }
-                    else if(resEnt == "组织"){
-                        colorTemp = '#409EFF'
-                    }
-                    else if(resEnt == "时间"){
-                        colorTemp =  '#67C23A'
-                    }
-                    else if(resEnt == "公司"){
-                        colorTemp = '#242f42'
-                    }
-                    else if(resEnt == "产品"){
-                        colorTemp = 'pink'
-                    }
-                    this.percentData.push({
-                        name:this.treeData.children[i].name,
-                        value: this.treeData.children[i].children.length,
-                        itemStyle:{
-                            color: colorTemp
+                        if ((resEnd+1)!=this.nerText.length) {
+                            this.items.push({
+                                label: this.nerText.slice(resEnd,this.nerText.length),
+                                color: 'gray',
+                                type: '',
+                                ent: '普通',
+                                value:'1'
+                            })
                         }
-                    })
-                }
 
-                console.log(this.treeData)
-                // this.option.series[0].data=this.treeData
-                //画图
-                this.drawGraph()
+                        this.treeData.name="实体分类树";
+                        this.treeData.children=[];
+                        var addedEnt = [];
+
+                        //构建实体分类树图的数据treeData,O(n^2)复杂度
+                        for(let k=0;k<this.items.length;k++){
+                            var entTemp = this.items[k].ent;
+
+                            if(addedEnt.indexOf(entTemp)==-1 && entTemp!='普通'){
+                                var treeDataItemTemp={};
+                                treeDataItemTemp.name = entTemp;
+                                treeDataItemTemp.children = [];
+                                treeDataItemTemp.children.push({
+                                    name:this.items[k].label,
+                                    value:this.items[k].value
+                                })
+                                this.treeData.children.push(treeDataItemTemp);
+                                addedEnt.push(entTemp);
+                                continue
+                            }
+                            for(let h=0; h<this.treeData.children.length;h++){
+                                if(this.treeData.children[h].name==entTemp){
+                                    this.treeData.children[h].children.push({
+                                        name:this.items[k].label,
+                                        value:this.items[k].value
+                                    })
+                                }
+                            }
+                        }
+                        // 准备实体数量比例数据
+                        this.entData = addedEnt;
+                        for(let i=0; i<this.treeData.children.length; i++){
+                            let colorTemp;
+                            let resEnt = this.treeData.children[i].name;
+                            if(resEnt=="地点"){
+                                colorTemp = '#E6A23C'
+                            }
+                            else if(resEnt == "人名"){
+                                console.log("人名检测！！！！")
+                                colorTemp =  '#F56C6C'
+                            }
+                            else if(resEnt == "组织"){
+                                colorTemp = '#409EFF'
+                            }
+                            else if(resEnt == "时间"){
+                                colorTemp =  '#67C23A'
+                            }
+                            else if(resEnt == "公司"){
+                                colorTemp = '#242f42'
+                            }
+                            else if(resEnt == "产品"){
+                                colorTemp = 'pink'
+                            }
+                            this.percentData.push({
+                                name:this.treeData.children[i].name,
+                                value: this.treeData.children[i].children.length,
+                                itemStyle:{
+                                    color: colorTemp
+                                }
+                            })
+                        }
+
+                        console.log(this.treeData)
+                        // this.option.series[0].data=this.treeData
+                        //画图
+                        this.drawGraph()
+                        }
+                    )
+                // var resStr = '[{"start":6,"end":7,"content":"中国","ent":"地点"},{"start":14,"end":15,"content":"宝马","ent":"组织"},{"start":41,"end":42,"content":"宝马","ent":"组织"},{"start":45,"end":47,"content":"瞿云涛","ent":"人名"},{"start":50,"end":51,"content":"宝马","ent":"组织"},{"start":55,"end":56,"content":"中国","ent":"地点"}]'
+                // evel 转化为 数组
+
 
                 // console.log(this.items)
 
@@ -317,7 +343,7 @@
                 //     body: JSON.stringify({
                 //         docs: [{
                 //             "id":123,
-                //             "doc":this.summaryText,
+                //             "doc":this.nerText,
                 //         }]
                 //     }),
                 //     headers: {
@@ -342,6 +368,9 @@
 
                 this.treeCharts = echarts.init(document.getElementById('tree'));
                 this.percentCharts = echarts.init(document.getElementById('percent'));
+
+                this.treeCharts.showLoading();
+                this.percentCharts.showLoading();
 
                 this.treeCharts.setOption({
                     tooltip: {
@@ -416,10 +445,17 @@
                         }
                     ]
                 })
+                this.treeCharts.hideLoading()
+                this.percentCharts.hideLoading();
                 window.addEventListener("resize", function() {
-                            this.charts.resize()
+                            this.treeCharts.resize()
+                            this.percentCharts.resize()
                         })
 
+            },
+            mockData(){
+                this.nerText ='10月25日在北京的小米新品发布会上，雷军发布了一款概念手机小米MIX。该手机的设计师是当代著名的设计大师、民主设计和极简设计的倡导者菲利普·斯塔克。'
+                this.getData()
             }
 
         }
