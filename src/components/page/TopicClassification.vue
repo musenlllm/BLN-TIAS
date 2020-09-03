@@ -289,7 +289,7 @@ export default {
       console.log("change-page");
     },
     onClick(value) {
-      alert("你点击了 " + value);
+      //alert("你点击了 " + value);
     },
     submit() {
       fetch(tpclassurl, {
