@@ -3,29 +3,51 @@
         <el-container>
             <el-header style="height: max-content">
                 <h1 style="color: gray">情感分析</h1>
-                <el-input
-                        type="textarea"
-                        placeholder="请输入内容"
-                        v-model="summaryText"
-                        maxlength="400"
-                        show-word-limit
-                        :autosize="{ minRows: 5, maxRows: 8}"
-                        clearable
-                        style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); font-size: 15px"
-                >
-                </el-input>
-                <el-row style="margin-top: 30px; display: flex; justify-content: center">
-                    <el-button v-on:click="getData" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>
-                    <el-button >随机样例</el-button>
-                </el-row>
             </el-header>
             <el-container >
-                <el-aside style="margin-left: 20px; margin-top: 30px; text-align: center; width: 100%">
-                    <el-card class="box-card" style="min-height: 300px">
+                <el-main style="text-align: center;">
+                    <el-input
+                            type="textarea"
+                            placeholder="请输入内容"
+                            v-model="summaryText"
+                            maxlength="400"
+                            show-word-limit
+                            :autosize="{ minRows: 5, maxRows: 8}"
+                            clearable
+                            style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); font-size: 15px"
+                    >
+                    </el-input>
+                    <el-row style="margin-top: 30px; display: flex; justify-content: center">
+                        <el-button v-on:click="Resultofsentiment" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>
+                        <!--<el-button >随机样例</el-button>-->
+                    </el-row>
+                    <el-card class="box-card" style="min-height: 250px;margin-top: 20px" align="middle">
                         <div slot="header" class="clearfix">
                             <span>本次分析结果</span>
                         </div>
-                        <div id="pieReport" style="width: 400px;height: 300px;margin-left: 35%"></div>
+                        <div>
+                            {{sentimentscore}}
+                        </div>
+                        <div id="emotionLevel" style="height: 300px"></div>
+                    </el-card>
+                    <el-card class="box-card" style="min-height: 300px;margin-top: 20px" align="middle">
+                        <div slot="header" class="clearfix">
+                            <span>历史分析结果</span>
+                        </div>
+                        <div>
+                            {{history}}
+                        </div>
+                        <!--<div class="line-echarts" style="text-align: center;">-->
+                        <div id="historyChart" style="min-height: 600px"></div>
+
+                        <!--</div>-->
+                    </el-card>
+                </el-main>>
+
+
+                <!--<el-aside style="margin-left: 20px; margin-top: 30px; text-align: center; width: 100%">-->
+
+
                         <!--<div class="tag-group" style="margin-top: 0; display: flex; flex-direction: row; flex-wrap: wrap;">-->
                             <!--<span class="tag-group__title">Dark</span>-->
 
@@ -41,18 +63,11 @@
 
 
                         <!--</div>-->
-                    </el-card>
 
-                    <el-card class="box-card" style="min-height: 300px; margin-top: 20px">
-                        <div slot="header" class="clearfix">
-                            <span>历史分析结果</span>
-                        </div>
-                        <div class="line-echarts" style="margin-top: 20px">
-                              <div class="line-echarts-ii" id="lineChart"></div>
-                         </div>
-                    </el-card>
 
-                </el-aside>
+
+
+                <!--</el-aside>-->
 
 
                 <!--<el-main style="text-align: center; margin-top: 10px">-->
@@ -108,6 +123,8 @@
 <script>
     import echarts from 'echarts'
     import { fetchData } from '../../api/index';
+    const sentimenturl = "http://49.234.217.110:5000/api/sentiment";
+    const realurl = "http://49.234.217.110:5000/api/getRealTimeSentimentInfo";
     export default {
         name: 'basetable',
         props: {
@@ -122,7 +139,7 @@
                   // },
                   {
                       text: '消极',
-                      color: '#63e0bb',
+                      color: '#4bb375',
                       dataLsit: [91, 94, 70, 34, 90, 23, 11, 5],
                       getXAxis: ['周一','周二','周三','周四','周五','周六','周日']
                   },
@@ -138,28 +155,151 @@
 
         data() {
             return {
-                lineChart: {},
+                text: '',
                 summaryText: '',
-                charts: "",
-                  opinion: ["消极", "积极"],
-                  opinionData: [
-                    { value:40 , name: "消极", itemStyle: "#4bb375" },
-                    { value:60 , name: "积极", itemStyle: "#d24c47" }
-                  ]
-            }
+                sentimentscore:0,
+                history:{},
+                history_count :{
+                    history_positive_count: 0,
+                    history_negative_count: 0,
+                    nearly_one_week_positive_count: 0,
+                    nearly_one_week_negative_count: 0,
+                    nearly_three_days_positive_count: 0,
+                    nearly_three_days_negative_count: 0,
+                    today_positive_count: 0,
+                    today_negative_count: 0,
+                },
+                news: {
+                    news: '',
+                    url: '',
+                    score: '',
+                    publish_time: ''
+                },
+                // negative_news: {
+                //     news: '',
+                //     url: '',
+                //     score: '',
+                //     publish_time: ''
+                // },
+
+                // "positive_news": [],  //列表每个item为字典形式, {"news": str, "url": str, "score": float, "publish_time": str}, 每个列表最多包含20条
+                // "negative_news": []   //列表每个item为字典形式, {"news": str, "url": str, "score": float, "publish_time": str}, 每个列表最多包含20条
+
+            };
+
         },
-       
+        // data() {
+        //     return {
+        //         text: '',
+        //         summaryText: '',
+        //         summaryRes:'分析结果',
+        //         queryURL:'http://61.135.242.193:5000/api/summarization',
+        //         items: [
+        //             // { type: '', label: '标签一' },
+        //             // { type: 'success', label: '标签二' },
+        //         ],
+        //         // itemtypes:[
+        //         //     { label: '人名', type: '' ,color: '#F56C6C'},
+        //         //     { label: '地名', type: '' ,color:'#E6A23C'},
+        //         //     { label: '组织机构名', type: '',color:'#409EFF' },
+        //         //     { label: '时间', type: '' ,color: '#67C23A'},
+        //         //     { label: '公司', type: '',color:'#242f42' },
+        //         //     { label: '产品', type: '' ,color:'pink'},
+        //         // ],
+        //         treeData:{
+        //         },
+        //         percentData:[
+        //         ],
+        //         entData:[],
+        //         treeCharts: '',
+        //         percentCharts: '',
+        //         // charts: '',
+        //         // opinion:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'],
+        //         // opinionData:[
+        //         //     {value:335, name:'直接访问'},
+        //         //     {value:310, name:'邮件营销'},
+        //         //     {value:234, name:'联盟广告'},
+        //         //     {value:135, name:'视频广告'},
+        //         //     {value:1548, name:'搜索引擎'}
+        //         // ]
+        //     };
+        // },
         created() {
              // this.getData();
         },
         mounted() {
-            this.drawLine();
-            this.$nextTick(function() {
-              this.drawPie("pieReport");
-            });
+            // this.drawHistory('historyChart');
+            // this.$nextTick(function() {
+            //   this.drawHistory("lineChart");
+            // });
+            // this.$nextTick(function() {
+            this.drawDashboard("emotionLevel",0);
+            // });
+            this.getRealTimeSentimentInfo();
             this.init()
         },
         methods: {
+            Resultofsentiment() {
+                fetch(sentimenturl, {
+                method: "POST",
+                body: JSON.stringify({
+                  docs: [{
+                        "id":0,
+                        "doc":this.summaryText,
+                    }]
+                }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                })
+                .then((res) => res.json())
+                .catch((error) => console.error("Error:", error))
+                .then((response) => {
+                    this.sentimentscore = parseFloat(response.results[0].score*100).toFixed(2);
+                    this.drawDashboard("emotionLevel",this.sentimentscore);
+                })
+                // this.drawDashboard("emotionLevel",this.sentimentscore);
+                //this.$message.success("提交成功！");
+            },
+            getRealTimeSentimentInfo() {
+                // 获取实时新闻列表
+                fetch(realurl, {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                })
+                .then((res) => res.json())
+                .catch((error) => console.error("Error:", error))
+                .then((response) => {
+                    console.log(response);
+                    this.history = response.results;
+                    var history_negative_count = response.results.history_negative_count;
+
+                    this.positive_news = response.results.positive_news;
+                    // this.positive_news = [
+                    //     positive_news.news,
+                    //     positive_news.url,
+                    //     positive_news.score,
+                    //     positive_news.publish_time,
+                    // ];
+
+                    // var news = response.results;
+                    // delete news.theme_count;
+                    //
+                    // this.newslist = [];
+                    // for (var key in news) {
+                    //
+                    //     this.newslist.push({
+                    //       kind: eng2cn[key],
+                    //       events: news[key],
+                    //     });
+                    // }
+                    // this.drawHistory();
+                    // this.drawPieChart();
+                    });
+                },
+
             // 获取 easy-mock 的模拟数据
             getData() {
                 // for(let j=0; j<this.items.length; j++){
@@ -408,51 +548,213 @@
                             this.charts.resize()
                         })
             },
-            drawLine(){
+            drawHistory(id){
                 // 基于准备好的dom，初始化echarts实例
-              this.lineChart = echarts.init(document.getElementById('lineChart'));
+              this.charts = echarts.init(document.getElementById(id));
               // 初始化数据 && 设置窗口自适应大小
-              this.lineChart.setOption(this.echartOption, window.onresize = this.lineChart.resize);
+              // this.lineChart.setOption(this.echartOption, window.onresize = this.lineChart.resize);
+              var option = {
+                  color:['#E47470','#7EBF50', '#589EF8'],
+                  legend: {},
+                  tooltip: {
+                      trigger: 'axis',
+                      showContent: false
+                  },
+                  dataset: {
+                      source: [
+                          ['sentiment', '周一', '周二', '周三', '周四', '周五', '周六'],
+                          ['积极', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7],
+                          ['消极', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
+                          ['中性', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5]
+                          // ['未知', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
+                      ]
+                  },
+                  xAxis: {type: 'category'},
+                  yAxis: {gridIndex: 0},
+                  grid: {top: '55%'},
+                  series: [
+                      {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                      {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                      {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                      {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                      {
+                          type: 'pie',
+                          id: 'pie',
+                          radius: '30%',
+                          center: ['50%', '25%'],
+                          label: {
+                              formatter: '{b}: {@周一} ({d}%)'
+                          },
+                          encode: {
+                              itemName: 'sentiment',
+                              value: '周一',
+                              tooltip: '周一'
+                          }
+                      }
+                  ]
+              }
+              this.charts.on('updateAxisPointer', event =>  {
+                    var xAxisInfo = event.axesInfo[0];
+                    if (xAxisInfo) {
+                        var dimension = xAxisInfo.value + 1;
+                        this.charts.setOption({
+                            series: {
+                                id: 'pie',
+                                label: {
+                                    formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                                },
+                                encode: {
+                                    value: dimension,
+                                    tooltip: dimension
+                                }
+                            }
+                        });
+                    }
+              });
+              this.charts.setOption(option);
+              window.addEventListener("resize", function() {
+                  this.charts.resize()
+              })
             },
             drawPie(id) {
               this.charts = echarts.init(document.getElementById(id));
-              this.charts.setOption({
-                tooltip: {
-                  trigger: "item",
-                  formatter: "{a}<br/>{b}:{c} ({d}%)"
-                },
-                legend: {
-                  bottom: 10,
-                  left: "center",
-                  data: this.opinion
-                },
-                series: [
-                  {
-                    name: "状态",
-                    type: "pie",
-                    radius: "65%",
-                    center: ["50%", "50%"],
-                    avoidLabelOverlap: false,
-                    itemStyle: {
-                      emphasis: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: "rgba(0, 0, 0, 0.5)"
-                      },
-                      color: function(params) {
-                        //自定义颜色
-                        var colorList = ["#4bb375", "#d24c47"];
-                        return colorList[params.dataIndex];
+              var option = {
+                  legend: {},
+                  tooltip: {
+                      trigger: 'axis',
+                      showContent: false
+                  },
+                  dataset: {
+                      source: [
+                          ['product', '2012', '2013', '2014', '2015', '2016', '2017'],
+                          ['Matcha Latte', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7],
+                          ['Milk Tea', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
+                          ['Cheese Cocoa', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5],
+                          ['Walnut Brownie', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
+                      ]
+                  },
+                  xAxis: {type: 'category'},
+                  yAxis: {gridIndex: 0},
+                  grid: {top: '55%'},
+                  series: [
+                      {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                      {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                      {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                      {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                      {
+                          type: 'pie',
+                          id: 'pie',
+                          radius: '30%',
+                          center: ['50%', '25%'],
+                          label: {
+                              formatter: '{b}: {@2012} ({d}%)'
+                          },
+                          encode: {
+                              itemName: 'product',
+                              value: '2012',
+                              tooltip: '2012'
+                          }
                       }
-                    },
-                    data: this.opinionData
-                  }
-                ]
+                  ]
+                }
+              this.charts.on('updateAxisPointer', event =>  {
+                    var xAxisInfo = event.axesInfo[0];
+                    if (xAxisInfo) {
+                        var dimension = xAxisInfo.value + 1;
+                        this.charts.setOption({
+                            series: {
+                                id: 'pie',
+                                label: {
+                                    formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                                },
+                                encode: {
+                                    value: dimension,
+                                    tooltip: dimension
+                                }
+                            }
+                        });
+                    }
               });
-                window.addEventListener("resize", function () {
-                    this.charts.resize()
-                })
+              this.charts.setOption(option);
+              window.addEventListener("resize", function() {
+                  this.charts.resize()
+              })
+
+              // this.charts.setOption({
+              //   tooltip: {
+              //     trigger: "item",
+              //     formatter: "{a}<br/>{b}:{c} ({d}%)"
+              //   },
+              //   legend: {
+              //     bottom: 10,
+              //     left: "center",
+              //     data: this.opinion
+              //   },
+              //   series: [
+              //     {
+              //       name: "状态",
+              //       type: "pie",
+              //       radius: "65%",
+              //       center: ["50%", "50%"],
+              //       avoidLabelOverlap: false,
+              //       itemStyle: {
+              //         emphasis: {
+              //           shadowBlur: 10,
+              //           shadowOffsetX: 0,
+              //           shadowColor: "rgba(0, 0, 0, 0.5)"
+              //         },
+              //         color: function(params) {
+              //           //自定义颜色
+              //           var colorList = ["#4bb375", "#d24c47"];
+              //           return colorList[params.dataIndex];
+              //         }
+              //       },
+              //       data: this.opinionData
+              //     }
+              //   ]
+              // });
             },
+            drawDashboard(id,score){
+                this.charts = echarts.init(document.getElementById(id));
+                var option = {
+                    // color:['#E47470','#7EBF50', '#589EF8'],
+                    tooltip: {
+                        formatter: '{a} <br/>{b} : {c}%'
+                    },
+                    toolbox: {
+                        feature: {
+                            restore: {},
+                            saveAsImage: {}
+                        }
+                    },
+                    series: [
+                        {
+                            name: '业务指标',
+                            type: 'gauge',
+                            detail: {formatter: '{value}%',
+                                textStyle:{
+                                    fontSize:14
+                                }
+                            },
+                            data: [{value: score, name: '情感程度'}],
+                            axisLine: {            // 坐标轴线
+                                 lineStyle: {       // 属性lineStyle控制线条样式
+                                     color: [[0.2, '#E47470'], [0.8, '#DDA450'], [1, '#7EBF50']]
+                                 }
+                            },
+
+                        }
+                    ]
+                };
+                this.charts.setOption(option);
+
+                // setInterval(event =>  {
+                //     option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+                //     this.charts.setOption(option, true);
+                // },2000);
+
+            },
+
             init() {
                const self = this;//因为箭头函数会改变this指向，指向windows。所以先把this保存
                setTimeout(() => {
@@ -462,6 +764,7 @@
                   }
                },20)
              }
+
 
         },
         watch: {
@@ -507,10 +810,11 @@
                     },
                     grid: {  // echart四边距离
                         top: '20px',
-                        left: '1%',
+                        left: '8%',
                         right: '2%',
                         bottom: '30px',
                         containLabel: true
+
                     },
                     toolbox: {
                         feature: {
