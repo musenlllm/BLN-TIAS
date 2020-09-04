@@ -21,6 +21,7 @@
                                 :default-sort="{prop: 'rank', order: 'ascending'}"
                                 border
                                 :row-class-name="tableRowClassName"
+                                max-height="500px"
                         >
                               <el-table-column align='center'
                                 prop="rank"
@@ -74,7 +75,9 @@
                                 @sort-change="changeSort"
                                 :default-sort="{prop: 'rank', order: 'ascending'}"
                                 :row-class-name="tableRowClassName"
-                                border>
+                                border
+                                max-height="500px"
+                         >
                               <el-table-column align='center'
                                 prop="rank"
                                 label="排序"
@@ -100,7 +103,6 @@
 
                                 <!--{{ item.label }}-->
                             </el-table>
-                        <div id="tree" style="width: 600px;height: 500px;"></div>
                     </el-card>
 
                 </el-aside>
@@ -118,7 +120,9 @@
                                     @sort-change="changeSort"
                                     :default-sort="{prop: 'rank', order: 'ascending'}"
                                     :row-class-name="tableRowClassName"
-                                    border>
+                                    border
+                                    max-height="500px"
+                            >
                                   <el-table-column align='center'
                                     prop="rank"
                                     label="排序"
@@ -329,14 +333,14 @@ export default {
                 },
                 tooltip: {},
                 xAxis: {
-                    data:['新冠', '中国', '奥运', '国庆', 'IPHONE', '出轨']
+                    data:this.hot_topic.topic
                 },
                 yAxis: {},
                 series: [
                     {
                         name: "阅读量",
                         type: "bar",
-                        data: [100, 95, 90, 88, 85, 80]
+                        data: this.hot_topic.view_number
                     }
                 ]
             };
