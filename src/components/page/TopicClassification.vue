@@ -9,7 +9,7 @@
         <el-row style="margin:20px 0">
           <el-input
             type="textarea"
-            placeholder="【字节跳动或已拿下支付牌照】8月28日，武汉合众易宝科技有限公司股东中发实业（集团）有限公司退出，天津同融电子商务有限公司接盘100%股份。天津同融电子商务有限公司是北京石贝科技有限公司全资子公司，穿透以后，字节跳动创始人张一鸣是实际控制人。合众支付官网显示，该公司2014年获得由中国人民银行颁发的《支付业务许可证》，成为湖北省首家持牌互联网支付企业。（21财经）"
+            placeholder="请输入文本"
             v-model="content"
             maxlength="800"
             show-word-limit
@@ -146,7 +146,6 @@ import echarts from "echarts/lib/echarts";
 import "echarts/dist/extension/dataTool";
 
 const childtypelist = ["教育", "娱乐", "财经", "时政", "社会", "体育", "科技"];
-
 const typelist = [
   "体育",
   "娱乐",
@@ -163,9 +162,6 @@ const typelist = [
   "股票",
   "财经",
 ];
-
-const tpclassurl = "http://49.234.217.110:5000/api/tpclassification";
-const carouselurl = "http://49.234.217.110:5000/api/getRealTimeThemeInfo";
 const eng2cn = {
   education_news: "教育",
   entertainment_news: "娱乐",
@@ -176,6 +172,9 @@ const eng2cn = {
   technology_news: "科技",
 };
 
+const tpclassurl = "http://49.234.217.110:5000/api/tpclassification";
+const carouselurl = "http://49.234.217.110:5000/api/getRealTimeThemeInfo";
+
 export default {
   name: "markdown",
   data: function () {
@@ -184,9 +183,6 @@ export default {
         type: [],
       },
       content: "【字节跳动或已拿下支付牌照】8月28日，武汉合众易宝科技有限公司股东中发实业（集团）有限公司退出，天津同融电子商务有限公司接盘100%股份。天津同融电子商务有限公司是北京石贝科技有限公司全资子公司，穿透以后，字节跳动创始人张一鸣是实际控制人。合众支付官网显示，该公司2014年获得由中国人民银行颁发的《支付业务许可证》，成为湖北省首家持牌互联网支付企业。（21财经）",
-      editorOption: {
-        placeholder: "请在这里输入待分类的文本",
-      },
       types: typelist,
       cnt: [],
       colorSt: {

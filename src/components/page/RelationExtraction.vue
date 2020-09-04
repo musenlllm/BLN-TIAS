@@ -8,7 +8,7 @@
         <el-row style="margin: 10px 0">
           <el-input
             type="textarea"
-            placeholder="红楼梦中贾政的五个孩子分别是贾珠、贾元春、贾宝玉、贾探春以及贾环。"
+            placeholder="请输入文本"
             v-model="content"
             maxlength="80"
             show-word-limit
