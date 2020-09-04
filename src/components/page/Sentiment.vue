@@ -8,7 +8,8 @@
                 <el-main style="text-align: center;">
                     <el-input
                             type="textarea"
-                            placeholder="请输入内容"
+                            placeholder="印度军方说，解放军的重型坦克和轻型坦克部署位置处在印度驻军的火力范围以内。印度驻军全副武装，拥有坦克和火炮的支援。据《今日印度》9月1日报道，印度陆军已经在斯潘古尔湖和楚舒勒之间的平原上部署了一个坦克团，这里也是8月底印度侵犯中国领土、与解放军发生冲突的位置附近。
+（请输入文本）"
                             v-model="summaryText"
                             maxlength="400"
                             show-word-limit
@@ -19,117 +20,342 @@
                     </el-input>
                     <el-row style="margin-top: 30px; display: flex; justify-content: center">
                         <el-button v-on:click="ResultofSentiment" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>
-                        <el-button v-on:click="mockData">随机样例</el-button>
                     </el-row>
                     <el-card class="box-card" style="min-height: 250px;margin-top: 20px" align="middle">
                         <div slot="header" class="clearfix">
                             <span style="color: gray">本次分析结果</span>
                         </div>
-                        <!--<div>-->
-                            <!--{{sentimentscore}}-->
-                        <!--</div>-->
-                        <!--<div id="wrap">-->
-                            <!--<div id="icon_positive">-->
-                                <!--<i class="iconfont iconjijiqingxu"></i>-->
-                            <!--</div>-->
-                        <div align="middle" id="emotionLevel" style="height: 300px"></div>
-                        <!--</div>-->
+                        <div id="wrap" style="height:400px;width: 100%;justify-content: center">
+                            <div id = "pos_emoji" style="height:100px;width:100px;margin-top: 150px" align="bottom">
+                                <img src="../../assets/img/neg2.png" />
+                                <span style="color:#E47470">负面情绪</span>
+                            </div>
+                            <div align="middle" id="emotionLevel" style="height:500px;width:500px"></div>
+                            <div id = "neg_emoji" style="height:100%;width:100px;margin-top: 150px">
+                                <img src="../../assets/img/pos2.png" />
+                                <span style="color:#7EBF50">正面情绪</span>
+                            </div>
+                        </div>
+
+
                     </el-card>
                     <el-card class="box-card" style="min-height: 300px;margin-top: 20px" align="middle">
                         <div slot="header" class="clearfix">
                             <span style="color: gray">历史分析结果</span>
                         </div>
-                        <el-row :gutter="10" >
-                            <el-col :span="12">
-                                <el-card shadow="hover" :body-style="{padding: '0px'}">
-                                    <div class="grid-content grid-con-1">
-                                        <div class="grid-con-text">
-                                            <div class="grid-num">历史检测总数</div>
-                                            <div class="grid-num">{{history_count.history_negative_count+history_count.history_positive_count}} 条</div>
-                                        </div>
+                        <el-container>
+                            <el-aside width="50%">
+                                <el-row :gutter="20" >
+                                    <el-col :span="23" style="padding: 0px;margin:10px">
+                                        <el-card shadow="hover" :body-style="{padding: '0px'}" style="border-radius:20px;">
+                                            <!--<div class="grid-content3 grid-con-2">-->
+                                                <!--<div class="grid-con-text">-->
+                                                    <!--<div class="grid-text-2">今日</div>-->
+                                                    <!--<el-divider class="el-div-horizontal"></el-divider>-->
+                                                    <!--<div class="div-text2">-->
+                                                        <!--<span class="grid-text2">总数</span>-->
+                                                        <!--<span class="grid-num2">{{today_num = history_count.today_negative_count+history_count.today_positive_count}} 条</span>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="div-text2">-->
+                                                        <!--<span class="grid-text2">积极</span>-->
+                                                        <!--<span class="grid-num2">{{history_count.today_negative_count}} 条</span>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="div-text2">-->
+                                                        <!--<span class="grid-text2">消极</span>-->
+                                                        <!--<span class="grid-num2">{{history_count.today_positive_count}} 条</span>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <div class="grid-content grid-con-1" style="color:#E47470 ">
+                                                <div class="grid-con-text">
+                                                    <div class="grid-num">今日检测总数</div>
+                                                    <div class="grid-num">{{today_num = history_count.today_negative_count+history_count.today_positive_count}} 条</div>
+                                                </div>
 
-                                        <el-divider direction="vertical" class="el-div"></el-divider>
-                                        <div class="grid-cont-right1">
-                                            <div class="right-text">
-                                                <span class="grid-text">积极</span>
-                                                <span class="grid-num">{{history_count.history_positive_count}} 条</span>
+                                                <el-divider direction="vertical" class="el-div"></el-divider>
+                                                <div class="grid-cont-right1">
+                                                    <div class="right-text">
+                                                        <span class="grid-text">正面</span>
+                                                        <span class="grid-num">{{history_count.today_positive_count}} 条</span>
+                                                    </div>
+                                                    <div class="right-text">
+                                                        <span class="grid-text">负面</span>
+                                                        <span class="grid-num">{{history_count.today_negative_count}} 条</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="right-text">
-                                                <span class="grid-text">消极</span>
-                                                <span class="grid-num">{{history_count.history_negative_count}} 条</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </el-card>
-                            </el-col>
-                            <el-col :span="4">
-                                <el-card shadow="hover" :body-style="{padding: '0px'}">
-                                    <div class="grid-content1 grid-con-2">
-                                        <div class="grid-con-text">
-                                            <div class="grid-text-2">近7日 </div>
-                                            <el-divider class="el-div-horizontal"></el-divider>
-                                            <div class="div-text2">
-                                                <span class="grid-text2">总数</span>
-                                                <span class="grid-num2">{{nearly_one_week_num = history_count.nearly_one_week_negative_count+history_count.nearly_one_week_positive_count}} 条</span>
-                                            </div>
-                                            <div class="div-text2">
-                                                <span class="grid-text2">积极</span>
-                                                <span class="grid-num2">{{history_count.nearly_one_week_positive_count}} 条</span>
-                                            </div>
-                                            <div class="div-text2">
-                                                <span class="grid-text2">消极</span>
-                                                <span class="grid-num2">{{history_count.nearly_one_week_negative_count}} 条</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </el-card>
-                            </el-col>
-                            <el-col :span="4">
-                                <el-card shadow="hover" :body-style="{padding: '0px'}">
-                                    <div class="grid-content2 grid-con-2">
-                                        <div class="grid-con-text">
-                                            <div class="grid-text-2">近3日</div>
-                                            <el-divider class="el-div-horizontal"></el-divider>
-                                            <div class="div-text2">
-                                                <span class="grid-text2">总数</span>
-                                                <span class="grid-num2">{{nearly_three_days_num = history_count.nearly_three_days_negative_count+history_count.nearly_three_days_positive_count}} 条</span>
-                                            </div>
-                                            <div class="div-text2">
-                                                <span class="grid-text2">积极</span>
-                                                <span class="grid-num2">{{history_count.nearly_three_days_positive_count}} 条</span>
-                                            </div>
-                                            <div class="div-text2">
-                                                <span class="grid-text2">消极</span>
-                                                <span class="grid-num2">{{history_count.nearly_three_days_negative_count}} 条</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </el-card>
-                            </el-col>
-                            <el-col :span="4">
-                                <el-card shadow="hover" :body-style="{padding: '0px'}">
-                                    <div class="grid-content3 grid-con-2">
-                                        <div class="grid-con-text">
-                                            <div class="grid-text-2">今日</div>
-                                            <el-divider class="el-div-horizontal"></el-divider>
-                                            <div class="div-text2">
-                                                <span class="grid-text2">总数</span>
-                                                <span class="grid-num2">{{today_num = history_count.today_negative_count+history_count.today_positive_count}} 条</span>
-                                            </div>
-                                            <div class="div-text2">
-                                                <span class="grid-text2">积极</span>
-                                                <span class="grid-num2">{{history_count.today_negative_count}} 条</span>
-                                            </div>
-                                            <div class="div-text2">
-                                                <span class="grid-text2">消极</span>
-                                                <span class="grid-num2">{{history_count.today_positive_count}} 条</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </el-card>
-                            </el-col>
+                                        </el-card>
+                                    </el-col>
+                                    <el-col :span="23" style="padding: 0px;margin:10px">
+                                        <el-card shadow="hover" :body-style="{padding: '0px'}" style="border-radius:20px;">
+                                            <!--<div class="grid-content2 grid-con-2">-->
+                                                <!--<div class="grid-con-text">-->
+                                                    <!--<div class="grid-text-2">近3日</div>-->
+                                                    <!--<el-divider class="el-div-horizontal"></el-divider>-->
+                                                    <!--<div class="div-text2">-->
+                                                        <!--<span class="grid-text2">总数</span>-->
+                                                        <!--<span class="grid-num2">{{nearly_three_days_num = history_count.nearly_three_days_negative_count+history_count.nearly_three_days_positive_count}} 条</span>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="div-text2">-->
+                                                        <!--<span class="grid-text2">积极</span>-->
+                                                        <!--<span class="grid-num2">{{history_count.nearly_three_days_positive_count}} 条</span>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="div-text2">-->
+                                                        <!--<span class="grid-text2">消极</span>-->
+                                                        <!--<span class="grid-num2">{{history_count.nearly_three_days_negative_count}} 条</span>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <div class="grid-content grid-con-1">
+                                                <div class="grid-con-text">
+                                                    <div class="grid-num">近3日检测总数</div>
+                                                    <div class="grid-num">{{nearly_three_days_num = history_count.nearly_three_days_negative_count+history_count.nearly_three_days_positive_count}} 条</div>
+                                                </div>
 
-                        </el-row>
+                                                <el-divider direction="vertical" class="el-div"></el-divider>
+                                                <div class="grid-cont-right1">
+                                                    <div class="right-text">
+                                                        <span class="grid-text">正面</span>
+                                                        <span class="grid-num">{{history_count.nearly_three_days_positive_count}} 条</span>
+                                                    </div>
+                                                    <div class="right-text">
+                                                        <span class="grid-text">负面</span>
+                                                        <span class="grid-num">{{history_count.nearly_three_days_negative_count}} 条</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </el-card>
+                                    </el-col>
+                                    <el-col :span="23" style="padding: 0px;margin:10px">
+
+                                        <el-card shadow="hover" :body-style="{padding: '0px'}" style="border-radius:20px;">
+                                            <!--<div class="grid-content1 grid-con-2">-->
+                                                <!--<div class="grid-con-text">-->
+                                                    <!--<div class="grid-text-2">近7日 </div>-->
+                                                    <!--<el-divider class="el-div-horizontal"></el-divider>-->
+                                                    <!--<div class="div-text2">-->
+                                                        <!--<span class="grid-text2">总数</span>-->
+                                                        <!--<span class="grid-num2">{{nearly_one_week_num = history_count.nearly_one_week_negative_count+history_count.nearly_one_week_positive_count}} 条</span>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="div-text2">-->
+                                                        <!--<span class="grid-text2">积极</span>-->
+                                                        <!--<span class="grid-num2">{{history_count.nearly_one_week_positive_count}} 条</span>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="div-text2">-->
+                                                        <!--<span class="grid-text2">消极</span>-->
+                                                        <!--<span class="grid-num2">{{history_count.nearly_one_week_negative_count}} 条</span>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <div class="grid-content grid-con-1">
+                                                <div class="grid-con-text">
+                                                    <div class="grid-num">近7日检测总数</div>
+                                                    <div class="grid-num">{{nearly_one_week_num = history_count.nearly_one_week_negative_count+history_count.nearly_one_week_positive_count}} 条</div>
+                                                </div>
+
+                                                <el-divider direction="vertical" class="el-div"></el-divider>
+                                                <div class="grid-cont-right1">
+                                                    <div class="right-text">
+                                                        <span class="grid-text">正面</span>
+                                                        <span class="grid-num">{{history_count.nearly_one_week_positive_count}} 条</span>
+                                                    </div>
+                                                    <div class="right-text">
+                                                        <span class="grid-text">负面</span>
+                                                        <span class="grid-num">{{history_count.nearly_one_week_negative_count}} 条</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </el-card>
+                                    </el-col>
+                                    <el-col :span="23" style="padding: 0px;margin:10px">
+                                        <el-card shadow="hover" :body-style="{padding: '0px'}" style="border-radius:20px;" >
+                                            <div class="grid-content grid-con-1">
+                                                <div class="grid-con-text">
+                                                    <div class="grid-num">历史检测总数</div>
+                                                    <div class="grid-num">{{history_count.history_negative_count+history_count.history_positive_count}} 条</div>
+                                                </div>
+
+                                                <el-divider direction="vertical" class="el-div"></el-divider>
+                                                <div class="grid-cont-right1">
+                                                    <div class="right-text">
+                                                        <span class="grid-text">正面</span>
+                                                        <span class="grid-num">{{history_count.history_positive_count}} 条</span>
+                                                        <!--<span class="grid-num">{{(history_count.history_positive_count/(history_count.history_negative_count+history_count.history_positive_count)).toFixed(4)*100}}%</span>-->
+                                                    </div>
+                                                    <div class="right-text">
+                                                        <span class="grid-text">负面</span>
+                                                        <span class="grid-num">{{history_count.history_negative_count}} 条</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </el-card>
+                                    </el-col>
+                                </el-row>
+
+                            </el-aside>
+                            <el-main style="text-align:center" >
+                                <el-tabs type="border-card" stretch=true>
+                                    <el-tab-pane label="正面新闻">
+                                        <el-table
+                                            :data="pos_news"
+                                            stripe
+                                            style="width: 100%;text-align: center"
+                                            :show-header=false
+                                            :show-overflow-tooltip=true
+                                            @sort-change="changeSort"
+                                            :default-sort="{prop: 'publish_time', order: 'ascending'}"
+                                            max-height="400px"
+
+                                        >
+                                            <!--<el-table-column prop="rank">-->
+
+                                            <!--</el-table-column>-->
+                                            <el-table-column prop="news">
+                                                <template slot-scope="scope">
+                                                    <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.news}}</a>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column
+                                                    prop="score"
+                                                    width="80%"
+                                                    sortable
+                                            >
+                                                <template slot-scope="scope">
+                                                    <span >{{scope.row.score}}</span>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column
+                                                    prop="publish_time"
+                                                    sortable>
+                                                <template slot-scope="scope">
+                                                    <span >发布时间：{{scope.row.publish_time}}</span>
+                                                </template>
+                                            </el-table-column>
+                                      </el-table>
+                                    </el-tab-pane>
+                                    <el-tab-pane label="负面新闻">
+                                        <el-table
+                                            :data="neg_news"
+                                            stripe
+                                            style="width: 100%;text-align: center"
+                                            :show-header=false
+                                            :show-overflow-tooltip=true
+                                            max-height="400px"
+
+                                        >
+                                            <el-table-column prop="news">
+                                                <template slot-scope="scope">
+                                                    <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.news}}</a>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column prop="score" width="80%">
+                                                <template slot-scope="scope">
+                                                    <span >{{scope.row.score}}</span>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column prop="publish_time">
+                                                <template slot-scope="scope">
+                                                    <span >发布时间：{{scope.row.publish_time}}</span>
+                                                </template>
+                                            </el-table-column>
+                                      </el-table>
+                                    </el-tab-pane>
+                                </el-tabs>
+
+
+                            </el-main>
+                        </el-container>
+                        <!--<el-row :gutter="10" >-->
+                            <!--<el-col :span="12">-->
+                                <!--<el-card shadow="hover" :body-style="{padding: '0px'}">-->
+                                    <!--<div class="grid-content grid-con-1">-->
+                                        <!--<div class="grid-con-text">-->
+                                            <!--<div class="grid-num">历史检测总数</div>-->
+                                            <!--<div class="grid-num">{{history_count.history_negative_count+history_count.history_positive_count}} 条</div>-->
+                                        <!--</div>-->
+
+                                        <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
+                                        <!--<div class="grid-cont-right1">-->
+                                            <!--<div class="right-text">-->
+                                                <!--<span class="grid-text">积极</span>-->
+                                                <!--<span class="grid-num">{{history_count.history_positive_count}} 条</span>-->
+                                            <!--</div>-->
+                                            <!--<div class="right-text">-->
+                                                <!--<span class="grid-text">消极</span>-->
+                                                <!--<span class="grid-num">{{history_count.history_negative_count}} 条</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</el-card>-->
+                            <!--</el-col>-->
+                            <!--<el-col :span="4">-->
+                                <!--<el-card shadow="hover" :body-style="{padding: '0px'}">-->
+                                    <!--<div class="grid-content1 grid-con-2">-->
+                                        <!--<div class="grid-con-text">-->
+                                            <!--<div class="grid-text-2">近7日 </div>-->
+                                            <!--<el-divider class="el-div-horizontal"></el-divider>-->
+                                            <!--<div class="div-text2">-->
+                                                <!--<span class="grid-text2">总数</span>-->
+                                                <!--<span class="grid-num2">{{nearly_one_week_num = history_count.nearly_one_week_negative_count+history_count.nearly_one_week_positive_count}} 条</span>-->
+                                            <!--</div>-->
+                                            <!--<div class="div-text2">-->
+                                                <!--<span class="grid-text2">积极</span>-->
+                                                <!--<span class="grid-num2">{{history_count.nearly_one_week_positive_count}} 条</span>-->
+                                            <!--</div>-->
+                                            <!--<div class="div-text2">-->
+                                                <!--<span class="grid-text2">消极</span>-->
+                                                <!--<span class="grid-num2">{{history_count.nearly_one_week_negative_count}} 条</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</el-card>-->
+                            <!--</el-col>-->
+                            <!--<el-col :span="4">-->
+                                <!--<el-card shadow="hover" :body-style="{padding: '0px'}">-->
+                                    <!--<div class="grid-content2 grid-con-2">-->
+                                        <!--<div class="grid-con-text">-->
+                                            <!--<div class="grid-text-2">近3日</div>-->
+                                            <!--<el-divider class="el-div-horizontal"></el-divider>-->
+                                            <!--<div class="div-text2">-->
+                                                <!--<span class="grid-text2">总数</span>-->
+                                                <!--<span class="grid-num2">{{nearly_three_days_num = history_count.nearly_three_days_negative_count+history_count.nearly_three_days_positive_count}} 条</span>-->
+                                            <!--</div>-->
+                                            <!--<div class="div-text2">-->
+                                                <!--<span class="grid-text2">积极</span>-->
+                                                <!--<span class="grid-num2">{{history_count.nearly_three_days_positive_count}} 条</span>-->
+                                            <!--</div>-->
+                                            <!--<div class="div-text2">-->
+                                                <!--<span class="grid-text2">消极</span>-->
+                                                <!--<span class="grid-num2">{{history_count.nearly_three_days_negative_count}} 条</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</el-card>-->
+                            <!--</el-col>-->
+                            <!--<el-col :span="4">-->
+                                <!--<el-card shadow="hover" :body-style="{padding: '0px'}">-->
+                                    <!--<div class="grid-content3 grid-con-2">-->
+                                        <!--<div class="grid-con-text">-->
+                                            <!--<div class="grid-text-2">今日</div>-->
+                                            <!--<el-divider class="el-div-horizontal"></el-divider>-->
+                                            <!--<div class="div-text2">-->
+                                                <!--<span class="grid-text2">总数</span>-->
+                                                <!--<span class="grid-num2">{{today_num = history_count.today_negative_count+history_count.today_positive_count}} 条</span>-->
+                                            <!--</div>-->
+                                            <!--<div class="div-text2">-->
+                                                <!--<span class="grid-text2">积极</span>-->
+                                                <!--<span class="grid-num2">{{history_count.today_negative_count}} 条</span>-->
+                                            <!--</div>-->
+                                            <!--<div class="div-text2">-->
+                                                <!--<span class="grid-text2">消极</span>-->
+                                                <!--<span class="grid-num2">{{history_count.today_positive_count}} 条</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</el-card>-->
+                            <!--</el-col>-->
+
+                        <!--</el-row>-->
                         <!--<el-col :span="16">-->
                             <!--<div class="grid-content grid-con-1">-->
                                 <!--<i class="el-icon-lx-people grid-con-icon"></i>-->
@@ -162,10 +388,10 @@
                             <!--</el-card>-->
                         <!--</el-col>-->
                         <!--<div class="line-echarts" style="text-align: center;">-->
-                        <div id="historyChart" style="min-height: 600px"></div>
+                        <!--<div id="historyChart" style="min-height: 600px"></div>-->
                         <!--{{pos_news}}-->
                         <!--{{neg_news}}-->
-                        {{one_week_time}}
+                        <!--{{one_week_time}}-->
 
                         <!--</div>-->
                     </el-card>
@@ -181,6 +407,7 @@ import echarts from 'echarts'
 import { fetchData } from '../../api/index';
 const sentimenturl = "http://49.234.217.110:5000/api/sentiment";
 const realurl = "http://49.234.217.110:5000/api/getRealTimeSentimentInfo";
+// const score = 0.5;
 export default {
     name: 'basetable',
     data() {
@@ -210,6 +437,7 @@ export default {
                 publish_time: ''
             },
             one_week_time : [],
+            classification:''
 
 
             // "positive_news": [],  //列表每个item为字典形式, {"news": str, "url": str, "score": float, "publish_time": str}, 每个列表最多包含20条
@@ -252,16 +480,14 @@ export default {
             .then((res) => res.json())
             .catch((error) => console.error("Error:", error))
             .then((response) => {
-                this.sentimentscore = parseFloat(response.results[0].score*100).toFixed(2);
-                this.drawDashboard("emotionLevel",this.sentimentscore);
+                this.classification = response.results[0].data;
+                this.sentimentscore = parseFloat(response.results[0].score).toFixed(4);
+                this.drawDashboard("emotionLevel",this.sentimentscore,this.classification);
             })
             // this.drawDashboard("emotionLevel",this.sentimentscore);
             //this.$message.success("提交成功！");
         },
-        mockData(){
-            this.summaryText='印度军方说，解放军的重型坦克和轻型坦克部署位置处在印度驻军的火力范围以内。印度驻军全副武装，拥有坦克和火炮的支援。据《今日印度》9月1日报道，印度陆军已经在斯潘古尔湖和楚舒勒之间的平原上部署了一个坦克团，这里也是8月底印度侵犯中国领土、与解放军发生冲突的位置附近。'
-            this.ResultofSentiment()
-        },
+
         getBeforeDate(n) {
             var n = n;
             var d = new Date();
@@ -550,8 +776,11 @@ export default {
         //   //   ]
         //   // });
         // },
-        drawDashboard(id,score){
+        drawDashboard(id,score,classf){
             this.charts = echarts.init(document.getElementById(id));
+            if (classf == '负面'){
+                score = -score
+            };
             var option = {
                 // color:['#E47470','#7EBF50', '#589EF8'],
                 tooltip: {
@@ -565,17 +794,23 @@ export default {
                 },
                 series: [
                     {
-                        name: '情感程度',
+                        name: '分类置信度',
                         type: 'gauge',
+                        min: -1,
+                        max: 1,
+                        startAngle: 180,
+                        endAngle: 0,
                         detail: {
-                            formatter: '{value}%',
+                            // formatter: Math.abs(score)*100+'%',
+                            formatter: Math.abs(score)*100+'%',
                             textStyle:{
                                 fontSize:20
-                            }
+                            },
+                            fontWeight: 'bolder'
                         },
                         data: [{
                             value: score,
-                            name: '情感程度',
+                            name: '置信度',
 
                         }],
                         title : {
@@ -588,21 +823,29 @@ export default {
                         },
                         axisLine: {            // 坐标轴线
                              lineStyle: {       // 属性lineStyle控制线条样式
-                                 color: [[0.2, '#E47470'], [0.8, '#DDA450'], [1, '#7EBF50']],
-                                 // width:50
+                                 color: [[0.5, '#E47470'], [1, '#7EBF50']],
+                                 width:20
                              },
 
 
                         },
                         axisLabel:{
+                            formatter: function (v){
+                                switch (v + '') {
+                                    case '-1' : return '100';
+                                    case '0' : return '0';
+                                    case '1' : return '100';
+                                }
+                            },
 
-                            distance:-60,
+                            distance:-65,
                             textStyle:{
                                 fontSize:15
                             }
                         }
 
                     }
+
                 ]
             };
             this.charts.setOption(option);
@@ -698,13 +941,14 @@ export default {
 
 <style scoped>
     @import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
-    .el-header, .el-footer {
+    .el-header/deep/, .el-footer/deep/ {
         font-size: 20px;
         color: black;
         text-align: center;
         line-height: 60px;
+
     }
-    .res-textarea {
+    .res-textarea/deep/ {
         color: black; margin-top: 30px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
     }
     .el-card {
@@ -738,27 +982,28 @@ export default {
 
     }
     .right-text{
-        margin-bottom: 10%;
-        margin-top: 10%;
+        margin-bottom: 5%;
+        margin-top: 5%;
     }
 
     .right-text .grid-text {
-        font-size: 28px;
+        font-size: 22px;
         font-weight: bold;
         margin-left: 10%;
         margin: 10%;
     }
     .right-text .grid-num {
-        font-size: 25px;
+        font-size: 20px;
         font-weight: bold;
         margin-left: 10%;
-        margin: 10%;
+        /*margin: 10%;*/
     }
 
     .grid-con-1 .grid-con-text {
         flex: 1;
         /*flex-direction: row;*/
-        font-size: 30px;
+        font-weight: bold;
+        font-size: 20px;
         /*width: 50%;*/
         /*height: 100%;*/
         text-align: center;
@@ -767,15 +1012,16 @@ export default {
         color: #fff;
     }
     .grid-con-text .grid-num {
-        font-size: 30px;
-        font-weight: bold;
-        margin-left: 10%;
-        margin: 10%;
+        font-size: 20px;
+        font-weight:bolder;
+        margin-left: 5%;
+        margin: 5%;
     }
 
     .grid-con-text {
         flex: 1;
         /*flex-direction: row;*/
+        /*font-weight:bolder;*/
         font-size:10px;
         /*width: 50%;*/
         /*height: 100%;*/
@@ -793,14 +1039,15 @@ export default {
     }
     .grid-text2{
         text-align: left;
+        font-weight: bold;
         /*text-align: left;*/
-        font-size: 20px;
+        font-size: 18px;
         text-align: left;
         color: #f3fbf8
     }
     .grid-num2{
-        font-size: 20px;
-        /*font-weight: bold;*/
+        font-size: 18px;
+        font-weight: bold;
         text-align: center;
         margin-left:20%;
     }
@@ -816,28 +1063,28 @@ export default {
         flex-direction: row;
         display: flex;
         align-items: center;
-        height: 150px;
+        height: 100px;
         background: rgb(45, 140, 240);
     }
     .grid-content1 {
         flex-direction: row;
         display: flex;
         align-items: center;
-        height: 150px;
+        height: 100px;
         background: #E47470;
     }
     .grid-content2 {
         flex-direction: row;
         display: flex;
         align-items: center;
-        height: 150px;
+        height: 100px;
         background: #DDA450;
     }
     .grid-content3 {
         flex-direction: row;
         display: flex;
         align-items: center;
-        height: 150px;
+        height: 100px;
         background: #7EBF50;
     }
     .el-div{
@@ -851,6 +1098,8 @@ export default {
      }
     #wrap{
         display: flex;
+        height: 400px;
+        justify-content: flex-start;
     }
 
 </style>
