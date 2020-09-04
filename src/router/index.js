@@ -9,7 +9,7 @@ export default new Router({
         {
             // Default page is entry page
             path: '/',
-            redirect: '/dashboard'
+            redirect: '/entry'
         },
         {
             path: '/',
