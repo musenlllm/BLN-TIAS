@@ -21,7 +21,6 @@
 
         <el-row style="margin-top: 30px">
           <el-button @click="submit" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>
-          <el-button>随机样例</el-button>
         </el-row>
 
         <el-row style="margin: 20px 0">
@@ -45,19 +44,20 @@
         </el-row>
 
         <el-row style="margin:10px 0;max-width:100%;max-height:200px">
-          <el-carousel
-            :interval="10000"
-            arrow="never"
-            indicator-position="none"
-            width="200px"
-            height="200px"
-            :loop="true"
-            @change="changePage"
-          >
-            <el-carousel-item v-for="(news, index) in newslist" :key="index">
-              <el-card :body-style="{ padding: '5px'}">
-                <el-row>要闻</el-row>
-                <el-row>
+          <el-card>
+            <el-row>要闻</el-row>
+            <el-row style="padding-top:5px">
+              <el-carousel
+                :interval="9000"
+                direction="vertical"
+                arrow="never"
+                indicator-position="none"
+                width="200px"
+                height="150px"
+                :loop="true"
+                @change="changePage"
+              >
+                <el-carousel-item v-for="(news, index) in newslist" :key="index">
                   <el-col :span="6">
                     <el-table
                       :show-header="false"
@@ -66,7 +66,7 @@
                     >
                       <el-table-column align="left" :show-overflow-tooltip="true">
                         <template slot-scope="scope">
-                          <a :href="scope.row.url">[{{news.kind}}]{{scope.row.event}}</a>
+                          <a style="color:#708090" :href="scope.row.url">[{{news.kind}}]{{scope.row.event}}</a>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -79,7 +79,7 @@
                     >
                       <el-table-column align="left" :show-overflow-tooltip="true">
                         <template slot-scope="scope">
-                          <a :href="scope.row.url">[{{news.kind}}]{{scope.row.event}}</a>
+                          <a style="color:#708090" :href="scope.row.url">[{{news.kind}}]{{scope.row.event}}</a>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -92,7 +92,7 @@
                     >
                       <el-table-column align="left" :show-overflow-tooltip="true">
                         <template slot-scope="scope">
-                          <a :href="scope.row.url">[{{news.kind}}]{{scope.row.event}}</a>
+                          <a style="color:#708090" :href="scope.row.url">[{{news.kind}}]{{scope.row.event}}</a>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -105,18 +105,18 @@
                     >
                       <el-table-column align="left" :show-overflow-tooltip="true">
                         <template slot-scope="scope">
-                          <a :href="scope.row.url">[{{news.kind}}]{{scope.row.event}}</a>
+                          <a style="color:#708090" :href="scope.row.url">[{{news.kind}}]{{scope.row.event}}</a>
                         </template>
                       </el-table-column>
                     </el-table>
                   </el-col>
-                </el-row>
-              </el-card>
-            </el-carousel-item>
-          </el-carousel>
+                </el-carousel-item>
+              </el-carousel>
+            </el-row>
+          </el-card>
         </el-row>
 
-        <el-row style="margin-top:26px">
+        <el-row style="margin-top:40px">
           <el-col :span="12">
             <el-card>
               <div slot="header" class="clearfix">
@@ -182,7 +182,10 @@ export default {
       form: {
         type: [],
       },
-      content: "【字节跳动或已拿下支付牌照】8月28日，武汉合众易宝科技有限公司股东中发实业（集团）有限公司退出，天津同融电子商务有限公司接盘100%股份。天津同融电子商务有限公司是北京石贝科技有限公司全资子公司，穿透以后，字节跳动创始人张一鸣是实际控制人。合众支付官网显示，该公司2014年获得由中国人民银行颁发的《支付业务许可证》，成为湖北省首家持牌互联网支付企业。（21财经）",
+      content:
+        "【字节跳动或已拿下支付牌照】8月28日，武汉合众易宝科技有限公司股东中发实业（集团）有限公司退出，天津同融电子商务有限公司接盘100%股份。"+
+        "天津同融电子商务有限公司是北京石贝科技有限公司全资子公司，穿透以后，字节跳动创始人张一鸣是实际控制人。合众支付官网显"+
+        "示，该公司2014年获得由中国人民银行颁发的《支付业务许可证》，成为湖北省首家持牌互联网支付企业。（请输入文本）",
       types: typelist,
       cnt: [],
       colorSt: {
@@ -333,10 +336,9 @@ export default {
           ];
           var news = response.results;
           delete news.theme_count;
-          
+
           this.newslist = [];
           for (var key in news) {
-            
             this.newslist.push({
               kind: eng2cn[key],
               events: news[key],

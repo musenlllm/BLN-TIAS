@@ -20,7 +20,6 @@
 
         <el-row style="margin-top: 30px">
           <el-button @click="getData" type="primary" style="background: #242f42; border: 0px">开始提取</el-button>
-          <el-button>随机样例</el-button>
         </el-row>
 
         <el-row style="margin:20px 0">
@@ -32,7 +31,7 @@
               <el-row>
                 <div id="showRelation" :style="{width: '100%', height: '540px'}"></div>
               </el-row>
-              <el-row style="padding-top:20px">
+              <el-row style="padding-top:40px">
                 <div id="showRelation2" :style="{width: '100%', height: '600px'}"></div>
               </el-row>
             </el-card>
@@ -122,7 +121,7 @@ export default {
   data() {
     return {
       content:
-        "红楼梦中贾政的五个孩子分别是贾珠、贾元春、贾宝玉、贾探春以及贾环。",
+        "红楼梦中贾政的五个孩子分别是贾珠、贾元春、贾宝玉、贾探春以及贾环。（请输入文本）",
       items: [
         {person1: "贾政", person2: "贾珠", relation: "亲子"},
         { person1: "贾政", person2: "贾元春", relation: "亲子" },
@@ -270,14 +269,14 @@ export default {
         grid: {
           left: "10%",
           right: "10%",
-          top: "20%",
-          bottom: "20%",
+          top: "30%",
+          //bottom: "20%",
         },
         legend: [
           {
             data: categories.map(function (a) {
               return a.name;
-            }),
+            })
           },
         ],
         tooltip: {},
@@ -285,6 +284,8 @@ export default {
         animationEasingUpdate: "quinticInOut",
         series: [
           {
+            top: "120",
+            bottom: "50",
             name: "Les Miserables",
             type: "graph",
             layout: "circular",
@@ -294,7 +295,7 @@ export default {
             data: restmp.nodes,
             links: restmp.links,
             categories: categories,
-            roam: true,
+            //roam: true,
             label: {
               position: "right",
               formatter: "{b}",
@@ -330,8 +331,8 @@ export default {
           nodelist.push({
             id: i,
             ac: i,
-            x: 60 * Math.sin((a * Math.PI) / 180),
-            y: 60 * Math.cos((a * Math.PI) / 180),
+            x: 20 * Math.sin((a * Math.PI) / 180),
+            y: 20 * Math.cos((a * Math.PI) / 180),
             category: category,
             name: name,
           });
