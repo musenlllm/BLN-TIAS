@@ -28,7 +28,9 @@
                         <!--<div>-->
                             <!--{{sentimentscore}}-->
                         <!--</div>-->
-                        <div align="middle" id="emotionLevel" style="height: 300px"></div>
+                        <div align="middle" id="emotionLevel" style="height: 300px">
+                            <>
+                        </div>
                     </el-card>
                     <el-card class="box-card" style="min-height: 300px;margin-top: 20px" align="middle">
                         <div slot="header" class="clearfix">
@@ -40,18 +42,18 @@
                                     <div class="grid-content grid-con-1">
                                         <div class="grid-con-text">
                                             <div class="grid-num">历史检测总数</div>
-                                            <div class="grid-num">{{40909}} 条</div>
+                                            <div class="grid-num">{{history_count.history_negative_count+history_count.history_positive_count}} 条</div>
                                         </div>
 
                                         <el-divider direction="vertical" class="el-div"></el-divider>
                                         <div class="grid-cont-right1">
                                             <div class="right-text">
                                                 <span class="grid-text">积极</span>
-                                                <span class="grid-num">{{909}} 条</span>
+                                                <span class="grid-num">{{history_count.history_positive_count}} 条</span>
                                             </div>
                                             <div class="right-text">
                                                 <span class="grid-text">消极</span>
-                                                <span class="grid-num">{{404}} 条</span>
+                                                <span class="grid-num">{{history_count.history_negative_count}} 条</span>
                                             </div>
                                         </div>
                                     </div>
@@ -61,15 +63,19 @@
                                 <el-card shadow="hover" :body-style="{padding: '0px'}">
                                     <div class="grid-content1 grid-con-2">
                                         <div class="grid-con-text">
-                                            <div class="grid-text-2">近7日</div>
-                                            <el-divider></el-divider>
+                                            <div class="grid-text-2">近7日 </div>
+                                            <el-divider class="el-div-horizontal"></el-divider>
+                                            <div class="div-text2">
+                                                <span class="grid-text2">总数</span>
+                                                <span class="grid-num2">{{nearly_one_week_num = history_count.nearly_one_week_negative_count+history_count.nearly_one_week_positive_count}} 条</span>
+                                            </div>
                                             <div class="div-text2">
                                                 <span class="grid-text2">积极</span>
-                                                <span class="grid-num2">{{10}} 条</span>
+                                                <span class="grid-num2">{{history_count.nearly_one_week_positive_count}} 条</span>
                                             </div>
                                             <div class="div-text2">
                                                 <span class="grid-text2">消极</span>
-                                                <span class="grid-num2">{{10}} 条</span>
+                                                <span class="grid-num2">{{history_count.nearly_one_week_negative_count}} 条</span>
                                             </div>
                                         </div>
                                     </div>
@@ -80,14 +86,18 @@
                                     <div class="grid-content2 grid-con-2">
                                         <div class="grid-con-text">
                                             <div class="grid-text-2">近3日</div>
-                                            <el-divider></el-divider>
+                                            <el-divider class="el-div-horizontal"></el-divider>
+                                            <div class="div-text2">
+                                                <span class="grid-text2">总数</span>
+                                                <span class="grid-num2">{{nearly_three_days_num = history_count.nearly_three_days_negative_count+history_count.nearly_three_days_positive_count}} 条</span>
+                                            </div>
                                             <div class="div-text2">
                                                 <span class="grid-text2">积极</span>
-                                                <span class="grid-num2">{{10}} 条</span>
+                                                <span class="grid-num2">{{history_count.nearly_three_days_positive_count}} 条</span>
                                             </div>
                                             <div class="div-text2">
                                                 <span class="grid-text2">消极</span>
-                                                <span class="grid-num2">{{10}} 条</span>
+                                                <span class="grid-num2">{{history_count.nearly_three_days_negative_count}} 条</span>
                                             </div>
                                         </div>
                                     </div>
@@ -98,14 +108,18 @@
                                     <div class="grid-content3 grid-con-2">
                                         <div class="grid-con-text">
                                             <div class="grid-text-2">今日</div>
-                                            <el-divider></el-divider>
+                                            <el-divider class="el-div-horizontal"></el-divider>
+                                            <div class="div-text2">
+                                                <span class="grid-text2">总数</span>
+                                                <span class="grid-num2">{{today_num = history_count.today_negative_count+history_count.today_positive_count}} 条</span>
+                                            </div>
                                             <div class="div-text2">
                                                 <span class="grid-text2">积极</span>
-                                                <span class="grid-num2">{{10}} 条</span>
+                                                <span class="grid-num2">{{history_count.today_negative_count}} 条</span>
                                             </div>
                                             <div class="div-text2">
                                                 <span class="grid-text2">消极</span>
-                                                <span class="grid-num2">{{10}} 条</span>
+                                                <span class="grid-num2">{{history_count.today_positive_count}} 条</span>
                                             </div>
                                         </div>
                                     </div>
@@ -178,19 +192,18 @@ export default {
                 nearly_three_days_negative_count: 0,
                 today_positive_count: 0,
                 today_negative_count: 0,
+                positive_news:[],
+                negative_news:[]
             },
+            pos_news: [],
+            neg_news:[],
             news: {
                 news: '',
                 url: '',
                 score: '',
                 publish_time: ''
             },
-            // negative_news: {
-            //     news: '',
-            //     url: '',
-            //     score: '',
-            //     publish_time: ''
-            // },
+            one_week_time : [],
 
             // "positive_news": [],  //列表每个item为字典形式, {"news": str, "url": str, "score": float, "publish_time": str}, 每个列表最多包含20条
             // "negative_news": []   //列表每个item为字典形式, {"news": str, "url": str, "score": float, "publish_time": str}, 每个列表最多包含20条
@@ -198,42 +211,6 @@ export default {
         };
 
     },
-    // data() {
-    //     return {
-    //         text: '',
-    //         summaryText: '',
-    //         summaryRes:'分析结果',
-    //         queryURL:'http://61.135.242.193:5000/api/summarization',
-    //         items: [
-    //             // { type: '', label: '标签一' },
-    //             // { type: 'success', label: '标签二' },
-    //         ],
-    //         // itemtypes:[
-    //         //     { label: '人名', type: '' ,color: '#F56C6C'},
-    //         //     { label: '地名', type: '' ,color:'#E6A23C'},
-    //         //     { label: '组织机构名', type: '',color:'#409EFF' },
-    //         //     { label: '时间', type: '' ,color: '#67C23A'},
-    //         //     { label: '公司', type: '',color:'#242f42' },
-    //         //     { label: '产品', type: '' ,color:'pink'},
-    //         // ],
-    //         treeData:{
-    //         },
-    //         percentData:[
-    //         ],
-    //         entData:[],
-    //         treeCharts: '',
-    //         percentCharts: '',
-    //         // charts: '',
-    //         // opinion:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'],
-    //         // opinionData:[
-    //         //     {value:335, name:'直接访问'},
-    //         //     {value:310, name:'邮件营销'},
-    //         //     {value:234, name:'联盟广告'},
-    //         //     {value:135, name:'视频广告'},
-    //         //     {value:1548, name:'搜索引擎'}
-    //         // ]
-    //     };
-    // },
     created() {
          // this.getData();
     },
@@ -287,10 +264,10 @@ export default {
             .catch((error) => console.error("Error:", error))
             .then((response) => {
                 console.log(response);
-                this.history = response.results;
-                var history_negative_count = response.results.history_negative_count;
+                this.history_count = response.results;
 
-                this.positive_news = response.results.positive_news;
+                this.pos_news = response.results.positive_news;
+                this.neg_news = response.results.negative_news;
                 // this.positive_news = [
                 //     positive_news.news,
                 //     positive_news.url,
@@ -327,10 +304,10 @@ export default {
               },
               dataset: {
                   source: [
-                      ['sentiment', '周一', '周二', '周三', '周四', '周五', '周六'],
-                      ['积极', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7],
-                      ['消极', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
-                      ['中性', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5]
+                      ['sentiment', '周一', '周二', '周三', '周四', '周五', '周六','周日'],
+                      ['积极', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7,90],
+                      ['消极', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1,10],
+                      ['中性', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5,0]
                       // ['未知', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
                   ]
               },
@@ -699,18 +676,21 @@ export default {
     }
     .grid-text2{
         text-align: left;
-        flex: 1;
         /*text-align: left;*/
         font-size: 20px;
+        text-align: left;
         color: #f3fbf8
     }
     .grid-num2{
         font-size: 20px;
-        font-weight: bold;
+        /*font-weight: bold;*/
         text-align: center;
+        margin-left:20%;
     }
     .div-text2{
         margin-bottom: 5px;
+        margin-left: 20%;
+        text-align: left;
     }
     .bg-purple-light {
         background: #e5e9f2;
@@ -747,5 +727,10 @@ export default {
         width: 1px;
         height: 70%;
     }
+    .el-div-horizontal{
+         margin: 8px 0;
+         background: 0 0;
+         border-top: 1px dashed #e8eaec;
+     }
 
 </style>

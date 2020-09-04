@@ -51,18 +51,20 @@
 
 <script>
 import bus from '../common/bus';
+import ElementUI from 'element-ui';
+// import 'element-ui/lib/theme-chalk/index.css'
 export default {
     data() {
         return {
             collapse: false,
             items: [
                 {
-                    icon: 'el-icon-lx-home',
+                    icon: 'el-icon-s-home',
                     index: 'dashboard',
                     title: '系统首页'
                 },
                 {
-                    icon: 'el-icon-lx-cascades',
+                    icon: 'el-icon-s-comment',
                     index: 'summary',
                     title: '自动摘要'
                 },
@@ -72,46 +74,25 @@ export default {
                     title: '实体识别'
                 },
                 {
-                    icon: 'el-icon-lx-calendar',
+                    icon: 'el-icon-pie-chart',
                     index: 'form',
                     title: '情感分析'
                 },
                 {
-                    icon: 'el-icon-lx-emoji',
+                    icon: 'el-icon-lx-calendar',
                     index: 'relation',
                     title: '关系抽取'
                 },
                 {
-                    icon: 'el-icon-pie-chart',
+                    icon: 'el-icon-data-line',
                     index: 'hotspot',
                     title: '热点挖掘'
                 },
                 {
-                    icon: 'el-icon-rank',
+                    icon: 'el-icon-folder-opened',
                     index: 'classification',
                     title: '文本主题分类',
                 },
-                {
-                    icon: 'el-icon-lx-global',
-                    index: 'i18n',
-                    title: '国际化功能'
-                },
-                {
-                    icon: 'el-icon-lx-warn',
-                    index: '7',
-                    title: '错误处理',
-                    subs: [
-                        {
-                            index: 'permission',
-                            title: '权限测试'
-                        },
-                        {
-                            index: '404',
-                            title: '404页面'
-                        }
-                    ]
-                },
-
             ]
         };
     },
@@ -131,6 +112,8 @@ export default {
 </script>
 
 <style scoped>
+    @import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
+
 .sidebar {
     display: block;
     position: absolute;
