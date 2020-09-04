@@ -28,24 +28,29 @@
                                 label="排序"
                                 sortable
                                 :sort-orders="['ascending', 'descending']"
-                                width="100%">
+                                >
                               </el-table-column>
                               <el-table-column align='center'
                                 prop="event"
-                                label="话题"
-                                width="100%">
+                                label="链接和话题"
+                                >
+                                  <template slot-scope="scope">
+                                    <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.event}}</a>
+                                  </template>
                               </el-table-column>
                               <el-table-column align='center'
                                 prop="popularity"
                                 label="阅读量"
-                                               width="100%"
                               >
                               </el-table-column>
-                              <el-table-column align='center'
-                                prop="url"
-                                label="链接"
-                              >
-                              </el-table-column>
+                              <!--<el-table-column align='center'-->
+                                <!--prop="url"-->
+                                <!--label="链接和话题"-->
+                              <!--&gt;-->
+                                  <!--<template slot-scope="scope">-->
+                                    <!--<a :href="scope.row.url" target="_blank" class="buttonText">{{scope.row.event}}</a>-->
+                                  <!--</template>-->
+                              <!--</el-table-column>-->
 
                                 <!--{{ item.label }}-->
                         </el-table>
@@ -129,11 +134,15 @@
                                     sortable
                                     :sort-orders="['ascending', 'descending']"
                                     width="100%">
+
                                   </el-table-column>
                                   <el-table-column align='center'
                                     prop="topic"
                                     label="话题"
                                   >
+                                       <template slot-scope="scope">
+                                           <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.topic}}</a>
+                                       </template>
                                   </el-table-column>
                                   <el-table-column align='center'
                                     prop="view_number"
@@ -422,5 +431,9 @@ export default {
     }
     .el-table/deep/.warning-row {
         background: #f0f9eb;
+    }
+    .buttonText{
+        color: #303133;
+        font-weight: bold;
     }
 </style>
