@@ -463,6 +463,7 @@ export default {
     },
     // 获取 easy-mock 的模拟数据
     getData() {
+      this.items = [];
       fetch(relationUrl, {
         method: "POST",
         body: JSON.stringify({
@@ -478,7 +479,11 @@ export default {
         },
       })
         .then((res) => res.json())
-        .catch((error) => console.error("Error:", error))
+        .catch((error) => {
+          console.error("Error:", error);
+          this.drawArrowRelation();
+          this.drawCircular();
+          })
         .then((response) => {
           console.log(response);
           this.items = response.results[0].result;
