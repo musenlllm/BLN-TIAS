@@ -37,7 +37,7 @@
                     case "loginRequest":
                         //得到登陆请求
                         console.log("login!!")
-                        this.$router.push('/login');
+                        this.$router.push('/summary');
                         break;
                 }
             }
