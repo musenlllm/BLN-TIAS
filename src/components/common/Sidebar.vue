@@ -58,38 +58,34 @@ export default {
         return {
             collapse: false,
             items: [
+                
                 {
-                    icon: 'el-icon-s-home',
-                    index: 'dashboard',
-                    title: '系统首页'
-                },
-                {
-                    icon: 'el-icon-s-comment',
+                    icon: 'iconfont icon1_wenbenzhaiyao',
                     index: 'summary',
                     title: '自动摘要'
                 },
                 {
-                    icon: 'el-icon-lx-copy',
+                    icon: 'iconfont icon2_shitishibie',
                     index: 'recognition',
                     title: '实体识别'
                 },
                 {
-                    icon: 'el-icon-pie-chart',
+                    icon: 'iconfont icon3_qingganfenxi',
                     index: 'form',
                     title: '情感分析'
                 },
                 {
-                    icon: 'el-icon-lx-calendar',
+                    icon: 'iconfont icon4_guanxichouqu',
                     index: 'relation',
                     title: '关系抽取'
                 },
                 {
-                    icon: 'el-icon-data-line',
+                    icon: 'iconfont icon5_wajue',
                     index: 'hotspot',
                     title: '热点挖掘'
                 },
                 {
-                    icon: 'el-icon-folder-opened',
+                    icon: 'iconfont icon6_fenlei',
                     index: 'classification',
                     title: '文本主题分类',
                 },
