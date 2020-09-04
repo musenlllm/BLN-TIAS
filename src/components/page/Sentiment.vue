@@ -28,9 +28,12 @@
                         <!--<div>-->
                             <!--{{sentimentscore}}-->
                         <!--</div>-->
-                        <div align="middle" id="emotionLevel" style="height: 300px">
-                            <>
-                        </div>
+                        <!--<div id="wrap">-->
+                            <!--<div id="icon_positive">-->
+                                <!--<i class="iconfont iconjijiqingxu"></i>-->
+                            <!--</div>-->
+                        <div align="middle" id="emotionLevel" style="height: 300px"></div>
+                        <!--</div>-->
                     </el-card>
                     <el-card class="box-card" style="min-height: 300px;margin-top: 20px" align="middle">
                         <div slot="header" class="clearfix">
@@ -160,6 +163,9 @@
                         <!--</el-col>-->
                         <!--<div class="line-echarts" style="text-align: center;">-->
                         <div id="historyChart" style="min-height: 600px"></div>
+                        <!--{{pos_news}}-->
+                        <!--{{neg_news}}-->
+                        {{one_week_time}}
 
                         <!--</div>-->
                     </el-card>
@@ -205,6 +211,7 @@ export default {
             },
             one_week_time : [],
 
+
             // "positive_news": [],  //列表每个item为字典形式, {"news": str, "url": str, "score": float, "publish_time": str}, 每个列表最多包含20条
             // "negative_news": []   //列表每个item为字典形式, {"news": str, "url": str, "score": float, "publish_time": str}, 每个列表最多包含20条
 
@@ -215,14 +222,17 @@ export default {
          // this.getData();
     },
     mounted() {
+
+        this.drawDashboard("emotionLevel",0);
+        this.getRealTimeSentimentInfo();
+        this.getDay();
         this.drawHistory('historyChart');
+        // this.getDay();
         // this.$nextTick(function() {
         //   this.drawHistory("lineChart");
         // });
         // this.$nextTick(function() {
-        this.drawDashboard("emotionLevel",0);
         // });
-        this.getRealTimeSentimentInfo();
         this.init()
     },
     methods: {
@@ -252,6 +262,33 @@ export default {
             this.summaryText='印度军方说，解放军的重型坦克和轻型坦克部署位置处在印度驻军的火力范围以内。印度驻军全副武装，拥有坦克和火炮的支援。据《今日印度》9月1日报道，印度陆军已经在斯潘古尔湖和楚舒勒之间的平原上部署了一个坦克团，这里也是8月底印度侵犯中国领土、与解放军发生冲突的位置附近。'
             this.ResultofSentiment()
         },
+        getBeforeDate(n) {
+            var n = n;
+            var d = new Date();
+            var year = d.getFullYear();
+            var mon = d.getMonth() + 1;
+            var day = d.getDate();
+            if(day >= n) {
+                if(mon > 1) {
+                    mon = mon - 1;
+                } else {
+                    year = year - 1;
+                    mon = 12;
+                }
+            }
+            d.setDate(d.getDate() + n); //很重要，+n取得是前一天的时间
+            year = d.getFullYear();
+            mon = d.getMonth() + 1;
+            day = d.getDate();
+            var s = (mon < 10 ? ('0' + mon) : mon) + "-" + (day < 10 ? ('0' + day) : day);
+            return s;
+        },
+        getDay(){
+            for(var i = 0; i > -7; i--){
+                this.one_week_time.push(this.getBeforeDate(i));
+            }
+        },
+
         getRealTimeSentimentInfo() {
             // 获取实时新闻列表
             fetch(realurl, {
@@ -305,17 +342,28 @@ export default {
               dataset: {
                   source: [
                       ['sentiment', '周一', '周二', '周三', '周四', '周五', '周六','周日'],
-                      ['积极', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7,90],
-                      ['消极', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1,10],
-                      ['中性', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5,0]
+                      ['积极', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7, 90],
+                      ['消极', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1, 10],
+                      ['中性', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5, 0]
                       // ['未知', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
                   ]
               },
               xAxis: {type: 'category'},
-              yAxis: {gridIndex: 0},
+              yAxis: {
+                  gridIndex: 0,
+                  // type: 'value',
+                  //   name: '元/币',
+                  //   splitLine: {
+                  //       show: false//是否显示分隔线。默认数值轴显示，类目轴不显示。
+                  //   },
+                  //   nameGap: 15,
+                  //   axisTick: {
+                  //       inside: true
+                  //   }
+
+              },
               grid: {top: '55%'},
               series: [
-                  {type: 'line', smooth: true, seriesLayoutBy: 'row'},
                   {type: 'line', smooth: true, seriesLayoutBy: 'row'},
                   {type: 'line', smooth: true, seriesLayoutBy: 'row'},
                   {type: 'line', smooth: true, seriesLayoutBy: 'row'},
@@ -353,6 +401,52 @@ export default {
                     });
                 }
             });
+            // var option = {
+            //     title: {
+            //         text: '近期币值走势'
+            //     },
+            //     tooltip: {
+            //         trigger: 'axis', //坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表中使用。
+            //     },
+            //     xAxis: {
+            //         type: 'category',//类目轴，适用于离散的类目数据，为该类型时必须通过 data 设置类目数据。
+            //         name: '日期',//坐标轴名称
+            //         boundaryGap: false,
+            //         data: one_week_time.reverse(),
+            //         nameGap: 7,//坐标轴名称与轴线之间的距离。
+            //         axisTick: {//是否显示坐标轴刻度。
+            //             inside: true//坐标轴刻度是否朝内，默认朝外。
+            //         }
+            //     },
+            //     yAxis: {
+            //         type: 'value',
+            //         name: '元/币',
+            //         splitLine: {
+            //             show: false//是否显示分隔线。默认数值轴显示，类目轴不显示。
+            //         },
+            //         nameGap: 15,
+            //         axisTick: {
+            //             inside: true
+            //         }
+            //     },
+            //     series: [{
+            //         type: 'line',//线条
+            //         name: '币值',//系列名称，用于tooltip的显示
+            //         data: [0.2, 0.5, 0.8, 1, 1.5, 2],
+            //         symbol: 'circle',//标记的类型：圆圈
+            //         itemStyle: {
+            //             normal: {
+            //                 shadowBlur: 50,//文字块的背景阴影长度。
+            //                 shadowColor: 'red',//文字块的背景阴影颜色。
+            //                 color: 'red',//图形的颜色
+            //                 lineStyle: {
+            //                     color: '#4d6dfd',//线的颜色
+            //                     width: 1//线的宽度
+            //                 }
+            //             }
+            //         }
+            //     }],
+            // };
             this.charts.setOption(option);
             window.addEventListener("resize", function() {
               this.charts.resize()
@@ -473,17 +567,40 @@ export default {
                     {
                         name: '情感程度',
                         type: 'gauge',
-                        detail: {formatter: '{value}%',
+                        detail: {
+                            formatter: '{value}%',
                             textStyle:{
-                                fontSize:14
+                                fontSize:20
                             }
                         },
-                        data: [{value: score, name: '情感程度'}],
+                        data: [{
+                            value: score,
+                            name: '情感程度',
+
+                        }],
+                        title : {
+                            textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                                fontWeight: 'bolder',
+                                fontSize: 20,
+                                fontStyle: 'italic',
+                                color:'gray'
+                            }
+                        },
                         axisLine: {            // 坐标轴线
                              lineStyle: {       // 属性lineStyle控制线条样式
-                                 color: [[0.2, '#E47470'], [0.8, '#DDA450'], [1, '#7EBF50']]
-                             }
+                                 color: [[0.2, '#E47470'], [0.8, '#DDA450'], [1, '#7EBF50']],
+                                 // width:50
+                             },
+
+
                         },
+                        axisLabel:{
+
+                            distance:-60,
+                            textStyle:{
+                                fontSize:15
+                            }
+                        }
 
                     }
                 ]
@@ -689,7 +806,7 @@ export default {
     }
     .div-text2{
         margin-bottom: 5px;
-        margin-left: 20%;
+        margin-left: 10%;
         text-align: left;
     }
     .bg-purple-light {
@@ -732,5 +849,8 @@ export default {
          background: 0 0;
          border-top: 1px dashed #e8eaec;
      }
+    #wrap{
+        display: flex;
+    }
 
 </style>
