@@ -15,7 +15,7 @@
                             <span>热点新闻</span>
                         </div>
                         <el-table
-                                :data="hot_topic"
+                                :data="hotspotRes.hot_event"
                                 style="width: 100%; text-align: center; background-color: #2d8cf0"
                                 @sort-change="changeSort"
                                 :default-sort="{prop: 'rank', order: 'ascending'}"
@@ -30,14 +30,14 @@
                                 width="100%">
                               </el-table-column>
                               <el-table-column align='center'
-                                prop="topic"
+                                prop="event"
                                 label="话题"
-
-                                width="180">
+                                width="100%">
                               </el-table-column>
                               <el-table-column align='center'
-                                prop="view_number"
-                                label="摘要"
+                                prop="popularity"
+                                label="阅读量"
+                                               width="100%"
                               >
                               </el-table-column>
                               <el-table-column align='center'
@@ -48,7 +48,7 @@
 
                                 <!--{{ item.label }}-->
                         </el-table>
-                        <div>{{hotspotRes}}</div>
+                        <!--<div>{{hotspotRes}}</div>-->
                         <div class="tag-group" style="margin-top: 0; display: flex; flex-direction: row; flex-wrap: wrap;">
                             <!--<span class="tag-group__title">Dark</span>-->
 
@@ -69,7 +69,7 @@
                             <span>新闻高影响力关键词排序</span>
                         </div>
                          <el-table
-                                :data="hot_topic"
+                                :data="hotspotRes.hot_key_words.today"
                                 style="width: 100%; text-align: center"
                                 @sort-change="changeSort"
                                 :default-sort="{prop: 'rank', order: 'ascending'}"
@@ -80,19 +80,18 @@
                                 label="排序"
                                 sortable
                                 :sort-orders="['ascending', 'descending']"
-                                width="350px">
+                                >
                               </el-table-column>
                               <el-table-column align='center'
-                                prop="topic"
+                                prop="word"
                                 label="关键词"
-                                sortable="custom"
-                                width="350px">
+                                >
                               </el-table-column>
-                              <!--<el-table-column align='center'-->
-                                <!--prop="view_number"-->
-                                <!--label="摘要"-->
-                                <!--sortable="custom">-->
-                              <!--</el-table-column>-->
+                              <el-table-column align='center'
+                                prop="influence"
+                                label="影响力"
+                              >
+                              </el-table-column>
                               <!--<el-table-column-->
                                 <!--prop="url"-->
                                 <!--label="链接"-->
@@ -114,7 +113,7 @@
                         </div>
                         <div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">
                             <el-table
-                                    :data="hot_topic"
+                                    :data="hotspotRes.hot_topic"
                                     style="width: 100%; text-align: center"
                                     @sort-change="changeSort"
                                     :default-sort="{prop: 'rank', order: 'ascending'}"
@@ -130,13 +129,13 @@
                                   <el-table-column align='center'
                                     prop="topic"
                                     label="话题"
-                                    sortable="custom"
-                                    width="180">
+                                  >
                                   </el-table-column>
                                   <el-table-column align='center'
                                     prop="view_number"
                                     label="阅读量"
-                                    sortable="custom">
+                                    width="100%"
+                                  >
                                   </el-table-column>
                                   <!--<el-table-column-->
                                     <!--prop="url"-->
@@ -206,7 +205,51 @@ export default {
         return {
             text: '',
             summaryText: '',
-            hotspotRes:{},
+            hotspotRes:{
+                // hot_event: [],  // 热点新闻,每一项item均为{"rank": int, "event": string, "popularity": int, "url": string}形式
+                // hot_topic: [],  // 热烈讨论话题, 每一项item均为{"rank": int, "topic": string, "view_number": string, "url": string}, "view_number"表示阅读和讨论量
+                // hot_freq_words: {
+                //     today: [], // 今日新闻高频词, 每一项均为{"rank": int, "word": str, "frequency": int}形式
+                //     nearly_three_days: [], // 近三日新闻高频词, 每一项均为{"rank": int, "word": str, "frequency": int}形式
+                //     nearly_one_week: [], //近一周新闻高频词, 每一项均为{"rank": int, "word": str, "frequency": int}形式
+                // },
+                // hot_key_words: {
+                //     today: [], // 今日新闻高影响力关键词, 每一项均为{"rank": int, "word": str, "influence": float}形式
+                //     nearly_three_days: [], // 近三日新闻高影响力关键词, 每一项均为{"rank": int, "word": str, "influence": float}形式
+                //     nearly_one_week: [], //近一周新闻高影响力关键词, 每一项均为{"rank": int, "word": str, "influence": float}形式
+                // },
+                // // hot_statistics: {
+                // //     "today_news_number": int, // 今日新增新闻数
+                // //     "nearly_three_days_news_number": int, // 近三日新增新闻数
+                // //     "nearly_one_week_news_number": int, // 近一周新增新闻数
+                // //     "today_news_distribution": {
+                // //         "domestic": int, "world": int, "sports": int, "society": int, "other": int, "history": int,"entertainment": int,
+                // //         "military": int, "government": int, "education": int, "finance": int, "comment": int
+                // //     },  // 今日新闻的主题(场景)分布;
+                // //     "nearly_three_days_news_distribution": {
+                // //         "domestic": int, "world": int, "sports": int, "society": int, "other": int, "history": int, "entertainment": int,
+                // //         "military": int, "government": int, "education": int, "finance": int, "comment": int
+                // //     }, // 近三日新闻的主题(场景)分布;
+                // //     "nearly_one_week_news_distribution": {
+                // //         "domestic": int, "world": int, "sports": int, "society": int, "other": int, "history": int, "entertainment": int,
+                // //         "military": int, "government": int, "education": int, "finance": int, "comment": int
+                // //     }, // 近一周新闻的主题(场景)分布
+                // //     // 下面十二个列表为近7日各主题新闻的每天增长数(7个整数值)
+                // //     "domestic_trend": [],
+                // //     "world_trend": [],
+                // //     "sports_trend": [],
+                // //     "society_trend": [],
+                // //     "other_trend": [],
+                // //     "history_trend": [],
+                // //     "entertainment_trend": [],
+                // //     "military_trend": [],
+                // //     "government_trend": [],
+                // //     "education_trend": [],
+                // //     "finance_trend": [],
+                // //     "comment_trend": [],
+                // //     "recent_half_hour_increase_news": []  //每个列表项{"news": str, "news_type": str, "publish_time": str, "url": str}  // 按时间先后, 最近发布的在前面
+                // // }
+            },
             items: [
                 // { type: '', label: '标签一' },
                 // { type: 'success', label: '标签二' },
@@ -214,18 +257,16 @@ export default {
             // 柱状图
             charts: "",
             view_number: "",
-            hot_topic:[
-                { rank: 1, topic: '新冠' ,view_number: 1000000, url:"http://baidu.com"},
-                { rank: 2, topic: '中国' ,view_number: 950101,url:"http://baidu.com"},
-                { rank: 3, topic: '奥运' ,view_number: 905100,url:"http://baidu.com"},
-                { rank: 4, topic: '国庆' ,view_number: 904100, url:"http://baidu.com"},
-                { rank: 5, topic: 'IPHONE' ,view_number: 850101,url:"http://baidu.com"},
-                { rank: 6, topic: '出轨' ,view_number: 805100,url:"http://baidu.com"},
+            hot_event:[
+                // { rank: 1, topic: '新冠' ,view_number: 1000000, url:"http://baidu.com"},
+                // { rank: 2, topic: '中国' ,view_number: 950101,url:"http://baidu.com"},
+                // { rank: 3, topic: '奥运' ,view_number: 905100,url:"http://baidu.com"},
+                // { rank: 4, topic: '国庆' ,view_number: 904100, url:"http://baidu.com"},
+                // { rank: 5, topic: 'IPHONE' ,view_number: 850101,url:"http://baidu.com"},
+                // { rank: 6, topic: '出轨' ,view_number: 805100,url:"http://baidu.com"},
             ],
-            treeData:{
-            },
-            percentData:[
-            ],
+            hot_topic:[],
+            hot_key_words:[],
             entData:[],
             treeCharts: '',
             percentCharts: '',
@@ -268,7 +309,9 @@ export default {
             .catch((error) => console.error("Error:", error))
             .then((response) => {
                 this.hotspotRes = response.results;
-
+                this.hot_event = hotspotRes.hot_event;
+                this.hot_topic = hotspotRes.hot_topic;
+                this.hot_key_words = response
             })
             // this.drawDashboard("emotionLevel",this.sentimentscore);
             //this.$message.success("提交成功！");
@@ -299,92 +342,6 @@ export default {
             };
             // 使用刚指定的配置项和数据显示图表。
             myChart.setOption(option);
-        },
-        // 获取 easy-mock 的模拟数据
-
-        drawTree(){
-            // const chart = this.$refs.chart
-            // if (chart) {
-            //     const myChart = this.$echarts.init(chart)
-            //     console.log(this.option)
-            //     myChart.setOption(this.option)
-            //     window.addEventListener("resize", function() {
-            //         myChart.resize()
-            //     })
-            // }
-            this.treeCharts = echarts.init(document.getElementById('tree'));
-            this.percentCharts = echarts.init(document.getElementById('percent'));
-            // this.charts = echarts.init(document.getElementById('tree'))
-            this.treeCharts.setOption({
-                tooltip: {
-                    trigger: 'item',
-                        triggerOn: 'mousemove'
-                },
-                series: [
-                    {
-                        type: 'tree',
-                        data: [this.treeData],
-                        top: '1%',
-                        left: '7%',
-                        bottom: '1%',
-                        right: '20%',
-                        symbolSize: 7,
-                        label: {
-                            position: 'left',
-                            verticalAlign: 'middle',
-                            align: 'right',
-                            fontSize: 9
-                        },
-                        leaves: {
-                            label: {
-                                position: 'right',
-                                verticalAlign: 'middle',
-                                align: 'left'
-                            }
-                        },
-                        expandAndCollapse: true,
-                        animationDuration: 550,
-                        animationDurationUpdate: 750
-                    }
-                ]
-            },);
-            this.percentCharts.setOption({
-                tooltip: {
-                    trigger: 'item',
-                    formatter: '{a} <br/>{b}: {c} ({d}%)'
-                },
-                legend: {
-                    orient: 'vertical',
-                    left: 5,
-                    data: this.entData
-                },
-                series: [
-                    {
-                        name: '实体数量比例图',
-                        type: 'pie',
-                        radius: ['50%', '70%'],
-                        avoidLabelOverlap: false,
-                        label: {
-                            show: false,
-                            position: 'center'
-                        },
-                        emphasis: {
-                            label: {
-                                show: true,
-                                fontSize: '30',
-                                fontWeight: 'bold'
-                            }
-                        },
-                        labelLine: {
-                            show: false
-                        },
-                        data: this.percentData
-                    }
-                ]
-            })
-            window.addEventListener("resize", function() {
-                        this.charts.resize()
-                    })
         },
         drawEChart() {
             // 基于准备好的dom，初始化echarts实例
