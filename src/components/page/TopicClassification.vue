@@ -145,7 +145,7 @@ import { fetchData } from "../../api/index";
 import echarts from "echarts/lib/echarts";
 import "echarts/dist/extension/dataTool";
 
-const childtypelist = ["教育", "环境", "财经", "时政", "社会", "运动", "科技"];
+const childtypelist = ["教育", "娱乐", "财经", "时政", "社会", "体育", "科技"];
 
 const typelist = [
   "体育",
@@ -168,11 +168,11 @@ const tpclassurl = "http://49.234.217.110:5000/api/tpclassification";
 const carouselurl = "http://49.234.217.110:5000/api/getRealTimeThemeInfo";
 const eng2cn = {
   education_news: "教育",
-  entertainment_news: "环境",
+  entertainment_news: "娱乐",
   finance_news: "财经",
   politics_news: "时政",
   society_news: "社会",
-  sports_news: "运动",
+  sports_news: "体育",
   technology_news: "科技",
 };
 
@@ -292,6 +292,7 @@ export default {
       //alert("你点击了 " + value);
     },
     submit() {
+      this.form.type = [];
       fetch(tpclassurl, {
         method: "POST",
         body: JSON.stringify({
