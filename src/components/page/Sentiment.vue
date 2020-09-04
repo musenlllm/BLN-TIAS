@@ -27,12 +27,12 @@
                         </div>
                         <div id="wrap" style="height:400px;width: 100%;justify-content: center">
                             <div id = "pos_emoji" style="height:100px;width:100px;margin-top: 150px" align="bottom">
-                                <img src="../../assets/img/neg2.png" />
+                                <img src="../../assets/img/neg2.png" width="100px"/>
                                 <span style="color:#E47470">负面情绪</span>
                             </div>
                             <div align="middle" id="emotionLevel" style="height:500px;width:500px"></div>
                             <div id = "neg_emoji" style="height:100%;width:100px;margin-top: 150px">
-                                <img src="../../assets/img/pos2.png" />
+                                <img src="../../assets/img/pos2.png" width="100px"/>
                                 <span style="color:#7EBF50">正面情绪</span>
                             </div>
                         </div>
@@ -1101,5 +1101,9 @@ export default {
         height: 400px;
         justify-content: flex-start;
     }
+    a:link {color:#000000;}      /* 未访问链接*/
+    a:visited {color:#000000;}  /* 已访问链接 */
+    a:hover {color: #589ef8;}  /* 鼠标移动到链接上 */
+    a:active {color: #589ef8;}  /* 鼠标点击时 */
 
 </style>
