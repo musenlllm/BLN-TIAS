@@ -1,5 +1,6 @@
   <template>
     <div class="login-wrap">
+        <div class="bg"></div>
         <div class="ms-login">
             <div class="ms-title">LDMC-NLP文本智能分析系统</div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
@@ -64,9 +65,18 @@ export default {
     position: relative;
     width: 100%;
     height: 100%;
+    /*background-image: url(../../assets/img/banner5.gif);*/
+    /*background-size: 108%;*/
+    /*filter: blur(10px);*/
+}
+.bg{
+    width: 100%;
+    height: 100%;
     background-image: url(../../assets/img/banner5.gif);
     background-size: 108%;
+    filter: blur(5px);
 }
+
 .ms-title {
     width: 100%;
     line-height: 50px;
@@ -76,6 +86,7 @@ export default {
     border-bottom: 1px solid #ddd;
 }
 .ms-login {
+    /*z-index: 11;*/
     position: absolute;
     left: 50%;
     top: 50%;

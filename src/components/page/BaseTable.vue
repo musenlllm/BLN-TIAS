@@ -21,9 +21,9 @@
                     </el-input>
                     <el-row style="margin-top: 30px; display: flex; justify-content: center; ">
                         <el-button v-on:click="getData" type="primary" style="background: rgb(36, 47, 66); border: 0px">开始摘要</el-button>
-                        <el-button v-on:click="mockData">随便试试</el-button>
+                        <!--<el-button v-on:click="mockData">随机样例</el-button>-->
                     </el-row>
-                    <el-card class="box-card" style="margin-top: 20px; text-align: center;min-height: 250px">
+                    <el-card class="box-card" style="margin-top: 20px; text-align: center;min-height: 250px" v-loading="loading">
                         <div slot="header" class="clearfix">
                             <span>摘要结果</span>
                         </div>
@@ -100,15 +100,20 @@ export default {
             text: '',
             summaryText: '',
             summaryRes:'',
-            queryURL:'http://49.234.217.110:5000/api/summarization'
+            queryURL:'http://49.234.217.110:5000/api/summarization',
+            loading: false
         };
     },
     created() {
         // this.getData();
     },
+    mounted(){
+      this.mockData()
+    },
     methods: {
         // 获取 easy-mock 的模拟数据
         getData() {
+            this.loading=true;
             var tempRes;
             // this.summaryRes = this.summaryText
              fetch(this.queryURL, {
@@ -127,6 +132,7 @@ export default {
                 .catch(error => console.error('Error:', error))
                 .then( (responseJson) => {
                     this.summaryRes = responseJson.results[0].result.summary
+                    this.loading=false
                     // console.log(tempRes)
                     }
                 )

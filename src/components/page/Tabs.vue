@@ -16,16 +16,16 @@
                 </el-input>
                 <el-row style="margin-top: 30px; display: flex; justify-content: center">
                     <el-button v-on:click="getData" type="primary" style="background: #242f42; border: 0px">开始识别</el-button>
-                    <el-button v-on:click="mockData">随便试试</el-button>
+                    <!--<el-button v-on:click="mockData">随机样例</el-button>-->
                 </el-row>
             </el-header>
             <el-container>
                 <el-aside width="700px" style="margin-left: 20px; margin-top: 30px; text-align: center">
-                    <el-card class="box-card" style="min-height: 174px">
+                    <el-card class="box-card" style="min-height: 174px" v-loading="resloading">
                         <div slot="header" class="clearfix">
                             <span>识别结果</span>
                         </div>
-                        <div class="tag-group" style="margin-top: 0; display: flex; flex-direction: row; flex-wrap: wrap;">
+                        <div class="tag-group" style="margin-top: 0; display: flex; flex-direction: row; flex-wrap: wrap;" v-loading="restypeloading">
                             <!--<span class="tag-group__title">Dark</span>-->
 
                             <el-tag style="margin-bottom: 10px; margin-right: 5px; border-radius: 4px; font-size: 15px; border: 0"
@@ -111,6 +111,8 @@
                 nerText: '',
                 nerRes:'实体命名识别结果',
                 queryURL:'http://49.234.217.110:5000/api/ner',
+                resloading: false,
+                restypeloading: false,
 
                 items: [
                     // { type: '', label: '标签一' },
@@ -152,12 +154,13 @@
              // this.getData();
         },
         mounted() {
-
+            this.mockData()
         },
         methods: {
             // 获取 easy-mock 的模拟数据
             getData() {
-
+                this.resloading = true;
+                this.restypeloading = true;
                 this.items=[];
                 this.percentData=[];
                 this.entData=[];
@@ -323,6 +326,8 @@
                                 }
                             })
                         }
+                        this.resloading = false;
+                        this.restypeloading = false;
 
                         console.log(this.treeData)
                         // this.option.series[0].data=this.treeData
