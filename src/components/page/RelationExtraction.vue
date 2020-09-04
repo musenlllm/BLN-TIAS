@@ -12,7 +12,7 @@
             v-model="content"
             maxlength="80"
             show-word-limit
-            :rows="6"
+            :autosize="{ minRows: 5, maxRows: 8}"
             clearable
             style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
           ></el-input>
