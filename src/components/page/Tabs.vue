@@ -7,7 +7,7 @@
                         type="textarea"
                         placeholder="请输入内容"
                         v-model="nerText"
-                        maxlength="400"
+                        maxlength="200"
                         show-word-limit
                         :autosize="{ minRows: 5, maxRows: 8}"
                         clearable
@@ -165,6 +165,10 @@
                 this.percentData=[];
                 this.entData=[];
 
+                //clear the input text
+                var tempText = this.clearText(this.nerText);
+                this.nerText = tempText;
+
                 // mock data
                 fetch(this.queryURL, {
                     method: "POST",
@@ -196,6 +200,7 @@
                         var resEnd;
                         var resEnt;
                         var colorTemp;
+                        var plainTextCharNum = 10
                         for (var i=0; i<resArray.length; i++){
 
                             resStart = Number(resArray[i].start);
@@ -211,8 +216,18 @@
                             plainEnd = resStart;
                             // console.log("plainEnd=resStart:"+plainEnd)
                             if(plainStart!==plainEnd){
-                                // console.log("push无意义词")
-                                // console.log("无意义词语： "+this.nerText.slice(plainStart,plainEnd))
+                                var numCuts = Math.floor((plainEnd - plainStart)/plainTextCharNum)
+                                // var lastChar = (plainEnd - plainStart)%plainTextCharNum
+                                for(let p=0;p<numCuts;p++){
+                                    this.items.push({
+                                        label: this.nerText.slice(plainStart,plainStart+plainTextCharNum),
+                                        color: 'gray',
+                                        type:'',
+                                        ent: '普通',
+                                        value:'1'
+                                    });
+                                    plainStart = plainStart+plainTextCharNum;
+                                }
                                 this.items.push({
                                     label: this.nerText.slice(plainStart,plainEnd),
                                     color: 'gray',
@@ -220,6 +235,15 @@
                                     ent: '普通',
                                     value:'1'
                                 })
+                                // console.log("push无意义词")
+                                // console.log("无意义词语： "+this.nerText.slice(plainStart,plainEnd))
+                                // this.items.push({
+                                //     label: this.nerText.slice(plainStart,plainEnd),
+                                //     color: 'gray',
+                                //     type:'',
+                                //     ent: '普通',
+                                //     value:'1'
+                                // })
                             }
                             plainStart = resEnd+1;
                             plainEnd = resEnd+1;
@@ -256,13 +280,37 @@
                             })
                         }
                         if ((resEnd+1)!=this.nerText.length) {
+
+                            var numCuts = Math.floor((this.nerText.length-plainEnd)/plainTextCharNum)
+                            // var lastChar = (plainEnd - plainStart)%6
+                            for(let p=0;p<numCuts;p++){
+                                this.items.push({
+                                    label: this.nerText.slice(plainEnd,plainEnd+plainTextCharNum),
+                                    color: 'gray',
+                                    type:'',
+                                    ent: '普通',
+                                    value:'1'
+                                });
+                                plainEnd = plainEnd+plainTextCharNum;
+                            }
                             this.items.push({
-                                label: this.nerText.slice(resEnd,this.nerText.length),
+                                label: this.nerText.slice(plainEnd,this.nerText.length),
                                 color: 'gray',
-                                type: '',
+                                type:'',
                                 ent: '普通',
                                 value:'1'
                             })
+
+
+
+                            //////////
+                            // this.items.push({
+                            //     label: this.nerText.slice(resEnd+1,this.nerText.length),
+                            //     color: 'gray',
+                            //     type: '',
+                            //     ent: '普通',
+                            //     value:'1'
+                            // })
                         }
 
                         this.treeData.name="实体分类树";
@@ -462,6 +510,13 @@
             mockData(){
                 this.nerText ='10月25日在北京的小米新品发布会上，雷军发布了一款概念手机小米MIX。该手机的设计师是当代著名的设计大师、民主设计和极简设计的倡导者菲利普·斯塔克。'
                 this.getData()
+            },
+            clearText(testStr) {
+                var resultStr = testStr.replace(/\ +/g, "");
+                resultStr = resultStr.replace(/\s+/g, "");
+                resultStr = resultStr.replace(/[ ]/g, "");    //去掉空格
+                resultStr = resultStr.replace(/[\r\n]/g, ""); //去掉回车换行
+                return resultStr;
             }
 
         }
