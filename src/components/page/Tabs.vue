@@ -446,6 +446,7 @@
                             labelLine: {
                                 show: false
                             },
+                            right: "20%",
                             data: this.percentData
                         }
                     ]
