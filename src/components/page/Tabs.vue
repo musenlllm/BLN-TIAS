@@ -167,7 +167,7 @@
 
                 //clear the input text
                 var tempText = this.clearText(this.nerText);
-                this.nerText = tempText;
+                // this.nerText = tempText;
 
                 // mock data
                 fetch(this.queryURL, {
@@ -175,7 +175,7 @@
                     body: JSON.stringify({
                         docs: [{
                             "id":0,
-                            "doc":this.nerText,
+                            "doc":tempText,
                         }]
                     }),
                     headers: {
@@ -220,7 +220,8 @@
                                 // var lastChar = (plainEnd - plainStart)%plainTextCharNum
                                 for(let p=0;p<numCuts;p++){
                                     this.items.push({
-                                        label: this.nerText.slice(plainStart,plainStart+plainTextCharNum),
+                                        // label: this.nerText.slice(plainStart,plainStart+plainTextCharNum),
+                                        label: tempText.slice(plainStart,plainStart+plainTextCharNum),
                                         color: 'gray',
                                         type:'',
                                         ent: '普通',
@@ -229,7 +230,8 @@
                                     plainStart = plainStart+plainTextCharNum;
                                 }
                                 this.items.push({
-                                    label: this.nerText.slice(plainStart,plainEnd),
+                                    // label: this.nerText.slice(plainStart,plainEnd),
+                                    label: tempText.slice(plainStart,plainEnd),
                                     color: 'gray',
                                     type:'',
                                     ent: '普通',
@@ -271,7 +273,8 @@
                             // console.log("意义词语: "+this.nerText.slice(resStart,resEnd+1));
                             // console.log("颜色: "+colorTemp);
                             this.items.push({
-                                label: this.nerText.slice(resStart,resEnd+1),
+                                // label: this.nerText.slice(resStart,resEnd+1),
+                                label: tempText.slice(resStart,resEnd+1),
                                 color: colorTemp,
                                 type: '',
                                 ent: resEnt,
@@ -279,13 +282,16 @@
 
                             })
                         }
-                        if ((resEnd+1)!=this.nerText.length) {
+                        // if ((resEnd+1)!=this.nerText.length) {
+                        if ((resEnd+1)!=tempText.length) {
 
-                            var numCuts = Math.floor((this.nerText.length-plainEnd)/plainTextCharNum)
+                            // var numCuts = Math.floor((this.nerText.length-plainEnd)/plainTextCharNum)
+                            var numCuts = Math.floor((tempText.length-plainEnd)/plainTextCharNum)
                             // var lastChar = (plainEnd - plainStart)%6
                             for(let p=0;p<numCuts;p++){
                                 this.items.push({
-                                    label: this.nerText.slice(plainEnd,plainEnd+plainTextCharNum),
+                                    // label: this.nerText.slice(plainEnd,plainEnd+plainTextCharNum),
+                                    label: tempText.slice(plainEnd,plainEnd+plainTextCharNum),
                                     color: 'gray',
                                     type:'',
                                     ent: '普通',
@@ -294,7 +300,8 @@
                                 plainEnd = plainEnd+plainTextCharNum;
                             }
                             this.items.push({
-                                label: this.nerText.slice(plainEnd,this.nerText.length),
+                                // label: this.nerText.slice(plainEnd,this.nerText.length),
+                                label: tempText.slice(plainEnd,tempText.length),
                                 color: 'gray',
                                 type:'',
                                 ent: '普通',
@@ -508,7 +515,7 @@
 
             },
             mockData(){
-                this.nerText ='10月25日在北京的小米新品发布会上，雷军发布了一款概念手机小米MIX。该手机的设计师是当代著名的设计大师、民主设计和极简设计的倡导者菲利普·斯塔克。'
+                this.nerText ='10月25日在北京的小米新品发布会上，雷军发布了一款概念手机小米MIX。该手机的设计师是当代著名的设计大师、民主设计和极简设计的倡导者菲利普·斯塔克。(请输入文本)'
                 this.getData()
             },
             clearText(testStr) {
@@ -516,6 +523,7 @@
                 resultStr = resultStr.replace(/\s+/g, "");
                 resultStr = resultStr.replace(/[ ]/g, "");    //去掉空格
                 resultStr = resultStr.replace(/[\r\n]/g, ""); //去掉回车换行
+                resultStr = resultStr.slice(0,resultStr.length-7)
                 return resultStr;
             }
 
