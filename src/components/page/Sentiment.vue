@@ -106,7 +106,7 @@
                                                     <!--</div>-->
                                                 <!--</div>-->
                                             <!--</div>-->
-                                            <div class="grid-content grid-con-1">
+                                            <div class="grid-content1 grid-con-1">
                                                 <div class="grid-con-text">
                                                     <div class="grid-num">近3日检测总数</div>
                                                     <div class="grid-num">{{nearly_three_days_num = history_count.nearly_three_days_negative_count+history_count.nearly_three_days_positive_count}} 条</div>
@@ -147,7 +147,7 @@
                                                     <!--</div>-->
                                                 <!--</div>-->
                                             <!--</div>-->
-                                            <div class="grid-content grid-con-1">
+                                            <div class="grid-content2 grid-con-1">
                                                 <div class="grid-con-text">
                                                     <div class="grid-num">近7日检测总数</div>
                                                     <div class="grid-num">{{nearly_one_week_num = history_count.nearly_one_week_negative_count+history_count.nearly_one_week_positive_count}} 条</div>
@@ -169,7 +169,7 @@
                                     </el-col>
                                     <el-col :span="23" style="padding: 0px;margin:10px">
                                         <el-card shadow="hover" :body-style="{padding: '0px'}" style="border-radius:20px;" >
-                                            <div class="grid-content grid-con-1">
+                                            <div class="grid-content3 grid-con-1">
                                                 <div class="grid-con-text">
                                                     <div class="grid-num">历史检测总数</div>
                                                     <div class="grid-num">{{history_count.history_negative_count+history_count.history_positive_count}} 条</div>
@@ -197,38 +197,50 @@
                                 <el-tabs type="border-card" stretch=true>
                                     <el-tab-pane label="正面新闻">
                                         <el-table
+                                            cell-style="font-weight: 500;"
                                             :data="pos_news"
                                             stripe
                                             style="width: 100%;text-align: center"
                                             :show-header=false
                                             :show-overflow-tooltip=true
                                             @sort-change="changeSort"
-                                            :default-sort="{prop: 'publish_time', order: 'ascending'}"
+                                            :default-sort="{prop: 'rank', order: 'ascending'}"
                                             max-height="400px"
 
                                         >
                                             <!--<el-table-column prop="rank">-->
 
                                             <!--</el-table-column>-->
+                                            <el-table-column align='center'
+                                                    type="index"
+                                                    :show-overflow-tooltip=true
+                                                    :sort-orders="['ascending', 'descending']"
+                                                    width="50%"
+                                            >
+                                            </el-table-column>
                                             <el-table-column prop="news"
+                                                             label="日期"
                                                              :show-overflow-tooltip=true
                                             >
                                                 <template slot-scope="scope">
                                                     <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.news}}</a>
                                                 </template>
                                             </el-table-column>
-                                            <el-table-column
-                                                    prop="score"
-                                                    width="80%"
-                                                    sortable
-                                            >
-                                                <template slot-scope="scope">
-                                                    <span >{{scope.row.score}}</span>
-                                                </template>
-                                            </el-table-column>
+                                            <!--<el-table-column-->
+                                                    <!--prop="score"-->
+                                                    <!--width="80%"-->
+                                                    <!--label="置信度"-->
+                                                    <!--sortable-->
+                                                    <!--:show-overflow-tooltip=true-->
+                                            <!--&gt;-->
+                                                <!--<template slot-scope="scope">-->
+                                                    <!--<span >{{scope.row.score.toFixed(4)}}</span>-->
+                                                <!--</template>-->
+                                            <!--</el-table-column>-->
                                             <el-table-column
                                                     prop="publish_time"
                                                     sortable
+                                                    label="日期"
                                                     :show-overflow-tooltip=true
                                             >
                                                 <template slot-scope="scope">
@@ -239,6 +251,7 @@
                                     </el-tab-pane>
                                     <el-tab-pane label="负面新闻">
                                         <el-table
+                                             cell-style="font-weight: 500;"
                                             :data="neg_news"
                                             stripe
                                             style="width: 100%;text-align: center"
@@ -247,6 +260,14 @@
                                             max-height="400px"
 
                                         >
+                                            <el-table-column align='center'
+                                                     type="index"
+                                                    :show-overflow-tooltip=true
+                                                    sortable
+                                                    :sort-orders="['ascending', 'descending']"
+                                                    width="50%"
+                                            >
+                                            </el-table-column>
                                             <el-table-column
                                                     prop="news"
                                                     :show-overflow-tooltip=true
@@ -255,11 +276,15 @@
                                                     <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.news}}</a>
                                                 </template>
                                             </el-table-column>
-                                            <el-table-column prop="score" width="80%">
-                                                <template slot-scope="scope">
-                                                    <span >{{scope.row.score}}</span>
-                                                </template>
-                                            </el-table-column>
+                                            <!--<el-table-column-->
+                                                    <!--prop="score"-->
+                                                    <!--width="80%"-->
+                                                    <!--:show-overflow-tooltip=true-->
+                                            <!--&gt;-->
+                                                <!--<template slot-scope="scope">-->
+                                                    <!--<span >{{scope.row.score}}</span>-->
+                                                <!--</template>-->
+                                            <!--</el-table-column>-->
                                             <el-table-column prop="publish_time"
                                                             :show-overflow-tooltip=true
                                             >
@@ -408,7 +433,6 @@ export default {
             .then((response) => {
                 console.log(response);
                 this.history_count = response.results;
-
                 this.pos_news = response.results.positive_news;
                 this.neg_news = response.results.negative_news;
                 // this.positive_news = [
@@ -734,6 +758,10 @@ export default {
             //     option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
             //     this.charts.setOption(option, true);
             // },2000);
+            window.addEventListener("resize", () =>
+            {
+                this.charts.resize();
+            });
 
         },
         init() {
@@ -951,21 +979,21 @@ export default {
         display: flex;
         align-items: center;
         height: 100px;
-        background: #E47470;
+        background: #589bf5;
     }
     .grid-content2 {
         flex-direction: row;
         display: flex;
         align-items: center;
         height: 100px;
-        background: #DDA450;
+        background: #57a6ff;
     }
     .grid-content3 {
         flex-direction: row;
         display: flex;
         align-items: center;
         height: 100px;
-        background: #7EBF50;
+        background: #61aaff;
     }
     .el-div{
         width: 1px;
