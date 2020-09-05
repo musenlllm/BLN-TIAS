@@ -11,7 +11,7 @@
             <el-main  style="margin-left: 1px; margin-top: 10px; text-align: center">
                 <el-row :gutter="20" >
                     <el-col :span="8">
-                        <el-card shadow="hover" class="box-card" :body-style="{padding: '0px'}" style="min-height: 400px;">
+                        <el-card shadow="hover" class="box-card" :body-style="{padding: '0px'}" style="min-height: 458px;">
                         <div slot="header" class="clearfix">
                             <span>热点新闻</span>
                         </div>
@@ -54,7 +54,7 @@
                     </el-card>
                     </el-col>
                     <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{padding: '0px'}" style="min-height: 400px;">
+                        <el-card shadow="hover" :body-style="{padding: '0px'}" style="min-height: 458px;">
                         <div slot="header" class="clearfix">
                             <span>热烈讨论话题</span>
                         </div>
@@ -66,6 +66,7 @@
                                     :default-sort="{prop: 'rank', order: 'ascending'}"
                                     :row-class-name="tableRowClassName"
                                     stripe
+                                    :show-overflow-tooltip=true
                                     max-height="400px"
                             >
                                   <el-table-column align='center'
@@ -79,6 +80,7 @@
                                   <el-table-column align='center'
                                     prop="topic"
                                     label="话题和链接"
+                                    :show-overflow-tooltip=true
                                   >
                                        <template slot-scope="scope">
                                            <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.topic}}</a>
@@ -113,14 +115,16 @@
                                     @sort-change="changeSort"
                                     :default-sort="{prop: 'publish_time', order: 'ascending'}"
                                     :row-class-name="tableRowClassName"
+                                    :show-overflow-tooltip=true
                                     max-height="400px"
                             >
                                 <el-table-column align='center'
                                     prop="news"
                                     label="链接和话题"
+                                     :show-overflow-tooltip=true
                                 >
                                     <template slot-scope="scope">
-                                      <a :href="scope.row.url" target="_blank" class="buttonText" >[{{scope.row.news_type}}]{{scope.row.news}}</a>
+                                      <a :href="scope.row.url" target="_blank" class="buttonText" >【{{scope.row.news_type}}】{{scope.row.news}}</a>
                                     </template>
                                 </el-table-column>
                                 <el-table-column align='center'
@@ -130,7 +134,7 @@
                                     :sort-orders="['ascending', 'descending']"
                                 >
                                     <template slot-scope="scope">
-                                          <span >发布时间：{{scope.row.news}}</span>
+                                          <span >发布时间：{{scope.row.publish_time}}</span>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -173,7 +177,6 @@
                             </div>
                         </el-tab-pane>
                         <el-tab-pane label="近三日" name="second">
-                            近三日
                             <div class="wrap">
                                 <div id = "hot_freq_words2" style="width:100%;min-height:400px;" ></div>
                                 <!--<div id="hot_distribution" style="width:100%;min-height:400px;"></div>-->
@@ -368,14 +371,14 @@ export default {
     },
     methods: {
         // 获取词列表
-        getFreqWords(id,freq_words){
+        getFreqWords(id,freq_words,title){
             for(let i = 0; i < 100; i++){
                 let obj = {};
                 obj.name = freq_words[i].word;
                 obj.value = freq_words[i].frequency;
                 this.freq_words_list[i] = obj;
             }
-            this.WordCloud(id,this.freq_words_list);
+            this.WordCloud(id,this.freq_words_list,title);
         },
         // 获取热点挖掘的数据
         ResultofHospot(){
@@ -480,7 +483,7 @@ export default {
                 var freq_words1 = this.freq_words.today;
                 var freq_words2 = this.freq_words.nearly_three_days;
                 var freq_words3 = this.freq_words.nearly_one_week;
-                this.getFreqWords("hot_freq_words2",freq_words2);
+                this.getFreqWords("hot_freq_words2",freq_words2,'新闻高频词分布词云');
                 // if(this.activeName=="third"){
                 //     for(let j = 0; j < 100; j++){
                 //         let obj = {};
@@ -524,7 +527,7 @@ export default {
                     obj.value = key_words2[i].influence;
                     this.key_words2_list[i] = obj;
                 }
-                this.WordCloud("hot_key_words2",this.key_words2_list);
+                this.WordCloud("hot_key_words2",this.key_words2_list,'新闻高影响力词分布词云');
 
 
                 // }
@@ -559,12 +562,12 @@ export default {
 
         },
         //词云
-        WordCloud(id,words) {
+        WordCloud(id,words,title) {
             this.chart = echarts.init(document.getElementById(id));
             const option = {
                 colorArr:['#fda67e', '#81cacc', '#cca8ba', "#88cc81", "#82a0c5", '#fddb7e', '#735ba1', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
                 title: {
-                    text: this.title,
+                    text: title,
                     x: "center"
                 },
                 backgroundColor: "#fff",
