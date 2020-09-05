@@ -243,7 +243,10 @@
                                             max-height="400px"
 
                                         >
-                                            <el-table-column prop="news">
+                                            <el-table-column
+                                                    prop="news"
+                                                    :show-overflow-tooltip=true
+                                            >
                                                 <template slot-scope="scope">
                                                     <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.news}}</a>
                                                 </template>
@@ -413,7 +416,7 @@ export default {
     data() {
         return {
             text: '',
-            summaryText: '',
+            summaryText: '印度军方说，解放军的重型坦克和轻型坦克部署位置处在印度驻军的火力范围以内。印度驻军全副武装，拥有坦克和火炮的支援。据《今日印度》9月1日报道，印度陆军已经在斯潘古尔湖和楚舒勒之间的平原上部署了一个坦克团，这里也是8月底印度侵犯中国领土、与解放军发生冲突的位置附近。(请输入文本)',
             sentimentscore:0,
             history:{},
             history_count :{
@@ -450,11 +453,11 @@ export default {
          // this.getData();
     },
     mounted() {
-
+        this.ResultofSentiment();
         this.drawDashboard("emotionLevel",0);
         this.getRealTimeSentimentInfo();
         this.getDay();
-        this.drawHistory('historyChart');
+        // this.drawHistory('historyChart');
         // this.getDay();
         // this.$nextTick(function() {
         //   this.drawHistory("lineChart");
