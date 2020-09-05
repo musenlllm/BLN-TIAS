@@ -118,7 +118,8 @@
                                     :show-overflow-tooltip=true
                                     max-height="400px"
                             >
-                                <el-table-column align='center'
+                                <el-table-column align='left'
+                                    header-align="center"
                                     prop="news"
                                     label="链接和话题"
                                      :show-overflow-tooltip=true
@@ -141,56 +142,30 @@
                         </el-card>
                     </el-col>
                 </el-row>
-                              <!--<el-table-column align='center'-->
-                                <!--prop="url"-->
-                                <!--label="链接和话题"-->
-                              <!--&gt;-->
-                                  <!--<template slot-scope="scope">-->
-                                    <!--<a :href="scope.row.url" target="_blank" class="buttonText">{{scope.row.event}}</a>-->
-                                  <!--</template>-->
-                              <!--</el-table-column>-->
-                                <!--{{ item.label }}-->
-                        <!--<div>{{hotspotRes}}</div>-->
-                        <!--<div class="tag-group" style="margin-top: 0; display: flex; flex-direction: row; flex-wrap: wrap;">-->
-                            <!--<span class="tag-group__title">Dark</span>-->
-                            <!--<el-tag style="margin-bottom: 10px; margin-right: 5px; border-radius: 4px; font-size: 15px; border: 0"-->
-                                    <!--v-for="item in items"-->
-                                    <!--:key="item.label"-->
-                                    <!--:type="item.type"-->
-                                    <!--:color="item.color"-->
-                                    <!--size="medium"-->
-                                    <!--effect="dark">-->
-                                <!--{{ item.label }}-->
-                            <!--</el-tag>-->
-                        <!--</div>-->
+
                 <el-card class="box-card" style="min-height:200px; margin-top: 20px;text-align: center">
-                    <!--<div slot="header" class="clearfix">-->
-                        <!--<span>新闻高频词</span>-->
-                    <!--</div>-->
                     <el-tabs v-model="activeName" @tab-click="handleClick">
-                        <el-tab-pane label="今日" name="first" lazy>
-                            今日
-                            <div class="wrap">
-                                <div id = "hot_freq_words1" style="margin: 4%">新闻高频词</div>
-                                <div id = "hot_key_words1" style="margin: 4%">新闻高影响力词</div>
+                        <el-tab-pane label="今日" name="first">
+
+                            <div class="wrap" v-if="isChildUpdate1">
+                                <div id = "hot_freq_words1" style="width:100%;min-height:400px;" ></div>
+                                <div id = "hot_key_words1" style="width:100%;min-height:400px;"></div>
                                 <!--<div>{{this.freq_words2_list}}</div>-->
                             </div>
                         </el-tab-pane>
-                        <el-tab-pane label="近三日" name="second">
-                            <div class="wrap">
-                                <div id = "hot_freq_words2" style="width:100%;min-height:400px;" ></div>
+                        <el-tab-pane label="近三日" name="second" >
+                            <div class="wrap" v-if="isChildUpdate2">
+                                <div id = "hot_freq_words2" style="width:100%;min-height:400px;"  ></div>
                                 <!--<div id="hot_distribution" style="width:100%;min-height:400px;"></div>-->
                                 <div id = "hot_key_words2" style="width:100%;min-height:400px;" ></div>
                                 <!--<div>{{this.key_words2_list}}</div>-->
                             </div>
                         </el-tab-pane>
-                        <el-tab-pane label="近七日" name="third" lazy>
-                            近七日
-                            <div class="wrap">
-                                <div id = "hot_freq_words3" style="width:100%;min-height:400px;" v-if="'third' === activeName"></div>
-                                <div id = "hot_key_words3" style="width:100%;min-height:400px;"></div>
+                        <el-tab-pane label="近七日" name="third">
+                            <div class="wrap" v-if="isChildUpdate3">
+                                <div id = "hot_freq_words3" style="width:100%;min-height:400px;" ></div>
+                                <div id = "hot_key_words3" style="width:100%;min-height:400px;" ></div>
                                 <!--<div>{{this.key_words2_list}}</div>-->
-
                             </div>
                         </el-tab-pane>
                     </el-tabs>
@@ -329,10 +304,14 @@ export default {
             freq_words2_list:[],
             freq_words3_list:[],
             key_words:[],
+            key_words_list:[],
             key_words1_list:[],
             key_words2_list:[],
             entData:[],
-            activeName: 'second',
+            activeName: 'third',
+            isChildUpdate1:false,
+            isChildUpdate2:false,
+            isChildUpdate3:true,
             recent_half_hour_increase_news:[],
             test:{"name":"Liza", "password":"123"},
             hot_statistics:{},
@@ -361,6 +340,7 @@ export default {
     mounted() {
         // this.WordCloud('hot_freq_words');
         this.ResultofHospot();
+
         // this.WordCloud("hot_freq_words2",this.freq_words2_list);
         // this.WordCloud("hot_freq_words3",this.freq_words3_list);
         // this.getDay();
@@ -370,7 +350,28 @@ export default {
         this.init()
     },
     methods: {
-        // 获取词列表
+        handleClick(tab) {
+            if(tab.name == "first") {
+                this.isChildUpdate1 = true;
+                this.getKeyWords("hot_key_words1",this.key_words.today,'今日新闻高影响力词分布词云');
+                this.getFreqWords("hot_freq_words1",this.freq_words.today,'今日新闻高频词分布词云');
+                this.isChildUpdate2 = false;
+                this.isChildUpdate3 = false;
+            } else if(tab.name == "second") {
+                this.isChildUpdate1 = false;
+                this.isChildUpdate2 = true;
+                this.getKeyWords("hot_key_words2",this.key_words.nearly_three_days,'近三日新闻高影响力词分布词云');
+                this.getFreqWords("hot_freq_words2",this.freq_words.nearly_three_days,'近三日新闻高频词分布词云');
+                this.isChildUpdate3 = false;
+            }else if(tab.name == "third") {
+                this.isChildUpdate1 = false;
+                this.isChildUpdate2 = false;
+                this.isChildUpdate3 = true;
+                this.getKeyWords("hot_key_words3",this.key_words.nearly_one_week,'近七日新闻高影响力词分布词云');
+                this.getFreqWords("hot_freq_words3",this.freq_words.nearly_one_week,'近七日新闻高频词分布词云');
+            }
+        },
+        // 获取高频词列表
         getFreqWords(id,freq_words,title){
             for(let i = 0; i < 100; i++){
                 let obj = {};
@@ -378,7 +379,23 @@ export default {
                 obj.value = freq_words[i].frequency;
                 this.freq_words_list[i] = obj;
             }
-            this.WordCloud(id,this.freq_words_list,title);
+            this.$nextTick(() => {
+                this.WordCloud(id,this.freq_words_list,title);
+            })
+
+        },
+        // 获取关键词列表
+        getKeyWords(id,key_words,title){
+            for(let i = 0; i < 100; i++){
+                let obj = {};
+                obj.name = key_words[i].word;
+                obj.value = key_words[i].influence;
+                this.key_words_list[i] = obj;
+            }
+            this.$nextTick(() => {
+                this.WordCloud(id,this.key_words_list,title);
+            })
+
         },
         // 获取热点挖掘的数据
         ResultofHospot(){
@@ -480,10 +497,12 @@ export default {
                 this.drawTrend("hot_trend",this.one_week_time.reverse(),this.news_info);
                 //词云1
                 this.freq_words = this.hotspotRes.hot_freq_words;
-                var freq_words1 = this.freq_words.today;
-                var freq_words2 = this.freq_words.nearly_three_days;
+                // var freq_words1 = this.freq_words.today;
+                // var freq_words2 = this.freq_words.nearly_three_days;
                 var freq_words3 = this.freq_words.nearly_one_week;
-                this.getFreqWords("hot_freq_words2",freq_words2,'新闻高频词分布词云');
+                // this.getFreqWords("hot_freq_words1",freq_words1,'今日新闻高频词分布词云');
+                // this.getFreqWords("hot_freq_words2",freq_words2,'近三日新闻高频词分布词云');
+                this.getFreqWords("hot_freq_words3",freq_words3,'近七日新闻高频词分布词云');
                 // if(this.activeName=="third"){
                 //     for(let j = 0; j < 100; j++){
                 //         let obj = {};
@@ -515,19 +534,25 @@ export default {
                 //     obj.value = freq_words3[j].frequency;
                 //     this.freq_words3_list[j] = obj;
                 // }
-                // this.getFreqWords("hot_freq_words3",freq_words3);
                 // this.WordCloud("hot_freq_words3",this.freq_words3_list);
                 //词云2
                 this.key_words = this.hotspotRes.hot_key_words;
-                var key_words1 = this.freq_words.today;
-                var key_words2 = this.key_words.nearly_three_days;
-                for(let i = 0; i < 100; i++){
-                    let obj = {};
-                    obj.name = key_words2[i].word;
-                    obj.value = key_words2[i].influence;
-                    this.key_words2_list[i] = obj;
-                }
-                this.WordCloud("hot_key_words2",this.key_words2_list,'新闻高影响力词分布词云');
+                // var key_words1 = this.key_words.today;
+                // var key_words2 = this.key_words.nearly_three_days;
+                var key_words3 = this.key_words.nearly_one_week;
+                // this.getKeyWords("hot_key_words1",key_words1,'今日新闻高影响力词分布词云');
+                // this.getKeyWords("hot_key_words2",key_words2,'近三日新闻高影响力词分布词云');
+                this.getKeyWords("hot_key_words3",key_words3,'近七日新闻高影响力词分布词云');
+                // for(let i = 0; i < 100; i++){
+                //     let obj = {};
+                //     obj.name = key_words2[i].word;
+                //     obj.value = key_words2[i].influence;
+                //     this.key_words2_list[i] = obj;
+                // }
+                // this.$nextTick(() => {
+                //     this.WordCloud("hot_key_words2",this.key_words2_list,'近三日新闻高影响力词分布词云');
+                // })
+
 
 
                 // }
@@ -571,6 +596,13 @@ export default {
                     x: "center"
                 },
                 backgroundColor: "#fff",
+                grid:{
+                    left:'5%',
+                    right:'8%',
+                    bottom:'10%',
+                    top:'19%',
+                    containLabel:true
+                },
 
                 series: [{
                     type: "wordCloud",
@@ -622,6 +654,9 @@ export default {
                 ]
             };
             this.chart.setOption(option);
+            window.addEventListener("resize", function() {
+              this.charts.resize()
+            })
         },
         //场景分布柱状图
         drawDistribution(id,data1,data2,data3) {
@@ -744,7 +779,7 @@ export default {
             this.chart = echarts.init(document.getElementById(id));
             // 指定图表的配置项和数据
             var option = {
-                // color:['#E47470','#7EBF50','#589EF8'],
+                // color:['#DC143C','#FFB6C1','#BA55D3','#483D8B','#1E90FF','#5F9EA0','#90EE90','#556B2F','#808000','#FFD700','#FFA500','#8B4513'],
                 //标题
                 title:{
                   // text: `各主题新闻每日增长数`  /*  [+] 折线图叫啥名字 */
