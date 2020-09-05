@@ -144,7 +144,7 @@
                 </el-row>
 
                 <el-card class="box-card" style="min-height:200px; margin-top: 20px;text-align: center">
-                    <el-tabs v-model="activeName" @tab-click="handleClick">
+                    <el-tabs type="card" v-model="activeName" @tab-click="handleClick">
                         <el-tab-pane label="今日" name="first">
 
                             <div class="wrap" v-if="isChildUpdate1">
@@ -338,15 +338,9 @@ export default {
     created() {
     },
     mounted() {
+        this.init()
         // this.WordCloud('hot_freq_words');
         this.ResultofHospot();
-
-        // this.WordCloud("hot_freq_words2",this.freq_words2_list);
-        // this.WordCloud("hot_freq_words3",this.freq_words3_list);
-        // this.getDay();
-        // this.drawDistribution("hot_distribution");
-        // this.drawEChart();
-        // this.drawChart();
         this.init()
     },
     methods: {
@@ -429,12 +423,14 @@ export default {
                 this.nearly_one_week_news_dis = Object.values(this.nearly_one_week_news_distribution);
                 // console.log(this.today_news_dis);
                 //柱状图
-                this.drawDistribution("hot_distribution",this.today_news_dis,this.nearly_three_days_news_dis,this.nearly_one_week_news_dis);
+                setTimeout(()=>{
+                    this.drawDistribution("hot_distribution",this.today_news_dis,this.nearly_three_days_news_dis,this.nearly_one_week_news_dis);
+                })
                 console.log("success")
                 //折线图
                 this.hot_statistics = this.hotspotRes.hot_statistics;
                 this.news_info[0] = {
-                    name: 'Domestic家庭',
+                    name: 'Domestic国内',
                     type: 'line',
                     data: this.hot_statistics.domestic_trend
                 },
@@ -558,42 +554,22 @@ export default {
                 // }
                 // this.recent_half_hour_increase_news = hotspotRes.hot_statistics.nearly_one_week_news_distribution
             })
-            //词云
-            // this.freq_words = this.hotspotRes.hot_freq_words;
-            // var freq_words1 = this.freq_words.today;
-            // var freq_words2 = this.freq_words.nearly_three_days;
-            // var freq_words3 = this.freq_words.nearly_one_week;
-            // // this.getFreqWords("hot_freq_words2",freq_words2);
-            // for(let i = 0; i < 100; i++){
-            //     let obj = {};
-            //     obj.name = freq_words2[i].word;
-            //     obj.value = freq_words2[i].frequency;
-            //     this.freq_words2_list[i] = obj;
-            // }
-            // this.WordCloud("hot_freq_words2",this.freq_words2_list);
-            // // this.getFreqWords("hot_freq_words3",freq_words3);
-            // for(let j = 0; j < 100; j++){
-            //     let obj = {};
-            //     obj.name = freq_words3[j].word;
-            //     obj.value = freq_words3[j].frequency;
-            //     this.freq_words3_list[j] = obj;
-            // }
-            // this.WordCloud("hot_freq_words3",this.freq_words3_list);
-
-            // var data1 = this.today_news_dis;
-            // console.log(Object.values(this.today_news_distribution));
-            // this.drawDistribution("hot_distribution",data1,data1,data1);
-            // this.$message.success(this.hotspotRes);
-
         },
         //词云
         WordCloud(id,words,title) {
             this.chart = echarts.init(document.getElementById(id));
             const option = {
-                colorArr:['#fda67e', '#81cacc', '#cca8ba', "#88cc81", "#82a0c5", '#fddb7e', '#735ba1', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
+                colorArr:['#fda67e', '#81cacc', '#cca8ba', "#88cc81", "#82a0c5", '#fddb7e', '#735BA1', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
                 title: {
                     text: title,
-                    x: "center"
+                    x: "center",
+                    padding:9,
+                    top:'0%',//各个方向的内边距，默认是5，可以自行设置
+
+                },
+                tooltip: {
+                    trigger: 'item',
+
                 },
                 backgroundColor: "#fff",
                 grid:{
@@ -607,22 +583,22 @@ export default {
                 series: [{
                     type: "wordCloud",
                     //用来调整词之间的距离
-                    gridSize: 10,
+                    gridSize: 5,
                     //用来调整字的大小范围
                     // Text size range which the value in data will be mapped to.
                     // Default to have minimum 12px and maximum 60px size.
                     sizeRange: [14, 60],
                     // Text rotation range and step in degree. Text will be rotated randomly in range [-90,                                                                             90] by rotationStep 45
                     //用来调整词的旋转方向，，[0,0]--代表着没有角度，也就是词为水平方向，需要设置角度参考注释内容
-                    // rotationRange: [-45, 0, 45, 90],
+                    rotationRange: [-40, 0, 45, 90],
                     // rotationRange: [ 0,90],
-                    rotationRange: [0, 0],
+                    // rotationRange: [0, 0],
                     //随机生成字体颜色
                     // maskImage: maskImage,
                     textStyle: {
                       normal: {
                         color: function() {
-                            var colorArr = ['#fda67e', '#81cacc', '#cca8ba', "#88cc81", "#82a0c5", '#fddb7e', '#735ba1', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
+                            var colorArr = ['#7db5e2', '#81cacc', '#cca8ba', "#7EBF50", "#82a0c5", '#fddb7e', '#bda29a', '#d2a59a', '#909399', '#c4ccd3','#67C23A'];
                             var flag = parseInt(Math.random() * 10);
                             return (colorArr[flag]);
                                 // colorArr[flag]
@@ -654,9 +630,12 @@ export default {
                 ]
             };
             this.chart.setOption(option);
-            window.addEventListener("resize", function() {
-              this.charts.resize()
-            })
+            // window.addEventListener("resize", function() {
+            //   this.chart.resize()
+            // })
+            window.addEventListener("resize", () => {
+                this.chart.resize();
+            });
         },
         //场景分布柱状图
         drawDistribution(id,data1,data2,data3) {
@@ -703,7 +682,12 @@ export default {
                               // backgroundColor: '#fff' // 单独设置某一个图列的字体背景色
                             }
                         },
-                    ]
+                    ],
+                    textStyle: {
+                        fontWeight: 500,
+                        fontSize:15
+                    },
+                    right: 100,
                 },
                 title: {
                     text: ""
@@ -711,16 +695,39 @@ export default {
 
                 xAxis: {
                     type: 'category',
-                    name: '新闻主题',
+                    name: '主题',
+                    nameTextStyle:{
+                        fontWeight:'500',
+                        fontSize:'18',
+                        padding:10
+                    },
                     axisLabel: {
                         interval:0,
-                        rotate:40
+                        rotate:40,
+                        fontSize:'14',
+                        fontWeight:'700',
+                        fontFamily:'微软雅黑',
                     },
-                    data:['Comment评论', 'Domestic家庭', 'Education教育', 'Entertainment娱乐', 'Finance经济','Government政府', 'History历史', 'Military军事', 'Other其他', 'Society社会', 'Sports体育', 'World世界']
+                    data:['Comment评论', 'Domestic国内', 'Education教育', 'Entertainment娱乐', 'Finance经济','Government政府', 'History历史', 'Military军事', 'Other其他', 'Society社会', 'Sports体育', 'World世界']
                 },
                 yAxis: {
                     type: 'value',
-                    name: '新闻主题数量',
+                    name: '数量',
+                    nameTextStyle:{
+                        fontWeight:'500',
+                        fontSize:'18',
+                        padding:10
+                    },
+                    axisLabel: {
+                        fontSize:'14',
+                        fontWeight:'700',
+                        fontFamily:'微软雅黑',
+                        marginTop:'35px',
+                        show:true,
+                        textStyle: {
+                          fontSize : 14   //更改坐标轴文字大小
+                        }
+                    },
                 },
                 series: [
                     {
@@ -741,9 +748,18 @@ export default {
                 ]
             };
             this.chart.setOption(option);
-            window.addEventListener("resize", function() {
-              this.charts.resize()
-            })
+            // window.addEventListener("resize", function() {
+            //   this.chart.resize()
+            // })
+            // setTimeout(function () {
+            //     var width = $('#aside').width();
+            //     if(width=='100'|| width=='60'){ //一定要加定时器，然后判断宽度是展开或者收起的时候再去调用echarts提供的resize()方法
+            //         this.chart.resize();
+            //     }
+            //  },200);
+             window.addEventListener("resize", function() {
+                this.chart.resize();
+            });
         },
         //获取近七日日期 step_1
         getBeforeDate(n) {
@@ -779,6 +795,8 @@ export default {
             this.chart = echarts.init(document.getElementById(id));
             // 指定图表的配置项和数据
             var option = {
+                // color : ['#7db5e2', '#81cacc', '#cca8ba', "#7EBF50", "#82a0c5", '#fddb7e', '#bda29a', '#d2a59a', '#909399', '#c4ccd3','#67C23A'],
+
                 // color:['#DC143C','#FFB6C1','#BA55D3','#483D8B','#1E90FF','#5F9EA0','#90EE90','#556B2F','#808000','#FFD700','#FFA500','#8B4513'],
                 //标题
                 title:{
@@ -788,9 +806,9 @@ export default {
                     trigger: 'axis'
                 },
                 grid: {
-                    top:'15%',
+                    top:'10%',
                     left: '3%',
-                    right: '4%',
+                    right: '12%',
                     bottom: '3%',
                     containLabel: true
                 },
@@ -806,19 +824,50 @@ export default {
                 },
                 //图例-每一条数据的名字叫销量
                 legend:{
-                    data:["Domestic家庭","World世界","Sports体育","Society社会","History历史","Entertainment娱乐",
-                        "Military军事","Government政府","Education教育","Finance经济","Comment评论","Other其他"]
+                    data:["Domestic国内","World世界","Sports体育","Society社会","History历史","Entertainment娱乐",
+                        "Military军事","Government政府","Education教育","Finance经济","Comment评论","Other其他"],
+                    textStyle: {
+                        fontWeight: 700          //legend字体颜色
+                    },
+                    orient: 'vertical',
+                    right: '-0%',
+                    top: '8%',
+                    bottom: 20,
                 },
                 //x轴
                 xAxis:{
                     type: 'category',
-                    name: '近七日',
+                    name: '日期',
+                    nameTextStyle:{
+                        fontWeight:'500',
+                        fontSize:'18',
+                    },
                     data: date_arr,
+                    axisLabel: {
+                        fontSize:'15',
+                        fontFamily:'微软雅黑',
+                        marginTop:'35px',
+                        show:true,
+                        fontWeight:'700',
+
+                    },
                 },
                 //y轴没有显式设置，根据值自动生成y轴
                 yAxis:{
                     type: 'value',
-                    name: '各新闻主题增长数量',
+                    name: '增长数量',
+                    nameTextStyle:{
+                        fontWeight:'500',
+                        fontSize:'18',
+                        padding:10
+                    },
+                    axisLabel: {
+                        fontSize:'15',
+                        fontFamily:'微软雅黑',
+                        marginTop:'35px',
+                        show:true,
+                        fontWeight:'500',
+                    },
                 },
                 //数据-data是最终要显示的数据
 
@@ -826,19 +875,19 @@ export default {
                 series: news_info
             };
             this.chart.setOption(option);
-            window.addEventListener("resize", function(){
-                this.charts.resize()
-            })
+            window.addEventListener("resize", () => {
+                this.chart.resize();
+            });
         },
 
         init() {
            const self = this;//因为箭头函数会改变this指向，指向windows。所以先把this保存
            setTimeout(() => {
-              window.onresize = function() {
-                  self.chart = echarts.init(self.$refs.myEchart);
+              window.addEventListener('resize', function() {
+                  self.chart = self.$echarts.init(self.$refs.Echart);
                   self.chart.resize();
-              }
-           },20)
+              })
+           },10)
          },
         // 修改table header的背景色
         tableHeaderColor() {
