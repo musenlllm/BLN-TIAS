@@ -57,7 +57,7 @@
                 direction="vertical"
                 arrow="never"
                 indicator-position="none"
-                height="380px"
+                height="378px"
                 :loop="true"
               >
                 <el-carousel-item v-for="(news, index) in newslist" :key="index">
@@ -157,8 +157,8 @@ const type2color = {
   时政: "#E6A23C",
   星座: "#E3E1C8",
   游戏: "#FB3C3C",
-  社会: "#203643",
-  科技: "#74C2E1",
+  科技: "#203643",
+  社会: "#74C2E1",
   股票: "#84CF96",
   财经: "#67C23A",
 };
@@ -167,9 +167,9 @@ const colorList = [
   "pink",
   "#67C23A",
   "#E6A23C",
-  "#203643",
-  "#F56C6C",
   "#74C2E1",
+  "#F56C6C",
+  "#203643",
 ];
 
 /*
