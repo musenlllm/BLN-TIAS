@@ -28,10 +28,10 @@
                 <el-col :span="10" style>本次分类结果为</el-col>
                 <el-col :span="6">
                   <div
-                    style="border-bottom: 1px solid #1E90FF;"
+                    style="border-bottom: 1px solid #1E90FF;min-height:20px"
                     v-if="form.type.length > 0"
                   >{{form.type}}</div>
-                  <div style="border-bottom: 1px solid #1E90FF;" v-else>&nbsp;</div>
+                  <div style="border-bottom: 1px solid #1E90FF;min-height:20px" v-else></div>
                 </el-col>
                 <el-col :span="4">
                   <div style="min-height: 16px"></div>
@@ -130,24 +130,7 @@ import echarts from "echarts/lib/echarts";
 import "echarts/dist/extension/dataTool";
 
 const childtypelist = ["教育", "娱乐", "财经", "时政", "社会", "体育", "科技"];
-const typelist = [
-  "体育",
-  "娱乐",
-  "家居",
-  "彩票",
-  "房产",
-  "教育",
-  "时尚",
-  "时政",
-  "星座",
-  "游戏",
-  "社会",
-  "科技",
-  "股票",
-  "财经",
-];
-
-const type2value = {
+/*const type2value = {
   体育: 0,
   娱乐: 10,
   家居: 20,
@@ -162,8 +145,7 @@ const type2value = {
   科技: 110,
   股票: 120,
   财经: 130,
-};
-
+};*/
 const type2color = {
   体育: "#F56C6C",
   娱乐: "pink",
@@ -180,17 +162,6 @@ const type2color = {
   股票: "#84CF96",
   财经: "#67C23A",
 };
-
-const eng2cn = {
-  education: "教育",
-  entertainment: "娱乐",
-  finance: "财经",
-  politics: "时政",
-  society: "社会",
-  sports: "体育",
-  technology: "科技",
-};
-
 const colorList = [
   "#9999CC",
   "pink",
@@ -220,15 +191,13 @@ export default {
   data: function () {
     return {
       form: {
-        type: [],
+        type: "科技",
         score: 0.985,
       },
       content:
         "【字节跳动或已拿下支付牌照】8月28日，武汉合众易宝科技有限公司股东中发实业（集团）有限公司退出，天津同融电子商务有限公司接盘100%股份。" +
         "天津同融电子商务有限公司是北京石贝科技有限公司全资子公司，穿透以后，字节跳动创始人张一鸣是实际控制人。合众支付官网显" +
         "示，该公司2014年获得由中国人民银行颁发的《支付业务许可证》，成为湖北省首家持牌互联网支付企业。（请输入文本）",
-
-      types: typelist,
       cnt: [],
       colorSt: {
         "background-color": "#99a9bf",
@@ -422,7 +391,7 @@ export default {
         seriesData: seriesData,
         selected: selected,
       };
-      console.log(dataset);
+      //console.log(dataset);
       // 绘制图表
       var option = {
         tooltip: {
@@ -459,17 +428,11 @@ export default {
       window.onresize = myChart.resize;
       myChart.setOption(option); //设置option
     },
-    initType() {
-      this.form.type = [];
-    },
-    changePage() {
-      console.log("change-page");
-    },
     onClick(value) {
       //alert("你点击了 " + value);
     },
     submit() {
-      this.form.type = [];
+      this.form.type = "";
       fetch(tpclassurl, {
         method: "POST",
         body: JSON.stringify({
@@ -506,7 +469,6 @@ export default {
         .then((res) => res.json())
         .catch((error) => console.error("Error:", error))
         .then((response) => {
-          console.log(response);
           var theme_count = response.results.theme_count;
           this.cnt = [
             theme_count.education,
@@ -526,8 +488,6 @@ export default {
           for (var i = 0; i < max_size; i++) {
             tnews.push(tnewslist.slice(i * 12, i * 12 + 12));
           }
-          console.log("tnews");
-          console.log(tnews);
           this.newslist = tnews;
           this.drawBarChart();
           this.drawPieChart();
