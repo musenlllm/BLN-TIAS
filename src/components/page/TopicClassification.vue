@@ -7,7 +7,7 @@
 
       <el-main style="text-align: center">
         <el-row style="margin:20px 0">
-          <el-col :span="20" style="padding-right:10px">
+          <el-col :span="16" style="padding-right:10px">
             <el-input
               type="textarea"
               placeholder="请输入文本"
@@ -19,12 +19,27 @@
               style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
             />
           </el-col>
-          <el-col :span="4">
-            <el-card shadow="always" style="height:140px;max-height:140px">
-              <div slot="header" class="clearfix">
-                <span>输入文本类型</span>
-              </div>
-              <el-button type="success" v-if="form.type.length>0" size="medium">{{ form.type }}</el-button>
+          <el-col :span="8">
+            <el-card shadow="always" style="height:350px;max-height:350px">
+              <el-row>
+                <el-col :span="4">
+                  <div style="min-height: 16px"></div>
+                </el-col>
+                <el-col :span="10" style>本次分类结果为</el-col>
+                <el-col :span="6">
+                  <div
+                    style="border-bottom: 1px solid #1E90FF;"
+                    v-if="form.type.length > 0"
+                  >{{form.type}}</div>
+                  <div style="border-bottom: 1px solid #1E90FF;" v-else>&nbsp;</div>
+                </el-col>
+                <el-col :span="4">
+                  <div style="min-height: 16px"></div>
+                </el-col>
+              </el-row>
+              <el-row>
+                <div align="middle" id="tpChart" style="height: 300px"></div>
+              </el-row>
             </el-card>
           </el-col>
         </el-row>
@@ -33,107 +48,60 @@
           <el-button @click="submit" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>
         </el-row>
 
-        <el-row style="margin: 20px 0">
-          <el-card shadow="always">
-            <div slot="header" class="clearfix">
-              <span>文本分类</span>
-            </div>
-            <el-button-group>
-              <template v-for="type in types">
-                <el-button
-                  type="success"
-                  size="medium"
-                  :key="type"
-                  v-if="form.type.indexOf(type)>=1000"
-                  @click="onClick(type)"
-                >{{type}}</el-button>
-                <el-button type="info" size="medium" :key="type" v-else disabled>{{type}}</el-button>
-              </template>
-            </el-button-group>
-          </el-card>
-        </el-row>
-
-        <el-row style="margin:10px 0;max-width:100%;max-height:200px">
+        <el-row style="margin:10px 0;max-width:100%;max-height:450px">
           <el-card>
-            <el-row>要闻</el-row>
-            <el-row style="padding-top:5px">
-              <el-carousel
-                :interval="9000"
-                direction="vertical"
-                arrow="never"
-                indicator-position="none"
-                width="200px"
-                height="156px"
-                :loop="true"
-                @change="changePage"
-              >
-                <el-carousel-item v-for="(news, index) in newslist" :key="index">
-                  <el-col :span="6">
-                    <el-table
-                      :show-header="false"
-                      :data="news.events.slice(0,4)"
-                      style="height:180px;max-height:180px;margin-top:5px"
-                    >
-                      <el-table-column align="left" :show-overflow-tooltip="true">
-                        <template slot-scope="scope">
-                          <a
-                            style="color:#708090"
-                            :href="scope.row.url"
-                          >[{{news.kind}}]{{scope.row.event}}</a>
-                        </template>
-                      </el-table-column>
-                    </el-table>
-                  </el-col>
-                  <el-col :span="6">
-                    <el-table
-                      :show-header="false"
-                      :data="news.events.slice(4,8)"
-                      style="height:180px;max-height:180px;margin-top:5px"
-                    >
-                      <el-table-column align="left" :show-overflow-tooltip="true">
-                        <template slot-scope="scope">
-                          <a
-                            style="color:#708090"
-                            :href="scope.row.url"
-                          >[{{news.kind}}]{{scope.row.event}}</a>
-                        </template>
-                      </el-table-column>
-                    </el-table>
-                  </el-col>
-                  <el-col :span="6">
-                    <el-table
-                      :show-header="false"
-                      :data="news.events.slice(8,12)"
-                      style="height:180px;max-height:180px;margin-top:5px"
-                    >
-                      <el-table-column align="left" :show-overflow-tooltip="true">
-                        <template slot-scope="scope">
-                          <a
-                            style="color:#708090"
-                            :href="scope.row.url"
-                          >[{{news.kind}}]{{scope.row.event}}</a>
-                        </template>
-                      </el-table-column>
-                    </el-table>
-                  </el-col>
-                  <el-col :span="6">
-                    <el-table
-                      :show-header="false"
-                      :data="news.events.slice(12,16)"
-                      style="height:180px;max-height:180px;margin-top:5px"
-                    >
-                      <el-table-column align="left" :show-overflow-tooltip="true">
-                        <template slot-scope="scope">
-                          <a
-                            style="color:#708090"
-                            :href="scope.row.url"
-                          >[{{news.kind}}]{{scope.row.event}}</a>
-                        </template>
-                      </el-table-column>
-                    </el-table>
-                  </el-col>
-                </el-carousel-item>
-              </el-carousel>
+            <el-row>实时主题新闻分类结果</el-row>
+            <el-row style="text-align:left;padding-top:5px">
+              <el-col :span="12">
+                <el-table
+                  :show-header="false"
+                  :data="newslist.slice(0,6)"
+                  style="height:380px;max-height:380px;margin-top:5px"
+                >
+                  <el-table-column :show-overflow-tooltip="true">
+                    <template slot-scope="scope">
+                      <el-row>
+                        <a :href="scope.row.url" style="color:#708090">
+                          <h3>{{scope.row.event}}</h3>
+                        </a>
+                      </el-row>
+                      <el-row>
+                        <el-col :span="9">发布时间：2020.8.20</el-col>
+                        <el-col :span="8">
+                          分类标签：
+                          <el-tag>{{scope.row.type}}</el-tag>
+                        </el-col>
+                        <el-col :span="7">置信度：0.99</el-col>
+                      </el-row>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-col>
+              <el-col :span="12">
+                <el-table
+                  :show-header="false"
+                  :data="newslist.slice(6,12)"
+                  style="height:380px;max-height:380px;margin-top:5px"
+                >
+                  <el-table-column :show-overflow-tooltip="true">
+                    <template slot-scope="scope">
+                      <el-row>
+                        <a :href="scope.row.url" style="color:#708090">
+                          <h3>{{scope.row.event}}</h3>
+                        </a>
+                      </el-row>
+                      <el-row>
+                        <el-col :span="9">发布时间：2020.8.20</el-col>
+                        <el-col :span="8">
+                          分类标签：
+                          <el-tag>{{scope.row.type}}</el-tag>
+                        </el-col>
+                        <el-col :span="7">置信度：0.99</el-col>
+                      </el-row>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-col>
             </el-row>
           </el-card>
         </el-row>
@@ -184,14 +152,30 @@ const typelist = [
   "股票",
   "财经",
 ];
+const type2value = {
+  体育: 0,
+  娱乐: 10,
+  家居: 20,
+  彩票: 30,
+  房产: 40,
+  教育: 50,
+  时尚: 60,
+  时政: 70,
+  星座: 80,
+  游戏: 90,
+  社会: 100,
+  科技: 110,
+  股票: 120,
+  财经: 130,
+};
 const eng2cn = {
-  education_news: "教育",
-  entertainment_news: "娱乐",
-  finance_news: "财经",
-  politics_news: "时政",
-  society_news: "社会",
-  sports_news: "体育",
-  technology_news: "科技",
+  education: "教育",
+  entertainment: "娱乐",
+  finance: "财经",
+  politics: "时政",
+  society: "社会",
+  sports: "体育",
+  technology: "科技",
 };
 
 const colorList = [
@@ -224,11 +208,12 @@ export default {
     return {
       form: {
         type: [],
+        score: 0.0,
       },
       content:
-        "（请输入文本）【字节跳动或已拿下支付牌照】8月28日，武汉合众易宝科技有限公司股东中发实业（集团）有限公司退出，天津同融电子商务有限公司接盘100%股份。" +
+        "【字节跳动或已拿下支付牌照】8月28日，武汉合众易宝科技有限公司股东中发实业（集团）有限公司退出，天津同融电子商务有限公司接盘100%股份。" +
         "天津同融电子商务有限公司是北京石贝科技有限公司全资子公司，穿透以后，字节跳动创始人张一鸣是实际控制人。合众支付官网显" +
-        "示，该公司2014年获得由中国人民银行颁发的《支付业务许可证》，成为湖北省首家持牌互联网支付企业。",
+        "示，该公司2014年获得由中国人民银行颁发的《支付业务许可证》，成为湖北省首家持牌互联网支付企业。（请输入文本）",
       types: typelist,
       cnt: [],
       colorSt: {
@@ -238,6 +223,132 @@ export default {
     };
   },
   methods: {
+    drawDashboard() {
+      var theChart = echarts.init(document.getElementById("tpChart"));
+      var thisVal = 50;
+
+      var option = {
+        // color:['#E47470','#7EBF50', '#589EF8'],
+        tooltip: {
+          formatter: "{a} <br/>{b} : {c}%",
+        },
+        series: [
+          {
+            name: "置信度",
+            type: "gauge",
+            detail: {
+              formatter: "{value}%",
+              textStyle: {
+                fontSize: 20,
+              },
+            },
+            data: [
+              {
+                value: Math.floor(this.form.score * 1000) / 10,
+                name: "置信度",
+              },
+            ],
+            title: {
+              textStyle: {
+                // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                fontWeight: "bolder",
+                fontSize: 20,
+                fontStyle: "italic",
+                color: "gray",
+              },
+            },
+            axisLine: {
+              // 坐标轴线
+              lineStyle: {
+                // 属性lineStyle控制线条样式
+                color: [
+                  [0.2, "#E47470"],
+                  [0.8, "#DDA450"],
+                  [1, "#7EBF50"],
+                ],
+                // width:50
+              },
+            },
+            axisLabel: {
+              distance: -60,
+              textStyle: {
+                fontSize: 15,
+              },
+            },
+          },
+        ],
+      };
+      /*var option2 = {
+        tooltip: {
+          formatter: "文本主题 : " + typelist[thisVal / 10],
+        },
+        series: [
+          {
+            name: "文本主题",
+            type: "gauge",
+            detail: {
+              formatter: function (value) {
+                console.log("value");
+                console.log(value);
+                return typelist[value / 10];
+              },
+              textStyle: {
+                fontSize: 20,
+              },
+            },
+            min: 0,
+            max: 130,
+            splitNumber: 13,
+            data: [
+              {
+                value: thisVal,
+                name: "文本主题",
+              },
+            ],
+            title: {
+              textStyle: {
+                // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                fontWeight: "bolder",
+                fontSize: 20,
+                fontStyle: "italic",
+                color: "gray",
+              },
+            },
+            axisLine: {
+              // 坐标轴线
+              lineStyle: {
+                // 属性lineStyle控制线条样式
+                color: [[1, "#F56C6C"]],
+                // width:50
+              },
+            },
+            axisLabel: {
+              distance: -60,
+              textStyle: {
+                fontSize: 15,
+              },
+              formatter: function (value) {
+                for (var key in type2value) {
+                  if (type2value[key] == value) {
+                    return key;
+                  }
+                }
+                return "error";
+              },
+            },
+            axisTick: {
+              show: false,
+            },
+          },
+        ],
+      };*/
+      theChart.setOption(option);
+
+      // setInterval(event =>  {
+      //     option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+      //     this.charts.setOption(option, true);
+      // },2000);
+    },
     drawBarChart() {
       let myChart = echarts.init(document.getElementById("showBarChart"));
       // 绘制图表
@@ -261,7 +372,7 @@ export default {
           {
             data: this.cnt,
             type: "bar",
-            showBackground: true,
+            showBackground: false,
             backgroundStyle: {
               color: "rgba(220, 220, 220, 0.8)",
             },
@@ -360,7 +471,12 @@ export default {
       })
         .then((res) => res.json())
         .catch((error) => console.error("Error:", error))
-        .then((response) => (this.form.type = response.results[0].data));
+        .then((response) => {
+          this.form.type = response.results[0].data;
+          this.form.score = response.results[0].score;
+          console.log(this.form.score);
+          this.drawDashboard();
+        });
 
       //this.$message.success("提交成功！");
     },
@@ -386,16 +502,10 @@ export default {
             theme_count.sports,
             theme_count.technology,
           ];
-          var news = response.results;
-          delete news.theme_count;
-
-          this.newslist = [];
-          for (var key in news) {
-            this.newslist.push({
-              kind: eng2cn[key],
-              events: news[key],
-            });
-          }
+          this.newslist = response.results.news_list;
+          /*this.newslist.forEach(function (news) {
+            news.type = eng2cn[news.type];
+          });*/
           this.drawBarChart();
           this.drawPieChart();
         });
@@ -403,6 +513,7 @@ export default {
   },
   mounted() {
     this.getRealTimeThemeInfo();
+    this.drawDashboard();
   },
 };
 </script>
