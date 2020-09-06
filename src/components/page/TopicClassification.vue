@@ -50,7 +50,6 @@
           <el-button @click="submit" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>
         </el-row>
 
-<<<<<<< HEAD
         <el-row style="margin:10px 0;max-width:100%;max-height:450px">
           <el-card>
             <el-row>实时主题新闻分类结果</el-row>
