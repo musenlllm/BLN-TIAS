@@ -23,11 +23,11 @@
                         <el-button v-on:click="getData" type="primary" style="background: rgb(36, 47, 66); border: 0px">开始摘要</el-button>
                         <!--<el-button v-on:click="mockData">随机样例</el-button>-->
                     </el-row>
-                    <el-card class="box-card" style="margin-top: 20px; text-align: center;min-height: 250px" v-loading="loading">
+                    <el-card class="box-card" style="font-size:18px;margin-top: 20px; text-align: center;min-height: 250px" v-loading="loading">
                         <div slot="header" class="clearfix">
                             <span>摘要结果</span>
                         </div>
-                        <div>
+                        <div style="font-size: 16px">
                             {{summaryRes}}
                         </div>
                         <!--<el-input-->
@@ -172,6 +172,7 @@ export default {
     .res-textarea {
         color: black; margin-top: 30px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
     }
+
 
 
 

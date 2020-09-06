@@ -23,7 +23,7 @@
                 <el-aside width="700px" style="margin-left: 20px; margin-top: 30px; text-align: center">
                     <el-card class="box-card" style="min-height: 174px" v-loading="resloading">
                         <div slot="header" class="clearfix">
-                            <span>识别结果</span>
+                            <span style="font-size: 18px">识别结果</span>
                         </div>
                         <div class="tag-group" style="margin-top: 0; display: flex; flex-direction: row; flex-wrap: wrap;" v-loading="restypeloading">
                             <!--<span class="tag-group__title">Dark</span>-->
@@ -42,7 +42,7 @@
 
                     <el-card class="box-card" style="min-height: 174px; margin-top: 20px">
                         <div slot="header" class="clearfix">
-                            <span>实体分类树</span>
+                            <span style="font-size: 18px">实体分类树</span>
                         </div>
                         <div id="tree" style="width: 600px;height: 600px;"></div>
                     </el-card>
@@ -53,7 +53,7 @@
                 <el-main style="text-align: center; margin-top: 10px">
                     <el-card class="box-card">
                         <div slot="header" class="clearfix">
-                            <span>可识别实体类别</span>
+                            <span style="font-size: 18px">可识别实体类别</span>
                         </div>
                         <div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">
                             <el-tag style="width: 100px; margin-right: 10px;margin-bottom: 10px; border-radius: 4px; font-size: 15px; border: 0px;
@@ -70,7 +70,7 @@
                     </el-card>
                     <el-card class="box-card" style="min-height: 174px; margin-top: 20px">
                         <div slot="header" class="clearfix">
-                            <span>实体比例图</span>
+                            <span style="font-size: 18px">实体比例图</span>
                         </div>
                         <div id="percent" style="width: 600px;height: 600px;"></div>
                     </el-card>
