@@ -7,9 +7,7 @@
                         type="textarea"
                         placeholder="请输入内容"
                         v-model="nerText"
-
                         maxlength="200"
-
                         show-word-limit
                         :autosize="{ minRows: 5, maxRows: 8}"
                         clearable
@@ -74,7 +72,6 @@
                         <div slot="header" class="clearfix">
                             <span>实体比例图</span>
                         </div>
-
                         <div id="percent" style="width: 600px;height: 600px;"></div>
                     </el-card>
 
@@ -167,6 +164,7 @@
                 this.items=[];
                 this.percentData=[];
                 this.entData=[];
+
                 //clear the input text
                 var tempText = this.clearText(this.nerText);
                 // this.nerText = tempText;
@@ -178,7 +176,6 @@
                         docs: [{
                             "id":0,
                             "doc":tempText,
-
                         }]
                     }),
                     headers: {
@@ -204,7 +201,7 @@
                         var resEnt;
                         var colorTemp;
                         var plainTextCharNum = 10
-             for (var i=0; i<resArray.length; i++){
+                        for (var i=0; i<resArray.length; i++){
 
                             resStart = Number(resArray[i].start);
                             resEnd = Number(resArray[i].end);
@@ -235,13 +232,11 @@
                                 this.items.push({
                                     // label: this.nerText.slice(plainStart,plainEnd),
                                     label: tempText.slice(plainStart,plainEnd),
-
                                     color: 'gray',
                                     type:'',
                                     ent: '普通',
                                     value:'1'
                                 })
-// <<<<<<< HEAD
                                 // console.log("push无意义词")
                                 // console.log("无意义词语： "+this.nerText.slice(plainStart,plainEnd))
                                 // this.items.push({
@@ -278,10 +273,8 @@
                             // console.log("意义词语: "+this.nerText.slice(resStart,resEnd+1));
                             // console.log("颜色: "+colorTemp);
                             this.items.push({
-
                                 // label: this.nerText.slice(resStart,resEnd+1),
                                 label: tempText.slice(resStart,resEnd+1),
-
                                 color: colorTemp,
                                 type: '',
                                 ent: resEnt,
@@ -289,7 +282,6 @@
 
                             })
                         }
-
                         // if ((resEnd+1)!=this.nerText.length) {
                         if ((resEnd+1)!=tempText.length) {
 
@@ -325,7 +317,7 @@
                             //     type: '',
                             //     ent: '普通',
                             //     value:'1'
-
+                            // })
                         }
 
                         this.treeData.name="实体分类树";
@@ -531,9 +523,11 @@
                 resultStr = resultStr.replace(/\s+/g, "");
                 resultStr = resultStr.replace(/[ ]/g, "");    //去掉空格
                 resultStr = resultStr.replace(/[\r\n]/g, ""); //去掉回车换行
-                resultStr = resultStr.slice(0,resultStr.length-7)
-                return resultStr;
+                if(this.nerText.indexOf("(请输入文本)")!=-1){
+                    resultStr = resultStr.slice(0,resultStr.length-7)
+                }
 
+                return resultStr;
             }
 
         }

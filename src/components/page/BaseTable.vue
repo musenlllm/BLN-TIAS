@@ -113,10 +113,8 @@ export default {
     methods: {
         // 获取 easy-mock 的模拟数据
         getData() {
-
             var tempText = this.clearText(this.summaryText)
             // this.summaryText = this.clearText(this.summaryText)
-
             this.loading=true;
             var tempRes;
             // this.summaryRes = this.summaryText
@@ -125,9 +123,7 @@ export default {
                 body: JSON.stringify({
                     docs: [{
                         "id":0,
-
                         "doc":tempText,
-
                     }]
                 }),
                 headers: {
@@ -144,7 +140,6 @@ export default {
                 )
             // console.log(tempRes)
             // this.summaryRes = tempRes;
-
         },
         mockData(){
             this.summaryText='日前，方舟子发文直指林志颖旗下爱碧丽推销假保健品，引起哗然。调查发现，爱碧丽没有自己的生产加工厂,其胶原蛋白饮品无核心研发，全部代工生产。号称有“逆生长”功效的爱碧丽“梦幻奇迹限量组”售价高达1080元，实际成本仅为每瓶4元！（请输入文本）'
@@ -155,10 +150,11 @@ export default {
             resultStr = resultStr.replace(/\s+/g, "");
             resultStr = resultStr.replace(/[ ]/g, "");    //去掉空格
             resultStr = resultStr.replace(/[\r\n]/g, ""); //去掉回车换行
-            resultStr = resultStr.slice(0,resultStr.length-7)
+            if(this.summaryText.indexOf("(请输入文本)")!=-1){
+                resultStr = resultStr.slice(0,resultStr.length-7)
+            }
             return resultStr;
         }
-
 
 
     }
