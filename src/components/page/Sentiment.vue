@@ -208,9 +208,6 @@
                                             max-height="400px"
 
                                         >
-                                            <!--<el-table-column prop="rank">-->
-
-                                            <!--</el-table-column>-->
                                             <el-table-column align='center'
                                                     type="index"
                                                     :show-overflow-tooltip=true

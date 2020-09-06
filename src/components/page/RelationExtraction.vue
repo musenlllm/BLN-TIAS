@@ -110,6 +110,8 @@ function getPersonList(links) {
 function shuffle(arr) {
   for (let i = arr.length - 1; i >= 0; i--) {
     let rIndex = Math.floor(Math.random() * (i + 1));
+
+
     // console.log(i, rIndex);
     let temp = arr[rIndex];
     arr[rIndex] = arr[i];
@@ -125,7 +127,9 @@ export default {
       content:
         "红楼梦中贾政的五个孩子分别是贾珠、贾元春、贾宝玉、贾探春以及贾环。（请输入文本）",
       items: [
+
         { person1: "贾政", person2: "贾珠", relation: "亲子" },
+
         { person1: "贾政", person2: "贾元春", relation: "亲子" },
         { person1: "贾政", person2: "贾宝玉", relation: "亲子" },
         { person1: "贾政", person2: "贾探春", relation: "亲子" },
@@ -268,7 +272,9 @@ export default {
           {
             data: categories.map(function (a) {
               return a.name;
+
             }),
+
           },
         ],
         tooltip: {},
@@ -476,7 +482,9 @@ export default {
           console.error("Error:", error);
           this.drawArrowRelation();
           this.drawCircular();
+
         })
+
         .then((response) => {
           console.log(response);
           this.items = response.results[0].result;
