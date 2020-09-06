@@ -712,7 +712,7 @@ export default {
                 },
                 yAxis: {
                     type: 'value',
-                    name: '数量',
+                    name: '增长数量',
                     nameTextStyle:{
                         fontWeight:'500',
                         fontSize:'18',
@@ -837,7 +837,7 @@ export default {
                 //x轴
                 xAxis:{
                     type: 'category',
-                    name: '日期',
+                    name: '近七日',
                     nameTextStyle:{
                         fontWeight:'500',
                         fontSize:'18',
