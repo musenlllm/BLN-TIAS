@@ -10,16 +10,16 @@
     export default {
         data: function() {
             return {
-                getPageUrl: 'https://kingsunfather.github.io/buaa-tias-preview/',
+                getPageUrl: 'https://kingsundad.gitee.io/ldmc-tias-index/',
                 iframeWin: {},
                 // publicPath: process.env.BASE_URL
             };
         },
         name: 'entrypage',
         methods: {
-            openEntrypage(){
-                window.location.href="https://kingsunfather.github.io/buaa-tias-preview/"
-            },
+            // openEntrypage(){
+            //     window.location.href="https://kingsunfather.github.io/buaa-tias-preview/"
+            // },
             //向iframe传数据
             sendMessage2Vue(){
                 this.iframeWin.postMessage(
@@ -37,7 +37,7 @@
                     case "loginRequest":
                         //得到登陆请求
                         console.log("login!!")
-                        this.$router.push('/login');
+                        this.$router.push('/summary');
                         break;
                 }
             }

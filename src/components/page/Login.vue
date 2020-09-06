@@ -1,7 +1,8 @@
   <template>
     <div class="login-wrap">
+        <div class="bg"></div>
         <div class="ms-login">
-            <div class="ms-title">后台管理系统</div>
+            <div class="ms-title">LDMC-NLP文本智能分析系统</div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
                 <el-form-item prop="username">
                     <el-input v-model="param.username" placeholder="username">
@@ -32,8 +33,8 @@ export default {
     data: function() {
         return {
             param: {
-                username: 'admin',
-                password: '123123',
+                username: 'ldmc',
+                password: 'ldmc',
             },
             rules: {
                 username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
@@ -47,7 +48,7 @@ export default {
                 if (valid) {
                     this.$message.success('登录成功');
                     localStorage.setItem('ms_username', this.param.username);
-                    this.$router.push('/dashboard');
+                    this.$router.push('/summary');
                 } else {
                     this.$message.error('请输入账号和密码');
                     console.log('error submit!!');
@@ -64,9 +65,18 @@ export default {
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url(../../assets/img/login-bg.jpg);
-    background-size: 100%;
+    /*background-image: url(../../assets/img/banner5.gif);*/
+    /*background-size: 108%;*/
+    /*filter: blur(10px);*/
 }
+.bg{
+    width: 100%;
+    height: 100%;
+    background-image: url(../../assets/img/banner5.gif);
+    background-size: 108%;
+    filter: blur(5px);
+}
+
 .ms-title {
     width: 100%;
     line-height: 50px;
@@ -76,6 +86,7 @@ export default {
     border-bottom: 1px solid #ddd;
 }
 .ms-login {
+    /*z-index: 11;*/
     position: absolute;
     left: 50%;
     top: 50%;

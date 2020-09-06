@@ -51,91 +51,44 @@
 
 <script>
 import bus from '../common/bus';
+import ElementUI from 'element-ui';
+// import 'element-ui/lib/theme-chalk/index.css'
 export default {
     data() {
         return {
             collapse: false,
             items: [
+                
                 {
-                    icon: 'el-icon-lx-home',
-                    index: 'dashboard',
-                    title: '系统首页'
-                },
-                {
-                    icon: 'el-icon-lx-cascades',
+                    icon: 'iconfont icon1_wenbenzhaiyao',
                     index: 'summary',
                     title: '自动摘要'
                 },
                 {
-                    icon: 'el-icon-lx-copy',
+                    icon: 'iconfont icon2_shitishibie',
                     index: 'recognition',
                     title: '实体识别'
                 },
                 {
-                    icon: 'el-icon-lx-calendar',
-                    index: '3',
-                    title: '情感分析',
-                    subs: [
-                        {
-                            index: 'form',
-                            title: '基本表单'
-                        },
-                        {
-                            index: '3-2',
-                            title: '三级菜单',
-                            subs: [
-                                {
-                                    index: 'editor',
-                                    title: '富文本编辑器'
-                                },
-                                {
-                                    index: 'markdown',
-                                    title: 'markdown编辑器'
-                                }
-                            ]
-                        },
-                        {
-                            index: 'upload',
-                            title: '文件上传'
-                        }
-                    ]
+                    icon: 'iconfont icon3_qingganfenxi',
+                    index: 'form',
+                    title: '情感分析'
                 },
                 {
-                    icon: 'el-icon-lx-emoji',
+                    icon: 'iconfont icon4_guanxichouqu',
                     index: 'relation',
                     title: '关系抽取'
                 },
                 {
-                    icon: 'el-icon-pie-chart',
+                    icon: 'iconfont icon5_wajue',
                     index: 'hotspot',
                     title: '热点挖掘'
                 },
                 {
-                    icon: 'el-icon-rank',
+                    icon: 'iconfont icon6_fenlei',
                     index: 'classification',
                     title: '文本主题分类',
                 },
-                {
-                    icon: 'el-icon-lx-global',
-                    index: 'i18n',
-                    title: '国际化功能'
-                },
-                {
-                    icon: 'el-icon-lx-warn',
-                    index: '7',
-                    title: '错误处理',
-                    subs: [
-                        {
-                            index: 'permission',
-                            title: '权限测试'
-                        },
-                        {
-                            index: '404',
-                            title: '404页面'
-                        }
-                    ]
-                },
-
             ]
         };
     },
@@ -155,6 +108,8 @@ export default {
 </script>
 
 <style scoped>
+    @import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
+
 .sidebar {
     display: block;
     position: absolute;

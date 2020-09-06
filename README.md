@@ -19,3 +19,7 @@ npm run build
 刘如日增加deploy.sh，开发者修改之后可以直接运行该发布脚本
 该脚本可以自动build且push在github page上然后可以在
  https://kingsunfather.github.io/tias-dev/线上预览变化
+## 7.24
+后台管理侧边栏目录更改
+## 9.3
+连接后端获取数据
