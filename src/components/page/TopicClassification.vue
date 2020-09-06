@@ -8,7 +8,6 @@
       <el-main style="text-align: center">
         <el-row style="margin:20px 0">
           <el-col :span="16" style="padding-right:10px">
-
             <el-input
               type="textarea"
               placeholder="请输入文本"
@@ -41,7 +40,6 @@
               <el-row>
                 <div align="middle" id="tpChart" style="height: 300px"></div>
               </el-row>
-
             </el-card>
           </el-col>
         </el-row>
@@ -74,17 +72,22 @@
                         <el-table-column :show-overflow-tooltip="true">
                           <template slot-scope="scope">
                             <el-row>
-                              <a :href="scope.row.url" style="color:#708090">
-                                <h3>{{scope.row.event}}</h3>
-                              </a>
+                                <a :href="scope.row.url" style="color:#708090">
+                                  <h3>{{scope.row.event}}</h3>
+                                </a>
                             </el-row>
                             <el-row>
-                              <el-col :span="9">发布时间：{{scope.row.publish_time}}</el-col>
-                              <el-col :span="8">
+                              <el-col :span="12">发布时间：{{scope.row.publish_time}}</el-col>
+                              <el-col :span="6">
                                 分类标签：
-                                <el-tag>{{scope.row.type}}</el-tag>
+                                <el-tag
+                                  effect="dark"
+                                  :color="scope.row.color"
+                                  style="border-radius: 4px;border: 0px;
+                             box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);"
+                                >{{scope.row.type}}</el-tag>
                               </el-col>
-                              <el-col :span="7">置信度：{{scope.row.score}}</el-col>
+                              <el-col :span="6">置信度：{{scope.row.score}}</el-col>
                             </el-row>
                           </template>
                         </el-table-column>
@@ -160,6 +163,24 @@ const type2value = {
   股票: 120,
   财经: 130,
 };
+
+const type2color = {
+  体育: "#F56C6C",
+  娱乐: "pink",
+  家居: "#A39391",
+  彩票: "#D45246",
+  房产: "#FFCC99",
+  教育: "#9999CC",
+  时尚: "#3366CC",
+  时政: "#E6A23C",
+  星座: "#E3E1C8",
+  游戏: "#FB3C3C",
+  社会: "#203643",
+  科技: "#74C2E1",
+  股票: "#84CF96",
+  财经: "#67C23A",
+};
+
 const eng2cn = {
   education: "教育",
   entertainment: "娱乐",
@@ -216,7 +237,6 @@ export default {
     };
   },
   methods: {
-
     drawDashboard() {
       var theChart = echarts.init(document.getElementById("tpChart"));
       var thisVal = 50;
@@ -473,7 +493,6 @@ export default {
           this.drawDashboard();
         });
 
-
       //this.$message.success("提交成功！");
     },
     getRealTimeThemeInfo() {
@@ -501,16 +520,15 @@ export default {
           var tnewslist = response.results.news_list;
           var max_size = parseInt(tnewslist.length / 12);
           var tnews = [];
+          tnewslist.forEach(function (news) {
+            news.color = type2color[news.type];
+          });
           for (var i = 0; i < max_size; i++) {
             tnews.push(tnewslist.slice(i * 12, i * 12 + 12));
           }
           console.log("tnews");
           console.log(tnews);
           this.newslist = tnews;
-          /*this.newslist.forEach(function (news) {
-            news.type = eng2cn[news.type];
-          });*/
-
           this.drawBarChart();
           this.drawPieChart();
         });
@@ -531,6 +549,5 @@ export default {
 .el-carousel__item:nth-child(2n + 1){
   background-color: #d3dce6;
 }*/
-
 </style>
 
