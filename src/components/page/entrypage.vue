@@ -38,6 +38,7 @@
                         //得到登陆请求
                         console.log("login!!")
                         localStorage.setItem('ms_username', 'ldmc');
+
                         this.$router.push('/summary');
                         break;
                 }

@@ -8,6 +8,7 @@
       <el-main style="text-align: center">
         <el-row style="margin:20px 0">
           <el-col :span="16" style="padding-right:10px">
+
             <el-input
               type="textarea"
               placeholder="请输入文本"
@@ -40,6 +41,7 @@
               <el-row>
                 <div align="middle" id="tpChart" style="height: 300px"></div>
               </el-row>
+
             </el-card>
           </el-col>
         </el-row>
@@ -48,6 +50,7 @@
           <el-button @click="submit" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>
         </el-row>
 
+<<<<<<< HEAD
         <el-row style="margin:10px 0;max-width:100%;max-height:450px">
           <el-card>
             <el-row>实时主题新闻分类结果</el-row>
@@ -102,6 +105,7 @@
                   </el-table-column>
                 </el-table>
               </el-col>
+
             </el-row>
           </el-card>
         </el-row>
@@ -152,6 +156,7 @@ const typelist = [
   "股票",
   "财经",
 ];
+
 const type2value = {
   体育: 0,
   娱乐: 10,
@@ -214,6 +219,7 @@ export default {
         "【字节跳动或已拿下支付牌照】8月28日，武汉合众易宝科技有限公司股东中发实业（集团）有限公司退出，天津同融电子商务有限公司接盘100%股份。" +
         "天津同融电子商务有限公司是北京石贝科技有限公司全资子公司，穿透以后，字节跳动创始人张一鸣是实际控制人。合众支付官网显" +
         "示，该公司2014年获得由中国人民银行颁发的《支付业务许可证》，成为湖北省首家持牌互联网支付企业。（请输入文本）",
+
       types: typelist,
       cnt: [],
       colorSt: {
@@ -223,6 +229,7 @@ export default {
     };
   },
   methods: {
+
     drawDashboard() {
       var theChart = echarts.init(document.getElementById("tpChart"));
       var thisVal = 50;
@@ -373,6 +380,7 @@ export default {
             data: this.cnt,
             type: "bar",
             showBackground: false,
+
             backgroundStyle: {
               color: "rgba(220, 220, 220, 0.8)",
             },
@@ -478,6 +486,7 @@ export default {
           this.drawDashboard();
         });
 
+
       //this.$message.success("提交成功！");
     },
     getRealTimeThemeInfo() {
@@ -502,10 +511,12 @@ export default {
             theme_count.sports,
             theme_count.technology,
           ];
+
           this.newslist = response.results.news_list;
           /*this.newslist.forEach(function (news) {
             news.type = eng2cn[news.type];
           });*/
+
           this.drawBarChart();
           this.drawPieChart();
         });
@@ -513,6 +524,7 @@ export default {
   },
   mounted() {
     this.getRealTimeThemeInfo();
+
     this.drawDashboard();
   },
 };
@@ -525,4 +537,6 @@ export default {
 .el-carousel__item:nth-child(2n + 1){
   background-color: #d3dce6;
 }*/
+
 </style>
+
