@@ -104,6 +104,9 @@ function getPersonList(links) {
   return [personList, personDict];
 }
 
+/*
+洗牌节点列表
+ */
 function shuffle(arr) {
   for (let i = arr.length - 1; i >= 0; i--) {
     let rIndex = Math.floor(Math.random() * (i + 1));
@@ -162,12 +165,6 @@ export default {
 
       // 绘制图表
       var option = {
-        grid: {
-          left: "10%",
-          right: "10%",
-          top: "10%",
-          bottom: "10%",
-        },
         series: [
           {
             type: "graph",
@@ -177,6 +174,8 @@ export default {
               show: true,
               fontSize: 16,
             },
+            top: "60",
+            bottom: "50",
             roam: false,
             //categories: categories,
             itemStyle: {
@@ -265,12 +264,6 @@ export default {
 
       // 绘制图表
       var option = {
-        grid: {
-          left: "10%",
-          right: "10%",
-          top: "30%",
-          //bottom: "20%",
-        },
         legend: [
           {
             data: categories.map(function (a) {
@@ -284,7 +277,7 @@ export default {
         series: [
           {
             top: "120",
-            bottom: "50",
+            bottom: "100",
             name: "Les Miserables",
             type: "graph",
             layout: "circular",
@@ -338,7 +331,7 @@ export default {
           a += 360 / nodeNum; // Math.sin(2*Math.PI / 360)
         }
 
-        //nodedict = shuffle(nodedict);
+        nodedict = shuffle(nodedict);
         var i = 0;
         nodelist.forEach(function (node) {
           var val_ = 0;

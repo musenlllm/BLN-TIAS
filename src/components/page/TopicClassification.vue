@@ -48,60 +48,49 @@
           <el-button @click="submit" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>
         </el-row>
 
-        <el-row style="margin:10px 0;max-width:100%;max-height:450px">
+        <el-row style="margin:10px 0;max-width:100%;max-height:430px">
           <el-card>
             <el-row>实时主题新闻分类结果</el-row>
-            <el-row style="text-align:left;padding-top:5px">
-              <el-col :span="12">
-                <el-table
-                  :show-header="false"
-                  :data="newslist.slice(0,6)"
-                  style="height:380px;max-height:380px;margin-top:5px"
-                >
-                  <el-table-column :show-overflow-tooltip="true">
-                    <template slot-scope="scope">
-                      <el-row>
-                        <a :href="scope.row.url" style="color:#708090">
-                          <h3>{{scope.row.event}}</h3>
-                        </a>
-                      </el-row>
-                      <el-row>
-                        <el-col :span="9">发布时间：2020.8.20</el-col>
-                        <el-col :span="8">
-                          分类标签：
-                          <el-tag>{{scope.row.type}}</el-tag>
-                        </el-col>
-                        <el-col :span="7">置信度：0.99</el-col>
-                      </el-row>
-                    </template>
-                  </el-table-column>
-                </el-table>
-              </el-col>
-              <el-col :span="12">
-                <el-table
-                  :show-header="false"
-                  :data="newslist.slice(6,12)"
-                  style="height:380px;max-height:380px;margin-top:5px"
-                >
-                  <el-table-column :show-overflow-tooltip="true">
-                    <template slot-scope="scope">
-                      <el-row>
-                        <a :href="scope.row.url" style="color:#708090">
-                          <h3>{{scope.row.event}}</h3>
-                        </a>
-                      </el-row>
-                      <el-row>
-                        <el-col :span="9">发布时间：2020.8.20</el-col>
-                        <el-col :span="8">
-                          分类标签：
-                          <el-tag>{{scope.row.type}}</el-tag>
-                        </el-col>
-                        <el-col :span="7">置信度：0.99</el-col>
-                      </el-row>
-                    </template>
-                  </el-table-column>
-                </el-table>
-              </el-col>
+            <el-row style="text-align:left;padding-top:10px">
+              <el-carousel
+                :interval="12000"
+                direction="vertical"
+                arrow="never"
+                indicator-position="none"
+                height="380px"
+                :loop="true"
+              >
+                <el-carousel-item v-for="(news, index) in newslist" :key="index">
+                  <template v-for="i in 2">
+                    <el-col :span="12" :key="i">
+                      <el-table
+                        :show-header="false"
+                        :data="news.slice(i*6-6,i*6)"
+                        style="height:380px"
+                        max-height="380"
+                      >
+                        <el-table-column :show-overflow-tooltip="true">
+                          <template slot-scope="scope">
+                            <el-row>
+                              <a :href="scope.row.url" style="color:#708090">
+                                <h3>{{scope.row.event}}</h3>
+                              </a>
+                            </el-row>
+                            <el-row>
+                              <el-col :span="9">发布时间：{{scope.row.publish_time}}</el-col>
+                              <el-col :span="8">
+                                分类标签：
+                                <el-tag>{{scope.row.type}}</el-tag>
+                              </el-col>
+                              <el-col :span="7">置信度：{{scope.row.score}}</el-col>
+                            </el-row>
+                          </template>
+                        </el-table-column>
+                      </el-table>
+                    </el-col>
+                  </template>
+                </el-carousel-item>
+              </el-carousel>
             </el-row>
           </el-card>
         </el-row>
@@ -208,7 +197,7 @@ export default {
     return {
       form: {
         type: [],
-        score: 0.0,
+        score: 0.985,
       },
       content:
         "【字节跳动或已拿下支付牌照】8月28日，武汉合众易宝科技有限公司股东中发实业（集团）有限公司退出，天津同融电子商务有限公司接盘100%股份。" +
@@ -502,7 +491,15 @@ export default {
             theme_count.sports,
             theme_count.technology,
           ];
-          this.newslist = response.results.news_list;
+          var tnewslist = response.results.news_list;
+          var max_size = parseInt(tnewslist.length / 12);
+          var tnews = [];
+          for (var i = 0; i < max_size; i++) {
+            tnews.push(tnewslist.slice(i * 12, i * 12 + 12));
+          }
+          console.log("tnews");
+          console.log(tnews);
+          this.newslist = tnews;
           /*this.newslist.forEach(function (news) {
             news.type = eng2cn[news.type];
           });*/
