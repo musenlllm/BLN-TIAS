@@ -72,9 +72,9 @@
                         <el-table-column :show-overflow-tooltip="true">
                           <template slot-scope="scope">
                             <el-row>
-                                <a :href="scope.row.url" style="color:#708090">
-                                  <h3>{{scope.row.event}}</h3>
-                                </a>
+                              <a :href="scope.row.url" style="color:#708090">
+                                <h3>{{scope.row.event}}</h3>
+                              </a>
                             </el-row>
                             <el-row>
                               <el-col :span="12">发布时间：{{scope.row.publish_time}}</el-col>
