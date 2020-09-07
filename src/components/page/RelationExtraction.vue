@@ -1,51 +1,82 @@
 <template>
   <div>
     <el-container>
-      <el-header>
-        <h1 style="color: gray">关系抽取</h1>
-      </el-header>
-      <el-main style="text-align: center">
-        <el-row style="margin: 10px 0">
+      <el-header style="height: max-content">
+        <el-card
+          class="noBorderInput"
+          style="border: 0px; margin-top: 20px;border-radius: 0;
+      background-color: #fff;
+      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+        >
+          <!--<div slot="header" class="diyCardHead" >-->
+          <h1
+            style="color: gray; letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px"
+          >关系抽取</h1>
+          <!--<el-divider style="width: 30px"></el-divider>-->
+          <!--</div>-->
+          <!--<h1 style="color: gray">实体识别</h1>-->
           <el-input
             type="textarea"
-            placeholder="请输入文本"
+            placeholder="请输入内容"
             v-model="content"
             maxlength="80"
             show-word-limit
-            :autosize="{ minRows: 5, maxRows: 8}"
+            :autosize="{ minRows: 4, maxRows: 8}"
             clearable
-            style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
-          ></el-input>
-        </el-row>
-
-        <el-row style="margin-top: 30px">
-          <el-button @click="getData" type="primary" style="background: #242f42; border: 0px">开始提取</el-button>
-        </el-row>
-
-        <el-row style="margin:30px 0">
+            style="font-size: 15px"
+          >
+            <!--style=" font-size: 15px; margin-top: 0px;border-radius: 0;-->
+            <!--background-color: #fff;-->
+            <!--box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"-->
+            >
+          </el-input>
+          <el-row style="margin-top: 17px; display: flex; justify-content: center">
+            <el-button
+              v-on:click="getData"
+              type="primary"
+              style="background: #242f42; border: 0px; font-size: 15px; letter-spacing: 5px"
+            >开始提取</el-button>
+            <!--<el-button v-on:click="mockData">随机样例</el-button>-->
+          </el-row>
+        </el-card>
+      </el-header>
+      <el-main
+        ref="mainContainer"
+        style="text-align:center;margin-top: 20px;height: 100%;padding:0 20px"
+      >
+        <el-row>
           <el-col :span="16">
-            <el-card>
+            <el-card
+              class="box-card"
+              style="margin-top: 0px;border-radius: 0;background-color: #fff;
+              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+            >
               <div slot="header" class="clearfix">
                 <span style="font-size: 18px">人物关系图</span>
               </div>
               <el-row>
-                <div id="showRelation" :style="{width: '100%', height: '540px'}"></div>
+                <div id="showRelation" :style="{width: '100%', height: '460px'}"></div>
               </el-row>
+              <hr style="border:0;height:1px;background-color:#606266" />
               <el-row style="padding-top:40px">
-                <div id="showRelation2" :style="{width: '100%', height: '590px'}"></div>
+                <div id="showRelation2" :style="{width: '100%', height: '500px'}"></div>
               </el-row>
             </el-card>
           </el-col>
 
-          <el-col :span="8" style="padding-left:24px">
-            <el-card>
+          <el-col :span="8" style="padding-left:20px">
+            <el-card
+              class="box-card"
+              style="margin-top: 0px;border-radius: 0;background-color: #fff;
+              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+            >
               <div slot="header" class="clearfix">
                 <span style="font-size: 18px">人物关系列表</span>
               </div>
               <el-table
                 :show-header="true"
                 :data="items"
-                style="height: 1170px;max-height: 1170px;overflow: auto"
+                style="height: 1000px;max-height: 1000px;overflow: auto"
               >
                 <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
                 <el-table-column prop="relation" label="关系" align="center" width="50"></el-table-column>
@@ -168,8 +199,8 @@ export default {
       var option = {
         series: [
           {
-            type: 'graph',
-            layout: 'force',
+            type: "graph",
+            layout: "force",
             symbolSize: 20,
             label: {
               show: true,
@@ -190,12 +221,12 @@ export default {
               //curveness: 0.3,
             },
             force: {
-                repulsion: 500,
-                initLayout: "circular",
-                gravity: 0.05,
-                edgeLength: 200,
-                friction : 0.8,
-                focusNodeAdjacency: true,
+              repulsion: 500,
+              initLayout: "circular",
+              gravity: 0.05,
+              edgeLength: 150,
+              friction: 0.8,
+              focusNodeAdjacency: true,
             },
             edgeSymbol: ["", "arrow"],
             edgeLabel: {
@@ -234,9 +265,8 @@ export default {
             label: {
               show: true,
             },
-            symbolSize: 30,
             draggable: true,
-            //symbolSize: p.length * 20 + 6,
+            symbolSize: p.length * 15 + 6,
           });
           a += 360 / personNum;
         });
@@ -278,6 +308,7 @@ export default {
       var option = {
         legend: [
           {
+            bottom: "10",
             data: categories.map(function (a) {
               return a.name;
             }),
@@ -288,8 +319,8 @@ export default {
         animationEasingUpdate: "quinticInOut",
         series: [
           {
-            top: "120",
-            bottom: "100",
+            top: "80",
+            bottom: "150",
             name: "Les Miserables",
             type: "graph",
             layout: "circular",
