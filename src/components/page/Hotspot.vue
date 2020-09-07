@@ -925,7 +925,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
     @import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
 
     .el-header, .el-footer {
