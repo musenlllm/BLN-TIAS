@@ -22,7 +22,7 @@
           <el-button @click="getData" type="primary" style="background: #242f42; border: 0px">开始提取</el-button>
         </el-row>
 
-        <el-row style="margin:20px 0">
+        <el-row style="margin:30px 0">
           <el-col :span="16">
             <el-card>
               <div slot="header" class="clearfix">
@@ -32,7 +32,7 @@
                 <div id="showRelation" :style="{width: '100%', height: '540px'}"></div>
               </el-row>
               <el-row style="padding-top:40px">
-                <div id="showRelation2" :style="{width: '100%', height: '600px'}"></div>
+                <div id="showRelation2" :style="{width: '100%', height: '590px'}"></div>
               </el-row>
             </el-card>
           </el-col>
@@ -45,7 +45,7 @@
               <el-table
                 :show-header="true"
                 :data="items"
-                style="height: 1160px;max-height: 1160px;overflow: auto"
+                style="height: 1170px;max-height: 1170px;overflow: auto"
               >
                 <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
                 <el-table-column prop="relation" label="关系" align="center" width="50"></el-table-column>
@@ -121,22 +121,25 @@ export default {
   data() {
     return {
       content:
-        "红楼梦中贾政的五个孩子分别是贾珠、贾元春、贾宝玉、贾探春以及贾环。（请输入文本）",
+        "贾政与王夫人的三个孩子分别是贾珠、贾元春和贾宝玉，贾政与赵姨娘的孩子分别是贾探春和贾环，而贾政与周姨娘并未诞下一子。（请输入文本）",
       items: [
+        { person1: "贾政", person2: "王夫人", relation: "夫妻" },
         { person1: "贾政", person2: "贾珠", relation: "亲子" },
         { person1: "贾政", person2: "贾元春", relation: "亲子" },
         { person1: "贾政", person2: "贾宝玉", relation: "亲子" },
+        { person1: "贾政", person2: "赵姨娘", relation: "夫妻" },
         { person1: "贾政", person2: "贾探春", relation: "亲子" },
         { person1: "贾政", person2: "贾环", relation: "亲子" },
+        { person1: "贾政", person2: "周姨娘", relation: "夫妻" },
+        { person1: "王夫人", person2: "贾珠", relation: "亲子" },
+        { person1: "王夫人", person2: "贾元春", relation: "亲子" },
+        { person1: "王夫人", person2: "贾宝玉", relation: "亲子" },
         { person1: "贾珠", person2: "贾元春", relation: "兄弟姐妹" },
         { person1: "贾珠", person2: "贾宝玉", relation: "兄弟姐妹" },
-        { person1: "贾珠", person2: "贾探春", relation: "兄弟姐妹" },
         { person1: "贾珠", person2: "贾环", relation: "兄弟姐妹" },
         { person1: "贾元春", person2: "贾宝玉", relation: "兄弟姐妹" },
-        { person1: "贾元春", person2: "贾探春", relation: "兄弟姐妹" },
-        { person1: "贾元春", person2: "贾环", relation: "兄弟姐妹" },
-        { person1: "贾宝玉", person2: "贾探春", relation: "兄弟姐妹" },
-        { person1: "贾宝玉", person2: "贾环", relation: "兄弟姐妹" },
+        { person1: "赵姨娘", person2: "贾探春", relation: "亲子" },
+        { person1: "赵姨娘", person2: "贾环", relation: "亲子" },
         { person1: "贾探春", person2: "贾环", relation: "兄弟姐妹" },
       ],
     };

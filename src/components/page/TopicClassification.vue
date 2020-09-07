@@ -7,7 +7,7 @@
 
       <el-main style="text-align: center">
         <el-row style="margin:20px 0">
-          <el-col :span="16" style="padding-right:10px">
+          <el-col :span="13" style="padding-right:10px">
             <el-input
               type="textarea"
               placeholder="请输入文本"
@@ -19,6 +19,8 @@
               style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
             />
           </el-col>
+          <el-col :span="3">
+          <el-button @click="submit" type="primary" style="background: #242f42; border: 0px">开始分析</el-button></el-col>
           <el-col :span="8">
             <el-card shadow="always" style="height:240px;max-height:230px">
               <div slot="header" class="clearfix">
@@ -26,7 +28,7 @@
               </div>
               <el-row>
                 <div v-if="form.type.length > 0" style="text-align:center;height:26px">
-                  <p style="font-size:20px;font-weight:bold" :style="{color:form.color}">{{form.type}}</p>
+                  <p style="font-size:24px;font-weight:bold" :style="{color:form.color}">{{form.type}}</p>
                   <!--<el-tag
                     effect="dark"
                     size="default"
@@ -59,16 +61,12 @@
           </el-col>
         </el-row>
 
-        <el-row style="margin-top: 30px">
-          <el-button @click="submit" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>
-        </el-row>
-
-        <el-row style="margin:10px 0;max-width:100%;max-height:480px">
+        <el-row style="margin:3em 0;max-width:100%;max-height:480px">
           <el-card>
             <div slot="header" class="clearfix">
               <span style="font-size: 18px">实时主题新闻分类结果</span>
             </div>
-            <el-row style="text-align:left;padding-top:10px">
+            <el-row style="text-align:left">
               <el-carousel
                 :interval="12000"
                 direction="vertical"
@@ -92,9 +90,9 @@
                               <a :href="scope.row.url" style="color:black">{{scope.row.event}}</a>
                             </el-row>
                             <el-row>
-                              <el-col :span="12">发布时间：{{scope.row.publish_time}}</el-col>
-                              <el-col :span="6">
-                                分类标签：
+                              <el-col :span="16">发布时间：{{scope.row.publish_time}}</el-col>
+                              <el-col :span="4">
+                                类别：
                                 <el-tag
                                   effect="dark"
                                   :color="scope.row.color"
@@ -102,7 +100,7 @@
                              box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);"
                                 >{{scope.row.type}}</el-tag>
                               </el-col>
-                              <el-col :span="6">置信度：{{scope.row.score}}</el-col>
+                              <el-col :span="4">概率：{{scope.row.score}}</el-col>
                             </el-row>
                           </template>
                         </el-table-column>
@@ -115,7 +113,7 @@
           </el-card>
         </el-row>
 
-        <el-row style="margin-top:40px">
+        <el-row style="margin-top:30px">
           <el-col :span="12">
             <el-card>
               <div slot="header" class="clearfix">
@@ -243,7 +241,7 @@ export default {
             },
             data: [
               {
-                value: Math.floor(this.form.score * 1000) / 10,
+                value: Math.floor(this.form.score * 100) ,
                 name: "置信度",
               },
             ],
@@ -352,10 +350,10 @@ export default {
           formatter: "{b} : {c}",
         },
         grid:{
-          top:"1%",
+          top:"5%",
           bottom:"10%",
-          left:"10%",
-          right:"1%",
+          left:"15%",
+          right:"5%",
         },
         xAxis: {
           type: "category",
@@ -396,6 +394,9 @@ export default {
           itemStyle: {
             color: colorList[i],
           },
+          label:{
+            fontSize: "16"
+          }
         });
         selected[childtypelist[i]] = true;
       }
@@ -498,7 +499,7 @@ export default {
           var tnews = [];
           tnewslist.forEach(function (news) {
             news.color = type2color[news.type];
-            news.score = Math.floor(news.score * 10000) / 10000;
+            news.score = Math.floor(news.score * 100) / 100;
           });
           for (var i = 0; i < max_size; i++) {
             tnews.push(tnewslist.slice(i * 12, i * 12 + 12));
