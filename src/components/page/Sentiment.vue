@@ -195,9 +195,9 @@
                             </el-aside>
                             <el-main style="text-align:center" >
                                 <el-tabs type="border-card" stretch=true>
-                                    <el-tab-pane label="正面新闻">
+                                    <el-tab-pane>
+                                      <span slot="label"><i class="iconfont iconzhengmian"></i>正面新闻</span>
                                         <el-table
-
                                             :data="pos_news"
                                             stripe
                                             style="width: 100%;text-align: center"
