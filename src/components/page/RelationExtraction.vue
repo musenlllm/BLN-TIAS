@@ -26,7 +26,7 @@
           <el-col :span="16">
             <el-card>
               <div slot="header" class="clearfix">
-                <span>人物关系图</span>
+                <span style="font-size: 18px">人物关系图</span>
               </div>
               <el-row>
                 <div id="showRelation" :style="{width: '100%', height: '540px'}"></div>
@@ -40,9 +40,8 @@
           <el-col :span="8" style="padding-left:24px">
             <el-card>
               <div slot="header" class="clearfix">
-                <span>人物关系列表</span>
+                <span style="font-size: 18px">人物关系列表</span>
               </div>
-
               <el-table
                 :show-header="true"
                 :data="items"
