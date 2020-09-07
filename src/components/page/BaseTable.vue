@@ -27,7 +27,7 @@
                         <div slot="header" class="clearfix">
                             <span>摘要结果</span>
                         </div>
-                        <div style="font-size: 16px">
+                        <div style="line-height: 1.5;-webkit-box-sizing: border-box;box-sizing: border-box;width: 100%;font-size: 15px;color: #606266;font-family: monospace;letter-spacing: normal;line-height: normal;">
                             {{summaryRes}}
                         </div>
                         <!--<el-input-->

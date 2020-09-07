@@ -2,91 +2,121 @@
     <div>
         <el-container>
             <el-header style="height: max-content">
-                <h1 style="color: gray">实体识别</h1>
+              <el-card class="noBorderInput"style="border: 0px; margin-top: 20px;border-radius: 0;
+      background-color: #fff;
+      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
+
+                <!--<div slot="header" class="diyCardHead" >-->
+                  <h1 style="color: gray; letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px">实体识别</h1>
+                <!--<el-divider style="width: 30px"></el-divider>-->
+                <!--</div>-->
+                <!--<h1 style="color: gray">实体识别</h1>-->
                 <el-input
-                        type="textarea"
-                        placeholder="请输入内容"
-                        v-model="nerText"
-                        maxlength="200"
-                        show-word-limit
-                        :autosize="{ minRows: 5, maxRows: 8}"
-                        clearable
-                        style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); font-size: 15px"
+                  type="textarea"
+                  placeholder="请输入内容"
+                  v-model="nerText"
+                  maxlength="200"
+                  show-word-limit
+                  :autosize="{ minRows: 8, maxRows: 8}"
+                  clearable
+                  style="font-size: 15px"
+                  >
+                  <!--style=" font-size: 15px; margin-top: 0px;border-radius: 0;-->
+      <!--background-color: #fff;-->
+      <!--box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"-->
                 >
                 </el-input>
-                <el-row style="margin-top: 30px; display: flex; justify-content: center">
-                    <el-button v-on:click="getData" type="primary" style="background: #242f42; border: 0px">开始识别</el-button>
-                    <!--<el-button v-on:click="mockData">随机样例</el-button>-->
+                <el-row style="margin-top: 17px; display: flex; justify-content: center">
+                  <el-button v-on:click="getData" type="primary" style="background: #242f42; border: 0px; font-size: 15px; letter-spacing: 5px">开始识别</el-button>
+                  <!--<el-button v-on:click="mockData">随机样例</el-button>-->
                 </el-row>
+              </el-card>
+
             </el-header>
-            <el-container>
-                <el-aside width="700px" style="margin-left: 20px; margin-top: 30px; text-align: center">
-                    <el-card class="box-card" style="min-height: 174px" v-loading="resloading">
+            <el-container style="width: 100%">
+                <el-aside ref="asideContainer" width="60%" style="margin-left: 20px; margin-top: 30px; text-align: center">
+                    <el-card class="box-card" style="min-height: 170px;border-radius: 0;
+      background-color: #fff;
+      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading">
                         <div slot="header" class="clearfix">
                             <span style="font-size: 18px">识别结果</span>
                         </div>
-                        <div class="tag-group" style="margin-top: 0; display: flex; flex-direction: row; flex-wrap: wrap;" v-loading="restypeloading">
-                            <!--<span class="tag-group__title">Dark</span>-->
 
-                            <el-tag style="margin-bottom: 10px; margin-right: 5px; border-radius: 4px; font-size: 15px; border: 0"
+                          <el-scrollbar>
+                            <div class="tag-group" style="margin-top: 0; display: flex; flex-direction: row; flex-wrap: wrap;" v-loading="restypeloading">
+                            <el-tag  ref="nerResRef" style="margin-right: 10px;margin-bottom: 10px; border-radius: 4px; font-size: 15px; border: 0px;
+                              padding: 5px; padding-top: 1px; "
                                     v-for="item in items"
                                     :key="item.label"
                                     :type="item.type"
                                     :color="item.color"
+
                                     size="medium"
-                                    effect="dark">
-                                {{ item.label }}
+                                    effect="plain"
+                                    :effect="item.effect">
+                              {{ item.label }}
                             </el-tag>
-                        </div>
+                            </div>
+                          </el-scrollbar>
+                            <!--<span class="tag-group__title">Dark</span>-->
+
+                          <!--{ label: '人名', type: '' ,color: '#F56C6C'},-->
+                          <!--{ label: '地名', type: '' ,color:'#E6A23C'},-->
+                          <!--{ label: '组织机构名', type: '',color:'#409EFF' },-->
+                          <!--{ label: '时间', type: '' ,color: '#67C23A'},-->
+                          <!--{ label: '公司', type: '',color:'#242f42' },-->
+                          <!--{ label: '产品', type: '' ,color:'pink'},-->
+
+
                     </el-card>
 
-                    <el-card class="box-card" style="min-height: 174px; margin-top: 20px">
+                    <el-card class="box-card" style="min-height: 170px; margin-top: 20px;height: 600px;border-radius: 0;
+      background-color: #fff;
+      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
                         <div slot="header" class="clearfix">
                             <span style="font-size: 18px">实体分类树</span>
                         </div>
-                        <div id="tree" style="width: 600px;height: 600px;"></div>
+
+                        <div id="tree" ref="treePic" style="width: 100%;height: 50vh"></div>
+
+
                     </el-card>
 
                 </el-aside>
 
 
-                <el-main style="text-align: center; margin-top: 10px">
-                    <el-card class="box-card">
-                        <div slot="header" class="clearfix">
-                            <span style="font-size: 18px">可识别实体类别</span>
-                        </div>
-                        <div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">
-                            <el-tag style="width: 100px; margin-right: 10px;margin-bottom: 10px; border-radius: 4px; font-size: 15px; border: 0px;
-                             box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);"
-                                    v-for="item in itemtypes"
-                                    :key="item.label"
-                                    :type="item.type"
-                                    :color="item.color"
-                                    size="medium"
-                                    effect="dark">
-                                {{ item.label }}
-                            </el-tag>
-                        </div>
-                    </el-card>
-                    <el-card class="box-card" style="min-height: 174px; margin-top: 20px">
-                        <div slot="header" class="clearfix">
-                            <span style="font-size: 18px">实体比例图</span>
-                        </div>
-                        <div id="percent" style="width: 600px;height: 600px;"></div>
-                    </el-card>
+                <el-main  ref="mainContainer" style="text-align: center; margin-top: 10px;margin-left: 12px; height: 100%">
+                  <el-card class="box-card" style="height: 100%; margin-top: 0px;border-radius: 0;
+      background-color: #fff;
+      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
+                    <div slot="header" class="clearfix">
+                      <span style="font-size: 18px">实体比例图</span>
+                    </div>
+                    <div id="percent" style="width: 100%;height: 50vh;"></div>
+                  </el-card>
+                    <!--<el-card class="box-card" style="visibility: hidden">-->
+                        <!--<div slot="header" class="clearfix">-->
+                            <!--<span style="font-size: 18px">可识别实体类别</span>-->
+                        <!--</div>-->
+                        <!--<div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">-->
+                            <!--<el-tag style="width: 100px; margin-right: 10px;margin-bottom: 10px; border-radius: 4px; font-size: 15px; border: 0px;-->
+                             <!--box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); padding-top: 1px;"-->
+                                    <!--v-for="item in itemtypes"-->
+                                    <!--:key="item.label"-->
+                                    <!--:type="item.type"-->
+                                    <!--:color="item.color"-->
+                                    <!--size="medium"-->
+                                    <!--effect="dark">-->
+                                <!--{{ item.label }}-->
+                            <!--</el-tag>-->
+                        <!--</div>-->
+                    <!--</el-card>-->
+
 
             </el-main>
             </el-container>
             <el-footer>
                 <el-container>
-                    <!--<el-aside style="width: 700px">-->
-                        <!--<el-card class="box-card" style="min-height: 174px">-->
-                            <!--<div slot="header" class="clearfix">-->
-                                <!--<span>实体分类树</span>-->
-                            <!--</div>-->
-                            <!--<div id="tree" style="width: 600px;height: 600px;"></div>-->
-                        <!--</el-card>-->
-                    <!--</el-aside>-->
                     <el-main>
 
                     </el-main>
@@ -113,6 +143,7 @@
                 queryURL:'http://49.234.217.110:5000/api/ner',
                 resloading: false,
                 restypeloading: false,
+                isDiyCardHead:true,
 
                 items: [
                     // { type: '', label: '标签一' },
@@ -155,6 +186,7 @@
         },
         mounted() {
             this.mockData()
+
         },
         methods: {
             // 获取 easy-mock 的模拟数据
@@ -200,7 +232,7 @@
                         var resEnd;
                         var resEnt;
                         var colorTemp;
-                        var plainTextCharNum = 10
+                        var plainTextCharNum = 40
                         for (var i=0; i<resArray.length; i++){
 
                             resStart = Number(resArray[i].start);
@@ -222,9 +254,11 @@
                                     this.items.push({
                                         // label: this.nerText.slice(plainStart,plainStart+plainTextCharNum),
                                         label: tempText.slice(plainStart,plainStart+plainTextCharNum),
-                                        color: 'gray',
-                                        type:'',
+                                        color: '#cccccc',
+                                        effect: 'dark',
+                                        type:'info',
                                         ent: '普通',
+                                        textColor: 'gray',
                                         value:'1'
                                     });
                                     plainStart = plainStart+plainTextCharNum;
@@ -232,9 +266,11 @@
                                 this.items.push({
                                     // label: this.nerText.slice(plainStart,plainEnd),
                                     label: tempText.slice(plainStart,plainEnd),
-                                    color: 'gray',
-                                    type:'',
+                                    color: '#cccccc',
+                                    type:'info',
                                     ent: '普通',
+                                    effect: 'dark',
+                                    textColor: 'gray',
                                     value:'1'
                                 })
                                 // console.log("push无意义词")
@@ -276,6 +312,7 @@
                                 // label: this.nerText.slice(resStart,resEnd+1),
                                 label: tempText.slice(resStart,resEnd+1),
                                 color: colorTemp,
+                                effect: "dark",
                                 type: '',
                                 ent: resEnt,
                                 value:'1'
@@ -292,9 +329,11 @@
                                 this.items.push({
                                     // label: this.nerText.slice(plainEnd,plainEnd+plainTextCharNum),
                                     label: tempText.slice(plainEnd,plainEnd+plainTextCharNum),
-                                    color: 'gray',
-                                    type:'',
+                                    color: '#cccccc',
+                                    type:'info',
                                     ent: '普通',
+                                    effect: 'dark',
+                                    textColor: 'gray',
                                     value:'1'
                                 });
                                 plainEnd = plainEnd+plainTextCharNum;
@@ -302,9 +341,11 @@
                             this.items.push({
                                 // label: this.nerText.slice(plainEnd,this.nerText.length),
                                 label: tempText.slice(plainEnd,tempText.length),
-                                color: 'gray',
-                                type:'',
+                                color: '#cccccc',
+                                type:'info',
                                 ent: '普通',
+                                effect: 'dark',
+                                textColor: 'gray',
                                 value:'1'
                             })
 
@@ -384,6 +425,8 @@
                         this.resloading = false;
                         this.restypeloading = false;
 
+                        // this.changeNerResStyle()
+
                         console.log(this.treeData)
                         // this.option.series[0].data=this.treeData
                         //画图
@@ -426,8 +469,12 @@
                 //     })
                 // }
 
-                this.treeCharts = echarts.init(document.getElementById('tree'));
+                // this.treeCharts = echarts.init(document.getElementById('tree'));
+                this.treeCharts = echarts.init(this.$refs.treePic);
                 this.percentCharts = echarts.init(document.getElementById('percent'));
+
+                window.onresize = this.treeCharts.resize;
+                window.onresize = this.percentCharts.resize;
 
                 this.treeCharts.showLoading();
                 this.percentCharts.showLoading();
@@ -471,18 +518,46 @@
                         }
                     ]
                 },);
+
                 this.percentCharts.setOption({
                     tooltip: {
                         trigger: 'item',
                         formatter: '{a} <br/>{b}: {c} ({d}%)'
                     },
                     legend: {
-                        orient: 'vertical',
-                        left: 5,
+                      //
+                        type: "scroll",
+                        orient: "vertical",
+                        left: 0,
+                        top: 0,
+                        bottom: 0,
+
+                        textStyle:{
+                          fontSize:15,
+                        },
+                        // data: dataset.legendData,
+                        // selected: dataset.selected,
+                      //
+                      //   orient: 'vertical',
+                      //   left: 5,
                         data: this.entData
                     },
                     series: [
                         {
+                          //
+                          // name: "主题",
+                          // type: "pie",
+                          // radius: "55%",
+                          // center: ["40%", "50%"],
+                          // data: this.percentData,
+                          // emphasis: {
+                          //   itemStyle: {
+                          //     shadowBlur: 10,
+                          //     shadowOffsetX: 0,
+                          //     shadowColor: "rgba(0, 0, 0, 0.5)",
+                          //   },
+                          // },
+                          //
                             name: '实体数量比例图',
                             type: 'pie',
                             radius: ['50%', '70%'],
@@ -494,24 +569,44 @@
                             emphasis: {
                                 label: {
                                     show: true,
-                                    fontSize: '30',
+                                    fontSize: '20',
                                     fontWeight: 'bold'
                                 }
                             },
                             labelLine: {
                                 show: false
                             },
-                            right: "20%",
+                            right: 0,
                             data: this.percentData
                         }
                     ]
                 })
-                this.treeCharts.hideLoading()
+                this.treeCharts.hideLoading();
                 this.percentCharts.hideLoading();
-                window.addEventListener("resize", function() {
-                            this.treeCharts.resize()
-                            this.percentCharts.resize()
-                        })
+
+              // window.onresize = this.$refs.treePic.resize;
+              window.onresize = () => {
+                this.treeCharts.resize();
+                this.percentCharts.resize();
+                // var asideHeight = this.$refs.asideContainer.style.height;
+                let height = this.$refs.asideContainer.offsetHeight;
+                this.$refs.mainContainer.offsetHeight = height;
+                // console.log(height);
+                // console.log("asideHeight:"+asideHeight);
+                // this.$refs.mainContainer.style.height = asideHeight;
+                // console.log("mainHeight:"+this.$refs.mainContainer.style.height);
+                //如果有多个表变动在下方依次写下去就可以了
+              }
+              // window.onresize = this.percentCharts.resize;
+                // window.addEventListener("resize", function() {
+                //             this.treeCharts.resize();
+                //             this.percentCharts.resize();
+                //         })
+              // window.onresize = function () {
+              //   //重置容器高宽
+              //   this.treeCharts.resize()
+              //   this.percentCharts.resize()
+              // };
 
             },
             mockData(){
@@ -528,7 +623,8 @@
                 }
 
                 return resultStr;
-            }
+            },
+
 
         }
     };
@@ -543,11 +639,27 @@
         line-height: 60px;
     }
     .res-textarea {
-        color: black; margin-top: 30px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+        color: black; margin-top: 30px;box-shadow: 0 0px 0px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
     }
     .el-card {
-        box-shadow: 0 8px 12px 0 rgba(0,0,0,.1);
+      border-radius: 0;
+      background-color: #fff;
+      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);
     }
+    /*.el-input__inner:focus {*/
+      /*border-color: black;*/
+      /*box-shadow: none;*/
+      /*transition-duration: .5s;*/
+    /*}*/
+    >>>.el-input__inner {
+      border-radius:0px;
+    }
+
+    /*input:focus{*/
+      /*outline: none;*/
+      /*border: 1px solid #fff;*/
+    /*}*/
+
 
 
 
