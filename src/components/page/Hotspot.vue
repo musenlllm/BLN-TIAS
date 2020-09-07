@@ -2,12 +2,13 @@
     <div>
         <el-container>
             <el-header style="height: max-content;text-align: center">
-                <h1 style="color: gray">热点挖掘</h1>
+                <h1 style="color: gray;font-size: 30px;">热点挖掘</h1>
                 <!--<el-row style="margin-top: 30px; display: flex; justify-content: center">-->
                     <!--<el-button v-on:click="getData" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>-->
                     <!--<el-button >随机样例</el-button>-->
                 <!--</el-row>-->
             </el-header>
+          <el-container>
             <el-main  style="margin-left: 1px; margin-top: 10px; text-align: center">
                 <el-row :gutter="20" >
                     <el-col :span="8">
@@ -221,7 +222,7 @@
                     <!--<div>{{this.hot_statistics}}</div>-->
                 </el-card>
             </el-main>
-
+          </el-container>
         </el-container>
     </div>
 </template>
