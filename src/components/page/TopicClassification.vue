@@ -22,7 +22,7 @@
               v-model="content"
               maxlength="800"
               show-word-limit
-              :autosize="{ minRows: 11, maxRows: 11}"
+              :autosize="{ minRows: 8, maxRows: 11}"
               clearable
               style="font-size: 15px"
             />
@@ -51,39 +51,33 @@
               <span style="font-size: 18px">本次主题分类结果</span>
             </div>
             <el-row>
-              <el-col :span="4">
-                <div style="min-height:10px"></div>
-              </el-col>
-              <el-col :span="16">
-                <div v-if="form.type.length > 0" style="text-align:center;height:26px;padding:60px 0">
-                  <p
-                    style="font-size:24px;font-weight:bold"
-                    :style="{color:form.color}"
-                  >{{form.type}}</p>
-                </div>
-                <div v-else style="min-height:26px"></div>
-              </el-col>
-              <el-col :span="4" style="padding-left:30px;padding-right:10px">
-                <div
-                  style="display:flex;justify-content:center;flex-direction:column; flex-wrap:wrap;max-height:230px"
-                >
-                  <template v-for="(color, key) in type2color">
-                    <div :key="key" style="display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;margin:5px 5px;">
-                      <div
-                        style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+              <div v-if="form.type.length > 0" style="text-align:center;height:26px;margin:20px 0">
+                <p style="font-size:24px;font-weight:bold" :style="{color:form.color}">{{form.type}}</p>
+              </div>
+              <div v-else style="min-height:26px;margin:20px 0"></div>
+            </el-row>
+            <el-row style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:100%">
+              <div style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:50%"
+              >
+                <template v-for="(color, key) in type2color">
+                  <div
+                    :key="key"
+                    style="display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;margin:5px 5px;"
+                  >
+                    <div
+                      style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
                     border-radius: 4px;border: 0px;margin:3px 5px;width:25px;height:15px;"
-                        :style="{'background-color':color}"
-                      ></div>
-                      <div style="font-size:15px;min-width:25px;height:15px;padding:0 0">{{key}}</div>
-                    </div>
-                  </template>
-                </div>
-              </el-col>
+                      :style="{'background-color':color}"
+                    ></div>
+                    <div style="font-size:15px;min-width:25px;height:15px;padding:0 0">{{key}}</div>
+                  </div>
+                </template>
+              </div>
             </el-row>
           </el-card>
         </el-row>
 
-        <el-row style="max-width:100%;max-height:480px;margin-top:30px">
+        <el-row style="max-width:100%;margin-top:20px">
           <el-card
             class="box-card"
             style="margin-top: 0px;border-radius: 0;background-color: #fff;
@@ -98,7 +92,7 @@
                 direction="vertical"
                 arrow="never"
                 indicator-position="none"
-                height="390px"
+                height="400px"
                 :loop="true"
               >
                 <el-carousel-item v-for="(news, index) in newslist" :key="index">
@@ -107,8 +101,7 @@
                       <el-table
                         :show-header="false"
                         :data="news.slice(i*6-6,i*6)"
-                        style="height:384px;fontSize:15px"
-                        max-height="384"
+                        style="fontSize:13px"
                       >
                         <el-table-column :show-overflow-tooltip="true">
                           <template slot-scope="scope">
@@ -139,7 +132,7 @@
           </el-card>
         </el-row>
 
-        <el-row style="margin-top:30px">
+        <el-row style="margin-top:20px">
           <el-col :span="12">
             <el-card
               class="box-card"
@@ -230,14 +223,14 @@ export default {
     drawBarChart() {
       let myChart = echarts.init(document.getElementById("showBarChart"));
       var dataset = [];
-      childtypelist.forEach(function(item){
+      childtypelist.forEach(function (item) {
         dataset.push({
           value: item,
-          textStyle:{
-            fontSize:"15"
-          }
-        })
-      })
+          textStyle: {
+            fontSize: "15",
+          },
+        });
+      });
       // 绘制图表
       var option = {
         tooltip: {
@@ -268,7 +261,7 @@ export default {
             label: {
               show: true,
               position: "top",
-              fontSize: "15"
+              fontSize: "15",
             },
             barWidth: "50%",
           },

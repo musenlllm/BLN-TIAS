@@ -42,7 +42,7 @@
       </el-header>
       <el-main
         ref="mainContainer"
-        style="text-align:center;margin-top: 30px;height: 100%;padding:0 20px"
+        style="text-align:center;margin-top: 20px;height: 100%;padding:0 20px"
       >
         <el-row>
           <el-col :span="16">
@@ -57,14 +57,14 @@
               <el-row>
                 <div id="showRelation" :style="{width: '100%', height: '460px'}"></div>
               </el-row>
-              <hr style="border:0;height:1px;background-color:gray" />
+              <hr style="border:0;height:1px;background-color:#606266" />
               <el-row style="padding-top:40px">
-                <div id="showRelation2" :style="{width: '100%', height: '590px'}"></div>
+                <div id="showRelation2" :style="{width: '100%', height: '500px'}"></div>
               </el-row>
             </el-card>
           </el-col>
 
-          <el-col :span="8" style="padding-left:24px">
+          <el-col :span="8" style="padding-left:20px">
             <el-card
               class="box-card"
               style="margin-top: 0px;border-radius: 0;background-color: #fff;
@@ -76,7 +76,7 @@
               <el-table
                 :show-header="true"
                 :data="items"
-                style="height: 1170px;max-height: 1090px;overflow: auto"
+                style="height: 1000px;max-height: 1000px;overflow: auto"
               >
                 <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
                 <el-table-column prop="relation" label="关系" align="center" width="50"></el-table-column>
@@ -265,9 +265,8 @@ export default {
             label: {
               show: true,
             },
-            symbolSize: 30,
             draggable: true,
-            //symbolSize: p.length * 20 + 6,
+            symbolSize: p.length * 15 + 6,
           });
           a += 360 / personNum;
         });
