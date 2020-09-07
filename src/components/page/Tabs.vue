@@ -7,7 +7,7 @@
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
 
                 <!--<div slot="header" class="diyCardHead" >-->
-                  <h1 style="color: gray; letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px">实体识别</h1>
+                  <h1 style="color: black; letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px">实体识别</h1>
                 <!--<el-divider style="width: 30px"></el-divider>-->
                 <!--</div>-->
                 <!--<h1 style="color: gray">实体识别</h1>-->
@@ -34,7 +34,8 @@
 
             </el-header>
             <el-container style="width: 100%">
-                <el-aside ref="asideContainer" width="60%" style="margin-left: 20px; margin-top: 30px; text-align: center">
+              <div ref="asideContainer" style="width: 60%;margin-top: 30px;margin-left: 20px;">
+                <el-aside  width="100%" style=" text-align: center">
                     <el-card class="box-card" style="min-height: 170px;border-radius: 0;
       background-color: #fff;
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading">
@@ -70,50 +71,56 @@
 
                     </el-card>
 
-                    <el-card class="box-card" style="min-height: 170px; margin-top: 20px;height: 600px;border-radius: 0;
+                    <el-card class="box-card" style=" margin-top: 30px;border-radius: 0;
       background-color: #fff;
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
                         <div slot="header" class="clearfix">
                             <span style="font-size: 18px">实体分类树</span>
                         </div>
+                      <el-scrollbar style="width: 100%">
+                        <div id="tree" ref="treePic" style="margin-left:2%; width: 100%;height: 40vh"></div>
+                      </el-scrollbar>
 
-                        <div id="tree" ref="treePic" style="width: 100%;height: 50vh"></div>
+
 
 
                     </el-card>
 
                 </el-aside>
+              </div>
 
-
-                <el-main  ref="mainContainer" style="text-align: center; margin-top: 10px;margin-left: 12px; height: 100%">
+              <div ref="mainContainer" style="width: 40%; margin-top: 30px; margin-left: 30px;margin-right: 20px;">
+                <el-main   style="text-align: center; margin-top: 0px; height: 100%; padding: 0px; ">
                   <el-card class="box-card" style="height: 100%; margin-top: 0px;border-radius: 0;
       background-color: #fff;
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
                     <div slot="header" class="clearfix">
                       <span style="font-size: 18px">实体比例图</span>
                     </div>
-                    <div id="percent" style="width: 100%;height: 50vh;"></div>
+                    <div id="percent" style="width: 100%;height: 60vh;"></div>
                   </el-card>
-                    <!--<el-card class="box-card" style="visibility: hidden">-->
-                        <!--<div slot="header" class="clearfix">-->
-                            <!--<span style="font-size: 18px">可识别实体类别</span>-->
-                        <!--</div>-->
-                        <!--<div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">-->
-                            <!--<el-tag style="width: 100px; margin-right: 10px;margin-bottom: 10px; border-radius: 4px; font-size: 15px; border: 0px;-->
-                             <!--box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); padding-top: 1px;"-->
-                                    <!--v-for="item in itemtypes"-->
-                                    <!--:key="item.label"-->
-                                    <!--:type="item.type"-->
-                                    <!--:color="item.color"-->
-                                    <!--size="medium"-->
-                                    <!--effect="dark">-->
-                                <!--{{ item.label }}-->
-                            <!--</el-tag>-->
-                        <!--</div>-->
-                    <!--</el-card>-->
+                  <!--<el-card class="box-card" style="visibility: hidden">-->
+                  <!--<div slot="header" class="clearfix">-->
+                  <!--<span style="font-size: 18px">可识别实体类别</span>-->
+                  <!--</div>-->
+                  <!--<div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">-->
+                  <!--<el-tag style="width: 100px; margin-right: 10px;margin-bottom: 10px; border-radius: 4px; font-size: 15px; border: 0px;-->
+                  <!--box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); padding-top: 1px;"-->
+                  <!--v-for="item in itemtypes"-->
+                  <!--:key="item.label"-->
+                  <!--:type="item.type"-->
+                  <!--:color="item.color"-->
+                  <!--size="medium"-->
+                  <!--effect="dark">-->
+                  <!--{{ item.label }}-->
+                  <!--</el-tag>-->
+                  <!--</div>-->
+                  <!--</el-card>-->
 
 
-            </el-main>
+                </el-main>
+              </div>
+
             </el-container>
             <el-footer>
                 <el-container>
@@ -184,6 +191,11 @@
         },
         mounted() {
             this.mockData()
+            // var tabH = this.$refs.asideContainer.style.height;
+            // this.$refs.mainContainer.style.height = tabH+'px';
+            // console.log('hhhh'+tabH);
+
+
 
         },
         methods: {
@@ -271,15 +283,6 @@
                                     textColor: 'gray',
                                     value:'1'
                                 })
-                                // console.log("push无意义词")
-                                // console.log("无意义词语： "+this.nerText.slice(plainStart,plainEnd))
-                                // this.items.push({
-                                //     label: this.nerText.slice(plainStart,plainEnd),
-                                //     color: 'gray',
-                                //     type:'',
-                                //     ent: '普通',
-                                //     value:'1'
-                                // })
                             }
                             plainStart = resEnd+1;
                             plainEnd = resEnd+1;
@@ -389,7 +392,9 @@
                             }
                         }
                         // 准备实体数量比例数据
-                        this.entData = addedEnt;
+                        // this.entData = addedEnt;
+                        this.entData = ['人名','组织','时间','公司','产品','地点'];
+
                         for(let i=0; i<this.treeData.children.length; i++){
                             let colorTemp;
                             let resEnt = this.treeData.children[i].name;
@@ -419,7 +424,25 @@
                                     color: colorTemp
                                 }
                             })
+
+
                         }
+                      //填充没有识别到的实体
+                      var targetAddEnt = ['人名','组织','时间','公司','产品','地点'];
+                      for(let i=0;i<targetAddEnt.length;i++){
+                        let temp = targetAddEnt[i];
+                        if(addedEnt.indexOf(temp)==-1){
+                          let colorTemp = this.getColor(temp)
+                          this.percentData.push({
+                            name:temp,
+                            value:0,
+                            itemStyle:{
+                              color: colorTemp
+                            }
+                          })
+                        }
+                      }
+                      console.log(this.percentData)
                         this.resloading = false;
                         this.restypeloading = false;
 
@@ -429,43 +452,21 @@
                         // this.option.series[0].data=this.treeData
                         //画图
                         this.drawGraph()
+
+
+                        let tabH = this.$refs.asideContainer.style.height;
+                        this.$refs.mainContainer.style.height = tabH+'px';
+                        console.log("hhhhhhhhh"+tabH)
+
                         }
                     )
                 // var resStr = '[{"start":6,"end":7,"content":"中国","ent":"地点"},{"start":14,"end":15,"content":"宝马","ent":"组织"},{"start":41,"end":42,"content":"宝马","ent":"组织"},{"start":45,"end":47,"content":"瞿云涛","ent":"人名"},{"start":50,"end":51,"content":"宝马","ent":"组织"},{"start":55,"end":56,"content":"中国","ent":"地点"}]'
                 // evel 转化为 数组
 
 
-                // console.log(this.items)
 
-
-                // console.log(resData)
-                // fetch(this.queryURL, {
-                //     method: "POST",
-                //     body: JSON.stringify({
-                //         docs: [{
-                //             "id":123,
-                //             "doc":this.nerText,
-                //         }]
-                //     }),
-                //     headers: {
-                //         "Content-Type": "application/json"
-                //     },
-                //
-                // }).then(res => res.json())
-                //     .catch(error => console.error('Error:', error))
-                //     .then(response => this.summaryRes =  response.data[0].summary);
             },
             drawGraph(){
-
-                // const chart = this.$refs.chart
-                // if (chart) {
-                //     const myChart = this.$echarts.init(chart)
-                //     console.log(this.option)
-                //     myChart.setOption(this.option)
-                //     window.addEventListener("resize", function() {
-                //         myChart.resize()
-                //     })
-                // }
 
                 // this.treeCharts = echarts.init(document.getElementById('tree'));
                 this.treeCharts = echarts.init(this.$refs.treePic);
@@ -489,7 +490,7 @@
                             data: [this.treeData],
 
                             top: '1%',
-                            left: '7%',
+                            left: '15%',
                             bottom: '1%',
                             right: '20%',
 
@@ -542,6 +543,9 @@
                     },
                     series: [
                         {
+                          left: 0,
+                          top: 100,
+                          bottom: 0,
                           //
                           // name: "主题",
                           // type: "pie",
@@ -586,13 +590,10 @@
               window.onresize = () => {
                 this.treeCharts.resize();
                 this.percentCharts.resize();
-                // var asideHeight = this.$refs.asideContainer.style.height;
-                let height = this.$refs.asideContainer.offsetHeight;
-                this.$refs.mainContainer.offsetHeight = height;
-                // console.log(height);
-                // console.log("asideHeight:"+asideHeight);
-                // this.$refs.mainContainer.style.height = asideHeight;
-                // console.log("mainHeight:"+this.$refs.mainContainer.style.height);
+
+                // let height = this.$refs.asideContainer.offsetHeight;
+                // this.$refs.mainContainer.offsetHeight = height;
+
                 //如果有多个表变动在下方依次写下去就可以了
               }
               // window.onresize = this.percentCharts.resize;
@@ -622,6 +623,29 @@
 
                 return resultStr;
             },
+            getColor(resEnt){
+              var colorTemp;
+              if(resEnt=="地点"){
+                colorTemp = '#E6A23C'
+              }
+              else if(resEnt == "人名"){
+                console.log("人名检测！！！！")
+                colorTemp =  '#F56C6C'
+              }
+              else if(resEnt == "组织"){
+                colorTemp = '#409EFF'
+              }
+              else if(resEnt == "时间"){
+                colorTemp =  '#67C23A'
+              }
+              else if(resEnt == "公司"){
+                colorTemp = '#242f42'
+              }
+              else if(resEnt == "产品"){
+                colorTemp = 'pink'
+              }
+              return colorTemp
+            }
 
 
         }

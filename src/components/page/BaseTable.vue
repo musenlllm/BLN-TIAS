@@ -1,29 +1,40 @@
 <template>
     <div>
         <el-container>
-            <el-header>
-                <h1 style="color: gray">自动摘要</h1>
-            </el-header>
-            <el-container>
+          <el-header style="height: max-content">
+              <el-card class="noBorderInput"style="border: 0px; margin-top: 20px;border-radius: 0;
+          background-color: #fff;
+          box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
+
+                <!--<div slot="header" class="diyCardHead" >-->
+                <h1 style="color: black; letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px">文本摘要</h1>
+                <!--<el-divider style="width: 30px"></el-divider>-->
+                <!--</div>-->
+                <!--<h1 style="color: gray">实体识别</h1>-->
+                <el-input
+                  type="textarea"
+                  placeholder="请输入内容"
+                  v-model="summaryText"
+                  maxlength="400"
+                  show-word-limit
+                  :autosize="{ minRows: 5, maxRows: 8}"
+                  clearable
+                  style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); font-size: 15px;"
+                >
+                </el-input>
+
+                <el-row style="margin-top: 17px; display: flex; justify-content: center">
+                  <el-button v-on:click="getData" type="primary" style="background: #242f42; border: 0px; font-size: 15px; letter-spacing: 5px">开始摘要</el-button>
+                  <!--<el-button v-on:click="mockData">随机样例</el-button>-->
+                </el-row>
+              </el-card>
+          </el-header>
+            <!--<el-container>-->
                 <!--<el-aside width="200px">Aside</el-aside>-->
                 <el-main>
                     <!--</span>-->
-                    <el-input
-                            type="textarea"
-                            placeholder="请输入内容"
-                            v-model="summaryText"
-                            maxlength="400"
-                            show-word-limit
-                            :autosize="{ minRows: 5, maxRows: 8}"
-                            clearable
-                            style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); font-size: 15px;"
-                    >
-                    </el-input>
-                    <el-row style="margin-top: 30px; display: flex; justify-content: center; ">
-                        <el-button v-on:click="getData" type="primary" style="background: rgb(36, 47, 66); border: 0px">开始摘要</el-button>
-                        <!--<el-button v-on:click="mockData">随机样例</el-button>-->
-                    </el-row>
-                    <el-card class="box-card" style="font-size:18px;margin-top: 20px; text-align: center;min-height: 250px" v-loading="loading">
+
+                    <el-card class="box-card" style="font-size:18px;margin-top: 30px; text-align: center;min-height: 250px" v-loading="loading">
                         <div slot="header" class="clearfix">
                             <span>摘要结果</span>
                         </div>
@@ -43,7 +54,7 @@
                     </el-card>
 
                 </el-main>
-            </el-container>
+            <!--</el-container>-->
         </el-container>
 
         <!--<el-container>-->
