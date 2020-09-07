@@ -23,11 +23,11 @@
                         <el-button v-on:click="getData" type="primary" style="background: rgb(36, 47, 66); border: 0px">开始摘要</el-button>
                         <!--<el-button v-on:click="mockData">随机样例</el-button>-->
                     </el-row>
-                    <el-card class="box-card" style="margin-top: 20px; text-align: center;min-height: 250px" v-loading="loading">
+                    <el-card class="box-card" style="font-size:18px;margin-top: 20px; text-align: center;min-height: 250px" v-loading="loading">
                         <div slot="header" class="clearfix">
                             <span>摘要结果</span>
                         </div>
-                        <div>
+                        <div style="line-height: 1.5;-webkit-box-sizing: border-box;box-sizing: border-box;width: 100%;font-size: 15px;color: #606266;font-family: monospace;letter-spacing: normal;line-height: normal;">
                             {{summaryRes}}
                         </div>
                         <!--<el-input-->
@@ -113,6 +113,8 @@ export default {
     methods: {
         // 获取 easy-mock 的模拟数据
         getData() {
+            var tempText = this.clearText(this.summaryText)
+            // this.summaryText = this.clearText(this.summaryText)
             this.loading=true;
             var tempRes;
             // this.summaryRes = this.summaryText
@@ -121,7 +123,7 @@ export default {
                 body: JSON.stringify({
                     docs: [{
                         "id":0,
-                        "doc":this.summaryText,
+                        "doc":tempText,
                     }]
                 }),
                 headers: {
@@ -140,9 +142,20 @@ export default {
             // this.summaryRes = tempRes;
         },
         mockData(){
-            this.summaryText='日前，方舟子发文直指林志颖旗下爱碧丽推销假保健品，引起哗然。调查发现，爱碧丽没有自己的生产加工厂,其胶原蛋白饮品无核心研发，全部代工生产。号称有“逆生长”功效的爱碧丽“梦幻奇迹限量组”售价高达1080元，实际成本仅为每瓶4元！'
+            this.summaryText='日前，方舟子发文直指林志颖旗下爱碧丽推销假保健品，引起哗然。调查发现，爱碧丽没有自己的生产加工厂,其胶原蛋白饮品无核心研发，全部代工生产。号称有“逆生长”功效的爱碧丽“梦幻奇迹限量组”售价高达1080元，实际成本仅为每瓶4元！（请输入文本）'
             this.getData()
+        },
+        clearText(testStr) {
+            var resultStr = testStr.replace(/\ +/g, "");
+            resultStr = resultStr.replace(/\s+/g, "");
+            resultStr = resultStr.replace(/[ ]/g, "");    //去掉空格
+            resultStr = resultStr.replace(/[\r\n]/g, ""); //去掉回车换行
+            if(this.summaryText.indexOf("(请输入文本)")!=-1){
+                resultStr = resultStr.slice(0,resultStr.length-7)
+            }
+            return resultStr;
         }
+
 
     }
 };
@@ -159,6 +172,7 @@ export default {
     .res-textarea {
         color: black; margin-top: 30px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
     }
+
 
 
 

@@ -1,52 +1,82 @@
 <template>
   <div>
     <el-container>
-      <el-header>
-        <h1 style="color: gray">关系抽取</h1>
-      </el-header>
-      <el-main style="text-align: center">
-        <el-row style="margin: 10px 0">
+      <el-header style="height: max-content">
+        <el-card
+          class="noBorderInput"
+          style="border: 0px; margin-top: 20px;border-radius: 0;
+      background-color: #fff;
+      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+        >
+          <!--<div slot="header" class="diyCardHead" >-->
+          <h1
+            style="color: gray; letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px"
+          >关系抽取</h1>
+          <!--<el-divider style="width: 30px"></el-divider>-->
+          <!--</div>-->
+          <!--<h1 style="color: gray">实体识别</h1>-->
           <el-input
             type="textarea"
-            placeholder="请输入文本"
+            placeholder="请输入内容"
             v-model="content"
             maxlength="80"
             show-word-limit
-            :autosize="{ minRows: 5, maxRows: 8}"
+            :autosize="{ minRows: 4, maxRows: 8}"
             clearable
-            style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
-          ></el-input>
-        </el-row>
-
-        <el-row style="margin-top: 30px">
-          <el-button @click="getData" type="primary" style="background: #242f42; border: 0px">开始提取</el-button>
-        </el-row>
-
-        <el-row style="margin:20px 0">
+            style="font-size: 15px"
+          >
+            <!--style=" font-size: 15px; margin-top: 0px;border-radius: 0;-->
+            <!--background-color: #fff;-->
+            <!--box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"-->
+            >
+          </el-input>
+          <el-row style="margin-top: 17px; display: flex; justify-content: center">
+            <el-button
+              v-on:click="getData"
+              type="primary"
+              style="background: #242f42; border: 0px; font-size: 15px; letter-spacing: 5px"
+            >开始提取</el-button>
+            <!--<el-button v-on:click="mockData">随机样例</el-button>-->
+          </el-row>
+        </el-card>
+      </el-header>
+      <el-main
+        ref="mainContainer"
+        style="text-align:center;margin-top: 20px;height: 100%;padding:0 20px"
+      >
+        <el-row>
           <el-col :span="16">
-            <el-card>
+            <el-card
+              class="box-card"
+              style="margin-top: 0px;border-radius: 0;background-color: #fff;
+              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+            >
               <div slot="header" class="clearfix">
-                <span>人物关系图</span>
+                <span style="font-size: 18px">人物关系图</span>
               </div>
               <el-row>
-                <div id="showRelation" :style="{width: '100%', height: '540px'}"></div>
+                <div id="showRelation" :style="{width: '100%', height: '460px'}"></div>
               </el-row>
+              <hr style="border:0;height:1px;background-color:#606266" />
               <el-row style="padding-top:40px">
-                <div id="showRelation2" :style="{width: '100%', height: '600px'}"></div>
+                <div id="showRelation2" :style="{width: '100%', height: '500px'}"></div>
               </el-row>
             </el-card>
           </el-col>
 
-          <el-col :span="8" style="padding-left:24px">
-            <el-card>
+          <el-col :span="8" style="padding-left:20px">
+            <el-card
+              class="box-card"
+              style="margin-top: 0px;border-radius: 0;background-color: #fff;
+              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+            >
               <div slot="header" class="clearfix">
-                <span>人物关系列表</span>
+                <span style="font-size: 18px">人物关系列表</span>
               </div>
-
               <el-table
                 :show-header="true"
                 :data="items"
-                style="height: 1160px;max-height: 1160px;overflow: auto"
+                style="height: 1000px;max-height: 1000px;overflow: auto"
               >
                 <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
                 <el-table-column prop="relation" label="关系" align="center" width="50"></el-table-column>
@@ -104,11 +134,12 @@ function getPersonList(links) {
   return [personList, personDict];
 }
 
+/*
+洗牌节点列表
+ */
 function shuffle(arr) {
   for (let i = arr.length - 1; i >= 0; i--) {
     let rIndex = Math.floor(Math.random() * (i + 1));
-    // 打印交换值
-    // console.log(i, rIndex);
     let temp = arr[rIndex];
     arr[rIndex] = arr[i];
     arr[i] = temp;
@@ -121,22 +152,25 @@ export default {
   data() {
     return {
       content:
-        "红楼梦中贾政的五个孩子分别是贾珠、贾元春、贾宝玉、贾探春以及贾环。（请输入文本）",
+        "贾政与王夫人的三个孩子分别是贾珠、贾元春和贾宝玉，贾政与赵姨娘的孩子分别是贾探春和贾环，而贾政与周姨娘并未诞下一子。（请输入文本）",
       items: [
-        {person1: "贾政", person2: "贾珠", relation: "亲子"},
+        { person1: "贾政", person2: "王夫人", relation: "夫妻" },
+        { person1: "贾政", person2: "贾珠", relation: "亲子" },
         { person1: "贾政", person2: "贾元春", relation: "亲子" },
         { person1: "贾政", person2: "贾宝玉", relation: "亲子" },
+        { person1: "贾政", person2: "赵姨娘", relation: "夫妻" },
         { person1: "贾政", person2: "贾探春", relation: "亲子" },
         { person1: "贾政", person2: "贾环", relation: "亲子" },
+        { person1: "贾政", person2: "周姨娘", relation: "夫妻" },
+        { person1: "王夫人", person2: "贾珠", relation: "亲子" },
+        { person1: "王夫人", person2: "贾元春", relation: "亲子" },
+        { person1: "王夫人", person2: "贾宝玉", relation: "亲子" },
         { person1: "贾珠", person2: "贾元春", relation: "兄弟姐妹" },
         { person1: "贾珠", person2: "贾宝玉", relation: "兄弟姐妹" },
-        { person1: "贾珠", person2: "贾探春", relation: "兄弟姐妹" },
         { person1: "贾珠", person2: "贾环", relation: "兄弟姐妹" },
         { person1: "贾元春", person2: "贾宝玉", relation: "兄弟姐妹" },
-        { person1: "贾元春", person2: "贾探春", relation: "兄弟姐妹" },
-        { person1: "贾元春", person2: "贾环", relation: "兄弟姐妹" },
-        { person1: "贾宝玉", person2: "贾探春", relation: "兄弟姐妹" },
-        { person1: "贾宝玉", person2: "贾环", relation: "兄弟姐妹" },
+        { person1: "赵姨娘", person2: "贾探春", relation: "亲子" },
+        { person1: "赵姨娘", person2: "贾环", relation: "亲子" },
         { person1: "贾探春", person2: "贾环", relation: "兄弟姐妹" },
       ],
     };
@@ -163,22 +197,18 @@ export default {
 
       // 绘制图表
       var option = {
-        grid: {
-          left: "10%",
-          right: "10%",
-          top: "10%",
-          bottom: "10%",
-        },
         series: [
           {
             type: "graph",
-            layout: "none",
-            symbolSize: 60,
+            layout: "force",
+            symbolSize: 20,
             label: {
               show: true,
-              fontSize: 16,
+              fontSize: 14,
             },
-            roam: false,
+            top: "60",
+            bottom: "50",
+            roam: true,
             //categories: categories,
             itemStyle: {
               borderColor: "#fff",
@@ -188,7 +218,15 @@ export default {
             },
             lineStyle: {
               color: "source",
-              curveness: 0.3,
+              //curveness: 0.3,
+            },
+            force: {
+              repulsion: 500,
+              initLayout: "circular",
+              gravity: 0.05,
+              edgeLength: 150,
+              friction: 0.8,
+              focusNodeAdjacency: true,
             },
             edgeSymbol: ["", "arrow"],
             edgeLabel: {
@@ -200,7 +238,7 @@ export default {
                 },
                 formatter: function (param) {
                   // 关系标签内容
-                  return param.data.value;
+                  return param.data.relation;
                 },
               },
             },
@@ -221,22 +259,24 @@ export default {
         personList.forEach(function (p) {
           resData.nodes.push({
             name: p,
-            x: 10 * Math.cos((a * Math.PI) / 180),
-            y: 10 * Math.sin((a * Math.PI) / 180),
+            /*x: 80 * Math.cos((a * Math.PI) / 180),
+            y: 80 * Math.sin((a * Math.PI) / 180),*/
             category: 1,
             label: {
               show: true,
             },
-            symbolSize: p.length * 20 + 6,
+            draggable: true,
+            symbolSize: p.length * 15 + 6,
           });
           a += 360 / personNum;
         });
-
+        console.log(resData.nodes);
         items.forEach(function (item) {
           resData.links.push({
             source: personList.indexOf(item.person1),
             target: personList.indexOf(item.person2),
-            value: item.relation,
+            relation: item.relation,
+            //value:10,
             lineStyle: {
               width: 1,
             },
@@ -266,17 +306,12 @@ export default {
 
       // 绘制图表
       var option = {
-        grid: {
-          left: "10%",
-          right: "10%",
-          top: "30%",
-          //bottom: "20%",
-        },
         legend: [
           {
+            bottom: "10",
             data: categories.map(function (a) {
               return a.name;
-            })
+            }),
           },
         ],
         tooltip: {},
@@ -284,8 +319,8 @@ export default {
         animationEasingUpdate: "quinticInOut",
         series: [
           {
-            top: "120",
-            bottom: "50",
+            top: "80",
+            bottom: "150",
             name: "Les Miserables",
             type: "graph",
             layout: "circular",
@@ -339,7 +374,7 @@ export default {
           a += 360 / nodeNum; // Math.sin(2*Math.PI / 360)
         }
 
-        //nodedict = shuffle(nodedict);
+        nodedict = shuffle(nodedict);
         var i = 0;
         nodelist.forEach(function (node) {
           var val_ = 0;
@@ -419,7 +454,7 @@ export default {
                   personRelationLabel[item.person1 + "-" + item.relation],
               },
               lineStyle: {
-                type: "dotted",
+                type: "solid",
                 width: 1,
               },
               emphasis: {
@@ -429,8 +464,6 @@ export default {
                 },
               },
             });
-            //console.log(item.person1 + "-" + item.relation);
-            //console.log(lineCnt[item.person1 + "-" + item.relation]);
             delete personRelationLabel[item.person1 + "-" + item.relation];
           }
           if (personRelationLabel[item.person2 + "-" + item.relation]) {
@@ -444,7 +477,7 @@ export default {
                   personRelationLabel[item.person2 + "-" + item.relation],
               },
               lineStyle: {
-                type: "dotted",
+                type: "solid",
                 width: 1,
               },
               emphasis: {
@@ -454,8 +487,6 @@ export default {
                 },
               },
             });
-            //console.log(item.person2 + "-" + item.relation);
-            //console.log(lineCnt[item.person2 + "-" + item.relation]);
             delete personRelationLabel[item.person2 + "-" + item.relation];
           }
         });
@@ -484,7 +515,7 @@ export default {
           console.error("Error:", error);
           this.drawArrowRelation();
           this.drawCircular();
-          })
+        })
         .then((response) => {
           console.log(response);
           this.items = response.results[0].result;

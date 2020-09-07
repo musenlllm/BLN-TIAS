@@ -37,10 +37,12 @@
                     case "loginRequest":
                         //得到登陆请求
                         console.log("login!!")
-                        this.$router.push('/summary');
+                        localStorage.setItem('ms_username', 'ldmc');
+
+                        this.$router.push('/recognition');
                         break;
                 }
-            }
+            },
 
         },
         //注册事件

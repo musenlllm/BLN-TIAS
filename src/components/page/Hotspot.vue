@@ -2,7 +2,13 @@
     <div>
         <el-container>
             <el-header style="height: max-content;text-align: center">
-                <h1 style="color: gray;font-size: 30px;">热点挖掘</h1>
+
+                <h1 style="margin-top: 20px;color: gray; letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-bottom: -1%">
+                  热点挖掘
+                </h1>
+
+                <!--<h1 style="color: gray;font-size: 30px">热点挖掘</h1>-->
+
                 <!--<el-row style="margin-top: 30px; display: flex; justify-content: center">-->
                     <!--<el-button v-on:click="getData" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>-->
                     <!--<el-button >随机样例</el-button>-->
@@ -12,14 +18,20 @@
             <el-main  style="margin-left: 1px; margin-top: 10px; text-align: center">
                 <el-row :gutter="20" >
                     <el-col :span="8">
-                        <el-card shadow="hover" class="box-card" :body-style="{padding: '0px'}" style="min-height: 458px;">
-                        <div slot="header" class="clearfix">
-                            <span>热点新闻</span>
+                        <!--<el-card shadow="always" class="box-card" :body-style="{padding: '0px'}" style="min-height: 458px;font-size: 18px">-->
+                      <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="min-height: 466px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
+                      <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+
+                            <span style="">
+                                <!--<link rel="icon" href="../../assets/icon/news.icon" type="image/x-icon">-->
+                                <i class="iconfont iconxinwen"></i>
+                                热点新闻
+                            </span>
                         </div>
                         <div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">
                             <el-table
                                     :data="this.hotspotRes.hot_event"
-                                    style="width: 100%; text-align: center"
+                                    style="width: 100%; text-align: center; "
                                     stripe
                                     :row-class-name="tableRowClassName"
                                     @sort-change="changeSort"
@@ -28,19 +40,32 @@
                                     max-height="400px"
                             >
                                 <el-table-column align='center'
+                                    header-align="center"
                                     prop="rank"
                                     label="排序"
                                     sortable
                                     :sort-orders="['ascending', 'descending']"
-                                    width="100%"
+                                    width="80%"
                                 >
+
+                                  <div slot-scope="scope" v-if="scope.row.rank<4">
+
+                                    <i class="iconfont iconmingcheng-huobao-t"></i>
+                                  </div>
+                                  <div slot-scope="scope" v-else>
+                                    {{scope.row.rank}}
+
+                                  </div>
                                 </el-table-column>
-                                <el-table-column align='center'
+                                <el-table-column align='left'
+                                    header-align="center"
                                     prop="event"
-                                    label="链接和话题"
+                                    label="新闻话题"
                                     :show-overflow-tooltip=true
+                                                 width="200%"
                                 >
                                       <template slot-scope="scope">
+
                                         <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.event}}</a>
                                       </template>
                                 </el-table-column>
@@ -54,15 +79,23 @@
                         </div>
                     </el-card>
                     </el-col>
-                    <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{padding: '0px'}" style="min-height: 458px;">
-                        <div slot="header" class="clearfix">
-                            <span>热烈讨论话题</span>
+                    <el-col :span="9">
+                        <!--<el-card shadow="always" :body-style="{padding: '0px'}" style="min-height: 458px;">-->
+                      <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="min-height: 466px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
+                        <div slot="header" class="clearfix" style="font-size: 18px;height: 30px">
+                            <span>
+
+                                <i class="el-icon-chat-line-square" style="font-size: 21px"></i>
+
+                                <!--<i class="iconfont iconhuati"></i>-->
+                                热点话题
+                            </span>
                         </div>
                         <div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">
                             <el-table
                                     :data="hotspotRes.hot_topic"
-                                    style="width: 100%; text-align: center"
+                                    style="width: 100%; text-align: center;"
+                                    header-cell-style="font-weight:500"
                                     @sort-change="changeSort"
                                     :default-sort="{prop: 'rank', order: 'ascending'}"
                                     :row-class-name="tableRowClassName"
@@ -75,12 +108,21 @@
                                     label="排序"
                                     sortable
                                     :sort-orders="['ascending', 'descending']"
-                                    width="100%">
+                                    width="80%">
+                                      <div slot-scope="scope" v-if="scope.row.rank<4">
+
+                                        <i class="iconfont iconmingcheng-huobao-t"></i>
+                                      </div>
+                                      <div slot-scope="scope" v-else>
+                                        {{scope.row.rank}}
+
+                                  </div>
 
                                   </el-table-column>
-                                  <el-table-column align='center'
+                                  <el-table-column align='left'
+                                    header-align="center"
                                     prop="topic"
-                                    label="话题和链接"
+                                    label="新闻话题"
                                     :show-overflow-tooltip=true
                                   >
                                        <template slot-scope="scope">
@@ -104,14 +146,19 @@
                         </div>
                     </el-card>
                     </el-col>
-                    <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{padding: '0px'}" style="min-height: 458px;">
-                            <div slot="header" class="clearfix">
-                                <span>最近半小时增长新闻</span>
+                    <el-col :span="7">
+                        <!--<el-card shadow="always" :body-style="{padding: '0px'}" style="min-height: 458px;">-->
+                      <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="min-height: 466px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
+                            <div slot="header" class="clearfix" style="font-size: 18px;height: 30px">
+                                <span>
+                                    <i class="iconfont iconzengchang1" ></i>
+                                <!--</div>-->
+                                    最近半小时增长新闻
+                                </span>
                             </div>
                             <el-table
                                     :data="this.recent_half_hour_increase_news"
-                                    style="width: 100%; text-align: center"
+                                    style="width: 100%; text-align: center;"
                                     stripe
                                     @sort-change="changeSort"
                                     :default-sort="{prop: 'publish_time', order: 'ascending'}"
@@ -120,13 +167,16 @@
                                     max-height="400px"
                             >
                                 <el-table-column align='left'
+                                    type="index"
                                     header-align="center"
                                     prop="news"
-                                    label="链接和话题"
+                                    label="新闻话题"
                                      :show-overflow-tooltip=true
+                                    width="220%"
                                 >
-                                    <template slot-scope="scope">
-                                      <a :href="scope.row.url" target="_blank" class="buttonText" >【{{scope.row.news_type}}】{{scope.row.news}}</a>
+                                    <template slot-scope="scope" v-if="scope.row.url">
+                                        <i :href="scope.row.url" class="iconfont iconzuixin" ></i>
+                                        <a :href="scope.row.url" target="_blank" class="buttonText" >【{{scope.row.news_type}}】{{scope.row.news}}</a>
                                     </template>
                                 </el-table-column>
                                 <el-table-column align='center'
@@ -134,9 +184,10 @@
                                     label="发布时间"
                                     sortable
                                     :sort-orders="['ascending', 'descending']"
+                                     :show-overflow-tooltip=true
                                 >
                                     <template slot-scope="scope">
-                                          <span >发布时间：{{scope.row.publish_time}}</span>
+                                          <span >{{scope.row.publish_time}}</span>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -144,8 +195,9 @@
                     </el-col>
                 </el-row>
 
-                <el-card class="box-card" style="min-height:200px; margin-top: 20px;text-align: center">
-                    <el-tabs type="card" v-model="activeName" @tab-click="handleClick">
+                <!--<el-card class="box-card" style="min-height:200px; margin-top: 20px;text-align: center">-->
+                <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
+                    <el-tabs type="card" v-model="activeName" @tab-click="handleClick" style="border: 0px;border-radius: 0">
                         <el-tab-pane label="今日" name="first">
 
                             <div class="wrap" v-if="isChildUpdate1">
@@ -207,14 +259,16 @@
                 </el-card>
             <!--</el-main>-->
             <!--<el-main style="text-align: center; margin-top: 10px; ">-->
-                <el-card class="box-card" style="min-height: 400px;margin-top: 20px;text-align: center">
-                    <div slot="header" class="clearfix">
+                <!--<el-card class="box-card" style="min-height: 400px;margin-top: 20px;text-align: center">-->
+                <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
+                    <div slot="header" class="clearfix" style="font-size: 18px">
                         <span>新闻主题分布图</span>
                     </div>
                     <div id="hot_distribution" style="width:100%;min-height:400px;"></div>
                 </el-card>
-                <el-card class="box-card" style="min-height: 50px; margin-top: 20px">
-                    <div slot="header" class="clearfix">
+                <!--<el-card class="box-card" style="min-height: 50px; margin-top: 20px">-->
+                <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
+                    <div slot="header" class="clearfix" style="font-size: 18px">
                         <span>近7日各主题新闻的每天增长数</span>
                     </div>
                     <!--折线图-->
@@ -239,49 +293,6 @@ export default {
     data() {
         return {
             hotspotRes:{
-                // hot_event: [],  // 热点新闻,每一项item均为{"rank": int, "event": string, "popularity": int, "url": string}形式
-                // hot_topic: [],  // 热烈讨论话题, 每一项item均为{"rank": int, "topic": string, "view_number": string, "url": string}, "view_number"表示阅读和讨论量
-                // hot_freq_words: {
-                //     today: [], // 今日新闻高频词, 每一项均为{"rank": int, "word": str, "frequency": int}形式
-                //     nearly_three_days: [], // 近三日新闻高频词, 每一项均为{"rank": int, "word": str, "frequency": int}形式
-                //     nearly_one_week: [], //近一周新闻高频词, 每一项均为{"rank": int, "word": str, "frequency": int}形式
-                // },
-                // hot_key_words: {
-                //     today: [], // 今日新闻高影响力关键词, 每一项均为{"rank": int, "word": str, "influence": float}形式
-                //     nearly_three_days: [], // 近三日新闻高影响力关键词, 每一项均为{"rank": int, "word": str, "influence": float}形式
-                //     nearly_one_week: [], //近一周新闻高影响力关键词, 每一项均为{"rank": int, "word": str, "influence": float}形式
-                // },
-                // // hot_statistics: {
-                // //     "today_news_number": int, // 今日新增新闻数
-                // //     "nearly_three_days_news_number": int, // 近三日新增新闻数
-                // //     "nearly_one_week_news_number": int, // 近一周新增新闻数
-                // //     "today_news_distribution": {
-                // //         "domestic": int, "world": int, "sports": int, "society": int, "other": int, "history": int,"entertainment": int,
-                // //         "military": int, "government": int, "education": int, "finance": int, "comment": int
-                // //     },  // 今日新闻的主题(场景)分布;
-                // //     "nearly_three_days_news_distribution": {
-                // //         "domestic": int, "world": int, "sports": int, "society": int, "other": int, "history": int, "entertainment": int,
-                // //         "military": int, "government": int, "education": int, "finance": int, "comment": int
-                // //     }, // 近三日新闻的主题(场景)分布;
-                // //     "nearly_one_week_news_distribution": {
-                // //         "domestic": int, "world": int, "sports": int, "society": int, "other": int, "history": int, "entertainment": int,
-                // //         "military": int, "government": int, "education": int, "finance": int, "comment": int
-                // //     }, // 近一周新闻的主题(场景)分布
-                // //     // 下面十二个列表为近7日各主题新闻的每天增长数(7个整数值)
-                // //     "domestic_trend": [],
-                // //     "world_trend": [],
-                // //     "sports_trend": [],
-                // //     "society_trend": [],
-                // //     "other_trend": [],
-                // //     "history_trend": [],
-                // //     "entertainment_trend": [],
-                // //     "military_trend": [],
-                // //     "government_trend": [],
-                // //     "education_trend": [],
-                // //     "finance_trend": [],
-                // //     "comment_trend": [],
-                // //     "recent_half_hour_increase_news": []  //每个列表项{"news": str, "news_type": str, "publish_time": str, "url": str}  // 按时间先后, 最近发布的在前面
-                // // }
             },
             items: [
                 // { type: '', label: '标签一' },
@@ -563,9 +574,15 @@ export default {
                 colorArr:['#fda67e', '#81cacc', '#cca8ba', "#88cc81", "#82a0c5", '#fddb7e', '#735BA1', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
                 title: {
                     text: title,
+
                     x: "center",
                     padding:9,
                     top:'0%',//各个方向的内边距，默认是5，可以自行设置
+                    textStyle:{//标题内容的样式
+                        fontStyle:'normal',//主标题文字字体风格，默认normal，有italic(斜体),oblique(斜体)
+                        fontWeight:"normal",//可选normal(正常)，bold(加粗)，bolder(加粗)，lighter(变细)，100|200|300|400|500...
+                        fontSize:15//主题文字字体大小，默认为18px
+                      },
 
                 },
                 tooltip: {
@@ -661,31 +678,34 @@ export default {
                     data: [
                         {
                             name: '今日',
-                            icon: 'circle',
+                            icon: '',
                             textStyle: {
+                              fontSize:15,
                               // color: 'red',  // 单独设置某一个图列的颜色
                               // backgroundColor: '#fff' // 单独设置某一个图列的字体背景色
                             }
                         },
                         {
                             name: '近三日',
-                            icon: 'circle',
+                            icon: '',
                             textStyle: {
+                              fontSize:15,
                               // color: 'red',  // 单独设置某一个图列的颜色
                               // backgroundColor: '#fff' // 单独设置某一个图列的字体背景色
                             }
                         },
                         {
                             name: '近七日',
-                            icon: 'circle',
+                            icon: '',
                             textStyle: {
+                              fontSize:15,
                               // color: 'red',  // 单独设置某一个图列的颜色
                               // backgroundColor: '#fff' // 单独设置某一个图列的字体背景色
                             }
                         },
                     ],
                     textStyle: {
-                        fontWeight: 500,
+
                         fontSize:15
                     },
                     right: 100,
@@ -698,15 +718,15 @@ export default {
                     type: 'category',
                     name: '主题',
                     nameTextStyle:{
-                        fontWeight:'500',
-                        fontSize:'18',
+
+                        fontSize:'15',
                         padding:10
                     },
                     axisLabel: {
                         interval:0,
                         rotate:40,
-                        fontSize:'14',
-                        fontWeight:'700',
+                        fontSize:'15',
+
                         fontFamily:'微软雅黑',
                     },
                     data:['Comment评论', 'Domestic国内', 'Education教育', 'Entertainment娱乐', 'Finance经济','Government政府', 'History历史', 'Military军事', 'Other其他', 'Society社会', 'Sports体育', 'World世界']
@@ -715,13 +735,13 @@ export default {
                     type: 'value',
                     name: '增长数量',
                     nameTextStyle:{
-                        fontWeight:'500',
-                        fontSize:'18',
+
+                        fontSize:'15',
                         padding:10
                     },
                     axisLabel: {
-                        fontSize:'14',
-                        fontWeight:'700',
+                        fontSize:'15',
+
                         fontFamily:'微软雅黑',
                         marginTop:'35px',
                         show:true,
@@ -828,7 +848,7 @@ export default {
                     data:["Domestic国内","World世界","Sports体育","Society社会","History历史","Entertainment娱乐",
                         "Military军事","Government政府","Education教育","Finance经济","Comment评论","Other其他"],
                     textStyle: {
-                        fontWeight: 700          //legend字体颜色
+                      //legend字体颜色
                     },
                     orient: 'vertical',
                     right: '-0%',
@@ -840,8 +860,7 @@ export default {
                     type: 'category',
                     name: '近七日',
                     nameTextStyle:{
-                        fontWeight:'500',
-                        fontSize:'18',
+                        fontSize:'15',
                     },
                     data: date_arr,
                     axisLabel: {
@@ -849,8 +868,6 @@ export default {
                         fontFamily:'微软雅黑',
                         marginTop:'35px',
                         show:true,
-                        fontWeight:'700',
-
                     },
                 },
                 //y轴没有显式设置，根据值自动生成y轴
@@ -858,8 +875,8 @@ export default {
                     type: 'value',
                     name: '增长数量',
                     nameTextStyle:{
-                        fontWeight:'500',
-                        fontSize:'18',
+
+                        fontSize:'15',
                         padding:10
                     },
                     axisLabel: {
@@ -867,7 +884,7 @@ export default {
                         fontFamily:'微软雅黑',
                         marginTop:'35px',
                         show:true,
-                        fontWeight:'500',
+
                     },
                 },
                 //数据-data是最终要显示的数据
@@ -910,7 +927,8 @@ export default {
 
 <style>
     @import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
-    .el-header/deep/, .el-footer {
+
+    .el-header, .el-footer {
         font-size: 20px;
         color: black;
         text-align: center;
@@ -925,12 +943,17 @@ export default {
     .el-table/deep/.tableStyle/deep/{
         background-color: #1989fa!important;
         color:#fff;
-        font-weight:400;
+        font-weight:300;
     }
     .buttonText{
         color: #303133;
-        font-weight: bold;
+        text-align:left;
     }
+    /*.clearfix{*/
+        /*display: flex;*/
+        /*justify-content: center;*/
+        /*align:middle;*/
+    /*}*/
     .wrap{
         display: flex;
         height: 100%;
