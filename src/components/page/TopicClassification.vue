@@ -2,71 +2,93 @@
   <div>
     <el-container>
       <el-header style="height: max-content">
-        <h1 style="color: gray">文本主题分类</h1>
-      </el-header>
-
-      <el-main style="text-align: center">
-        <el-row style="margin:20px 0">
-          <el-col :span="13">
+        <el-card
+          class="noBorderInput"
+          style="border: 0px; margin-top: 20px;border-radius: 0;
+      background-color: #fff;
+      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+        >
+          <!--<div slot="header" class="diyCardHead" >-->
+          <h1
+            style="color: gray; letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px"
+          >文本主题分类</h1>
+          <!--<el-divider style="width: 30px"></el-divider>-->
+          <!--</div>-->
+          <!--<h1 style="color: gray">实体识别</h1>-->
+          <el-row>
             <el-input
               type="textarea"
-              placeholder="请输入文本"
+              placeholder="请输入内容"
               v-model="content"
               maxlength="800"
               show-word-limit
-              :autosize="{ minRows: 11, maxRows: 16}"
+              :autosize="{ minRows: 11, maxRows: 11}"
               clearable
-              style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
+              style="font-size: 15px"
             />
-          </el-col>
-          <el-col :span="3">
-            <el-button @click="submit" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>
-          </el-col>
-          <el-col :span="8">
-            <el-card shadow="always" style="height:240px;max-height:230px">
-              <div slot="header" class="clearfix">
-                <span style="font-size: 18px">本次主题分类结果</span>
-              </div>
-              <el-row>
-                <div v-if="form.type.length > 0" style="text-align:center;height:26px">
+          </el-row>
+          <el-row style="margin-top: 17px; display: flex; justify-content: center">
+            <el-button
+              v-on:click="submit"
+              type="primary"
+              style="background: #242f42; border: 0px; font-size: 15px; letter-spacing: 5px"
+            >开始分析</el-button>
+            <!--<el-button v-on:click="mockData">随机样例</el-button>-->
+          </el-row>
+        </el-card>
+      </el-header>
+      <el-main
+        ref="mainContainer"
+        style="text-align:center;margin-top: 30px;height: 100%;padding:0 20px"
+      >
+        <el-row style="max-width:100%;max-height:480px">
+          <el-card
+            class="box-card"
+            style="margin-top: 0px;border-radius: 0;background-color: #fff;
+              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+          >
+            <div slot="header" class="clearfix">
+              <span style="font-size: 18px">本次主题分类结果</span>
+            </div>
+            <el-row>
+              <el-col :span="4">
+                <div style="min-height:10px"></div>
+              </el-col>
+              <el-col :span="16">
+                <div v-if="form.type.length > 0" style="text-align:center;height:26px;padding:60px 0">
                   <p
                     style="font-size:24px;font-weight:bold"
                     :style="{color:form.color}"
                   >{{form.type}}</p>
-                  <!--<el-tag
-                    effect="dark"
-                    size="default"
-                    :color="form.color"
-                    style="border-radius: 4px;border: 0px;text-align:center;width:60px;font-size:18px;height:30px;
-                             box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);"
-                  >{{form.type}}</el-tag>-->
                 </div>
                 <div v-else style="min-height:26px"></div>
-              </el-row>
-              <!-- <el-row>
-                <div align="middle" id="tpChart" style="height: 300px"></div>
-              </el-row>-->
-              <el-row style="margin-top:36px">
+              </el-col>
+              <el-col :span="4" style="padding-left:30px;padding-right:10px">
                 <div
-                  class="tag-group"
-                  style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;"
+                  style="display:flex;justify-content:center;flex-direction:column; flex-wrap:wrap;max-height:230px"
                 >
-                  <el-tag
-                    style="border-radius: 4px;border: 0px;margin:5px 5px;
-                             box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);"
-                    v-for="(value, key) in type2color"
-                    :key="key"
-                    :color="value"
-                    effect="dark"
-                  >{{ key }}</el-tag>
+                  <template v-for="(color, key) in type2color">
+                    <div :key="key" style="display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;margin:5px 5px;">
+                      <div
+                        style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+                    border-radius: 4px;border: 0px;margin:3px 5px;width:25px;height:15px;"
+                        :style="{'background-color':color}"
+                      ></div>
+                      <div style="font-size:15px;min-width:25px;height:15px;padding:0 0">{{key}}</div>
+                    </div>
+                  </template>
                 </div>
-              </el-row>
-            </el-card>
-          </el-col>
+              </el-col>
+            </el-row>
+          </el-card>
         </el-row>
 
-        <el-row style="margin:3em 0;max-width:100%;max-height:480px">
-          <el-card>
+        <el-row style="max-width:100%;max-height:480px;margin-top:30px">
+          <el-card
+            class="box-card"
+            style="margin-top: 0px;border-radius: 0;background-color: #fff;
+              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+          >
             <div slot="header" class="clearfix">
               <span style="font-size: 18px">实时主题新闻分类结果</span>
             </div>
@@ -76,7 +98,7 @@
                 direction="vertical"
                 arrow="never"
                 indicator-position="none"
-                height="378px"
+                height="390px"
                 :loop="true"
               >
                 <el-carousel-item v-for="(news, index) in newslist" :key="index">
@@ -85,8 +107,8 @@
                       <el-table
                         :show-header="false"
                         :data="news.slice(i*6-6,i*6)"
-                        style="height:380px"
-                        max-height="380"
+                        style="height:384px;fontSize:15px"
+                        max-height="384"
                       >
                         <el-table-column :show-overflow-tooltip="true">
                           <template slot-scope="scope">
@@ -94,8 +116,8 @@
                               <a :href="scope.row.url" style="color:black">{{scope.row.event}}</a>
                             </el-row>
                             <el-row>
-                              <el-col :span="16">发布时间：{{scope.row.publish_time}}</el-col>
-                              <el-col :span="4">
+                              <el-col :span="15">发布时间：{{scope.row.publish_time}}</el-col>
+                              <el-col :span="5">
                                 类别：
                                 <el-tag
                                   effect="dark"
@@ -119,20 +141,28 @@
 
         <el-row style="margin-top:30px">
           <el-col :span="12">
-            <el-card>
+            <el-card
+              class="box-card"
+              style="margin-top: 0px;border-radius: 0;background-color: #fff;
+              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+            >
               <div slot="header" class="clearfix">
                 <span style="font-size: 18px">实时主题新闻数量统计</span>
               </div>
-              <div id="showBarChart" :style="{width: '100%', height: '300px'}"></div>
+              <div id="showBarChart" :style="{width: '100%', height: '250px'}"></div>
             </el-card>
           </el-col>
 
           <el-col :span="12" style="padding-left:20px">
-            <el-card>
+            <el-card
+              class="box-card"
+              style="margin-top: 0px;border-radius: 0;background-color: #fff;
+              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+            >
               <div slot="header" class="clearfix">
                 <span style="font-size: 18px">实时主题新闻比例统计</span>
               </div>
-              <div id="showPieChart" :style="{width: '100%', height: '300px'}"></div>
+              <div id="showPieChart" :style="{width: '100%', height: '250px'}"></div>
             </el-card>
           </el-col>
         </el-row>
@@ -147,22 +177,6 @@ import echarts from "echarts/lib/echarts";
 import "echarts/dist/extension/dataTool";
 
 const childtypelist = ["教育", "娱乐", "财经", "时政", "社会", "体育", "科技"];
-/*const type2value = {
-  体育: 0,
-  娱乐: 10,
-  家居: 20,
-  彩票: 30,
-  房产: 40,
-  教育: 50,
-  时尚: 60,
-  时政: 70,
-  星座: 80,
-  游戏: 90,
-  社会: 100,
-  科技: 110,
-  股票: 120,
-  财经: 130,
-};*/
 const type2color = {
   体育: "#F56C6C",
   娱乐: "pink",
@@ -188,17 +202,6 @@ const colorList = [
   "#F56C6C",
   "#203643",
 ];
-/*
-const colorList = [
-  "pink",
-  "#67C23A",
-  "#E6A23C",
-  "#409EFF",
-  "#242f42",
-  "#F56C6C",
-  "#7B7BC7",
-];
-*/
 const tpclassurl = "http://49.234.217.110:5000/api/tpclassification";
 const carouselurl = "http://49.234.217.110:5000/api/getRealTimeThemeInfo";
 
@@ -224,129 +227,17 @@ export default {
     };
   },
   methods: {
-    drawDashboard() {
-      var theChart = echarts.init(document.getElementById("tpChart"));
-      var thisVal = 50;
-
-      var option = {
-        // color:['#E47470','#7EBF50', '#589EF8'],
-        tooltip: {
-          formatter: "{a} <br/>{b} : {c}%",
-        },
-        series: [
-          {
-            name: "置信度",
-            type: "gauge",
-            detail: {
-              formatter: "{value}%",
-              textStyle: {
-                fontSize: 20,
-              },
-            },
-            data: [
-              {
-                value: Math.floor(this.form.score * 100),
-                name: "置信度",
-              },
-            ],
-            title: {
-              textStyle: {
-                // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                fontWeight: "bolder",
-                fontSize: 20,
-                fontStyle: "italic",
-                color: "gray",
-              },
-            },
-            axisLine: {
-              // 坐标轴线
-              lineStyle: {
-                // 属性lineStyle控制线条样式
-                color: [
-                  [0.2, "#E47470"],
-                  [0.8, "#DDA450"],
-                  [1, "#7EBF50"],
-                ],
-                // width:50
-              },
-            },
-            axisLabel: {
-              distance: -60,
-              textStyle: {
-                fontSize: 15,
-              },
-            },
-          },
-        ],
-      };
-      /*var option2 = {
-        tooltip: {
-          formatter: "文本主题 : " + typelist[thisVal / 10],
-        },
-        series: [
-          {
-            name: "文本主题",
-            type: "gauge",
-            detail: {
-              formatter: function (value) {
-                console.log("value");
-                console.log(value);
-                return typelist[value / 10];
-              },
-              textStyle: {
-                fontSize: 20,
-              },
-            },
-            min: 0,
-            max: 130,
-            splitNumber: 13,
-            data: [
-              {
-                value: thisVal,
-                name: "文本主题",
-              },
-            ],
-            title: {
-              textStyle: {
-                // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                fontWeight: "bolder",
-                fontSize: 20,
-                fontStyle: "italic",
-                color: "gray",
-              },
-            },
-            axisLine: {
-              // 坐标轴线
-              lineStyle: {
-                // 属性lineStyle控制线条样式
-                color: [[1, "#F56C6C"]],
-                // width:50
-              },
-            },
-            axisLabel: {
-              distance: -60,
-              textStyle: {
-                fontSize: 15,
-              },
-              formatter: function (value) {
-                for (var key in type2value) {
-                  if (type2value[key] == value) {
-                    return key;
-                  }
-                }
-                return "error";
-              },
-            },
-            axisTick: {
-              show: false,
-            },
-          },
-        ],
-      };*/
-      theChart.setOption(option);
-    },
     drawBarChart() {
       let myChart = echarts.init(document.getElementById("showBarChart"));
+      var dataset = [];
+      childtypelist.forEach(function(item){
+        dataset.push({
+          value: item,
+          textStyle:{
+            fontSize:"15"
+          }
+        })
+      })
       // 绘制图表
       var option = {
         tooltip: {
@@ -356,12 +247,12 @@ export default {
         grid: {
           top: "5%",
           bottom: "10%",
-          left: "15%",
+          left: "10%",
           right: "5%",
         },
         xAxis: {
           type: "category",
-          data: childtypelist,
+          data: dataset,
         },
         yAxis: {
           type: "value",
@@ -377,8 +268,9 @@ export default {
             label: {
               show: true,
               position: "top",
+              fontSize: "15"
             },
-            barWidth: "30",
+            barWidth: "50%",
           },
         ],
       };
@@ -399,7 +291,7 @@ export default {
             color: colorList[i],
           },
           label: {
-            fontSize: "14",
+            fontSize: "15",
           },
         });
         selected[childtypelist[i]] = true;
@@ -439,6 +331,8 @@ export default {
                 shadowColor: "rgba(0, 0, 0, 0.5)",
               },
             },
+            top: "-20%",
+            bottom: "-20%",
           },
         ],
       };
@@ -472,7 +366,6 @@ export default {
           this.form.score = response.results[0].score;
           this.form.color = type2color[response.results[0].data];
           console.log(this.form.score);
-          //this.drawDashboard();
         });
 
       //this.$message.success("提交成功！");
@@ -516,7 +409,6 @@ export default {
   },
   mounted() {
     this.getRealTimeThemeInfo();
-    //this.drawDashboard();
   },
 };
 </script>

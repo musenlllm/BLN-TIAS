@@ -55,7 +55,7 @@
                 <span style="font-size: 18px">人物关系图</span>
               </div>
               <el-row>
-                <div id="showRelation" :style="{width: '100%', height: '540px'}"></div>
+                <div id="showRelation" :style="{width: '100%', height: '460px'}"></div>
               </el-row>
               <hr style="border:0;height:1px;background-color:gray" />
               <el-row style="padding-top:40px">
@@ -76,7 +76,7 @@
               <el-table
                 :show-header="true"
                 :data="items"
-                style="height: 1170px;max-height: 1170px;overflow: auto"
+                style="height: 1170px;max-height: 1090px;overflow: auto"
               >
                 <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
                 <el-table-column prop="relation" label="关系" align="center" width="50"></el-table-column>
