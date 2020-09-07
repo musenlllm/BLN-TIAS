@@ -60,7 +60,7 @@ import ElementUI from 'element-ui';
 export default {
     data() {
         return {
-            collapse: true,
+            collapse: false,
             items: [
                 {
                     icon: 'iconfont icon2_shitishibie',
@@ -136,10 +136,5 @@ export default {
 <style>
 .el-menu-item.is-active{
     background-color: rgb(38,47,64) !important;
-}
-.el-menu {
-  flex: 1;
-  overflow: inherit;
-  border-right: none;
 }
 </style>

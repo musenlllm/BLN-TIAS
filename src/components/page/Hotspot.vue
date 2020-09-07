@@ -11,9 +11,14 @@
             <el-main  style="margin-left: 1px; margin-top: 10px; text-align: center">
                 <el-row :gutter="20" >
                     <el-col :span="8">
-                        <el-card shadow="hover" class="box-card" :body-style="{padding: '0px'}" style="min-height: 458px;font-size: 18px">
-                        <div slot="header" class="clearfix" style="font-size: 18px">
-                            <span>热点新闻</span>
+                        <el-card shadow="always" class="box-card" :body-style="{padding: '0px'}" style="min-height: 458px;font-size: 18px">
+                        <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+
+                            <span style="">
+                                <!--<link rel="icon" href="../../assets/icon/news.icon" type="image/x-icon">-->
+                                <i class="iconfont iconxinwen"></i>
+                                热点新闻
+                            </span>
                         </div>
                         <div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">
                             <el-table
@@ -34,8 +39,14 @@
                                     :sort-orders="['ascending', 'descending']"
                                     width="70%"
                                 >
-                                  <div slot-scope="scope" style="">
+
+                                  <div slot-scope="scope" v-if="scope.row.rank<4">
+
+                                    <i class="iconfont iconmingcheng-huobao-t"></i>
+                                  </div>
+                                  <div slot-scope="scope" v-else>
                                     {{scope.row.rank}}
+
                                   </div>
                                 </el-table-column>
                                 <el-table-column align='left'
@@ -43,9 +54,10 @@
                                     prop="event"
                                     label="新闻话题"
                                     :show-overflow-tooltip=true
-                                                 width="220%"
+                                                 width="200%"
                                 >
                                       <template slot-scope="scope">
+
                                         <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.event}}</a>
                                       </template>
                                 </el-table-column>
@@ -60,9 +72,15 @@
                     </el-card>
                     </el-col>
                     <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{padding: '0px'}" style="min-height: 458px;">
-                        <div slot="header" class="clearfix" style="font-size: 18px">
-                            <span>热烈讨论话题</span>
+                        <el-card shadow="always" :body-style="{padding: '0px'}" style="min-height: 458px;">
+                        <div slot="header" class="clearfix" style="font-size: 18px;height: 30px">
+                            <span>
+
+                                <i class="el-icon-chat-line-square" style="font-size: 21px"></i>
+
+                                <!--<i class="iconfont iconhuati"></i>-->
+                                热点话题
+                            </span>
                         </div>
                         <div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">
                             <el-table
@@ -81,6 +99,14 @@
                                     sortable
                                     :sort-orders="['ascending', 'descending']"
                                     width="70%">
+                                      <div slot-scope="scope" v-if="scope.row.rank<4">
+
+                                        <i class="iconfont iconmingcheng-huobao-t"></i>
+                                      </div>
+                                      <div slot-scope="scope" v-else>
+                                        {{scope.row.rank}}
+
+                                  </div>
 
                                   </el-table-column>
                                   <el-table-column align='left'
@@ -111,9 +137,13 @@
                     </el-card>
                     </el-col>
                     <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{padding: '0px'}" style="min-height: 458px;">
-                            <div slot="header" class="clearfix" style="font-size: 18px">
-                                <span>最近半小时增长新闻</span>
+                        <el-card shadow="always" :body-style="{padding: '0px'}" style="min-height: 458px;">
+                            <div slot="header" class="clearfix" style="font-size: 18px;height: 30px">
+                                <span>
+                                    <i class="iconfont iconzengchang1" ></i>
+                                <!--</div>-->
+                                    最近半小时增长新闻
+                                </span>
                             </div>
                             <el-table
                                     :data="this.recent_half_hour_increase_news"
@@ -126,13 +156,16 @@
                                     max-height="400px"
                             >
                                 <el-table-column align='left'
+                                    type="index"
                                     header-align="center"
                                     prop="news"
                                     label="新闻话题"
                                      :show-overflow-tooltip=true
+                                    width="220%"
                                 >
-                                    <template slot-scope="scope">
-                                      <a :href="scope.row.url" target="_blank" class="buttonText" >【{{scope.row.news_type}}】{{scope.row.news}}</a>
+                                    <template slot-scope="scope" v-if="scope.row.url">
+                                        <i :href="scope.row.url" class="iconfont iconzuixin" ></i>
+                                        <a :href="scope.row.url" target="_blank" class="buttonText" >【{{scope.row.news_type}}】{{scope.row.news}}</a>
                                     </template>
                                 </el-table-column>
                                 <el-table-column align='center'
@@ -246,49 +279,6 @@ export default {
     data() {
         return {
             hotspotRes:{
-                // hot_event: [],  // 热点新闻,每一项item均为{"rank": int, "event": string, "popularity": int, "url": string}形式
-                // hot_topic: [],  // 热烈讨论话题, 每一项item均为{"rank": int, "topic": string, "view_number": string, "url": string}, "view_number"表示阅读和讨论量
-                // hot_freq_words: {
-                //     today: [], // 今日新闻高频词, 每一项均为{"rank": int, "word": str, "frequency": int}形式
-                //     nearly_three_days: [], // 近三日新闻高频词, 每一项均为{"rank": int, "word": str, "frequency": int}形式
-                //     nearly_one_week: [], //近一周新闻高频词, 每一项均为{"rank": int, "word": str, "frequency": int}形式
-                // },
-                // hot_key_words: {
-                //     today: [], // 今日新闻高影响力关键词, 每一项均为{"rank": int, "word": str, "influence": float}形式
-                //     nearly_three_days: [], // 近三日新闻高影响力关键词, 每一项均为{"rank": int, "word": str, "influence": float}形式
-                //     nearly_one_week: [], //近一周新闻高影响力关键词, 每一项均为{"rank": int, "word": str, "influence": float}形式
-                // },
-                // // hot_statistics: {
-                // //     "today_news_number": int, // 今日新增新闻数
-                // //     "nearly_three_days_news_number": int, // 近三日新增新闻数
-                // //     "nearly_one_week_news_number": int, // 近一周新增新闻数
-                // //     "today_news_distribution": {
-                // //         "domestic": int, "world": int, "sports": int, "society": int, "other": int, "history": int,"entertainment": int,
-                // //         "military": int, "government": int, "education": int, "finance": int, "comment": int
-                // //     },  // 今日新闻的主题(场景)分布;
-                // //     "nearly_three_days_news_distribution": {
-                // //         "domestic": int, "world": int, "sports": int, "society": int, "other": int, "history": int, "entertainment": int,
-                // //         "military": int, "government": int, "education": int, "finance": int, "comment": int
-                // //     }, // 近三日新闻的主题(场景)分布;
-                // //     "nearly_one_week_news_distribution": {
-                // //         "domestic": int, "world": int, "sports": int, "society": int, "other": int, "history": int, "entertainment": int,
-                // //         "military": int, "government": int, "education": int, "finance": int, "comment": int
-                // //     }, // 近一周新闻的主题(场景)分布
-                // //     // 下面十二个列表为近7日各主题新闻的每天增长数(7个整数值)
-                // //     "domestic_trend": [],
-                // //     "world_trend": [],
-                // //     "sports_trend": [],
-                // //     "society_trend": [],
-                // //     "other_trend": [],
-                // //     "history_trend": [],
-                // //     "entertainment_trend": [],
-                // //     "military_trend": [],
-                // //     "government_trend": [],
-                // //     "education_trend": [],
-                // //     "finance_trend": [],
-                // //     "comment_trend": [],
-                // //     "recent_half_hour_increase_news": []  //每个列表项{"news": str, "news_type": str, "publish_time": str, "url": str}  // 按时间先后, 最近发布的在前面
-                // // }
             },
             items: [
                 // { type: '', label: '标签一' },
@@ -901,22 +891,23 @@ export default {
         tableHeaderColor() {
             return 'tableStyle'
         },
-        // tableRowClassName({row, rowIndex}) {
-        //     if (rowIndex === 0) {
-        //       return 'warning-row';
-        //     } else if (rowIndex === 1) {
-        //       return 'warning-row';
-        //     }else if (rowIndex === 2) {
-        //       return 'warning-row';
-        //     }
-        //     return '';
-        // }
+        tableRowClassName({row, rowIndex}) {
+            if (rowIndex === 0) {
+              return 'warning-row';
+            } else if (rowIndex === 1) {
+              return 'warning-row';
+            }else if (rowIndex === 2) {
+              return 'warning-row';
+            }
+            return '';
+        }
     }
 };
 </script>
 
 <style>
     @import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
+
     .el-header, .el-footer {
         font-size: 20px;
         color: black;
@@ -938,6 +929,11 @@ export default {
         color: #303133;
         text-align:left;
     }
+    /*.clearfix{*/
+        /*display: flex;*/
+        /*justify-content: center;*/
+        /*align:middle;*/
+    /*}*/
     .wrap{
         display: flex;
         height: 100%;

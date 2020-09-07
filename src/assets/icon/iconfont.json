@@ -6,6 +6,69 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "17012764",
+      "name": "负面",
+      "font_class": "fumian",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "17012765",
+      "name": "正面",
+      "font_class": "zhengmian",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "17012766",
+      "name": "增长 (1)",
+      "font_class": "zengchang1",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "17012767",
+      "name": "可增长",
+      "font_class": "kezengchang",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "17012366",
+      "name": "名称-火爆-t",
+      "font_class": "mingcheng-huobao-t",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "17012368",
+      "name": "最新",
+      "font_class": "zuixin",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "17012369",
+      "name": "火爆彩色",
+      "font_class": "huobaocaise",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "17012254",
+      "name": "新闻",
+      "font_class": "xinwen",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "17012255",
+      "name": "话题",
+      "font_class": "huati",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
       "icon_id": "16975797",
       "name": "积极情绪",
       "font_class": "jijiqingxu",
