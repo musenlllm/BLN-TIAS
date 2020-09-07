@@ -14,47 +14,47 @@
               v-model="content"
               maxlength="800"
               show-word-limit
-              :autosize="{ minRows: 16, maxRows: 18}"
+              :autosize="{ minRows: 11, maxRows: 16}"
               clearable
               style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
             />
           </el-col>
           <el-col :span="8">
-            <el-card shadow="always" style="height:130px;max-height:130px">
+            <el-card shadow="always" style="height:240px;max-height:230px">
               <div slot="header" class="clearfix">
-                <span style="font-size: 18px">本次分类结果</span>
+                <span style="font-size: 18px">本次主题分类结果</span>
               </div>
               <el-row>
-                <div v-if="form.type.length > 0">
-                  <el-tag
+                <div v-if="form.type.length > 0" style="text-align:center;height:26px">
+                  <p style="font-size:20px;font-weight:bold" :style="{color:form.color}">{{form.type}}</p>
+                  <!--<el-tag
                     effect="dark"
+                    size="default"
                     :color="form.color"
                     style="border-radius: 4px;border: 0px;text-align:center;width:60px;font-size:18px;height:30px;
                              box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);"
-                  >{{form.type}}</el-tag>
+                  >{{form.type}}</el-tag>-->
                 </div>
+                <div v-else style="min-height:26px"></div>
               </el-row>
               <!-- <el-row>
                 <div align="middle" id="tpChart" style="height: 300px"></div>
               </el-row>-->
-            </el-card>
-            <el-card class="box-card" style="height:200px;max-height:180px;margin-top:10px">
-              <div slot="header" class="clearfix">
-                <span style="font-size: 18px">可识别文本主题类型</span>
-              </div>
-              <div
-                class="tag-group"
-                style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;"
-              >
-                <el-tag
-                  style="border-radius: 4px;border: 0px;margin:5px 5px;
+              <el-row style="margin-top:36px">
+                <div
+                  class="tag-group"
+                  style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;"
+                >
+                  <el-tag
+                    style="border-radius: 4px;border: 0px;margin:5px 5px;
                              box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);"
-                  v-for="(value, key) in type2color"
-                  :key="key"
-                  :color="value"
-                  effect="dark"
-                >{{ key }}</el-tag>
-              </div>
+                    v-for="(value, key) in type2color"
+                    :key="key"
+                    :color="value"
+                    effect="dark"
+                  >{{ key }}</el-tag>
+                </div>
+              </el-row>
             </el-card>
           </el-col>
         </el-row>
@@ -121,7 +121,7 @@
               <div slot="header" class="clearfix">
                 <span style="font-size: 18px">实时主题新闻数量统计</span>
               </div>
-              <div id="showBarChart" :style="{width: '80%', height: '400px'}"></div>
+              <div id="showBarChart" :style="{width: '100%', height: '300px'}"></div>
             </el-card>
           </el-col>
 
@@ -130,7 +130,7 @@
               <div slot="header" class="clearfix">
                 <span style="font-size: 18px">实时主题新闻比例统计</span>
               </div>
-              <div id="showPieChart" :style="{width: '100%', height: '400px'}"></div>
+              <div id="showPieChart" :style="{width: '100%', height: '300px'}"></div>
             </el-card>
           </el-col>
         </el-row>
@@ -186,7 +186,6 @@ const colorList = [
   "#F56C6C",
   "#203643",
 ];
-
 /*
 const colorList = [
   "pink",
@@ -352,6 +351,12 @@ export default {
           trigger: "item",
           formatter: "{b} : {c}",
         },
+        grid:{
+          top:"1%",
+          bottom:"10%",
+          left:"10%",
+          right:"1%",
+        },
         xAxis: {
           type: "category",
           data: childtypelist,
@@ -364,7 +369,6 @@ export default {
             data: this.cnt,
             type: "bar",
             showBackground: false,
-
             backgroundStyle: {
               color: "rgba(220, 220, 220, 0.8)",
             },
@@ -372,8 +376,7 @@ export default {
               show: true,
               position: "top",
             },
-            bottom: "10",
-            top: "10",
+            barWidth: "30"
           },
         ],
       };
