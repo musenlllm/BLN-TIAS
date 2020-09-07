@@ -2,7 +2,7 @@
     <div>
         <el-container>
             <el-header style="height: max-content;text-align: center">
-                <h1 style="color: gray">热点挖掘</h1>
+                <h1 style="color: gray;font-size: 30px">热点挖掘</h1>
                 <!--<el-row style="margin-top: 30px; display: flex; justify-content: center">-->
                     <!--<el-button v-on:click="getData" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>-->
                     <!--<el-button >随机样例</el-button>-->
@@ -11,8 +11,8 @@
             <el-main  style="margin-left: 1px; margin-top: 10px; text-align: center">
                 <el-row :gutter="20" >
                     <el-col :span="8">
-                        <el-card shadow="hover" class="box-card" :body-style="{padding: '0px'}" style="min-height: 458px;">
-                        <div slot="header" class="clearfix">
+                        <el-card shadow="hover" class="box-card" :body-style="{padding: '0px'}" style="min-height: 458px;font-size: 18px">
+                        <div slot="header" class="clearfix" style="font-size: 18px">
                             <span>热点新闻</span>
                         </div>
                         <div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">
@@ -27,17 +27,23 @@
                                     max-height="400px"
                             >
                                 <el-table-column align='center'
+                                    header-align="center"
                                     prop="rank"
                                     label="排序"
                                     sortable
                                     :sort-orders="['ascending', 'descending']"
-                                    width="100%"
+                                    width="70%"
                                 >
+                                  <div slot-scope="scope" style="">
+                                    {{scope.row.rank}}
+                                  </div>
                                 </el-table-column>
-                                <el-table-column align='center'
+                                <el-table-column align='left'
+                                    header-align="center"
                                     prop="event"
-                                    label="链接和话题"
+                                    label="新闻话题"
                                     :show-overflow-tooltip=true
+                                                 width="220%"
                                 >
                                       <template slot-scope="scope">
                                         <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.event}}</a>
@@ -55,7 +61,7 @@
                     </el-col>
                     <el-col :span="8">
                         <el-card shadow="hover" :body-style="{padding: '0px'}" style="min-height: 458px;">
-                        <div slot="header" class="clearfix">
+                        <div slot="header" class="clearfix" style="font-size: 18px">
                             <span>热烈讨论话题</span>
                         </div>
                         <div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">
@@ -74,12 +80,13 @@
                                     label="排序"
                                     sortable
                                     :sort-orders="['ascending', 'descending']"
-                                    width="100%">
+                                    width="70%">
 
                                   </el-table-column>
-                                  <el-table-column align='center'
+                                  <el-table-column align='left'
+                                    header-align="center"
                                     prop="topic"
-                                    label="话题和链接"
+                                    label="新闻话题"
                                     :show-overflow-tooltip=true
                                   >
                                        <template slot-scope="scope">
@@ -105,7 +112,7 @@
                     </el-col>
                     <el-col :span="8">
                         <el-card shadow="hover" :body-style="{padding: '0px'}" style="min-height: 458px;">
-                            <div slot="header" class="clearfix">
+                            <div slot="header" class="clearfix" style="font-size: 18px">
                                 <span>最近半小时增长新闻</span>
                             </div>
                             <el-table
@@ -121,7 +128,7 @@
                                 <el-table-column align='left'
                                     header-align="center"
                                     prop="news"
-                                    label="链接和话题"
+                                    label="新闻话题"
                                      :show-overflow-tooltip=true
                                 >
                                     <template slot-scope="scope">
@@ -133,9 +140,10 @@
                                     label="发布时间"
                                     sortable
                                     :sort-orders="['ascending', 'descending']"
+                                     :show-overflow-tooltip=true
                                 >
                                     <template slot-scope="scope">
-                                          <span >发布时间：{{scope.row.publish_time}}</span>
+                                          <span >{{scope.row.publish_time}}</span>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -207,13 +215,13 @@
             <!--</el-main>-->
             <!--<el-main style="text-align: center; margin-top: 10px; ">-->
                 <el-card class="box-card" style="min-height: 400px;margin-top: 20px;text-align: center">
-                    <div slot="header" class="clearfix">
+                    <div slot="header" class="clearfix" style="font-size: 18px">
                         <span>新闻主题分布图</span>
                     </div>
                     <div id="hot_distribution" style="width:100%;min-height:400px;"></div>
                 </el-card>
                 <el-card class="box-card" style="min-height: 50px; margin-top: 20px">
-                    <div slot="header" class="clearfix">
+                    <div slot="header" class="clearfix" style="font-size: 18px">
                         <span>近7日各主题新闻的每天增长数</span>
                     </div>
                     <!--折线图-->
@@ -909,7 +917,7 @@ export default {
 
 <style>
     @import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
-    .el-header/deep/, .el-footer {
+    .el-header, .el-footer {
         font-size: 20px;
         color: black;
         text-align: center;
@@ -924,11 +932,11 @@ export default {
     .el-table/deep/.tableStyle/deep/{
         background-color: #1989fa!important;
         color:#fff;
-        font-weight:400;
+        font-weight:300;
     }
     .buttonText{
         color: #303133;
-        font-weight: bold;
+        text-align:left;
     }
     .wrap{
         display: flex;

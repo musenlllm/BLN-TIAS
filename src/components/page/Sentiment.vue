@@ -23,7 +23,7 @@
                     </el-row>
                     <el-card class="box-card" style="min-height: 250px;margin-top: 20px" align="middle">
                         <div slot="header" class="clearfix">
-                            <span style="color: gray">本次分析结果</span>
+                            <span style="color: black;font-size: 18px">本次分析结果</span>
                         </div>
                         <div id="wrap" style="height:400px;width: 100%;justify-content: center">
                             <div id = "pos_emoji" style="height:100px;width:100px;margin-top: 150px" align="bottom">
@@ -41,7 +41,7 @@
                     </el-card>
                     <el-card class="box-card" style="min-height: 300px;margin-top: 20px" align="middle">
                         <div slot="header" class="clearfix">
-                            <span style="color: gray">历史分析结果</span>
+                            <span style="color: black;font-size: 18px">历史分析结果</span>
                         </div>
                         <el-container>
                             <el-aside width="50%">
@@ -197,7 +197,7 @@
                                 <el-tabs type="border-card" stretch=true>
                                     <el-tab-pane label="正面新闻">
                                         <el-table
-                                            cell-style="font-weight: 500;"
+
                                             :data="pos_news"
                                             stripe
                                             style="width: 100%;text-align: center"
@@ -248,7 +248,7 @@
                                     </el-tab-pane>
                                     <el-tab-pane label="负面新闻">
                                         <el-table
-                                             cell-style="font-weight: 500;"
+
                                             :data="neg_news"
                                             stripe
                                             style="width: 100%;text-align: center"

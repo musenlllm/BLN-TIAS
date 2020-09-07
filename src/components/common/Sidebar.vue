@@ -1,51 +1,55 @@
 <template>
     <div class="sidebar">
+
         <el-menu
             class="sidebar-el-menu"
             :default-active="onRoutes"
             :collapse="collapse"
-            background-color="#324157"
+            :collapse-transition="true"
             text-color="#bfcbd9"
-            active-text-color="#20a0ff"
+            background-color="#324157"
+            active-text-color="#bfcbd9"
             unique-opened
             router
         >
             <template v-for="item in items">
-                <template v-if="item.subs">
-                    <el-submenu :index="item.index" :key="item.index">
-                        <template slot="title">
-                            <i :class="item.icon"></i>
-                            <span slot="title">{{ item.title }}</span>
-                        </template>
-                        <template v-for="subItem in item.subs">
-                            <el-submenu
-                                v-if="subItem.subs"
-                                :index="subItem.index"
-                                :key="subItem.index"
-                            >
-                                <template slot="title">{{ subItem.title }}</template>
-                                <el-menu-item
-                                    v-for="(threeItem,i) in subItem.subs"
-                                    :key="i"
-                                    :index="threeItem.index"
-                                >{{ threeItem.title }}</el-menu-item>
-                            </el-submenu>
-                            <el-menu-item
-                                v-else
-                                :index="subItem.index"
-                                :key="subItem.index"
-                            >{{ subItem.title }}</el-menu-item>
-                        </template>
-                    </el-submenu>
-                </template>
-                <template v-else>
+                <!--<template v-if="item.subs">-->
+                    <!--<el-submenu :index="item.index" :key="item.index">-->
+                        <!--<template slot="title">-->
+                            <!--<i :class="item.icon"></i>-->
+                            <!--<span slot="title">{{ item.title }}</span>-->
+                        <!--</template>-->
+                        <!--<template v-for="subItem in item.subs">-->
+                            <!--<el-submenu-->
+                                <!--v-if="subItem.subs"-->
+                                <!--:index="subItem.index"-->
+                                <!--:key="subItem.index"-->
+                            <!--&gt;-->
+                                <!--<template slot="title">{{ subItem.title }}</template>-->
+                                <!--<el-menu-item-->
+                                    <!--v-for="(threeItem,i) in subItem.subs"-->
+                                    <!--:key="i"-->
+                                    <!--:index="threeItem.index"-->
+                                <!--&gt;{{ threeItem.title }}</el-menu-item>-->
+                            <!--</el-submenu>-->
+                            <!--<el-menu-item-->
+                                <!--v-else-->
+                                <!--:index="subItem.index"-->
+                                <!--:key="subItem.index"-->
+                            <!--&gt;{{ subItem.title }}</el-menu-item>-->
+                        <!--</template>-->
+                    <!--</el-submenu>-->
+                <!--</template>-->
+                <!--<template v-else>-->
                     <el-menu-item :index="item.index" :key="item.index">
                         <i :class="item.icon"></i>
                         <span slot="title">{{ item.title }}</span>
                     </el-menu-item>
-                </template>
+                <!--</template>-->
             </template>
         </el-menu>
+
+
     </div>
 </template>
 
@@ -56,14 +60,8 @@ import ElementUI from 'element-ui';
 export default {
     data() {
         return {
-            collapse: false,
+            collapse: true,
             items: [
-                
-                {
-                    icon: 'iconfont icon1_wenbenzhaiyao',
-                    index: 'summary',
-                    title: '自动摘要'
-                },
                 {
                     icon: 'iconfont icon2_shitishibie',
                     index: 'recognition',
@@ -89,7 +87,13 @@ export default {
                     index: 'classification',
                     title: '文本主题分类',
                 },
-            ]
+                {
+                    icon: 'iconfont icon1_wenbenzhaiyao',
+                    index: 'summary',
+                    title: '自动摘要'
+                },
+            ],
+
         };
     },
     computed: {
@@ -111,7 +115,7 @@ export default {
     @import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
 
 .sidebar {
-    display: block;
+    /*display: block;*/
     position: absolute;
     left: 0;
     top: 70px;
@@ -120,11 +124,22 @@ export default {
 }
 .sidebar::-webkit-scrollbar {
     width: 0;
+    display: none;
 }
 .sidebar-el-menu:not(.el-menu--collapse) {
     width: 250px;
 }
 .sidebar > ul {
     height: 100%;
+}
+</style>
+<style>
+.el-menu-item.is-active{
+    background-color: rgb(38,47,64) !important;
+}
+.el-menu {
+  flex: 1;
+  overflow: inherit;
+  border-right: none;
 }
 </style>

@@ -127,8 +127,6 @@
             <!--<el-footer>Footer</el-footer>-->
         </el-container>
     </div>
-
-
 </template>
 <script>
     import echarts from 'echarts'

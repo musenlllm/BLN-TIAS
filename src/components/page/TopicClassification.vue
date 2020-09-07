@@ -1,57 +1,76 @@
 <template>
   <div>
     <el-container>
-      <el-header>
-        <h1 style="color: gray;text-align: center">文本主题分类</h1>
+      <el-header style="height: max-content">
+        <h1 style="color: gray">文本主题分类</h1>
       </el-header>
 
       <el-main style="text-align: center">
         <el-row style="margin:20px 0">
-          <el-col :span="16" style="padding-right:10px">
+          <el-col :span="13">
             <el-input
               type="textarea"
               placeholder="请输入文本"
               v-model="content"
               maxlength="800"
               show-word-limit
-              :autosize="{ minRows: 5, maxRows: 8}"
+              :autosize="{ minRows: 11, maxRows: 16}"
               clearable
               style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
             />
           </el-col>
+          <el-col :span="3">
+            <el-button @click="submit" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>
+          </el-col>
           <el-col :span="8">
-            <el-card shadow="always" style="height:350px;max-height:350px">
+            <el-card shadow="always" style="height:240px;max-height:230px">
+              <div slot="header" class="clearfix">
+                <span style="font-size: 18px">本次主题分类结果</span>
+              </div>
               <el-row>
-                <el-col :span="4">
-                  <div style="min-height: 16px"></div>
-                </el-col>
-                <el-col :span="10" style>本次分类结果为</el-col>
-                <el-col :span="6">
-                  <div
-                    style="border-bottom: 1px solid #1E90FF;min-height:20px"
-                    v-if="form.type.length > 0"
-                  >{{form.type}}</div>
-                  <div style="border-bottom: 1px solid #1E90FF;min-height:20px" v-else></div>
-                </el-col>
-                <el-col :span="4">
-                  <div style="min-height: 16px"></div>
-                </el-col>
+                <div v-if="form.type.length > 0" style="text-align:center;height:26px">
+                  <p
+                    style="font-size:24px;font-weight:bold"
+                    :style="{color:form.color}"
+                  >{{form.type}}</p>
+                  <!--<el-tag
+                    effect="dark"
+                    size="default"
+                    :color="form.color"
+                    style="border-radius: 4px;border: 0px;text-align:center;width:60px;font-size:18px;height:30px;
+                             box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);"
+                  >{{form.type}}</el-tag>-->
+                </div>
+                <div v-else style="min-height:26px"></div>
               </el-row>
-              <el-row>
+              <!-- <el-row>
                 <div align="middle" id="tpChart" style="height: 300px"></div>
+              </el-row>-->
+              <el-row style="margin-top:36px">
+                <div
+                  class="tag-group"
+                  style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;"
+                >
+                  <el-tag
+                    style="border-radius: 4px;border: 0px;margin:5px 5px;
+                             box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);"
+                    v-for="(value, key) in type2color"
+                    :key="key"
+                    :color="value"
+                    effect="dark"
+                  >{{ key }}</el-tag>
+                </div>
               </el-row>
             </el-card>
           </el-col>
         </el-row>
 
-        <el-row style="margin-top: 30px">
-          <el-button @click="submit" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>
-        </el-row>
-
-        <el-row style="margin:10px 0;max-width:100%;max-height:430px">
+        <el-row style="margin:3em 0;max-width:100%;max-height:480px">
           <el-card>
-            <el-row>实时主题新闻分类结果</el-row>
-            <el-row style="text-align:left;padding-top:10px">
+            <div slot="header" class="clearfix">
+              <span style="font-size: 18px">实时主题新闻分类结果</span>
+            </div>
+            <el-row style="text-align:left">
               <el-carousel
                 :interval="12000"
                 direction="vertical"
@@ -72,14 +91,12 @@
                         <el-table-column :show-overflow-tooltip="true">
                           <template slot-scope="scope">
                             <el-row>
-                              <a :href="scope.row.url" style="color:#708090">
-                                <h3>{{scope.row.event}}</h3>
-                              </a>
+                              <a :href="scope.row.url" style="color:black">{{scope.row.event}}</a>
                             </el-row>
                             <el-row>
-                              <el-col :span="12">发布时间：{{scope.row.publish_time}}</el-col>
-                              <el-col :span="6">
-                                分类标签：
+                              <el-col :span="16">发布时间：{{scope.row.publish_time}}</el-col>
+                              <el-col :span="4">
+                                类别：
                                 <el-tag
                                   effect="dark"
                                   :color="scope.row.color"
@@ -87,7 +104,7 @@
                              box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);"
                                 >{{scope.row.type}}</el-tag>
                               </el-col>
-                              <el-col :span="6">置信度：{{scope.row.score}}</el-col>
+                              <el-col :span="4">概率：{{scope.row.score}}</el-col>
                             </el-row>
                           </template>
                         </el-table-column>
@@ -100,22 +117,22 @@
           </el-card>
         </el-row>
 
-        <el-row style="margin-top:40px">
+        <el-row style="margin-top:30px">
           <el-col :span="12">
             <el-card>
               <div slot="header" class="clearfix">
-                <span>实时主题新闻数量统计</span>
+                <span style="font-size: 18px">实时主题新闻数量统计</span>
               </div>
-              <div id="showBarChart" :style="{width: '100%', height: '400px'}"></div>
+              <div id="showBarChart" :style="{width: '100%', height: '300px'}"></div>
             </el-card>
           </el-col>
 
           <el-col :span="12" style="padding-left:20px">
             <el-card>
               <div slot="header" class="clearfix">
-                <span>实时主题新闻比例统计</span>
+                <span style="font-size: 18px">实时主题新闻比例统计</span>
               </div>
-              <div id="showPieChart" :style="{width: '100%', height: '400px'}"></div>
+              <div id="showPieChart" :style="{width: '100%', height: '300px'}"></div>
             </el-card>
           </el-col>
         </el-row>
@@ -171,7 +188,6 @@ const colorList = [
   "#F56C6C",
   "#203643",
 ];
-
 /*
 const colorList = [
   "pink",
@@ -193,6 +209,7 @@ export default {
       form: {
         type: "科技",
         score: 0.985,
+        color: "#203643",
       },
       content:
         "【字节跳动或已拿下支付牌照】8月28日，武汉合众易宝科技有限公司股东中发实业（集团）有限公司退出，天津同融电子商务有限公司接盘100%股份。" +
@@ -203,6 +220,7 @@ export default {
         "background-color": "#99a9bf",
       },
       newslist: [],
+      type2color: type2color,
     };
   },
   methods: {
@@ -227,7 +245,7 @@ export default {
             },
             data: [
               {
-                value: Math.floor(this.form.score * 1000) / 10,
+                value: Math.floor(this.form.score * 100),
                 name: "置信度",
               },
             ],
@@ -326,11 +344,6 @@ export default {
         ],
       };*/
       theChart.setOption(option);
-
-      // setInterval(event =>  {
-      //     option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-      //     this.charts.setOption(option, true);
-      // },2000);
     },
     drawBarChart() {
       let myChart = echarts.init(document.getElementById("showBarChart"));
@@ -341,8 +354,10 @@ export default {
           formatter: "{b} : {c}",
         },
         grid: {
-          left: "10%",
-          right: "10%",
+          top: "5%",
+          bottom: "10%",
+          left: "15%",
+          right: "5%",
         },
         xAxis: {
           type: "category",
@@ -356,7 +371,6 @@ export default {
             data: this.cnt,
             type: "bar",
             showBackground: false,
-
             backgroundStyle: {
               color: "rgba(220, 220, 220, 0.8)",
             },
@@ -364,6 +378,7 @@ export default {
               show: true,
               position: "top",
             },
+            barWidth: "30",
           },
         ],
       };
@@ -382,6 +397,9 @@ export default {
           value: this.cnt[i],
           itemStyle: {
             color: colorList[i],
+          },
+          label: {
+            fontSize: "14",
           },
         });
         selected[childtypelist[i]] = true;
@@ -452,8 +470,9 @@ export default {
         .then((response) => {
           this.form.type = response.results[0].data;
           this.form.score = response.results[0].score;
+          this.form.color = type2color[response.results[0].data];
           console.log(this.form.score);
-          this.drawDashboard();
+          //this.drawDashboard();
         });
 
       //this.$message.success("提交成功！");
@@ -484,6 +503,7 @@ export default {
           var tnews = [];
           tnewslist.forEach(function (news) {
             news.color = type2color[news.type];
+            news.score = Math.floor(news.score * 100) / 100;
           });
           for (var i = 0; i < max_size; i++) {
             tnews.push(tnewslist.slice(i * 12, i * 12 + 12));
@@ -496,18 +516,23 @@ export default {
   },
   mounted() {
     this.getRealTimeThemeInfo();
-
-    this.drawDashboard();
+    //this.drawDashboard();
   },
 };
 </script>
 <style scoped>
-/*
-.el-carousel__item:nth-child(2n){
-  background-color: #99a9bf;
+@import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
+.el-header,
+.el-footer {
+  font-size: 20px;
+  color: black;
+  text-align: center;
+  line-height: 60px;
 }
-.el-carousel__item:nth-child(2n + 1){
-  background-color: #d3dce6;
-}*/
+.res-textarea {
+  color: black;
+  margin-top: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+}
 </style>
 
