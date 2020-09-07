@@ -2,44 +2,54 @@
     <div>
         <el-container>
             <el-header style="height: max-content;text-align: center;">
-                <h1 style="color: gray">情感分析</h1>
-            </el-header>
-            <el-container >
-                <el-main style="text-align: center;">
-                    <el-input
-                            type="textarea"
-                            placeholder="印度军方说，解放军的重型坦克和轻型坦克部署位置处在印度驻军的火力范围以内。印度驻军全副武装，拥有坦克和火炮的支援。据《今日印度》9月1日报道，印度陆军已经在斯潘古尔湖和楚舒勒之间的平原上部署了一个坦克团，这里也是8月底印度侵犯中国领土、与解放军发生冲突的位置附近。
-（请输入文本）"
-                            v-model="summaryText"
-                            maxlength="400"
-                            show-word-limit
-                            :autosize="{ minRows: 5, maxRows: 8}"
-                            clearable
-                            style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); font-size: 15px"
-                    >
-                    </el-input>
-                    <el-row style="margin-top: 30px; display: flex; justify-content: center">
-                        <el-button v-on:click="ResultofSentiment" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>
-                    </el-row>
-                    <el-card class="box-card" style="min-height: 250px;margin-top: 20px" align="middle">
+                <!--<h1 style="color: gray">情感分析</h1>-->
+
+              <el-card class="noBorderInput"style="border: 0px; margin-top: 20px;border-radius: 0;
+        background-color: #fff;
+        box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
+                      <h1 style="color: gray; letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px">情感分析</h1>
+                  <!--<el-card style="text-align: center;">-->
+                      <el-input
+                              type="textarea"
+                              placeholder="请输入文本"
+                              v-model="summaryText"
+                              maxlength="400"
+                              show-word-limit
+                              :autosize="{ minRows: 8, maxRows: 8}"
+                              clearable
+                              style=" font-size: 15px"
+                      >
+                      </el-input>
+                      <el-row style="margin-top: 17px; display: flex; justify-content: center">
+                          <el-button v-on:click="ResultofSentiment" type="primary" style="background: #242f42; border: 0px;font-size: 15px; letter-spacing: 5px">开始分析</el-button>
+                      </el-row>
+              </el-card>
+           </el-header>
+
+
+                    <!--<el-card class="box-card" style="min-height: 250px;margin-top: 20px" align="middle">-->
+                    <el-card class="box-card" width="60%" style="margin-right:20px;text-align:center;margin-left:20px;margin-top: 30px;min-height: 170px;border-radius: 0;background-color: #fff;
+      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading">
                         <div slot="header" class="clearfix">
                             <span style="color: black;font-size: 18px">本次分析结果</span>
                         </div>
                         <div id="wrap" style="height:400px;width: 100%;justify-content: center">
                             <div id = "pos_emoji" style="height:100px;width:100px;margin-top: 150px" align="bottom">
                                 <img src="../../assets/img/neg2.png" width="100px"/>
-                                <span style="color:#E47470">负面情绪</span>
+                                <span style="font-size:15px;color:#E47470">负面情绪</span>
                             </div>
                             <div align="middle" id="emotionLevel" style="height:500px;width:500px"></div>
                             <div id = "neg_emoji" style="height:100%;width:100px;margin-top: 150px">
                                 <img src="../../assets/img/pos2.png" width="100px"/>
-                                <span style="color:#7EBF50">正面情绪</span>
+                                <span style="font-size:15px;color:#7EBF50">正面情绪</span>
                             </div>
                         </div>
 
 
                     </el-card>
-                    <el-card class="box-card" style="min-height: 300px;margin-top: 20px" align="middle">
+                    <!--<el-card class="box-card" style="min-height: 300px;margin-top: 20px" align="middle">-->
+                    <el-card class="box-card" width="60%" style="margin-right:20px;text-align:center;margin-left:20px;margin-top: 30px;min-height: 170px;border-radius: 0;background-color: #fff;
+      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading">
                         <div slot="header" class="clearfix">
                             <span style="color: black;font-size: 18px">历史分析结果</span>
                         </div>
@@ -200,7 +210,7 @@
                                         <el-table
                                             :data="pos_news"
                                             stripe
-                                            style="width: 100%;text-align: center"
+                                            style="width: 100%;text-align: center;"
                                             :show-header=false
                                             :show-overflow-tooltip=true
                                             @sort-change="changeSort"
@@ -212,12 +222,13 @@
                                                     type="index"
                                                     :show-overflow-tooltip=true
                                                     :sort-orders="['ascending', 'descending']"
-                                                    width="50%"
+                                                    width="40%"
                                             >
                                             </el-table-column>
-                                            <el-table-column prop="news"
-                                                             label="日期"
-                                                             :show-overflow-tooltip=true
+                                            <el-table-column
+                                              prop="news"
+                                              label="日期"
+                                              :show-overflow-tooltip=true
                                             >
                                                 <template slot-scope="scope">
                                                     <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.news}}</a>
@@ -297,8 +308,7 @@
                             </el-main>
                         </el-container>
                     </el-card>
-                </el-main>>
-        </el-container>
+
         </el-container>
     </div>
 
