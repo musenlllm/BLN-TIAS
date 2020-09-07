@@ -168,16 +168,16 @@ export default {
       var option = {
         series: [
           {
-            type: "graph",
-            layout: "none",
-            symbolSize: 60,
+            type: 'graph',
+            layout: 'force',
+            symbolSize: 20,
             label: {
               show: true,
-              fontSize: 16,
+              fontSize: 14,
             },
             top: "60",
             bottom: "50",
-            roam: false,
+            roam: true,
             //categories: categories,
             itemStyle: {
               borderColor: "#fff",
@@ -187,7 +187,15 @@ export default {
             },
             lineStyle: {
               color: "source",
-              curveness: 0.3,
+              //curveness: 0.3,
+            },
+            force: {
+                repulsion: 500,
+                initLayout: "circular",
+                gravity: 0.05,
+                edgeLength: 200,
+                friction : 0.8,
+                focusNodeAdjacency: true,
             },
             edgeSymbol: ["", "arrow"],
             edgeLabel: {
@@ -199,7 +207,7 @@ export default {
                 },
                 formatter: function (param) {
                   // 关系标签内容
-                  return param.data.value;
+                  return param.data.relation;
                 },
               },
             },
@@ -220,22 +228,25 @@ export default {
         personList.forEach(function (p) {
           resData.nodes.push({
             name: p,
-            x: 10 * Math.cos((a * Math.PI) / 180),
-            y: 10 * Math.sin((a * Math.PI) / 180),
+            /*x: 80 * Math.cos((a * Math.PI) / 180),
+            y: 80 * Math.sin((a * Math.PI) / 180),*/
             category: 1,
             label: {
               show: true,
             },
-            symbolSize: p.length * 20 + 6,
+            symbolSize: 30,
+            draggable: true,
+            //symbolSize: p.length * 20 + 6,
           });
           a += 360 / personNum;
         });
-
+        console.log(resData.nodes);
         items.forEach(function (item) {
           resData.links.push({
             source: personList.indexOf(item.person1),
             target: personList.indexOf(item.person2),
-            value: item.relation,
+            relation: item.relation,
+            //value:10,
             lineStyle: {
               width: 1,
             },
@@ -412,7 +423,7 @@ export default {
                   personRelationLabel[item.person1 + "-" + item.relation],
               },
               lineStyle: {
-                type: "dotted",
+                type: "solid",
                 width: 1,
               },
               emphasis: {
@@ -435,7 +446,7 @@ export default {
                   personRelationLabel[item.person2 + "-" + item.relation],
               },
               lineStyle: {
-                type: "dotted",
+                type: "solid",
                 width: 1,
               },
               emphasis: {

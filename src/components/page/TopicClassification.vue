@@ -7,7 +7,7 @@
 
       <el-main style="text-align: center">
         <el-row style="margin:20px 0">
-          <el-col :span="13" style="padding-right:10px">
+          <el-col :span="13">
             <el-input
               type="textarea"
               placeholder="请输入文本"
@@ -20,7 +20,8 @@
             />
           </el-col>
           <el-col :span="3">
-          <el-button @click="submit" type="primary" style="background: #242f42; border: 0px">开始分析</el-button></el-col>
+            <el-button @click="submit" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>
+          </el-col>
           <el-col :span="8">
             <el-card shadow="always" style="height:240px;max-height:230px">
               <div slot="header" class="clearfix">
@@ -28,7 +29,10 @@
               </div>
               <el-row>
                 <div v-if="form.type.length > 0" style="text-align:center;height:26px">
-                  <p style="font-size:24px;font-weight:bold" :style="{color:form.color}">{{form.type}}</p>
+                  <p
+                    style="font-size:24px;font-weight:bold"
+                    :style="{color:form.color}"
+                  >{{form.type}}</p>
                   <!--<el-tag
                     effect="dark"
                     size="default"
@@ -241,7 +245,7 @@ export default {
             },
             data: [
               {
-                value: Math.floor(this.form.score * 100) ,
+                value: Math.floor(this.form.score * 100),
                 name: "置信度",
               },
             ],
@@ -349,11 +353,11 @@ export default {
           trigger: "item",
           formatter: "{b} : {c}",
         },
-        grid:{
-          top:"5%",
-          bottom:"10%",
-          left:"15%",
-          right:"5%",
+        grid: {
+          top: "5%",
+          bottom: "10%",
+          left: "15%",
+          right: "5%",
         },
         xAxis: {
           type: "category",
@@ -374,7 +378,7 @@ export default {
               show: true,
               position: "top",
             },
-            barWidth: "30"
+            barWidth: "30",
           },
         ],
       };
@@ -394,9 +398,9 @@ export default {
           itemStyle: {
             color: colorList[i],
           },
-          label:{
-            fontSize: "16"
-          }
+          label: {
+            fontSize: "14",
+          },
         });
         selected[childtypelist[i]] = true;
       }
