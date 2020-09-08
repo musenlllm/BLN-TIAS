@@ -136,7 +136,6 @@
             <el-card class="box-card">
               <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
                 <span>
-                  <i class="iconfont iconxinwen"></i>
                   实时主题新闻比例统计
                 </span>
               </div>
