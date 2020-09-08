@@ -34,7 +34,7 @@
                 <el-main>
                     <!--</span>-->
 
-                    <el-card class="box-card" style="font-size:18px;margin-top: 10px; text-align: center;min-height: 250px" v-loading="loading">
+                    <el-card class="box-card" style="font-size:18px; text-align: center;min-height: 250px" v-loading="loading">
                         <div slot="header" class="clearfix">
                             <span>摘要结果</span>
                         </div>

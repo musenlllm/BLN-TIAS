@@ -34,7 +34,7 @@
 
             </el-header>
             <el-container style="width: 100%">
-              <div ref="asideContainer" style="width: 60%;margin-top: 20px;margin-left: 20px;">
+              <div ref="asideContainer" style="width: 100%;margin-top: 20px;margin-left: 20px; margin-right: 20px">
                 <el-aside  width="100%" style=" text-align: center">
                     <el-card class="box-card" style="min-height: 170px;border-radius: 0;
       background-color: #fff;
@@ -43,7 +43,7 @@
                             <span style="font-size: 18px">识别结果</span>
                         </div>
 
-                          <el-scrollbar>
+                          <el-scrollbar style="width: 100%;">
                             <div class="tag-group" style="margin-top: 0; display: flex; flex-direction: row; flex-wrap: wrap;" v-loading="restypeloading">
                             <el-tag  ref="nerResRef" style="margin-right: 10px;margin-bottom: 10px; border-radius: 4px; font-size: 15px; border: 0px;
                               padding: 5px; padding-top: 1px; "
@@ -57,6 +57,31 @@
                                     :effect="item.effect">
                               {{ item.label }}
                             </el-tag>
+                            </div>
+                          </el-scrollbar>
+                          <el-scrollbar>
+                            <div class="tag-group">
+                              <el-row
+                                style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:100%;margin-top:20px"
+                              >
+                                <div
+                                  style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:100%"
+                                >
+                                  <template v-for="(color, key) in type2color">
+                                    <div
+                                      :key="key"
+                                      style="display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;margin:5px 5px;"
+                                    >
+                                      <div
+                                        style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+                    border-radius: 4px;border: 0px;margin:3px 5px;width:25px;height:15px;"
+                                        :style="{'background-color':color}"
+                                      ></div>
+                                      <div style="font-size:15px;min-width:25px;height:15px;padding:0 0">{{key}}</div>
+                                    </div>
+                                  </template>
+                                </div>
+                              </el-row>
                             </div>
                           </el-scrollbar>
                             <!--<span class="tag-group__title">Dark</span>-->
@@ -78,48 +103,45 @@
                             <span style="font-size: 18px">实体分类树</span>
                         </div>
                       <el-scrollbar style="width: 100%">
-                        <div id="tree" ref="treePic" style="margin-left:2%; width: 100%;height: 40vh"></div>
+                        <div id="tree" ref="treePic" style="margin-left:2%; width: 100%;height: 50vh"></div>
                       </el-scrollbar>
-
-
-
 
                     </el-card>
 
                 </el-aside>
               </div>
 
-              <div ref="mainContainer" style="width: 40%; margin-top: 20px; margin-left: 20px;margin-right: 20px;">
-                <el-main   style="text-align: center; margin-top: 0px; height: 100%; padding: 0px; ">
-                  <el-card class="box-card" style="height: 100%; margin-top: 0px;border-radius: 0;
-      background-color: #fff;
-      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
-                    <div slot="header" class="clearfix">
-                      <span style="font-size: 18px">实体比例图</span>
-                    </div>
-                    <div id="percent" style="width: 100%;height: 60vh;"></div>
-                  </el-card>
-                  <!--<el-card class="box-card" style="visibility: hidden">-->
-                  <!--<div slot="header" class="clearfix">-->
-                  <!--<span style="font-size: 18px">可识别实体类别</span>-->
-                  <!--</div>-->
-                  <!--<div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">-->
-                  <!--<el-tag style="width: 100px; margin-right: 10px;margin-bottom: 10px; border-radius: 4px; font-size: 15px; border: 0px;-->
-                  <!--box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); padding-top: 1px;"-->
-                  <!--v-for="item in itemtypes"-->
-                  <!--:key="item.label"-->
-                  <!--:type="item.type"-->
-                  <!--:color="item.color"-->
-                  <!--size="medium"-->
-                  <!--effect="dark">-->
-                  <!--{{ item.label }}-->
-                  <!--</el-tag>-->
-                  <!--</div>-->
+              <!--<div ref="mainContainer" style="width: 40%; margin-top: 20px; margin-left: 20px;margin-right: 20px;">-->
+                <!--<el-main   style="text-align: center; margin-top: 0px; height: 100%; padding: 0px; ">-->
+                  <!--<el-card class="box-card" style="height: 100%; margin-top: 0px;border-radius: 0;-->
+      <!--background-color: #fff;-->
+      <!--box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">-->
+                    <!--<div slot="header" class="clearfix">-->
+                      <!--<span style="font-size: 18px">实体比例图</span>-->
+                    <!--</div>-->
+                    <!--<div id="percent" style="width: 100%;height: 60vh;"></div>-->
                   <!--</el-card>-->
+                  <!--&lt;!&ndash;<el-card class="box-card" style="visibility: hidden">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<div slot="header" class="clearfix">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<span style="font-size: 18px">可识别实体类别</span>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<el-tag style="width: 100px; margin-right: 10px;margin-bottom: 10px; border-radius: 4px; font-size: 15px; border: 0px;&ndash;&gt;-->
+                  <!--&lt;!&ndash;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); padding-top: 1px;"&ndash;&gt;-->
+                  <!--&lt;!&ndash;v-for="item in itemtypes"&ndash;&gt;-->
+                  <!--&lt;!&ndash;:key="item.label"&ndash;&gt;-->
+                  <!--&lt;!&ndash;:type="item.type"&ndash;&gt;-->
+                  <!--&lt;!&ndash;:color="item.color"&ndash;&gt;-->
+                  <!--&lt;!&ndash;size="medium"&ndash;&gt;-->
+                  <!--&lt;!&ndash;effect="dark">&ndash;&gt;-->
+                  <!--&lt;!&ndash;{{ item.label }}&ndash;&gt;-->
+                  <!--&lt;!&ndash;</el-tag>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</el-card>&ndash;&gt;-->
 
 
-                </el-main>
-              </div>
+                <!--</el-main>-->
+              <!--</div>-->
 
             </el-container>
             <el-footer>
@@ -149,6 +171,7 @@
                 resloading: false,
                 restypeloading: false,
                 isDiyCardHead:true,
+                type2color: type2color,
 
                 items: [
                     // { type: '', label: '标签一' },
@@ -242,7 +265,7 @@
                         var resEnd;
                         var resEnt;
                         var colorTemp;
-                        var plainTextCharNum = 40
+                        var plainTextCharNum = 200
                         for (var i=0; i<resArray.length; i++){
 
                             resStart = Number(resArray[i].start);
@@ -454,9 +477,9 @@
                         this.drawGraph()
 
 
-                        let tabH = this.$refs.asideContainer.style.height;
-                        this.$refs.mainContainer.style.height = tabH+'px';
-                        console.log("hhhhhhhhh"+tabH)
+                        // let tabH = this.$refs.asideContainer.style.height;
+                        // this.$refs.mainContainer.style.height = tabH+'px';
+                        // console.log("hhhhhhhhh"+tabH)
 
                         }
                     )
@@ -470,13 +493,13 @@
 
                 // this.treeCharts = echarts.init(document.getElementById('tree'));
                 this.treeCharts = echarts.init(this.$refs.treePic);
-                this.percentCharts = echarts.init(document.getElementById('percent'));
+                // this.percentCharts = echarts.init(document.getElementById('percent'));
 
                 window.onresize = this.treeCharts.resize;
-                window.onresize = this.percentCharts.resize;
+                // window.onresize = this.percentCharts.resize;
 
                 this.treeCharts.showLoading();
-                this.percentCharts.showLoading();
+                // this.percentCharts.showLoading();
 
                 this.treeCharts.setOption({
                     tooltip: {
@@ -518,78 +541,78 @@
                     ]
                 },);
 
-                this.percentCharts.setOption({
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: '{a} <br/>{b}: {c} ({d}%)'
-                    },
-                    legend: {
-                      //
-                        type: "scroll",
-                        orient: "vertical",
-                        left: 0,
-                        top: 0,
-                        bottom: 0,
-
-                        textStyle:{
-                          fontSize:15,
-                        },
-                        // data: dataset.legendData,
-                        // selected: dataset.selected,
-                      //
-                      //   orient: 'vertical',
-                      //   left: 5,
-                        data: this.entData
-                    },
-                    series: [
-                        {
-                          left: 0,
-                          top: 100,
-                          bottom: 0,
-                          //
-                          // name: "主题",
-                          // type: "pie",
-                          // radius: "55%",
-                          // center: ["40%", "50%"],
-                          // data: this.percentData,
-                          // emphasis: {
-                          //   itemStyle: {
-                          //     shadowBlur: 10,
-                          //     shadowOffsetX: 0,
-                          //     shadowColor: "rgba(0, 0, 0, 0.5)",
-                          //   },
-                          // },
-                          //
-                            name: '实体数量比例图',
-                            type: 'pie',
-                            radius: ['50%', '70%'],
-                            avoidLabelOverlap: false,
-                            label: {
-                                show: false,
-                                position: 'center'
-                            },
-                            emphasis: {
-                                label: {
-                                    show: true,
-                                    fontSize: '20',
-                                    fontWeight: 'bold'
-                                }
-                            },
-                            labelLine: {
-                                show: false
-                            },
-                            right: 0,
-                            data: this.percentData
-                        }
-                    ]
-                })
+                // this.percentCharts.setOption({
+                //     tooltip: {
+                //         trigger: 'item',
+                //         formatter: '{a} <br/>{b}: {c} ({d}%)'
+                //     },
+                //     legend: {
+                //       //
+                //         type: "scroll",
+                //         orient: "vertical",
+                //         left: 0,
+                //         top: 0,
+                //         bottom: 0,
+                //
+                //         textStyle:{
+                //           fontSize:15,
+                //         },
+                //         // data: dataset.legendData,
+                //         // selected: dataset.selected,
+                //       //
+                //       //   orient: 'vertical',
+                //       //   left: 5,
+                //         data: this.entData
+                //     },
+                //     series: [
+                //         {
+                //           left: 0,
+                //           top: 100,
+                //           bottom: 0,
+                //           //
+                //           // name: "主题",
+                //           // type: "pie",
+                //           // radius: "55%",
+                //           // center: ["40%", "50%"],
+                //           // data: this.percentData,
+                //           // emphasis: {
+                //           //   itemStyle: {
+                //           //     shadowBlur: 10,
+                //           //     shadowOffsetX: 0,
+                //           //     shadowColor: "rgba(0, 0, 0, 0.5)",
+                //           //   },
+                //           // },
+                //           //
+                //             name: '实体数量比例图',
+                //             type: 'pie',
+                //             radius: ['50%', '70%'],
+                //             avoidLabelOverlap: false,
+                //             label: {
+                //                 show: false,
+                //                 position: 'center'
+                //             },
+                //             emphasis: {
+                //                 label: {
+                //                     show: true,
+                //                     fontSize: '20',
+                //                     fontWeight: 'bold'
+                //                 }
+                //             },
+                //             labelLine: {
+                //                 show: false
+                //             },
+                //             right: 0,
+                //             data: this.percentData
+                //         }
+                //     ]
+                // })
                 this.treeCharts.hideLoading();
-                this.percentCharts.hideLoading();
+                // this.percentCharts.hideLoading();
 
               // window.onresize = this.$refs.treePic.resize;
               window.onresize = () => {
                 this.treeCharts.resize();
-                this.percentCharts.resize();
+                // this.percentCharts.resize();
 
                 // let height = this.$refs.asideContainer.offsetHeight;
                 // this.$refs.mainContainer.offsetHeight = height;
@@ -609,7 +632,8 @@
 
             },
             mockData(){
-                this.nerText ='10月25日在北京的小米新品发布会上，雷军发布了一款概念手机小米MIX。该手机的设计师是当代著名的设计大师、民主设计和极简设计的倡导者菲利普·斯塔克。(请输入文本)'
+                // this.nerText ='10月25日在北京的小米新品发布会上，雷军发布了一款概念手机小米MIX。该手机的设计师是当代著名的设计大师、民主设计和极简设计的倡导者菲利普·斯塔克。(请输入文本)'
+                this.nerText ='全球化竞争日益激烈的今天，中国已把科技作为战略博弈的核心。以芯片为例，X86的江湖地位已大不如从前，基于ARM架构芯片的崛起正在撬动英特尔一统天下的格局，比如去年，华为总裁余承东宣布推出了首款基于ARM架构的服务器芯片鲲鹏920，强势闯入服务器市场。(请输入文本)'
                 this.getData()
             },
             clearText(testStr) {
@@ -649,6 +673,14 @@
 
 
         }
+    };
+    const type2color = {
+      地点: '#E6A23C',
+      人名:'#F56C6C',
+      组织:'#409EFF',
+      时间:'#67C23A',
+      公司:'#242f42',
+      产品:'pink',
     };
 </script>
 
