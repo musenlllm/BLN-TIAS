@@ -233,6 +233,9 @@ export default {
               shadowBlur: 10,
               shadowColor: "rgba(0, 0, 0, 0.3)",
             },
+            lineStyle: {
+              color: "source",
+            },
             force: {
               repulsion: 500,
               initLayout: "circular",
@@ -279,7 +282,7 @@ export default {
               show: true,
             },
             itemStyle:{
-              color: "#F56C6C",
+              //color: "red" //"#F56C6C",
             },
             draggable: true,
             symbolSize: p.length * 15 + 6,
@@ -295,7 +298,7 @@ export default {
             //value:10,
             lineStyle: {
               width: 1,
-              color: type2color[item.relation]
+              //color: "red" //type2color[item.relation]
             },
           });
         });
@@ -324,7 +327,7 @@ export default {
           selected[typelist[i]] = true;
         }
         else{
-          selected[typelist[i]] = false;
+          selected[typelist[i]] = true; //false;
         }
       }
       categories[typelist.length] = {
@@ -462,7 +465,7 @@ export default {
             typelist.indexOf(nodedict[i]) < 0
               ? typelist.length
               : typelist.indexOf(nodedict[i]);
-          node.symbolSize = 20; // + 5 * val_; //10 * Math.log(10 + val_);
+          node.symbolSize = 20  + 5 * val_; //10 * Math.log(10 + val_);
           node.label = {
             normal: {
               show: true,

@@ -39,7 +39,7 @@
       </el-header>
       <el-main
         ref="mainContainer"
-        style="text-align:center;margin-top: 30px;height: 100%;padding:0 20px"
+        style="text-align:center;margin-top: 20px;height: 100%;padding:0 20px"
       >
         <el-row style="max-width:100%;max-height:480px">
           <el-card
@@ -52,12 +52,12 @@
             </div>
             <el-row>
               <div v-if="form.type.length > 0" style="text-align:center;height:26px;margin:20px 0">
-                <p style="font-size:24px;font-weight:bold" :style="{color:form.color}">{{form.type}}</p>
+                <p style="font-size:26px;font-weight:bold" :style="{color:form.color}">{{form.type}}</p>
               </div>
               <div v-else style="min-height:26px;margin:20px 0"></div>
             </el-row>
-            <el-row style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:100%">
-              <div style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:50%"
+            <el-row style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:100%;margin-top:20px">
+              <div style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:100%"
               >
                 <template v-for="(color, key) in type2color">
                   <div
@@ -218,7 +218,7 @@ export default {
         dataset.push({
           value: item,
           textStyle: {
-            fontSize: "15",
+            fontSize: "13",
           },
         });
       });
@@ -252,9 +252,9 @@ export default {
             label: {
               show: true,
               position: "top",
-              fontSize: "15",
+              fontSize: "13",
             },
-            barWidth: "50%",
+            barWidth: "40%",
           },
         ],
       };
