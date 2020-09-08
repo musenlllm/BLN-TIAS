@@ -39,22 +39,28 @@
         style="text-align:center;margin-top: 20px;height: 100%;padding:0 20px"
       >
         <el-row>
-          <el-col :span="16">
-            <el-card class="box-card">
-              <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
-                <span>人物关系图</span>
-              </div>
-              <el-row>
+          <el-col :span="14">
+            <el-row>
+              <el-card class="box-card">
+                <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                  <span>人物关系图谱</span>
+                </div>
                 <div id="showArrowRelation" :style="{width: '100%', height: '460px'}"></div>
-              </el-row>
-              <hr style="border:0;height:1px;background-color:rgba(220, 223, 230,0.6)" />
-              <el-row style="margin-top:20px">
-                <div id="showCircleRelation" :style="{width: '100%', height: '450px'}"></div>
-              </el-row>
-            </el-card>
+              </el-card>
+            </el-row>
+            <el-row style="margin-top:20px">
+              <el-card>
+                <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                  <span>人物关系和弦图</span>
+                </div>
+                <el-row style="margin-top:20px">
+                  <div id="showCircleRelation" :style="{width: '100%', height: '380px'}"></div>
+                </el-row>
+              </el-card>
+            </el-row>
           </el-col>
 
-          <el-col :span="8" style="padding-left:20px">
+          <el-col :span="10" style="padding-left:20px">
             <el-card class="box-card">
               <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
                 <span>人物关系列表</span>
@@ -62,7 +68,8 @@
               <el-table
                 :show-header="true"
                 :data="items"
-                style="height: 930px;max-height: 930px;overflow: auto;fontSize:13px"
+                stripe="true"
+                style="height: 990px;overflow: auto;fontSize:13px"
               >
                 <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
                 <el-table-column prop="relation" label="关系" align="center" width="50"></el-table-column>
@@ -327,11 +334,14 @@ export default {
         legend: {
           type: "scroll",
           orient: "vertical",
+          top: "middle",
           right: "10",
           data: categories.map(function (a) {
             return a.name;
           }),
           selected: selected,
+          itemHeight: 7,
+          itemWidth: 16,
         },
         tooltip: {},
         animationDurationUpdate: 1500,
@@ -355,8 +365,9 @@ export default {
               color: "source",
               curveness: 0.3,
             },
-            top: "60",
-            bottom: "60",
+            top: "middle",
+            left: "23%",
+            right: "38%",
           },
         ],
       };
