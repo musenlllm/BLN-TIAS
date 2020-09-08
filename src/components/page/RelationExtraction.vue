@@ -49,7 +49,7 @@
               </el-row>
               <hr style="border:0;height:1px;background-color:rgba(220, 223, 230,0.6)" />
               <el-row style="margin-top:20px">
-                <div id="showCircleRelation" :style="{width: '100%', height: '500px'}"></div>
+                <div id="showCircleRelation" :style="{width: '100%', height: '450px'}"></div>
               </el-row>
             </el-card>
           </el-col>
@@ -62,7 +62,7 @@
               <el-table
                 :show-header="true"
                 :data="items"
-                style="height: 980px;max-height: 980px;overflow: auto;fontSize:13px"
+                style="height: 930px;max-height: 930px;overflow: auto;fontSize:13px"
               >
                 <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
                 <el-table-column prop="relation" label="关系" align="center" width="50"></el-table-column>
@@ -325,7 +325,9 @@ export default {
       // 绘制图表
       var option = {
         legend: {
-          bottom: "10",
+          type: "scroll",
+          orient: "vertical",
+          right: "10",
           data: categories.map(function (a) {
             return a.name;
           }),
@@ -353,8 +355,8 @@ export default {
               color: "source",
               curveness: 0.3,
             },
-            top: "90",
-            bottom: "150",
+            top: "60",
+            bottom: "60",
           },
         ],
       };
