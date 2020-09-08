@@ -56,8 +56,11 @@
               </div>
               <div v-else style="min-height:26px;margin:20px 0"></div>
             </el-row>
-            <el-row style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:100%;margin-top:20px">
-              <div style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:100%"
+            <el-row
+              style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:100%;margin-top:20px"
+            >
+              <div
+                style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:100%"
               >
                 <template v-for="(color, key) in type2color">
                   <div
@@ -83,8 +86,11 @@
             style="margin-top: 0px;border-radius: 0;background-color: #fff;
               box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
           >
-            <div slot="header" class="clearfix">
-              <span style="font-size: 18px">实时主题新闻分类结果</span>
+            <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+              <span>
+                <i class="iconfont iconxinwen"></i>
+                实时主题新闻分类结果
+              </span>
             </div>
             <el-row style="text-align:left">
               <el-carousel
@@ -139,8 +145,8 @@
               style="margin-top: 0px;border-radius: 0;background-color: #fff;
               box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
             >
-              <div slot="header" class="clearfix">
-                <span style="font-size: 18px">实时主题新闻数量统计</span>
+              <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                <span>实时主题新闻数量统计</span>
               </div>
               <div id="showBarChart" :style="{width: '100%', height: '250px'}"></div>
             </el-card>
@@ -152,8 +158,8 @@
               style="margin-top: 0px;border-radius: 0;background-color: #fff;
               box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
             >
-              <div slot="header" class="clearfix">
-                <span style="font-size: 18px">实时主题新闻比例统计</span>
+              <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                <span>实时主题新闻比例统计</span>
               </div>
               <div id="showPieChart" :style="{width: '100%', height: '250px'}"></div>
             </el-card>
@@ -272,7 +278,7 @@ export default {
           name: childtypelist[i],
           value: this.cnt[i],
           itemStyle: {
-            color: type2color[childtypelist[i]]
+            color: type2color[childtypelist[i]],
           },
           label: {
             fontSize: "15",

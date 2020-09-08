@@ -51,15 +51,15 @@
               style="margin-top: 0px;border-radius: 0;background-color: #fff;
               box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
             >
-              <div slot="header" class="clearfix">
-                <span style="font-size: 18px">人物关系图</span>
+              <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                <span>人物关系图</span>
               </div>
               <el-row>
-                <div id="showRelation" :style="{width: '100%', height: '460px'}"></div>
+                <div id="showArrowRelation" :style="{width: '100%', height: '460px'}"></div>
               </el-row>
               <hr style="border:0;height:1px;background-color:rgba(220, 223, 230,0.6)" />
-              <el-row style="padding-top:40px">
-                <div id="showRelation2" :style="{width: '100%', height: '500px'}"></div>
+              <el-row style="margin-top:20px">
+                <div id="showCircleRelation" :style="{width: '100%', height: '500px'}"></div>
               </el-row>
             </el-card>
           </el-col>
@@ -70,13 +70,13 @@
               style="margin-top: 0px;border-radius: 0;background-color: #fff;
               box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
             >
-              <div slot="header" class="clearfix">
-                <span style="font-size: 18px">人物关系列表</span>
+              <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                <span>人物关系列表</span>
               </div>
               <el-table
                 :show-header="true"
                 :data="items"
-                style="height: 1000px;max-height: 1000px;overflow: auto;fontSize:13px"
+                style="height: 980px;max-height: 980px;overflow: auto;fontSize:13px"
               >
                 <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
                 <el-table-column prop="relation" label="关系" align="center" width="50"></el-table-column>
@@ -198,7 +198,7 @@ export default {
   methods: {
     drawArrowRelation() {
       // 初始化echarts实例
-      let myChart = echarts.init(document.getElementById("showRelation"));
+      let myChart = echarts.init(document.getElementById("showArrowRelation"));
 
       var restmp = getPersonList(this.items);
       var personList = restmp[0];
@@ -224,7 +224,7 @@ export default {
               fontSize: 14,
             },
             top: "60",
-            bottom: "50",
+            bottom: "80",
             roam: true,
             //categories: categories,
             itemStyle: {
@@ -281,7 +281,7 @@ export default {
             label: {
               show: true,
             },
-            itemStyle:{
+            itemStyle: {
               //color: "red" //"#F56C6C",
             },
             draggable: true,
@@ -307,7 +307,7 @@ export default {
     },
     drawCircular() {
       // 初始化echarts实例
-      let myChart = echarts.init(document.getElementById("showRelation2"));
+      let myChart = echarts.init(document.getElementById("showCircleRelation"));
 
       var restmp = getPersonList(this.items);
       var personList = restmp[0];
@@ -315,7 +315,7 @@ export default {
       restmp = getCircular(this.items);
 
       var categories = [];
-      var selected = {"人物": true};
+      var selected = { 人物: true };
       for (var i = 0; i < typelist.length; i++) {
         categories[i] = {
           name: typelist[i],
@@ -323,10 +323,9 @@ export default {
             color: type2color[typelist[i]],
           },
         };
-        if(restmp.showRelation[typelist[i]]){
+        if (restmp.showRelation[typelist[i]]) {
           selected[typelist[i]] = true;
-        }
-        else{
+        } else {
           selected[typelist[i]] = true; //false;
         }
       }
@@ -344,7 +343,7 @@ export default {
           data: categories.map(function (a) {
             return a.name;
           }),
-          selected: selected
+          selected: selected,
         },
         tooltip: {},
         animationDurationUpdate: 1500,
@@ -368,7 +367,7 @@ export default {
               color: "source",
               curveness: 0.3,
             },
-            top: "40",
+            top: "90",
             bottom: "150",
           },
         ],
@@ -465,7 +464,7 @@ export default {
             typelist.indexOf(nodedict[i]) < 0
               ? typelist.length
               : typelist.indexOf(nodedict[i]);
-          node.symbolSize = 20  + 5 * val_; //10 * Math.log(10 + val_);
+          node.symbolSize = 20 + 5 * val_; //10 * Math.log(10 + val_);
           node.label = {
             normal: {
               show: true,
@@ -493,7 +492,7 @@ export default {
               lineStyle: {
                 type: "solid",
                 width: 1,
-                color: type2color[item.relation]
+                color: type2color[item.relation],
               },
               emphasis: {
                 lineStyle: {
@@ -517,7 +516,7 @@ export default {
               lineStyle: {
                 type: "solid",
                 width: 1,
-                color: type2color[item.relation]
+                color: type2color[item.relation],
               },
               emphasis: {
                 lineStyle: {
