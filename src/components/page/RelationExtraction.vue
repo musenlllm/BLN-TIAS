@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="unifiedldmc">
     <el-container>
       <el-header style="height: max-content">
         <el-card
@@ -8,13 +8,7 @@
       background-color: #fff;
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
         >
-          <!--<div slot="header" class="diyCardHead" >-->
-          <h1
-            style="color: gray; letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px"
-          >关系抽取</h1>
-          <!--<el-divider style="width: 30px"></el-divider>-->
-          <!--</div>-->
-          <!--<h1 style="color: gray">实体识别</h1>-->
+          <h1 class="pageheader">关系抽取</h1>
           <el-input
             type="textarea"
             placeholder="请输入内容"
@@ -45,43 +39,55 @@
         style="text-align:center;margin-top: 20px;height: 100%;padding:0 20px"
       >
         <el-row>
-          <el-col :span="16">
-            <el-card
-              class="box-card"
-              style="margin-top: 0px;border-radius: 0;background-color: #fff;
-              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
-            >
-              <div slot="header" class="clearfix">
-                <span style="font-size: 18px">人物关系图</span>
-              </div>
-              <el-row>
-                <div id="showRelation" :style="{width: '100%', height: '460px'}"></div>
-              </el-row>
-              <hr style="border:0;height:1px;background-color:#606266" />
-              <el-row style="padding-top:40px">
-                <div id="showRelation2" :style="{width: '100%', height: '500px'}"></div>
-              </el-row>
-            </el-card>
+          <el-col :span="14">
+            <el-row>
+              <el-card class="box-card">
+                <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                  <span>人物关系图谱</span>
+                </div>
+                <div id="showArrowRelation" :style="{width: '100%', height: '460px'}"></div>
+              </el-card>
+            </el-row>
+            <el-row style="margin-top:20px">
+              <el-card>
+                <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                  <span>人物关系和弦图</span>
+                </div>
+                <el-row style="margin-top:20px">
+                  <div id="showCircleRelation" :style="{width: '100%', height: '380px'}"></div>
+                </el-row>
+              </el-card>
+            </el-row>
           </el-col>
 
-          <el-col :span="8" style="padding-left:20px">
-            <el-card
-              class="box-card"
-              style="margin-top: 0px;border-radius: 0;background-color: #fff;
-              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
-            >
-              <div slot="header" class="clearfix">
-                <span style="font-size: 18px">人物关系列表</span>
+          <el-col :span="10" style="padding-left:20px">
+            <el-card class="box-card" :body-style="{padding: '0px'}">
+              <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                <span>人物关系列表</span>
               </div>
-              <el-table
-                :show-header="true"
-                :data="items"
-                style="height: 1000px;max-height: 1000px;overflow: auto"
+              <div
+                class="tag-group"
+                style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;"
               >
-                <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
-                <el-table-column prop="relation" label="关系" align="center" width="50"></el-table-column>
-                <el-table-column prop="person2" align="center" label="人物2"></el-table-column>
-              </el-table>
+                <el-table
+                  :show-header="true"
+                  :data="items"
+                  stripe
+                  height="990"
+                  style="width: 100%;text-align:center;fontSize:13px"
+                  :header-cell-style="{color:'white', backgroundColor:'#7266ba!important',fontWeight:500}"
+                >
+                  <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
+                  <el-table-column align="center" width="50">
+                    <i class="el-icon-right"></i>
+                  </el-table-column>
+                  <el-table-column prop="relation" label="关系" align="center" width="80"></el-table-column>
+                  <el-table-column align="center" width="50">
+                    <i class="el-icon-back"></i>
+                  </el-table-column>
+                  <el-table-column prop="person2" align="center" label="人物2"></el-table-column>
+                </el-table>
+              </div>
             </el-card>
           </el-col>
         </el-row>
@@ -111,6 +117,38 @@ const typelist = [
   "同门",
   "亲戚",
 ];
+const type2value = {
+  同人: 70,
+  人物: 70,
+  亲子: 60,
+  夫妻: 50,
+  兄弟姐妹: 50,
+  祖孙: 40,
+  师生: 35,
+  情侣: 35,
+  亲戚: 30,
+  同门: 25,
+  好友: 25,
+  同学: 20,
+  上下级: 15,
+  合作: 10,
+};
+const type2color = {
+  人物: "#F56C6C",
+  亲子: "pink",
+  夫妻: "#A39391",
+  上下级: "#D45246",
+  师生: "#FFCC99",
+  好友: "#9999CC",
+  同学: "#3366CC",
+  合作: "#E6A23C",
+  同人: "#E3E1C8",
+  情侣: "#FB3C3C",
+  祖孙: "#203643",
+  同门: "#74C2E1",
+  亲戚: "#84CF96",
+  兄弟姐妹: "#67C23A",
+};
 
 const relationUrl = "http://49.234.217.110:5000/api/relation";
 
@@ -181,7 +219,7 @@ export default {
   methods: {
     drawArrowRelation() {
       // 初始化echarts实例
-      let myChart = echarts.init(document.getElementById("showRelation"));
+      let myChart = echarts.init(document.getElementById("showArrowRelation"));
 
       var restmp = getPersonList(this.items);
       var personList = restmp[0];
@@ -207,7 +245,7 @@ export default {
               fontSize: 14,
             },
             top: "60",
-            bottom: "50",
+            bottom: "80",
             roam: true,
             //categories: categories,
             itemStyle: {
@@ -218,13 +256,12 @@ export default {
             },
             lineStyle: {
               color: "source",
-              //curveness: 0.3,
             },
             force: {
-              repulsion: 500,
+              repulsion: [500, 600],
               initLayout: "circular",
               gravity: 0.05,
-              edgeLength: 150,
+              edgeLength: [150, 210],
               friction: 0.8,
               focusNodeAdjacency: true,
             },
@@ -265,20 +302,24 @@ export default {
             label: {
               show: true,
             },
+            itemStyle: {
+              //color: "red" //"#F56C6C",
+            },
             draggable: true,
             symbolSize: p.length * 15 + 6,
           });
           a += 360 / personNum;
         });
-        console.log(resData.nodes);
+
         items.forEach(function (item) {
           resData.links.push({
             source: personList.indexOf(item.person1),
             target: personList.indexOf(item.person2),
             relation: item.relation,
-            //value:10,
+            value: type2value[item.relation],
             lineStyle: {
               width: 1,
+              //color: "red" //type2color[item.relation]
             },
           });
         });
@@ -287,7 +328,7 @@ export default {
     },
     drawCircular() {
       // 初始化echarts实例
-      let myChart = echarts.init(document.getElementById("showRelation2"));
+      let myChart = echarts.init(document.getElementById("showCircleRelation"));
 
       var restmp = getPersonList(this.items);
       var personList = restmp[0];
@@ -295,33 +336,46 @@ export default {
       restmp = getCircular(this.items);
 
       var categories = [];
+      var selected = { 人物: true };
       for (var i = 0; i < typelist.length; i++) {
         categories[i] = {
           name: typelist[i],
+          itemStyle: {
+            color: type2color[typelist[i]],
+          },
         };
+        if (restmp.showRelation[typelist[i]]) {
+          selected[typelist[i]] = true;
+        } else {
+          selected[typelist[i]] = true; //false;
+        }
       }
       categories[typelist.length] = {
         name: "人物",
+        itemStyle: {
+          color: type2color["人物"],
+        },
       };
 
       // 绘制图表
       var option = {
-        legend: [
-          {
-            bottom: "10",
-            data: categories.map(function (a) {
-              return a.name;
-            }),
-          },
-        ],
+        legend: {
+          type: "scroll",
+          orient: "vertical",
+          top: "middle",
+          right: "10",
+          data: categories.map(function (a) {
+            return a.name;
+          }),
+          selected: selected,
+          itemHeight: 7,
+          itemWidth: 16,
+        },
         tooltip: {},
         animationDurationUpdate: 1500,
         animationEasingUpdate: "quinticInOut",
         series: [
           {
-            top: "80",
-            bottom: "150",
-            name: "Les Miserables",
             type: "graph",
             layout: "circular",
             circular: {
@@ -339,9 +393,13 @@ export default {
               color: "source",
               curveness: 0.3,
             },
+            top: "middle",
+            left: "23%",
+            right: "38%",
           },
         ],
       };
+
       //防止越界，重绘canvas
       window.onresize = myChart.resize;
       myChart.setOption(option);
@@ -374,39 +432,14 @@ export default {
           a += 360 / nodeNum; // Math.sin(2*Math.PI / 360)
         }
 
-        nodedict = shuffle(nodedict);
-        var i = 0;
-        nodelist.forEach(function (node) {
-          var val_ = 0;
-          if (personDict[nodedict[i]]) {
-            val_ = personDict[nodedict[i]];
-          }
-          node.value = val_;
-          node.name = nodedict[i];
-          node.tooltip = {
-            formatter: personDict[nodedict[i]]
-              ? nodedict[i] + " : " + val_
-              : "关系 : " + nodedict[i],
-          };
-          node.category =
-            typelist.indexOf(nodedict[i]) < 0
-              ? typelist.length
-              : typelist.indexOf(nodedict[i]);
-          node.symbolSize = 20 + 5 * val_; //10 * Math.log(10 + val_);
-          node.label = {
-            normal: {
-              show: node.symbolSize > 0,
-            },
-          };
-          i++;
-        });
-
         var linklist = [];
         var personRelationLabel = {};
+        var showRelation = {};
         var lineCnt = {};
         // 总结各个人物与关系，为其生成提示信息
         items.forEach(function (item) {
           var tKey = item.person1 + "-" + item.relation;
+          showRelation[item.relation] = 1;
           if (personRelationLabel[tKey]) {
             lineCnt[tKey]++;
             personRelationLabel[tKey] =
@@ -440,6 +473,36 @@ export default {
           }
         });
 
+        nodedict = shuffle(nodedict);
+        var i = 0;
+        nodelist.forEach(function (node) {
+          var val_ = 0;
+          if (personDict[nodedict[i]]) {
+            val_ = personDict[nodedict[i]];
+          }
+          node.value = val_;
+          node.name = nodedict[i];
+          node.tooltip = {
+            formatter: personDict[nodedict[i]]
+              ? nodedict[i] + " : " + val_
+              : "关系 : " + nodedict[i],
+          };
+          node.category =
+            typelist.indexOf(nodedict[i]) < 0
+              ? typelist.length
+              : typelist.indexOf(nodedict[i]);
+          node.symbolSize = 20 + 5 * val_; //10 * Math.log(10 + val_);
+          node.label = {
+            normal: {
+              show: true,
+            },
+          };
+          node.itemStyle = {
+            color: type2color[node.name],
+          };
+          i++;
+        });
+
         var id = 0;
         // 依据关系列表生成连线
         items.forEach(function (item) {
@@ -456,6 +519,7 @@ export default {
               lineStyle: {
                 type: "solid",
                 width: 1,
+                color: type2color[item.relation],
               },
               emphasis: {
                 lineStyle: {
@@ -479,6 +543,7 @@ export default {
               lineStyle: {
                 type: "solid",
                 width: 1,
+                color: type2color[item.relation],
               },
               emphasis: {
                 lineStyle: {
@@ -490,7 +555,7 @@ export default {
             delete personRelationLabel[item.person2 + "-" + item.relation];
           }
         });
-        return { nodes: nodelist, links: linklist };
+        return { nodes: nodelist, links: linklist, showRelation: showRelation };
       }
     },
     // 获取 easy-mock 的模拟数据
@@ -524,7 +589,6 @@ export default {
         });
     },
   },
-
   mounted() {
     this.drawArrowRelation();
     this.drawCircular();
@@ -545,5 +609,17 @@ export default {
   color: black;
   margin-top: 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+}
+.unifiedldmc .el-card {
+  border-radius: 0;
+  background-color: #fff;
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.1);
+}
+.unifiedldmc h1.pageheader {
+  color: gray;
+  letter-spacing: 10px;
+  font-weight: normal;
+  font-size: 25px;
+  margin-top: -20px;
 }
 </style>

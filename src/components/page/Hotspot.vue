@@ -441,62 +441,122 @@ export default {
                 this.hot_statistics = this.hotspotRes.hot_statistics;
                 this.news_info[0] = {
                     name: 'Domestic国内',
-                    type: 'line',
+                    type: 'bar',
+                    stack: '总量',
+                    label: {
+                        show: true,
+                        position: 'insideRight'
+                    },
                     data: this.hot_statistics.domestic_trend
                 },
                 this.news_info[1] = {
                     name: 'World世界',
-                    type: 'line',
+                    type: 'bar',
+                    stack: '总量',
+                    label: {
+                        show: true,
+                        position: 'insideRight'
+                    },
                     data: this.hot_statistics.world_trend
                 },
                 this.news_info[2] = {
                     name: 'Sports体育',
-                    type: 'line',
+                    type: 'bar',
+                    stack: '总量',
+                    label: {
+                        show: true,
+                        position: 'insideRight'
+                    },
                     data: this.hot_statistics.sports_trend
                 },
                 this.news_info[3] = {
                     name: 'Society社会',
-                    type: 'line',
+                    type: 'bar',
+                    stack: '总量',
+                    label: {
+                        show: true,
+                        position: 'insideRight'
+                    },
                     data: this.hot_statistics.society_trend
-                }
+                },
                 this.news_info[4] = {
                     name: 'History历史',
-                    type: 'line',
+                    type: 'bar',
+                    stack: '总量',
+                    label: {
+                        show: true,
+                        position: 'insideRight'
+                    },
                     data: this.hot_statistics.history_trend
                 },
                 this.news_info[5] = {
                     name: 'Entertainment娱乐',
-                    type: 'line',
+                    type: 'bar',
+                    stack: '总量',
+                    label: {
+                        show: true,
+                        position: 'insideRight'
+                    },
                     data: this.hot_statistics.entertainment_trend
                 },
                 this.news_info[6] = {
                     name: 'Military军事',
-                    type: 'line',
+                    type: 'bar',
+                    stack: '总量',
+                    label: {
+                        show: true,
+                        position: 'insideRight'
+                    },
                     data: this.hot_statistics.military_trend
                 },
                 this.news_info[7] = {
                     name: 'Government政府',
-                    type: 'line',
+                    type: 'bar',
+                    stack: '总量',
+                    label: {
+                        show: true,
+                        position: 'insideRight'
+                    },
                     data: this.hot_statistics.government_trend
                 },
                 this.news_info[8] = {
                     name: 'Education教育',
-                    type: 'line',
+                    type: 'bar',
+                    stack: '总量',
+                    label: {
+                        show: true,
+                        position: 'insideRight'
+                    },
                     data: this.hot_statistics.education_trend
                 },
                 this.news_info[9] = {
                     name: 'Finance经济',
-                    type: 'line',
+                    type: 'bar',
+                    stack: '总量',
+                    label: {
+                        show: true,
+                        position: 'insideRight'
+                    },
                     data: this.hot_statistics.finance_trend
                 },
                 this.news_info[10] = {
                     name: 'Comment评论',
-                    type: 'line',
+                    type: 'bar',
+                    stack: '总量',
+                    label: {
+                        show: true,
+                        position: 'insideRight'
+                    },
                     data: this.hot_statistics.comment_trend
                 },
                 this.news_info[11] = {
                     name: 'Other其他',
-                    type: 'line',
+                    type: 'bar',
+                    stack: '总量',
+                    label: {
+                        show: true,
+                        position: 'insideRight'
+                    },
                     data: this.hot_statistics.other_trend
                 },
                 this.getDay();
@@ -814,15 +874,18 @@ export default {
             this.chart = echarts.init(document.getElementById(id));
             // 指定图表的配置项和数据
             var option = {
-                // color : ['#7db5e2', '#81cacc', '#cca8ba', "#7EBF50", "#82a0c5", '#fddb7e', '#bda29a', '#d2a59a', '#909399', '#c4ccd3','#67C23A'],
-
+                // color : ['#7db5e2', '#81cacc', '#cca8ba', "#7EBF50", "#82a0c5", '#fddb7e', '#bda29a', '#d2a59a', '#7f9979', '#c4ccd3','#5F9EA0','#a498d6'],
+                color:['rgb(197,74,83)','rgb(228,116,79)','rgb(242,176,110)','rgb(249,224,150)','rgb(255,254,198)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,134,183)','rgb(125,169,185)'],
                 // color:['#DC143C','#FFB6C1','#BA55D3','#483D8B','#1E90FF','#5F9EA0','#90EE90','#556B2F','#808000','#FFD700','#FFA500','#8B4513'],
                 //标题
                 title:{
                   // text: `各主题新闻每日增长数`  /*  [+] 折线图叫啥名字 */
                 },
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                      type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                  }
                 },
                 grid: {
                     top:'10%',
@@ -853,23 +916,8 @@ export default {
                     top: '8%',
                     bottom: 20,
                 },
-                //x轴
+                //x轴没有显式设置，根据值自动生成x轴
                 xAxis:{
-                    type: 'category',
-                    name: '日期',
-                    nameTextStyle:{
-                        fontSize:'15',
-                    },
-                    data: date_arr,
-                    axisLabel: {
-                        fontSize:'15',
-                        fontFamily:'微软雅黑',
-                        marginTop:'35px',
-                        show:true,
-                    },
-                },
-                //y轴没有显式设置，根据值自动生成y轴
-                yAxis:{
                     type: 'value',
                     name: '增长数量',
                     nameTextStyle:{
@@ -885,15 +933,35 @@ export default {
 
                     },
                 },
+                //y轴
+                yAxis:{
+                    type: 'category',
+                    name: '日期',
+                    nameTextStyle:{
+                        fontSize:'15',
+                    },
+                    data: date_arr,
+                    axisLabel: {
+                        fontSize:'15',
+                        fontFamily:'微软雅黑',
+                        marginTop:'35px',
+                        show:true,
+                    },
+                },
+
                 //数据-data是最终要显示的数据
 
                 /*  [+] Here I need Initial the series arr */
                 series: news_info
             };
             this.chart.setOption(option);
-            window.addEventListener("resize", () => {
+            // window.addEventListener("resize", () => {
+            //     this.chart.resize();
+            // });
+            window.onresize = () => {
                 this.chart.resize();
-            });
+                // this.percentCharts.resize();
+            }
         },
 
         init() {
@@ -923,7 +991,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
     @import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
 
     .el-header, .el-footer {

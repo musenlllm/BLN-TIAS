@@ -1,20 +1,9 @@
 <template>
-  <div>
+  <div class="unifiedldmc">
     <el-container>
       <el-header style="height: max-content">
-        <el-card
-          class="noBorderInput"
-          style="border: 0px; margin-top: 20px;border-radius: 0;
-      background-color: #fff;
-      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
-        >
-          <!--<div slot="header" class="diyCardHead" >-->
-          <h1
-            style="color: gray; letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px"
-          >文本主题分类</h1>
-          <!--<el-divider style="width: 30px"></el-divider>-->
-          <!--</div>-->
-          <!--<h1 style="color: gray">实体识别</h1>-->
+        <el-card class="noBorderInput" style="margin-top: 20px">
+          <h1 class="pageheader">文本主题分类</h1>
           <el-row>
             <el-input
               type="textarea"
@@ -39,25 +28,24 @@
       </el-header>
       <el-main
         ref="mainContainer"
-        style="text-align:center;margin-top: 30px;height: 100%;padding:0 20px"
+        style="text-align:center;margin-top: 20px;height: 100%;padding:0 20px"
       >
         <el-row style="max-width:100%;max-height:480px">
-          <el-card
-            class="box-card"
-            style="margin-top: 0px;border-radius: 0;background-color: #fff;
-              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
-          >
-            <div slot="header" class="clearfix">
-              <span style="font-size: 18px">本次主题分类结果</span>
+          <el-card class="box-card">
+            <div slot="header" class="clearfix" style="font-size: 18px">
+              <span>本次主题分类结果</span>
             </div>
             <el-row>
               <div v-if="form.type.length > 0" style="text-align:center;height:26px;margin:20px 0">
-                <p style="font-size:24px;font-weight:bold" :style="{color:form.color}">{{form.type}}</p>
+                <p style="font-size:26px;font-weight:bold" :style="{color:form.color}">{{form.type}}</p>
               </div>
               <div v-else style="min-height:26px;margin:20px 0"></div>
             </el-row>
-            <el-row style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:100%">
-              <div style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:50%"
+            <el-row
+              style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:100%;margin-top:20px"
+            >
+              <div
+                style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:100%"
               >
                 <template v-for="(color, key) in type2color">
                   <div
@@ -78,13 +66,12 @@
         </el-row>
 
         <el-row style="max-width:100%;margin-top:20px">
-          <el-card
-            class="box-card"
-            style="margin-top: 0px;border-radius: 0;background-color: #fff;
-              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
-          >
-            <div slot="header" class="clearfix">
-              <span style="font-size: 18px">实时主题新闻分类结果</span>
+          <el-card class="box-card">
+            <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+              <span>
+                <i class="iconfont iconxinwen"></i>
+                实时主题新闻分类结果
+              </span>
             </div>
             <el-row style="text-align:left">
               <el-carousel
@@ -106,7 +93,7 @@
                         <el-table-column :show-overflow-tooltip="true">
                           <template slot-scope="scope">
                             <el-row>
-                              <a :href="scope.row.url" style="color:black">{{scope.row.event}}</a>
+                              <a :href="scope.row.url" target="_blank" style="color:black">{{scope.row.event}}</a>
                             </el-row>
                             <el-row>
                               <el-col :span="15">发布时间：{{scope.row.publish_time}}</el-col>
@@ -134,26 +121,23 @@
 
         <el-row style="margin-top:20px">
           <el-col :span="12">
-            <el-card
-              class="box-card"
-              style="margin-top: 0px;border-radius: 0;background-color: #fff;
-              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
-            >
-              <div slot="header" class="clearfix">
-                <span style="font-size: 18px">实时主题新闻数量统计</span>
+            <el-card class="box-card">
+              <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                <span>
+                  <!-- <i class="iconfont iconxinwen"></i> -->
+                  实时主题新闻数量统计
+                </span>
               </div>
               <div id="showBarChart" :style="{width: '100%', height: '250px'}"></div>
             </el-card>
           </el-col>
 
           <el-col :span="12" style="padding-left:20px">
-            <el-card
-              class="box-card"
-              style="margin-top: 0px;border-radius: 0;background-color: #fff;
-              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
-            >
-              <div slot="header" class="clearfix">
-                <span style="font-size: 18px">实时主题新闻比例统计</span>
+            <el-card class="box-card">
+              <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                <span>
+                  实时主题新闻比例统计
+                </span>
               </div>
               <div id="showPieChart" :style="{width: '100%', height: '250px'}"></div>
             </el-card>
@@ -186,15 +170,6 @@ const type2color = {
   股票: "#84CF96",
   财经: "#67C23A",
 };
-const colorList = [
-  "#9999CC",
-  "pink",
-  "#67C23A",
-  "#E6A23C",
-  "#74C2E1",
-  "#F56C6C",
-  "#203643",
-];
 const tpclassurl = "http://49.234.217.110:5000/api/tpclassification";
 const carouselurl = "http://49.234.217.110:5000/api/getRealTimeThemeInfo";
 
@@ -263,7 +238,7 @@ export default {
               position: "top",
               fontSize: "15",
             },
-            barWidth: "50%",
+            barWidth: "40%",
           },
         ],
       };
@@ -281,7 +256,7 @@ export default {
           name: childtypelist[i],
           value: this.cnt[i],
           itemStyle: {
-            color: colorList[i],
+            color: type2color[childtypelist[i]],
           },
           label: {
             fontSize: "15",
@@ -309,6 +284,9 @@ export default {
           bottom: 20,
           data: dataset.legendData,
           selected: dataset.selected,
+          textStyle:{
+            fontSize:15
+          }
         },
         series: [
           {
@@ -418,6 +396,18 @@ export default {
   color: black;
   margin-top: 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+}
+.unifiedldmc .el-card {
+  border-radius: 0;
+  background-color: #fff;
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.1);
+}
+.unifiedldmc h1.pageheader {
+  color: gray;
+  letter-spacing: 10px;
+  font-weight: normal;
+  font-size: 25px;
+  margin-top: -20px;
 }
 </style>
 
