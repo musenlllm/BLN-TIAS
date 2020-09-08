@@ -34,7 +34,7 @@
 
             </el-header>
             <el-container style="width: 100%">
-              <div ref="asideContainer" style="width: 60%;margin-top: 30px;margin-left: 20px;">
+              <div ref="asideContainer" style="width: 60%;margin-top: 20px;margin-left: 20px;">
                 <el-aside  width="100%" style=" text-align: center">
                     <el-card class="box-card" style="min-height: 170px;border-radius: 0;
       background-color: #fff;
@@ -71,7 +71,7 @@
 
                     </el-card>
 
-                    <el-card class="box-card" style=" margin-top: 30px;border-radius: 0;
+                    <el-card class="box-card" style=" margin-top: 20px;border-radius: 0;
       background-color: #fff;
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
                         <div slot="header" class="clearfix">
@@ -89,7 +89,7 @@
                 </el-aside>
               </div>
 
-              <div ref="mainContainer" style="width: 40%; margin-top: 30px; margin-left: 30px;margin-right: 20px;">
+              <div ref="mainContainer" style="width: 40%; margin-top: 20px; margin-left: 20px;margin-right: 20px;">
                 <el-main   style="text-align: center; margin-top: 0px; height: 100%; padding: 0px; ">
                   <el-card class="box-card" style="height: 100%; margin-top: 0px;border-radius: 0;
       background-color: #fff;
