@@ -61,20 +61,33 @@
           </el-col>
 
           <el-col :span="10" style="padding-left:20px">
-            <el-card class="box-card">
+            <el-card class="box-card" :body-style="{padding: '0px'}">
               <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
                 <span>人物关系列表</span>
               </div>
-              <el-table
-                :show-header="true"
-                :data="items"
-                stripe="true"
-                style="height: 990px;overflow: auto;fontSize:13px"
+              <div
+                class="tag-group"
+                style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;"
               >
-                <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
-                <el-table-column prop="relation" label="关系" align="center" width="50"></el-table-column>
-                <el-table-column prop="person2" align="center" label="人物2"></el-table-column>
-              </el-table>
+                <el-table
+                  :show-header="true"
+                  :data="items"
+                  stripe
+                  height="990"
+                  style="width: 100%;text-align:center;fontSize:13px"
+                  :header-cell-style="{color:'white', backgroundColor:'#7266ba!important',fontWeight:500}"
+                >
+                  <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
+                  <el-table-column align="center" width="50">
+                    <i class="el-icon-right"></i>
+                  </el-table-column>
+                  <el-table-column prop="relation" label="关系" align="center" width="80"></el-table-column>
+                  <el-table-column align="center" width="50">
+                    <i class="el-icon-back"></i>
+                  </el-table-column>
+                  <el-table-column prop="person2" align="center" label="人物2"></el-table-column>
+                </el-table>
+              </div>
             </el-card>
           </el-col>
         </el-row>
@@ -104,7 +117,22 @@ const typelist = [
   "同门",
   "亲戚",
 ];
-
+const type2value = {
+  人物: "#F56C6C",
+  亲子: 5,
+  夫妻: 5,
+  上下级: 40,
+  师生: 20,
+  好友: 20,
+  同学: 30,
+  合作: 35,
+  同人: 2,
+  情侣: 10,
+  祖孙: 10,
+  同门: 25,
+  亲戚: 15,
+  兄弟姐妹: 1000,
+};
 const type2color = {
   人物: "#F56C6C",
   亲子: "pink",
@@ -230,10 +258,10 @@ export default {
               color: "source",
             },
             force: {
-              repulsion: 500,
+              repulsion: [80, 200],
               initLayout: "circular",
               gravity: 0.05,
-              edgeLength: 150,
+              edgeLength: [80, 200],
               friction: 0.8,
               focusNodeAdjacency: true,
             },
@@ -288,7 +316,7 @@ export default {
             source: personList.indexOf(item.person1),
             target: personList.indexOf(item.person2),
             relation: item.relation,
-            //value:10,
+            value: type2value[item.relation],
             lineStyle: {
               width: 1,
               //color: "red" //type2color[item.relation]

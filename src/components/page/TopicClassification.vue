@@ -93,7 +93,7 @@
                         <el-table-column :show-overflow-tooltip="true">
                           <template slot-scope="scope">
                             <el-row>
-                              <a :href="scope.row.url" style="color:black">{{scope.row.event}}</a>
+                              <a :href="scope.row.url" target="_blank" style="color:black">{{scope.row.event}}</a>
                             </el-row>
                             <el-row>
                               <el-col :span="15">发布时间：{{scope.row.publish_time}}</el-col>
@@ -202,7 +202,7 @@ export default {
         dataset.push({
           value: item,
           textStyle: {
-            fontSize: "13",
+            fontSize: "15",
           },
         });
       });
@@ -236,7 +236,7 @@ export default {
             label: {
               show: true,
               position: "top",
-              fontSize: "13",
+              fontSize: "15",
             },
             barWidth: "40%",
           },
@@ -284,6 +284,9 @@ export default {
           bottom: 20,
           data: dataset.legendData,
           selected: dataset.selected,
+          textStyle:{
+            fontSize:15
+          }
         },
         series: [
           {
