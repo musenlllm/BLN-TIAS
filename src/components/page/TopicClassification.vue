@@ -186,15 +186,6 @@ const type2color = {
   股票: "#84CF96",
   财经: "#67C23A",
 };
-const colorList = [
-  "#9999CC",
-  "pink",
-  "#67C23A",
-  "#E6A23C",
-  "#74C2E1",
-  "#F56C6C",
-  "#203643",
-];
 const tpclassurl = "http://49.234.217.110:5000/api/tpclassification";
 const carouselurl = "http://49.234.217.110:5000/api/getRealTimeThemeInfo";
 
@@ -281,7 +272,7 @@ export default {
           name: childtypelist[i],
           value: this.cnt[i],
           itemStyle: {
-            color: colorList[i],
+            color: type2color[childtypelist[i]]
           },
           label: {
             fontSize: "15",
