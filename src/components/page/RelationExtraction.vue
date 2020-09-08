@@ -57,7 +57,7 @@
               <el-row>
                 <div id="showRelation" :style="{width: '100%', height: '460px'}"></div>
               </el-row>
-              <hr style="border:0;height:1px;background-color:#606266" />
+              <hr style="border:0;height:1px;background-color:rgba(220, 223, 230,0.6)" />
               <el-row style="padding-top:40px">
                 <div id="showRelation2" :style="{width: '100%', height: '500px'}"></div>
               </el-row>
@@ -76,7 +76,7 @@
               <el-table
                 :show-header="true"
                 :data="items"
-                style="height: 1000px;max-height: 1000px;overflow: auto"
+                style="height: 1000px;max-height: 1000px;overflow: auto;fontSize:13px"
               >
                 <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
                 <el-table-column prop="relation" label="关系" align="center" width="50"></el-table-column>
@@ -111,6 +111,23 @@ const typelist = [
   "同门",
   "亲戚",
 ];
+
+const type2color = {
+  人物: "#F56C6C",
+  亲子: "pink",
+  夫妻: "#A39391",
+  上下级: "#D45246",
+  师生: "#FFCC99",
+  好友: "#9999CC",
+  同学: "#3366CC",
+  合作: "#E6A23C",
+  同人: "#E3E1C8",
+  情侣: "#FB3C3C",
+  祖孙: "#203643",
+  同门: "#74C2E1",
+  亲戚: "#84CF96",
+  兄弟姐妹: "#67C23A",
+};
 
 const relationUrl = "http://49.234.217.110:5000/api/relation";
 
@@ -216,10 +233,6 @@ export default {
               shadowBlur: 10,
               shadowColor: "rgba(0, 0, 0, 0.3)",
             },
-            lineStyle: {
-              color: "source",
-              //curveness: 0.3,
-            },
             force: {
               repulsion: 500,
               initLayout: "circular",
@@ -265,6 +278,9 @@ export default {
             label: {
               show: true,
             },
+            itemStyle:{
+              color: "#F56C6C",
+            },
             draggable: true,
             symbolSize: p.length * 15 + 6,
           });
@@ -279,6 +295,7 @@ export default {
             //value:10,
             lineStyle: {
               width: 1,
+              color: type2color[item.relation]
             },
           });
         });
@@ -295,33 +312,42 @@ export default {
       restmp = getCircular(this.items);
 
       var categories = [];
+      var selected = {"人物": true};
       for (var i = 0; i < typelist.length; i++) {
         categories[i] = {
           name: typelist[i],
+          itemStyle: {
+            color: type2color[typelist[i]],
+          },
         };
+        if(restmp.showRelation[typelist[i]]){
+          selected[typelist[i]] = true;
+        }
+        else{
+          selected[typelist[i]] = false;
+        }
       }
       categories[typelist.length] = {
         name: "人物",
+        itemStyle: {
+          color: type2color["人物"],
+        },
       };
 
       // 绘制图表
       var option = {
-        legend: [
-          {
-            bottom: "10",
-            data: categories.map(function (a) {
-              return a.name;
-            }),
-          },
-        ],
+        legend: {
+          bottom: "10",
+          data: categories.map(function (a) {
+            return a.name;
+          }),
+          selected: selected
+        },
         tooltip: {},
         animationDurationUpdate: 1500,
         animationEasingUpdate: "quinticInOut",
         series: [
           {
-            top: "80",
-            bottom: "150",
-            name: "Les Miserables",
             type: "graph",
             layout: "circular",
             circular: {
@@ -339,12 +365,18 @@ export default {
               color: "source",
               curveness: 0.3,
             },
+            top: "40",
+            bottom: "150",
           },
         ],
       };
+      console.log("option.legend");
+      console.log(option.legend);
       //防止越界，重绘canvas
       window.onresize = myChart.resize;
       myChart.setOption(option);
+      console.log("personDict");
+      console.log(personDict);
 
       function getCircular(items) {
         var nodeNum = typelist.length + personList.length;
@@ -374,39 +406,14 @@ export default {
           a += 360 / nodeNum; // Math.sin(2*Math.PI / 360)
         }
 
-        nodedict = shuffle(nodedict);
-        var i = 0;
-        nodelist.forEach(function (node) {
-          var val_ = 0;
-          if (personDict[nodedict[i]]) {
-            val_ = personDict[nodedict[i]];
-          }
-          node.value = val_;
-          node.name = nodedict[i];
-          node.tooltip = {
-            formatter: personDict[nodedict[i]]
-              ? nodedict[i] + " : " + val_
-              : "关系 : " + nodedict[i],
-          };
-          node.category =
-            typelist.indexOf(nodedict[i]) < 0
-              ? typelist.length
-              : typelist.indexOf(nodedict[i]);
-          node.symbolSize = 20 + 5 * val_; //10 * Math.log(10 + val_);
-          node.label = {
-            normal: {
-              show: node.symbolSize > 0,
-            },
-          };
-          i++;
-        });
-
         var linklist = [];
         var personRelationLabel = {};
+        var showRelation = {};
         var lineCnt = {};
         // 总结各个人物与关系，为其生成提示信息
         items.forEach(function (item) {
           var tKey = item.person1 + "-" + item.relation;
+          showRelation[item.relation] = 1;
           if (personRelationLabel[tKey]) {
             lineCnt[tKey]++;
             personRelationLabel[tKey] =
@@ -438,6 +445,36 @@ export default {
             personRelationLabel[tKey] =
               item.person1 + "-" + item.relation + "-" + item.person2;
           }
+        });
+
+        nodedict = shuffle(nodedict);
+        var i = 0;
+        nodelist.forEach(function (node) {
+          var val_ = 0;
+          if (personDict[nodedict[i]]) {
+            val_ = personDict[nodedict[i]];
+          }
+          node.value = val_;
+          node.name = nodedict[i];
+          node.tooltip = {
+            formatter: personDict[nodedict[i]]
+              ? nodedict[i] + " : " + val_
+              : "关系 : " + nodedict[i],
+          };
+          node.category =
+            typelist.indexOf(nodedict[i]) < 0
+              ? typelist.length
+              : typelist.indexOf(nodedict[i]);
+          node.symbolSize = 20; // + 5 * val_; //10 * Math.log(10 + val_);
+          node.label = {
+            normal: {
+              show: true,
+            },
+          };
+          node.itemStyle = {
+            color: type2color[node.name],
+          };
+          i++;
         });
 
         var id = 0;
@@ -490,7 +527,7 @@ export default {
             delete personRelationLabel[item.person2 + "-" + item.relation];
           }
         });
-        return { nodes: nodelist, links: linklist };
+        return { nodes: nodelist, links: linklist, showRelation: showRelation };
       }
     },
     // 获取 easy-mock 的模拟数据
