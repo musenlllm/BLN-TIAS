@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="unifiedldmc">
     <el-container>
       <el-header style="height: max-content">
         <el-card
@@ -8,13 +8,7 @@
       background-color: #fff;
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
         >
-          <!--<div slot="header" class="diyCardHead" >-->
-          <h1
-            style="color: gray; letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px"
-          >关系抽取</h1>
-          <!--<el-divider style="width: 30px"></el-divider>-->
-          <!--</div>-->
-          <!--<h1 style="color: gray">实体识别</h1>-->
+          <h1 class="pageheader">关系抽取</h1>
           <el-input
             type="textarea"
             placeholder="请输入内容"
@@ -46,11 +40,7 @@
       >
         <el-row>
           <el-col :span="16">
-            <el-card
-              class="box-card"
-              style="margin-top: 0px;border-radius: 0;background-color: #fff;
-              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
-            >
+            <el-card class="box-card">
               <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
                 <span>人物关系图</span>
               </div>
@@ -65,11 +55,7 @@
           </el-col>
 
           <el-col :span="8" style="padding-left:20px">
-            <el-card
-              class="box-card"
-              style="margin-top: 0px;border-radius: 0;background-color: #fff;
-              box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
-            >
+            <el-card class="box-card">
               <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
                 <span>人物关系列表</span>
               </div>
@@ -582,5 +568,17 @@ export default {
   color: black;
   margin-top: 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+}
+.unifiedldmc .el-card {
+  border-radius: 0;
+  background-color: #fff;
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.1);
+}
+.unifiedldmc h1.pageheader {
+  color: gray;
+  letter-spacing: 10px;
+  font-weight: normal;
+  font-size: 25px;
+  margin-top: -20px;
 }
 </style>
