@@ -286,7 +286,7 @@ export default {
           });
           a += 360 / personNum;
         });
-        console.log(resData.nodes);
+
         items.forEach(function (item) {
           resData.links.push({
             source: personList.indexOf(item.person1),
@@ -370,13 +370,10 @@ export default {
           },
         ],
       };
-      console.log("option.legend");
-      console.log(option.legend);
+
       //防止越界，重绘canvas
       window.onresize = myChart.resize;
       myChart.setOption(option);
-      console.log("personDict");
-      console.log(personDict);
 
       function getCircular(items) {
         var nodeNum = typelist.length + personList.length;
@@ -493,6 +490,7 @@ export default {
               lineStyle: {
                 type: "solid",
                 width: 1,
+                color: type2color[item.relation]
               },
               emphasis: {
                 lineStyle: {
@@ -516,6 +514,7 @@ export default {
               lineStyle: {
                 type: "solid",
                 width: 1,
+                color: type2color[item.relation]
               },
               emphasis: {
                 lineStyle: {
@@ -561,7 +560,6 @@ export default {
         });
     },
   },
-
   mounted() {
     this.drawArrowRelation();
     this.drawCircular();
