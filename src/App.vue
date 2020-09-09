@@ -3,8 +3,11 @@
         <router-view></router-view>
     </div>
 </template>
-<style>
+<style >
     @import "./assets/css/main.css";
     @import "./assets/css/color-dark.css";     /*深色主题*/
     /*@import "./assets/css/theme-green/color-green.css";   浅绿色主题*/
+    /*@import './assets/icon/iconfont.css';*/
+    @import './assets/css/icon.css';
 </style>
+<style src="./assets/css/icon.css"></style>
