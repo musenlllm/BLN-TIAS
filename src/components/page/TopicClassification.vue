@@ -79,7 +79,7 @@
             </div>
             <el-row style="text-align:left">
               <el-carousel
-                :interval="12000"
+                :interval="120000"
                 direction="vertical"
                 arrow="never"
                 indicator-position="none"
@@ -110,8 +110,7 @@
                                 <el-tag
                                   effect="dark"
                                   :color="scope.row.color"
-                                  style="border-radius: 4px;border: 0px;
-                             box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);"
+                                  style="border-radius: 4px;border-color:rgba(255,255,255,0.01);box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);"
                                 >{{scope.row.type}}</el-tag>
                               </el-col>
                               <el-col :span="4">概率：{{scope.row.score}}</el-col>
