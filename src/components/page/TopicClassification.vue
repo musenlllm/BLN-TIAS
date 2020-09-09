@@ -11,7 +11,7 @@
               v-model="content"
               maxlength="800"
               show-word-limit
-              :autosize="{ minRows: 8, maxRows: 11}"
+              :autosize="{ minRows: 5, maxRows: 8}"
               clearable
               style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); font-size: 15px;"
             />
@@ -36,10 +36,13 @@
               <span>本次主题分类结果</span>
             </div>
             <el-row>
-              <div v-if="form.type.length > 0" style="text-align:center;height:26px;margin:20px 0">
+              <div
+                v-if="form.type.length > 0"
+                style="text-align:center;height:26px;margin-top:5px;margin-bottom:20px"
+              >
                 <p style="font-size:26px;font-weight:bold" :style="{color:form.color}">{{form.type}}</p>
               </div>
-              <div v-else style="min-height:26px;margin:20px 0"></div>
+              <div v-else style="min-height:26px;margin-top:5px;margin-bottom:20px"></div>
             </el-row>
             <el-row
               style="display:flex;justify-content:center;flex-direction:row; flex-wrap:wrap;max-width:100%;margin-top:20px"
@@ -72,8 +75,8 @@
                 <i class="iconfont iconxinwen"></i>
                 实时主题新闻分类结果
               </span>
+              <div class="showupdatetime">更新时间：{{lastupdatetime}}</div>
             </div>
-            <div style="font-size:12px;text-align: right">上次刷新时间为：{{lastupdatetime}}</div>
             <el-row style="text-align:left">
               <el-carousel
                 :interval="12000"
@@ -128,12 +131,9 @@
           <el-col :span="12">
             <el-card class="box-card">
               <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
-                <span>
-                  <!-- <i class="iconfont iconxinwen"></i> -->
-                  实时主题新闻数量统计
-                </span>
+                <span>实时主题新闻数量统计</span>
+                <div class="showupdatetime">更新时间：{{lastupdatetime}}</div>
               </div>
-              <div style="font-size:12px;text-align: right">上次刷新时间为：{{lastupdatetime}}</div>
               <div id="showBarChart" :style="{width: '100%', height: '250px'}"></div>
             </el-card>
           </el-col>
@@ -142,8 +142,8 @@
             <el-card class="box-card">
               <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
                 <span>实时主题新闻比例统计</span>
+                <div class="showupdatetime">更新时间：{{lastupdatetime}}</div>
               </div>
-              <div style="font-size:12px;text-align: right">上次刷新时间为：{{lastupdatetime}}</div>
               <div id="showPieChart" :style="{width: '100%', height: '250px'}"></div>
             </el-card>
           </el-col>
@@ -157,6 +157,37 @@
 import { fetchData } from "../../api/index";
 import echarts from "echarts/lib/echarts";
 import "echarts/dist/extension/dataTool";
+
+// 对Date的扩展，将 Date 转化为指定格式的String
+// 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，
+// 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
+// 例子：
+// (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423
+// (new Date()).Format("yyyy-M-d h:m:s.S") ==> 2006-7-2 8:9:4.18
+Date.prototype.Format = function (fmt) {
+  // author: meizz
+  var o = {
+    "M+": this.getMonth() + 1, // 月份
+    "d+": this.getDate(), // 日
+    "h+": this.getHours(), // 小时
+    "m+": this.getMinutes(), // 分
+    "s+": this.getSeconds(), // 秒
+    "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+    S: this.getMilliseconds(), // 毫秒
+  };
+  if (/(y+)/.test(fmt))
+    fmt = fmt.replace(
+      RegExp.$1,
+      (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+    );
+  for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt))
+      fmt = fmt.replace(
+        RegExp.$1,
+        RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length)
+      );
+  return fmt;
+};
 
 const childtypelist = ["教育", "娱乐", "财经", "时政", "社会", "体育", "科技"];
 const type2color = {
@@ -192,7 +223,7 @@ export default {
         "天津同融电子商务有限公司是北京石贝科技有限公司全资子公司，穿透以后，字节跳动创始人张一鸣是实际控制人。合众支付官网显" +
         "示，该公司2014年获得由中国人民银行颁发的《支付业务许可证》，成为湖北省首家持牌互联网支付企业。（请输入文本）",
       cnt: [],
-      lastupdatetime: new Date().toLocaleString(),
+      lastupdatetime: new Date().Format("yyyy-MM-dd hh:mm:ss"),
       newslist: [],
       type2color: type2color,
     };
@@ -385,7 +416,7 @@ export default {
     const refreshTime = 5 * 60 * 1000;
     var that = this;
     var func = function () {
-      that.lastupdatetime = new Date().toLocaleString();
+      that.lastupdatetime = new Date().Format("yyyy-MM-dd hh:mm:ss");
       that.getRealTimeThemeInfo();
     };
     func();
@@ -418,6 +449,11 @@ export default {
   font-weight: normal;
   font-size: 25px;
   margin-top: -20px;
+}
+.unifiedldmc .showupdatetime {
+  color: gray;
+  font-size: 10px;
+  text-align: right;
 }
 </style>
 
