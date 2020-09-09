@@ -17,9 +17,9 @@
                   v-model="nerText"
                   maxlength="200"
                   show-word-limit
-                  :autosize="{ minRows: 8, maxRows: 8}"
+                  :autosize="{ minRows: 5, maxRows: 5}"
                   clearable
-                  style="font-size: 15px"
+                  style="font-size: 15px; box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 4px, rgba(0, 0, 0, 0.04) 0px 0px 6px"
                   >
                   <!--style=" font-size: 15px; margin-top: 0px;border-radius: 0;-->
       <!--background-color: #fff;-->
