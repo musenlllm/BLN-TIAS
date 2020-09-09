@@ -117,7 +117,7 @@ export default {
 }
 .header .logo {
     float: left;
-    width: 250px;
+    width: 200px;
     line-height: 70px;
 }
 .header-right {
