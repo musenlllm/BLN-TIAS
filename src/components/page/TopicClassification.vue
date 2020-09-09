@@ -73,6 +73,7 @@
                 实时主题新闻分类结果
               </span>
             </div>
+            <div style="font-size:12px;text-align: right">上次刷新时间为：{{lastupdatetime}}</div>
             <el-row style="text-align:left">
               <el-carousel
                 :interval="12000"
@@ -93,7 +94,11 @@
                         <el-table-column :show-overflow-tooltip="true">
                           <template slot-scope="scope">
                             <el-row>
-                              <a :href="scope.row.url" target="_blank" style="color:black">{{scope.row.event}}</a>
+                              <a
+                                :href="scope.row.url"
+                                target="_blank"
+                                style="color:black"
+                              >{{scope.row.event}}</a>
                             </el-row>
                             <el-row>
                               <el-col :span="15">发布时间：{{scope.row.publish_time}}</el-col>
@@ -128,6 +133,7 @@
                   实时主题新闻数量统计
                 </span>
               </div>
+              <div style="font-size:12px;text-align: right">上次刷新时间为：{{lastupdatetime}}</div>
               <div id="showBarChart" :style="{width: '100%', height: '250px'}"></div>
             </el-card>
           </el-col>
@@ -135,10 +141,9 @@
           <el-col :span="12" style="padding-left:20px">
             <el-card class="box-card">
               <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
-                <span>
-                  实时主题新闻比例统计
-                </span>
+                <span>实时主题新闻比例统计</span>
               </div>
+              <div style="font-size:12px;text-align: right">上次刷新时间为：{{lastupdatetime}}</div>
               <div id="showPieChart" :style="{width: '100%', height: '250px'}"></div>
             </el-card>
           </el-col>
@@ -187,9 +192,7 @@ export default {
         "天津同融电子商务有限公司是北京石贝科技有限公司全资子公司，穿透以后，字节跳动创始人张一鸣是实际控制人。合众支付官网显" +
         "示，该公司2014年获得由中国人民银行颁发的《支付业务许可证》，成为湖北省首家持牌互联网支付企业。（请输入文本）",
       cnt: [],
-      colorSt: {
-        "background-color": "#99a9bf",
-      },
+      lastupdatetime: new Date().toLocaleString(),
       newslist: [],
       type2color: type2color,
     };
@@ -244,7 +247,7 @@ export default {
       };
       //防止越界，重绘canvas
       window.onresize = myChart.resize;
-      myChart.setOption(option); //设置option
+      myChart.setOption(option);
     },
     drawPieChart() {
       let myChart = echarts.init(document.getElementById("showPieChart"));
@@ -284,9 +287,9 @@ export default {
           bottom: 20,
           data: dataset.legendData,
           selected: dataset.selected,
-          textStyle:{
-            fontSize:15
-          }
+          textStyle: {
+            fontSize: 15,
+          },
         },
         series: [
           {
@@ -309,7 +312,7 @@ export default {
       };
       //防止越界，重绘canvas
       window.onresize = myChart.resize;
-      myChart.setOption(option); //设置option
+      myChart.setOption(option);
     },
     onClick(value) {
       //alert("你点击了 " + value);
@@ -379,7 +382,14 @@ export default {
     },
   },
   mounted() {
-    this.getRealTimeThemeInfo();
+    const refreshTime = 5 * 60 * 1000;
+    var that = this;
+    var func = function () {
+      that.lastupdatetime = new Date().toLocaleString();
+      that.getRealTimeThemeInfo();
+    };
+    func();
+    setInterval(func, refreshTime);
   },
 };
 </script>
@@ -403,7 +413,7 @@ export default {
   box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.1);
 }
 .unifiedldmc h1.pageheader {
-  color: gray;
+  color: black;
   letter-spacing: 10px;
   font-weight: normal;
   font-size: 25px;

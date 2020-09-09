@@ -73,7 +73,7 @@
                   :show-header="true"
                   :data="items"
                   stripe
-                  height="990"
+                  height="1030"
                   style="width: 100%;text-align:center;fontSize:13px"
                   :header-cell-style="{color:'white', backgroundColor:'#7266ba!important',fontWeight:500}"
                 >
@@ -374,6 +374,12 @@ export default {
         tooltip: {},
         animationDurationUpdate: 1500,
         animationEasingUpdate: "quinticInOut",
+        itemStyle: {
+          borderColor: "#fff",
+          borderWidth: 0.5,
+          shadowBlur: 10,
+          shadowColor: "rgba(0, 0, 0, 0.3)",
+        },
         series: [
           {
             type: "graph",
@@ -616,7 +622,7 @@ export default {
   box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.1);
 }
 .unifiedldmc h1.pageheader {
-  color: gray;
+  color: black;
   letter-spacing: 10px;
   font-weight: normal;
   font-size: 25px;
