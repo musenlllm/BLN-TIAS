@@ -17,7 +17,7 @@
                               show-word-limit='false'
                               :autosize="{ minRows: 6, maxRows: 6}"
                               clearable
-                              style=" font-size: 15px;"
+                              style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); font-size: 15px;"
                       >
                       </el-input>
                       <el-row style="margin-top: 17px; display: flex; justify-content: center">
@@ -26,36 +26,36 @@
               </el-card>
            </el-header>
                     <!--<el-card class="box-card" style="min-height: 250px;margin-top: 20px" align="middle">-->
-                    <el-card class="box-card" width="60%" style="margin-right:20px;text-align:center;margin-left:20px;margin-top: 30px;height: 400px;border-radius: 0;background-color: #fff;
+                    <el-card class="box-card" width="60%" style="margin-right:20px;text-align:center;margin-left:20px;margin-top: 20px;height: 240px;border-radius: 0;background-color: #fff;
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading">
-                        <div slot="header" class="clearfix">
-                            <span style="color: black;font-size: 18px">本次分析结果</span>
+                        <div slot="header" class="clearfix" >
+                            <span style="color: #000;font-size: 18px">本次分析结果</span>
                         </div>
-                        <span :style=style_sen>情感偏{{this.classification}}</span>
-                        <div id="wrap" align="middle" style="width: 100%;justify-content: center;margin-top: 0px">
-                            <div id = "pos_emoji" style="margin-top: 30px" align="bottom">
-                                <span style="font-size:15px;color:#909399;text-align:center;display:block;position:relative;top:50%;margin-right: 15px;letter-spacing: 5px">负面情绪</span>
-                                <img src="../../assets/img/neg2.png" width="100px"/>
+                        <span :style=style_sen > {{this.classification}} </span>
+                        <div id="wrap" align="middle" style="width: 100%;justify-content: center;margin-top: -5.5%">
+                            <div id = "pos_emoji" style="margin-top: 45px" align="bottom">
+                                <span style="font-size:15px;color:#909399;text-align:center;display:block;position:relative;top:50%;margin-right: 15px;letter-spacing: 5px">正面情绪</span>
+                                <img src="../../assets/img/pos2.png" width="100px"/>
                             </div>
 
-                            <div align="middle" id="emotionLevel" style="width:500px;margin-top: -18%"></div>
-                            <div id = "neg_emoji" style="margin-top: 30px">
-                                <img src="../../assets/img/pos2.png" width="100px"/>
-                                <span style="font-size:15px;color:#909399;text-align:center;display:block;position:relative;top:50%;margin-left: 15px;letter-spacing: 5px">正面情绪</span>
+                            <div align="middle" id="emotionLevel" style="width:500px;height:400px;margin-top: -8%"></div>
+                            <div id = "neg_emoji" style="margin-left:8px;margin-top: 45px">
+                                <img src="../../assets/img/neg2.png" width="100px"/>
+                                <span style="font-size:15px;color:#909399;text-align:center;display:block;position:relative;top:50%;margin-left: 15px;letter-spacing: 5px">负面情绪</span>
                             </div>
                         </div>
                     </el-card>
                     <!--<el-card class="box-card" style="min-height: 300px;margin-top: 20px" align="middle">-->
-                    <el-card class="box-card" width="60%" style="margin-right:20px;text-align:center;margin-left:20px;margin-top: 30px;min-height: 170px;border-radius: 0;background-color: #fff;
-      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading">
+                    <el-card class="box-card" width="60%" style="padding-bottom:-10px;margin-bottom: -10px;margin-right:20px;text-align:center;margin-left:20px;margin-top: 20px;min-height: 170px;border-radius: 0;background-color: #fff;
+      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading" shadow="never">
                         <div slot="header" class="clearfix">
                             <span style="color: black;font-size: 18px">今日新闻情感分析结果</span>
                         </div>
-                        <el-container>
-                            <el-aside width="50%">
-                                <el-row :gutter="20" >
-                                    <el-col :span="23" style="padding: 0px;margin:10px">
-                                        <el-card :body-style="{padding: '0px'}" >
+                        <el-container style="margin: -20px">
+                            <el-aside width="50%" style="margin-top:-1px">
+                                <el-row :gutter="0" >
+                                    <el-col :span="24" style="padding: 0px;margin-top:-2px;margin-left: -1px;margin-right: 1px">
+                                        <el-card :body-style="{padding: '0px',shadow:'never'}" style="border-radius: 0;" shadow="never">
                                             <div class="grid-content grid-con-1" style="color:#E47470 ">
                                                 <div class="grid-con-text">
                                                     <div class="grid-num">今日检测总数</div>
@@ -76,127 +76,23 @@
                                             </div>
                                         </el-card>
                                     </el-col>
-                                    <!--<el-col :span="23" style="padding: 0px;margin:10px">-->
-                                        <!--<el-card shadow="hover" :body-style="{padding: '0px'}" style="border-radius:20px;">-->
-                                            <!--&lt;!&ndash;<div class="grid-content2 grid-con-2">&ndash;&gt;-->
-                                                <!--&lt;!&ndash;<div class="grid-con-text">&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;<div class="grid-text-2">近3日</div>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;<el-divider class="el-div-horizontal"></el-divider>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;<div class="div-text2">&ndash;&gt;-->
-                                                        <!--&lt;!&ndash;<span class="grid-text2">总数</span>&ndash;&gt;-->
-                                                        <!--&lt;!&ndash;<span class="grid-num2">{{nearly_three_days_num = history_count.nearly_three_days_negative_count+history_count.nearly_three_days_positive_count}} 条</span>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;<div class="div-text2">&ndash;&gt;-->
-                                                        <!--&lt;!&ndash;<span class="grid-text2">积极</span>&ndash;&gt;-->
-                                                        <!--&lt;!&ndash;<span class="grid-num2">{{history_count.nearly_three_days_positive_count}} 条</span>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;<div class="div-text2">&ndash;&gt;-->
-                                                        <!--&lt;!&ndash;<span class="grid-text2">消极</span>&ndash;&gt;-->
-                                                        <!--&lt;!&ndash;<span class="grid-num2">{{history_count.nearly_three_days_negative_count}} 条</span>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                            <!--<div class="grid-content1 grid-con-1">-->
-                                                <!--<div class="grid-con-text">-->
-                                                    <!--<div class="grid-num">近3日检测总数</div>-->
-                                                    <!--<div class="grid-num">{{nearly_three_days_num = history_count.nearly_three_days_negative_count+history_count.nearly_three_days_positive_count}} 条</div>-->
-                                                <!--</div>-->
-
-                                                <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
-                                                <!--<div class="grid-cont-right1">-->
-                                                    <!--<div class="right-text">-->
-                                                        <!--<span class="grid-text">正面</span>-->
-                                                        <!--<span class="grid-num">{{history_count.nearly_three_days_positive_count}} 条</span>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="right-text">-->
-                                                        <!--<span class="grid-text">负面</span>-->
-                                                        <!--<span class="grid-num">{{history_count.nearly_three_days_negative_count}} 条</span>-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</el-card>-->
-                                    <!--</el-col>-->
-                                    <!--<el-col :span="23" style="padding: 0px;margin:10px">-->
-
-                                        <!--<el-card shadow="hover" :body-style="{padding: '0px'}" style="border-radius:20px;">-->
-                                            <!--&lt;!&ndash;<div class="grid-content1 grid-con-2">&ndash;&gt;-->
-                                                <!--&lt;!&ndash;<div class="grid-con-text">&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;<div class="grid-text-2">近7日 </div>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;<el-divider class="el-div-horizontal"></el-divider>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;<div class="div-text2">&ndash;&gt;-->
-                                                        <!--&lt;!&ndash;<span class="grid-text2">总数</span>&ndash;&gt;-->
-                                                        <!--&lt;!&ndash;<span class="grid-num2">{{nearly_one_week_num = history_count.nearly_one_week_negative_count+history_count.nearly_one_week_positive_count}} 条</span>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;<div class="div-text2">&ndash;&gt;-->
-                                                        <!--&lt;!&ndash;<span class="grid-text2">积极</span>&ndash;&gt;-->
-                                                        <!--&lt;!&ndash;<span class="grid-num2">{{history_count.nearly_one_week_positive_count}} 条</span>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;<div class="div-text2">&ndash;&gt;-->
-                                                        <!--&lt;!&ndash;<span class="grid-text2">消极</span>&ndash;&gt;-->
-                                                        <!--&lt;!&ndash;<span class="grid-num2">{{history_count.nearly_one_week_negative_count}} 条</span>&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                            <!--<div class="grid-content2 grid-con-1">-->
-                                                <!--<div class="grid-con-text">-->
-                                                    <!--<div class="grid-num">近7日检测总数</div>-->
-                                                    <!--<div class="grid-num">{{nearly_one_week_num = history_count.nearly_one_week_negative_count+history_count.nearly_one_week_positive_count}} 条</div>-->
-                                                <!--</div>-->
-
-                                                <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
-                                                <!--<div class="grid-cont-right1">-->
-                                                    <!--<div class="right-text">-->
-                                                        <!--<span class="grid-text">正面</span>-->
-                                                        <!--<span class="grid-num">{{history_count.nearly_one_week_positive_count}} 条</span>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="right-text">-->
-                                                        <!--<span class="grid-text">负面</span>-->
-                                                        <!--<span class="grid-num">{{history_count.nearly_one_week_negative_count}} 条</span>-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</el-card>-->
-                                    <!--</el-col>-->
-                                    <!--<el-col :span="23" style="padding: 0px;margin:10px">-->
-                                        <!--<el-card shadow="hover" :body-style="{padding: '0px'}" style="border-radius:20px;" >-->
-                                            <!--<div class="grid-content3 grid-con-1">-->
-                                                <!--<div class="grid-con-text">-->
-                                                    <!--<div class="grid-num">历史检测总数</div>-->
-                                                    <!--<div class="grid-num">{{history_count.history_negative_count+history_count.history_positive_count}} 条</div>-->
-                                                <!--</div>-->
-
-                                                <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
-                                                <!--<div class="grid-cont-right1">-->
-                                                    <!--<div class="right-text">-->
-                                                        <!--<span class="grid-text">正面</span>-->
-                                                        <!--<span class="grid-num">{{history_count.history_positive_count}} 条</span>-->
-                                                        <!--&lt;!&ndash;<span class="grid-num">{{(history_count.history_positive_count/(history_count.history_negative_count+history_count.history_positive_count)).toFixed(4)*100}}%</span>&ndash;&gt;-->
-                                                    <!--</div>-->
-                                                    <!--<div class="right-text">-->
-                                                        <!--<span class="grid-text">负面</span>-->
-                                                        <!--<span class="grid-num">{{history_count.history_negative_count}} 条</span>-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</el-card>-->
-                                    <!--</el-col>-->
                                 </el-row>
                                 <!--今日小时曲线图-->
                                 <div id="today_emotionLevel" style="width:100%;height:400px;"></div>
                             </el-aside>
-                            <el-main style="text-align:center" >
-                                <el-tabs type="border-card" stretch=true style="padding: 0px;margin-top:-9px">
+                            <el-main style="text-align:center;margin: -20px;margin-bottom: -10px" >
+                                <el-tabs type="card" stretch=true style="margin-right:-16px;margin-left: -2px;margin-top:-1px;border-radius: 0;">
                                     <el-tab-pane>
-                                      <span slot="label"><i class="iconfont iconzhengmian"></i>正面新闻</span>
+                                      <span slot="label" style="">正面新闻</span>
                                         <el-table
                                             :data="pos_news"
                                             stripe
-                                            style="width: 100%;text-align: center;"
+                                            style="width: 120%;text-align: center;fontSize:13px;margin-bottom: -10px"
                                             :show-header=false
                                             :show-overflow-tooltip=true
                                             @sort-change="changeSort"
                                             :default-sort="{prop: 'rank', order: 'ascending'}"
-                                            max-height="400px"
+                                            max-height="460px"
 
                                         >
                                             <el-table-column align='center'
@@ -239,11 +135,11 @@
                                       </el-table>
                                     </el-tab-pane>
                                     <el-tab-pane label="负面新闻">
+                                      <span slot="label" style="">负面新闻</span>
                                         <el-table
-
                                             :data="neg_news"
                                             stripe
-                                            style="width: 100%;text-align: center"
+                                            style="width: 100%;text-align: center;fontSize:13px"
                                             :show-header=false
                                             :show-overflow-tooltip=true
                                             max-height="400px"
@@ -254,7 +150,7 @@
                                                     :show-overflow-tooltip=true
                                                     sortable
                                                     :sort-orders="['ascending', 'descending']"
-                                                    width="50%"
+                                                    width="40%"
                                             >
                                             </el-table-column>
                                             <el-table-column
@@ -289,7 +185,7 @@
                             </el-main>
                         </el-container>
                     </el-card>
-                    <el-card class="box-card" width="60%" style="margin-right:20px;text-align:center;margin-left:20px;margin-top: 30px;min-height: 600px;border-radius: 0;background-color: #fff;
+                    <el-card class="box-card" width="60%" style="margin-right:20px;text-align:center;margin-left:20px;margin-top: 30px;min-height: 300px;border-radius: 0;background-color: #fff;
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading">
                         <div slot="header" class="clearfix">
                             <span style="color: black;font-size: 18px">历史新闻情感分析结果</span>
@@ -301,7 +197,7 @@
                               </div>
                             </el-col>
                             <el-col :span="8">
-                              <div id="history_trend" style="width:400px;height:400px;margin-left: 100px">
+                              <div id="history_trend" style="width:400px;height:420px;margin-left: 100px">
 
                               </div>
                             </el-col>
@@ -411,10 +307,12 @@ export default {
                 if (this.classification == '负面')
                 {
                   this.sentimentscore = -parseFloat(response.results[0].score).toFixed(2);
-                  this.style_sen = "color: red;font-size: 18px";
+                  this.classification = '情感偏'+this.classification+'('+this.sentimentscore*(-100)+'%)';
+                  this.style_sen = "color: #6B2A4A;font-size: 20px;";
                 }else {
                   this.sentimentscore =  parseFloat(response.results[0].score).toFixed(2);
-                  this.style_sen = "color: green;font-size: 18px";
+                  this.classification = '情感偏'+this.classification+'('+ this.sentimentscore*100 +'%)';
+                  this.style_sen = "color: #E47470;font-size: 20px;";
                 }
 
                 // this.drawDashboard("emotionLevel",this.sentimentscore,this.classification);
@@ -902,7 +800,16 @@ export default {
                       type: 'bar',
                       itemStyle: {
                       normal: {
-                          color: '#35363b', // 定义柱形的背景色
+                          color: function (param){
+                                if(param.value < 0)
+                                {
+                                  return '#E47470';
+                                }else{
+                                  return '#6B2A4A';
+                                }
+
+                            } ,
+                          // color: '#6B2A4A', // 定义柱形的背景色
                           barBorderRadius: [15, 15, 15, 15] // 定义背景柱形的圆角
                       }
                     },
@@ -918,30 +825,29 @@ export default {
                       data: [score*100],
                       barWidth: '20px',
                       barGap: '-100%', // 设置柱形重合的重要步骤
-                      label: {
-                          normal: {
-                          show: true, //是否显现，不显示的话设置成false
-                          position: "bottom", //显示的位置
-
-                          formatter: function(param) {
-                              return Math.abs(param.value)+'%';
-                          },
-                          textStyle: {
-                            //这个地方颜色是支持回调函数的这种的，如果是一种颜色则可以写成： color :'#1089E7'
-                              color: '#000',
-                              fontSize: "16",
-
-                          }
-                        }
-                      },
+                      // label: {
+                      //     normal: {
+                      //     show: true, //是否显现，不显示的话设置成false
+                      //     position: "bottom", //显示的位置
+                      //
+                      //     // formatter: function(param) {
+                      //     //     return Math.abs(param.value)+'%';
+                      //     // },
+                      //     textStyle: {
+                      //       //这个地方颜色是支持回调函数的这种的，如果是一种颜色则可以写成： color :'#1089E7'
+                      //         color: '#000',
+                      //         fontSize: "16",
+                      //
+                      //     }
+                      //   }
+                      // },
                       itemStyle:{
-
                             color: function (param){
                                 if(param.value < 0)
                                 {
-                                  return '#E47470';
+                                  return '#6B2A4A';
                                 }else{
-                                  return '#8dbf6a';
+                                  return '#E47470';
                                 }
 
                             } ,
@@ -949,32 +855,7 @@ export default {
                       },
                       animation: false, // 关闭动画效果
                   },
-                  // {
-                  //     type: 'bar',
-                  //     data: [Math.abs(score)*100],
-                  //     barWidth: '20px',
-                  //     barGap: '-100%', // 设置柱形重合的重要步骤
-                  //     label: {
-                  //         normal: {
-                  //         show: true, //是否显现，不显示的话设置成false
-                  //         position: "bottom", //显示的位置
-                  //
-                  //         formatter: function(param) {
-                  //             return param.value+'%';
-                  //         },
-                  //         textStyle: {
-                  //           //这个地方颜色是支持回调函数的这种的，如果是一种颜色则可以写成： color :'#1089E7'
-                  //             color: '#000',
-                  //             fontSize: "16",
-                  //
-                  //         }
-                  //       }
-                  //     },
-                  //     itemStyle: {
-                  //           color: '#8dbf6a',
-                  //           barBorderRadius: [15, 15, 15, 15] // 定义柱形的圆角
-                  //     }
-                  // }
+
               ]
           }
           this.charts.setOption(option);
@@ -1005,11 +886,6 @@ export default {
                 data: ['正面新闻', '负面新闻'],
                 orient: 'vertical',
                 right: '10%',
-            },
-            toolbox: {
-              feature: {
-                  saveAsImage: {}
-              }
             },
             xAxis: {
                   type: 'category',
@@ -1265,7 +1141,7 @@ export default {
                 width:'300px',
                 left: '10%',
 
-                bottom: '-3%',
+                bottom: '3%',
                 containLabel: true
             },
             xAxis: {
@@ -1324,22 +1200,6 @@ export default {
                       trigger: 'axis',
                       axisPointer: {            // 坐标轴指示器，坐标轴触发有效
                         type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                      },
-                      formatter: function (params, ticket, callback) {
-                          var res = params.name+'</br>'+params.marker+params.seriesName+' : '+Math.abs(params.value)
-                          return res;
-                         console.log(params)
-                         var res = params[0].name ;
-
-                         for (var i = 0, l = params.length; i < l; i++) {
-                             res += '<br/>' + params[i].marker+params[i].seriesName + ' : ' + Math.abs(params[i].value) ;
-
-                         }
-                         setTimeout(function () {
-                             // 仅为了模拟异步回调
-                             callback(ticket, res);
-                         }, 10)
-                         return res;
                       },
 
                 },
@@ -1406,9 +1266,7 @@ export default {
                   {
                       name: '正面',
                       type: 'bar',
-                      radius: '50%',
-                      center: ['50%', '60%'],
-
+                      // barWidth : 30,//柱图宽度
                       label: {
                           show: true,
                           position: 'right'
@@ -1420,9 +1278,17 @@ export default {
                       name: '负面',
                       type: 'bar',
                       data: neg,
-                      radius: '50%',
+                      // barWidth : 30,//柱图宽度
 
                       label: {
+                        normal: {
+                            show: true,
+                            position: 'left',
+                            formatter:function(v)
+                            {
+                              return Math.abs(v.data)
+                            }
+                        }
                           // formatter:function(data)
                           // {
                           //     return Math.abs(data)
@@ -1594,7 +1460,6 @@ export default {
         color: black;
         text-align: center;
         line-height: 60px;
-
     }
     .res-textarea/deep/ {
         color: black; margin-top: 30px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
@@ -1771,6 +1636,9 @@ export default {
 .el-input__count{
     background-color: transparent !important;
     margin-bottom: -2%;
+}
+.el-card__body{
+  box-shadow: none !important;
 }
 </style>
 
