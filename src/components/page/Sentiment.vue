@@ -7,17 +7,17 @@
               <el-card class="noBorderInput"style="border: 0px; margin-top: 20px;border-radius: 0;
         background-color: #fff;
         box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
-                      <h1 style="color: gray; letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px">情感分析</h1>
+                      <h1 style=" letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px">情感分析</h1>
                   <!--<el-card style="text-align: center;">-->
                       <el-input
                               type="textarea"
                               placeholder="请输入文本"
                               v-model="summaryText"
                               maxlength="400"
-                              show-word-limit
-                              :autosize="{ minRows: 8, maxRows: 8}"
+                              show-word-limit='false'
+                              :autosize="{ minRows: 6, maxRows: 6}"
                               clearable
-                              style=" font-size: 15px"
+                              style=" font-size: 15px;"
                       >
                       </el-input>
                       <el-row style="margin-top: 17px; display: flex; justify-content: center">
@@ -25,186 +25,167 @@
                       </el-row>
               </el-card>
            </el-header>
-
-
                     <!--<el-card class="box-card" style="min-height: 250px;margin-top: 20px" align="middle">-->
-                    <el-card class="box-card" width="60%" style="margin-right:20px;text-align:center;margin-left:20px;margin-top: 30px;min-height: 170px;border-radius: 0;background-color: #fff;
+                    <el-card class="box-card" width="60%" style="margin-right:20px;text-align:center;margin-left:20px;margin-top: 30px;height: 400px;border-radius: 0;background-color: #fff;
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading">
                         <div slot="header" class="clearfix">
                             <span style="color: black;font-size: 18px">本次分析结果</span>
                         </div>
-                        <div id="wrap" style="height:400px;width: 100%;justify-content: center">
-                            <div id = "pos_emoji" style="height:100px;width:100px;margin-top: 150px" align="bottom">
+                        <span :style=style_sen>情感偏{{this.classification}}</span>
+                        <div id="wrap" align="middle" style="width: 100%;justify-content: center;margin-top: 0px">
+                            <div id = "pos_emoji" style="margin-top: 30px" align="bottom">
+                                <span style="font-size:15px;color:#909399;text-align:center;display:block;position:relative;top:50%;margin-right: 15px;letter-spacing: 5px">负面情绪</span>
                                 <img src="../../assets/img/neg2.png" width="100px"/>
-                                <span style="font-size:15px;color:#E47470">负面情绪</span>
                             </div>
-                            <div align="middle" id="emotionLevel" style="height:500px;width:500px"></div>
-                            <div id = "neg_emoji" style="height:100%;width:100px;margin-top: 150px">
+
+                            <div align="middle" id="emotionLevel" style="width:500px;margin-top: -18%"></div>
+                            <div id = "neg_emoji" style="margin-top: 30px">
                                 <img src="../../assets/img/pos2.png" width="100px"/>
-                                <span style="font-size:15px;color:#7EBF50">正面情绪</span>
+                                <span style="font-size:15px;color:#909399;text-align:center;display:block;position:relative;top:50%;margin-left: 15px;letter-spacing: 5px">正面情绪</span>
                             </div>
                         </div>
-
-
                     </el-card>
                     <!--<el-card class="box-card" style="min-height: 300px;margin-top: 20px" align="middle">-->
                     <el-card class="box-card" width="60%" style="margin-right:20px;text-align:center;margin-left:20px;margin-top: 30px;min-height: 170px;border-radius: 0;background-color: #fff;
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading">
                         <div slot="header" class="clearfix">
-                            <span style="color: black;font-size: 18px">历史分析结果</span>
+                            <span style="color: black;font-size: 18px">今日新闻情感分析结果</span>
                         </div>
                         <el-container>
                             <el-aside width="50%">
                                 <el-row :gutter="20" >
                                     <el-col :span="23" style="padding: 0px;margin:10px">
-                                        <el-card shadow="hover" :body-style="{padding: '0px'}" style="border-radius:20px;">
-                                            <!--<div class="grid-content3 grid-con-2">-->
-                                                <!--<div class="grid-con-text">-->
-                                                    <!--<div class="grid-text-2">今日</div>-->
-                                                    <!--<el-divider class="el-div-horizontal"></el-divider>-->
-                                                    <!--<div class="div-text2">-->
-                                                        <!--<span class="grid-text2">总数</span>-->
-                                                        <!--<span class="grid-num2">{{today_num = history_count.today_negative_count+history_count.today_positive_count}} 条</span>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="div-text2">-->
-                                                        <!--<span class="grid-text2">积极</span>-->
-                                                        <!--<span class="grid-num2">{{history_count.today_negative_count}} 条</span>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="div-text2">-->
-                                                        <!--<span class="grid-text2">消极</span>-->
-                                                        <!--<span class="grid-num2">{{history_count.today_positive_count}} 条</span>-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
+                                        <el-card :body-style="{padding: '0px'}" >
                                             <div class="grid-content grid-con-1" style="color:#E47470 ">
                                                 <div class="grid-con-text">
                                                     <div class="grid-num">今日检测总数</div>
-                                                    <div class="grid-num">{{today_num = history_count.today_negative_count+history_count.today_positive_count}} 条</div>
+                                                    <div class="grid-num">{{today_num = today_negative_count+today_positive_count}} 条</div>
                                                 </div>
 
                                                 <el-divider direction="vertical" class="el-div"></el-divider>
                                                 <div class="grid-cont-right1">
                                                     <div class="right-text">
                                                         <span class="grid-text">正面</span>
-                                                        <span class="grid-num">{{history_count.today_positive_count}} 条</span>
+                                                        <span class="grid-num">{{today_positive_count}} 条</span>
                                                     </div>
                                                     <div class="right-text">
                                                         <span class="grid-text">负面</span>
-                                                        <span class="grid-num">{{history_count.today_negative_count}} 条</span>
+                                                        <span class="grid-num">{{today_negative_count}} 条</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </el-card>
                                     </el-col>
-                                    <el-col :span="23" style="padding: 0px;margin:10px">
-                                        <el-card shadow="hover" :body-style="{padding: '0px'}" style="border-radius:20px;">
-                                            <!--<div class="grid-content2 grid-con-2">-->
+                                    <!--<el-col :span="23" style="padding: 0px;margin:10px">-->
+                                        <!--<el-card shadow="hover" :body-style="{padding: '0px'}" style="border-radius:20px;">-->
+                                            <!--&lt;!&ndash;<div class="grid-content2 grid-con-2">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<div class="grid-con-text">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="grid-text-2">近3日</div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<el-divider class="el-div-horizontal"></el-divider>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="div-text2">&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<span class="grid-text2">总数</span>&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<span class="grid-num2">{{nearly_three_days_num = history_count.nearly_three_days_negative_count+history_count.nearly_three_days_positive_count}} 条</span>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="div-text2">&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<span class="grid-text2">积极</span>&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<span class="grid-num2">{{history_count.nearly_three_days_positive_count}} 条</span>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="div-text2">&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<span class="grid-text2">消极</span>&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<span class="grid-num2">{{history_count.nearly_three_days_negative_count}} 条</span>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                            <!--<div class="grid-content1 grid-con-1">-->
                                                 <!--<div class="grid-con-text">-->
-                                                    <!--<div class="grid-text-2">近3日</div>-->
-                                                    <!--<el-divider class="el-div-horizontal"></el-divider>-->
-                                                    <!--<div class="div-text2">-->
-                                                        <!--<span class="grid-text2">总数</span>-->
-                                                        <!--<span class="grid-num2">{{nearly_three_days_num = history_count.nearly_three_days_negative_count+history_count.nearly_three_days_positive_count}} 条</span>-->
+                                                    <!--<div class="grid-num">近3日检测总数</div>-->
+                                                    <!--<div class="grid-num">{{nearly_three_days_num = history_count.nearly_three_days_negative_count+history_count.nearly_three_days_positive_count}} 条</div>-->
+                                                <!--</div>-->
+
+                                                <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
+                                                <!--<div class="grid-cont-right1">-->
+                                                    <!--<div class="right-text">-->
+                                                        <!--<span class="grid-text">正面</span>-->
+                                                        <!--<span class="grid-num">{{history_count.nearly_three_days_positive_count}} 条</span>-->
                                                     <!--</div>-->
-                                                    <!--<div class="div-text2">-->
-                                                        <!--<span class="grid-text2">积极</span>-->
-                                                        <!--<span class="grid-num2">{{history_count.nearly_three_days_positive_count}} 条</span>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="div-text2">-->
-                                                        <!--<span class="grid-text2">消极</span>-->
-                                                        <!--<span class="grid-num2">{{history_count.nearly_three_days_negative_count}} 条</span>-->
+                                                    <!--<div class="right-text">-->
+                                                        <!--<span class="grid-text">负面</span>-->
+                                                        <!--<span class="grid-num">{{history_count.nearly_three_days_negative_count}} 条</span>-->
                                                     <!--</div>-->
                                                 <!--</div>-->
                                             <!--</div>-->
-                                            <div class="grid-content1 grid-con-1">
-                                                <div class="grid-con-text">
-                                                    <div class="grid-num">近3日检测总数</div>
-                                                    <div class="grid-num">{{nearly_three_days_num = history_count.nearly_three_days_negative_count+history_count.nearly_three_days_positive_count}} 条</div>
-                                                </div>
+                                        <!--</el-card>-->
+                                    <!--</el-col>-->
+                                    <!--<el-col :span="23" style="padding: 0px;margin:10px">-->
 
-                                                <el-divider direction="vertical" class="el-div"></el-divider>
-                                                <div class="grid-cont-right1">
-                                                    <div class="right-text">
-                                                        <span class="grid-text">正面</span>
-                                                        <span class="grid-num">{{history_count.nearly_three_days_positive_count}} 条</span>
-                                                    </div>
-                                                    <div class="right-text">
-                                                        <span class="grid-text">负面</span>
-                                                        <span class="grid-num">{{history_count.nearly_three_days_negative_count}} 条</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </el-card>
-                                    </el-col>
-                                    <el-col :span="23" style="padding: 0px;margin:10px">
-
-                                        <el-card shadow="hover" :body-style="{padding: '0px'}" style="border-radius:20px;">
-                                            <!--<div class="grid-content1 grid-con-2">-->
+                                        <!--<el-card shadow="hover" :body-style="{padding: '0px'}" style="border-radius:20px;">-->
+                                            <!--&lt;!&ndash;<div class="grid-content1 grid-con-2">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<div class="grid-con-text">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="grid-text-2">近7日 </div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<el-divider class="el-div-horizontal"></el-divider>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="div-text2">&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<span class="grid-text2">总数</span>&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<span class="grid-num2">{{nearly_one_week_num = history_count.nearly_one_week_negative_count+history_count.nearly_one_week_positive_count}} 条</span>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="div-text2">&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<span class="grid-text2">积极</span>&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<span class="grid-num2">{{history_count.nearly_one_week_positive_count}} 条</span>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="div-text2">&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<span class="grid-text2">消极</span>&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<span class="grid-num2">{{history_count.nearly_one_week_negative_count}} 条</span>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                            <!--<div class="grid-content2 grid-con-1">-->
                                                 <!--<div class="grid-con-text">-->
-                                                    <!--<div class="grid-text-2">近7日 </div>-->
-                                                    <!--<el-divider class="el-div-horizontal"></el-divider>-->
-                                                    <!--<div class="div-text2">-->
-                                                        <!--<span class="grid-text2">总数</span>-->
-                                                        <!--<span class="grid-num2">{{nearly_one_week_num = history_count.nearly_one_week_negative_count+history_count.nearly_one_week_positive_count}} 条</span>-->
+                                                    <!--<div class="grid-num">近7日检测总数</div>-->
+                                                    <!--<div class="grid-num">{{nearly_one_week_num = history_count.nearly_one_week_negative_count+history_count.nearly_one_week_positive_count}} 条</div>-->
+                                                <!--</div>-->
+
+                                                <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
+                                                <!--<div class="grid-cont-right1">-->
+                                                    <!--<div class="right-text">-->
+                                                        <!--<span class="grid-text">正面</span>-->
+                                                        <!--<span class="grid-num">{{history_count.nearly_one_week_positive_count}} 条</span>-->
                                                     <!--</div>-->
-                                                    <!--<div class="div-text2">-->
-                                                        <!--<span class="grid-text2">积极</span>-->
-                                                        <!--<span class="grid-num2">{{history_count.nearly_one_week_positive_count}} 条</span>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="div-text2">-->
-                                                        <!--<span class="grid-text2">消极</span>-->
-                                                        <!--<span class="grid-num2">{{history_count.nearly_one_week_negative_count}} 条</span>-->
+                                                    <!--<div class="right-text">-->
+                                                        <!--<span class="grid-text">负面</span>-->
+                                                        <!--<span class="grid-num">{{history_count.nearly_one_week_negative_count}} 条</span>-->
                                                     <!--</div>-->
                                                 <!--</div>-->
                                             <!--</div>-->
-                                            <div class="grid-content2 grid-con-1">
-                                                <div class="grid-con-text">
-                                                    <div class="grid-num">近7日检测总数</div>
-                                                    <div class="grid-num">{{nearly_one_week_num = history_count.nearly_one_week_negative_count+history_count.nearly_one_week_positive_count}} 条</div>
-                                                </div>
+                                        <!--</el-card>-->
+                                    <!--</el-col>-->
+                                    <!--<el-col :span="23" style="padding: 0px;margin:10px">-->
+                                        <!--<el-card shadow="hover" :body-style="{padding: '0px'}" style="border-radius:20px;" >-->
+                                            <!--<div class="grid-content3 grid-con-1">-->
+                                                <!--<div class="grid-con-text">-->
+                                                    <!--<div class="grid-num">历史检测总数</div>-->
+                                                    <!--<div class="grid-num">{{history_count.history_negative_count+history_count.history_positive_count}} 条</div>-->
+                                                <!--</div>-->
 
-                                                <el-divider direction="vertical" class="el-div"></el-divider>
-                                                <div class="grid-cont-right1">
-                                                    <div class="right-text">
-                                                        <span class="grid-text">正面</span>
-                                                        <span class="grid-num">{{history_count.nearly_one_week_positive_count}} 条</span>
-                                                    </div>
-                                                    <div class="right-text">
-                                                        <span class="grid-text">负面</span>
-                                                        <span class="grid-num">{{history_count.nearly_one_week_negative_count}} 条</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </el-card>
-                                    </el-col>
-                                    <el-col :span="23" style="padding: 0px;margin:10px">
-                                        <el-card shadow="hover" :body-style="{padding: '0px'}" style="border-radius:20px;" >
-                                            <div class="grid-content3 grid-con-1">
-                                                <div class="grid-con-text">
-                                                    <div class="grid-num">历史检测总数</div>
-                                                    <div class="grid-num">{{history_count.history_negative_count+history_count.history_positive_count}} 条</div>
-                                                </div>
-
-                                                <el-divider direction="vertical" class="el-div"></el-divider>
-                                                <div class="grid-cont-right1">
-                                                    <div class="right-text">
-                                                        <span class="grid-text">正面</span>
-                                                        <span class="grid-num">{{history_count.history_positive_count}} 条</span>
-                                                        <!--<span class="grid-num">{{(history_count.history_positive_count/(history_count.history_negative_count+history_count.history_positive_count)).toFixed(4)*100}}%</span>-->
-                                                    </div>
-                                                    <div class="right-text">
-                                                        <span class="grid-text">负面</span>
-                                                        <span class="grid-num">{{history_count.history_negative_count}} 条</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </el-card>
-                                    </el-col>
+                                                <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
+                                                <!--<div class="grid-cont-right1">-->
+                                                    <!--<div class="right-text">-->
+                                                        <!--<span class="grid-text">正面</span>-->
+                                                        <!--<span class="grid-num">{{history_count.history_positive_count}} 条</span>-->
+                                                        <!--&lt;!&ndash;<span class="grid-num">{{(history_count.history_positive_count/(history_count.history_negative_count+history_count.history_positive_count)).toFixed(4)*100}}%</span>&ndash;&gt;-->
+                                                    <!--</div>-->
+                                                    <!--<div class="right-text">-->
+                                                        <!--<span class="grid-text">负面</span>-->
+                                                        <!--<span class="grid-num">{{history_count.history_negative_count}} 条</span>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</el-card>-->
+                                    <!--</el-col>-->
                                 </el-row>
-
+                                <!--今日小时曲线图-->
+                                <div id="today_emotionLevel" style="width:100%;height:400px;"></div>
                             </el-aside>
                             <el-main style="text-align:center" >
-                                <el-tabs type="border-card" stretch=true>
+                                <el-tabs type="border-card" stretch=true style="padding: 0px;margin-top:-9px">
                                     <el-tab-pane>
                                       <span slot="label"><i class="iconfont iconzhengmian"></i>正面新闻</span>
                                         <el-table
@@ -308,6 +289,32 @@
                             </el-main>
                         </el-container>
                     </el-card>
+                    <el-card class="box-card" width="60%" style="margin-right:20px;text-align:center;margin-left:20px;margin-top: 30px;min-height: 600px;border-radius: 0;background-color: #fff;
+      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading">
+                        <div slot="header" class="clearfix">
+                            <span style="color: black;font-size: 18px">历史新闻情感分析结果</span>
+                        </div>
+
+                        <el-row :gutter="20" >
+                            <el-col :span="4">
+                              <div id="history_sum" style="width:300px;height:400px;">
+                              </div>
+                            </el-col>
+                            <el-col :span="8">
+                              <div id="history_trend" style="width:400px;height:400px;margin-left: 100px">
+
+                              </div>
+                            </el-col>
+                            <el-col :span="12">
+                              <div id="hot_theme_sen_dis" style="width:400px;height:400px;margin-left: 100px">
+                                <!--{{this.hot_theme_dis}}-->
+
+                              </div>
+                            </el-col>
+                        </el-row>
+
+                    </el-card>
+
 
         </el-container>
     </div>
@@ -328,20 +335,14 @@ export default {
             summaryText: '印度军方说，解放军的重型坦克和轻型坦克部署位置处在印度驻军的火力范围以内。印度驻军全副武装，拥有坦克和火炮的支援。据《今日印度》9月1日报道，印度陆军已经在斯潘古尔湖和楚舒勒之间的平原上部署了一个坦克团，这里也是8月底印度侵犯中国领土、与解放军发生冲突的位置附近。(请输入文本)',
             sentimentscore:0,
             history:{},
-            history_count :{
-                history_positive_count: 0,
-                history_negative_count: 0,
-                nearly_one_week_positive_count: 0,
-                nearly_one_week_negative_count: 0,
-                nearly_three_days_positive_count: 0,
-                nearly_three_days_negative_count: 0,
-                today_positive_count: 0,
-                today_negative_count: 0,
-                positive_news:[],
-                negative_news:[]
-            },
+
+            today_positive_count: 0,
+            today_negative_count: 0,
+
             pos_news: [],
             neg_news:[],
+            today_pos_trend:[],
+            today_neg_trend:[],
             news: {
                 news: '',
                 url: '',
@@ -349,7 +350,17 @@ export default {
                 publish_time: ''
             },
             one_week_time : [],
-            classification:''
+            history_pos_count:0,
+            history_neg_count:0,
+            history_pos_trend:[],
+            history_neg_trend:[],
+            hot_theme_dis:{},
+            classification:'',
+            style_sen:"",
+            source_pos:[],
+            source_neg:[],
+            source:['education教育','entertainment娱乐','finance经济','politics','society','sports','technology'],
+            // todaydatatest: [[1,2,3,4,5,6,7,8,9,10,11, 12, 13, 14, 15,16,17],[150, 232, 201, 154, 190, 330, 410]]
 
 
             // "positive_news": [],  //列表每个item为字典形式, {"news": str, "url": str, "score": float, "publish_time": str}, 每个列表最多包含20条
@@ -363,9 +374,13 @@ export default {
     },
     mounted() {
         this.ResultofSentiment();
-        this.drawDashboard("emotionLevel",0);
+        // this.drawProgress("emotionLevel",this.sentimentscore);
+        setTimeout(()=>{
+          this.drawSum('history_sum',this.history_pos_count,this.history_neg_count);
+        })
         this.getRealTimeSentimentInfo();
         this.getDay();
+        // this.drawToday('today_emotionLevel',this.todaydatatest);
         // this.drawHistory('historyChart');
         // this.getDay();
         // this.$nextTick(function() {
@@ -393,13 +408,21 @@ export default {
             .catch((error) => console.error("Error:", error))
             .then((response) => {
                 this.classification = response.results[0].data;
-                this.sentimentscore = parseFloat(response.results[0].score).toFixed(4);
-                this.drawDashboard("emotionLevel",this.sentimentscore,this.classification);
+                if (this.classification == '负面')
+                {
+                  this.sentimentscore = -parseFloat(response.results[0].score).toFixed(2);
+                  this.style_sen = "color: red;font-size: 18px";
+                }else {
+                  this.sentimentscore =  parseFloat(response.results[0].score).toFixed(2);
+                  this.style_sen = "color: green;font-size: 18px";
+                }
+
+                // this.drawDashboard("emotionLevel",this.sentimentscore,this.classification);
+                this.drawProgress("emotionLevel",this.sentimentscore)
             })
             // this.drawDashboard("emotionLevel",this.sentimentscore);
             //this.$message.success("提交成功！");
         },
-
         getBeforeDate(n) {
             var n = n;
             var d = new Date();
@@ -426,7 +449,6 @@ export default {
                 this.one_week_time.push(this.getBeforeDate(i));
             }
         },
-
         getRealTimeSentimentInfo() {
             // 获取实时新闻列表
             fetch(realurl, {
@@ -438,32 +460,65 @@ export default {
             .then((res) => res.json())
             .catch((error) => console.error("Error:", error))
             .then((response) => {
-                console.log(response);
-                this.history_count = response.results;
+                // console.log(response);
+                this.today_positive_count = response.results.today_positive_count;
+                this.today_negative_count = response.results.today_negative_count;
+                this.history_pos_count = response.results.nearly_one_week_positive_count;
+                this.history_neg_count = response.results.nearly_one_week_negative_count;
                 this.pos_news = response.results.positive_news;
                 this.neg_news = response.results.negative_news;
-                // this.positive_news = [
-                //     positive_news.news,
-                //     positive_news.url,
-                //     positive_news.score,
-                //     positive_news.publish_time,
-                // ];
+                this.today_pos_trend = response.results.today_positive_news_increase_trend;//,  //每个item为{"timestamp": str, "count": int}
+                this.today_neg_trend = response.results.today_negative_news_increase_trend;//": [],  //每个item为{"timestamp": str, "count": int}
+                this.history_pos_trend = response.results.nearly_one_week_positive_news_increase_trend; // int列表
+                this.history_neg_trend = response.results.nearly_one_week_negative_news_increase_trend;
+              // "nearly_one_week_negative_news_increase_trend": []
+                this.hot_theme_dis = response.results.hot_theme_sentiment_distribution;
+                //一天每小时增长图
+                var pos_count = [];
+                var neg_count = [];
+                var each_hour = [];
+                for (let i = 0; i < 24; i++) {
+                    pos_count.push(this.today_pos_trend[i].count);
+                    neg_count.push(this.today_neg_trend[i].count);
+                    each_hour.push(this.today_pos_trend[i].timestamp+':00');
+                }
+                //热门主题情感分布
 
-                // var news = response.results;
-                // delete news.theme_count;
+                this.source_pos.push(this.hot_theme_dis.education.positive_count);
+                this.source_pos.push(this.hot_theme_dis.entertainment.positive_count);
+                this.source_pos.push(this.hot_theme_dis.finance.positive_count);
+                this.source_pos.push(this.hot_theme_dis.politics.positive_count);
+                this.source_pos.push(this.hot_theme_dis.society.positive_count);
+                this.source_pos.push(this.hot_theme_dis.sports.positive_count);
+                this.source_pos.push(this.hot_theme_dis.technology.positive_count);
+                this.source_neg.push(-this.hot_theme_dis.education.negative_count);
+                this.source_neg.push(-this.hot_theme_dis.entertainment.negative_count);
+                this.source_neg.push(-this.hot_theme_dis.finance.negative_count);
+                this.source_neg.push(-this.hot_theme_dis.politics.negative_count);
+                this.source_neg.push(-this.hot_theme_dis.society.negative_count);
+                this.source_neg.push(-this.hot_theme_dis.sports.negative_count);
+                this.source_neg.push(-this.hot_theme_dis.technology.negative_count);
+                // this.source[1]=this.hot_theme_dis.entertainment;
+                // this.source[2]=this.hot_theme_dis.finance;
+                // this.source[3]=this.hot_theme_dis.politics;
+                // this.source[4]=this.hot_theme_dis.society;
+                // this.source[5]=this.hot_theme_dis.sports;
+                // this.source[6]=(this.hot_theme_dis.technology;
+
+                     // this.source = a.concat(b);
+
+
+                this.drawToday('today_emotionLevel',pos_count,neg_count,each_hour);
+                this.drawSum('history_sum',this.history_pos_count,this.history_neg_count);
+                this.drawTrend('history_trend',this.history_pos_trend,this.history_neg_trend,this.one_week_time.reverse());
+
+                this.drawHotDis('hot_theme_sen_dis',this.source_pos,this.source_neg);
+                console.log(this.source_pos)
+                console.log(this.source_neg)
+
                 //
-                // this.newslist = [];
-                // for (var key in news) {
-                //
-                //     this.newslist.push({
-                //       kind: eng2cn[key],
-                //       events: news[key],
-                //     });
-                // }
-                // this.drawHistory();
-                // this.drawPieChart();
-                });
-            },
+            });
+        },
         drawHistory(id){
             // 基于准备好的dom，初始化echarts实例
             this.charts = echarts.init(document.getElementById(id));
@@ -481,7 +536,7 @@ export default {
                       ['sentiment', '周一', '周二', '周三', '周四', '周五', '周六','周日'],
                       ['积极', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7, 90],
                       ['消极', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1, 10],
-                      ['中性', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5, 0]
+
                       // ['未知', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
                   ]
               },
@@ -688,89 +743,767 @@ export default {
         //   // });
         // },
         drawDashboard(id,score,classf){
-            this.charts = echarts.init(document.getElementById(id));
-            if (classf == '负面'){
-                score = -score
-            };
-            var option = {
-                // color:['#E47470','#7EBF50', '#589EF8'],
-                tooltip: {
-                    formatter: '{a} <br/>{b} : {c}%'
+            // this.charts = echarts.init(document.getElementById(id));
+            // if (classf == '负面'){
+            //     score = -score
+            // };
+            // var option = {
+            //     // color:['#E47470','#7EBF50', '#589EF8'],
+            //     tooltip: {
+            //         formatter: '{a} <br/>{b} : {c}%'
+            //     },
+            //     toolbox: {
+            //         feature: {
+            //             restore: {},
+            //             saveAsImage: {}
+            //         }
+            //     },
+            //     series: [
+            //         {
+            //             name: '分类置信度',
+            //             type: 'gauge',
+            //             min: -1,
+            //             max: 1,
+            //             startAngle: 180,
+            //             endAngle: 0,
+            //             detail: {
+            //                 // formatter: Math.abs(score)*100+'%',
+            //                 formatter: Math.abs(score)*100+'%',
+            //                 textStyle:{
+            //                     fontSize:20
+            //                 },
+            //                 fontWeight: 'bolder'
+            //             },
+            //             data: [{
+            //                 value: score,
+            //                 name: '置信度',
+            //
+            //             }],
+            //             title : {
+            //                 textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+            //                     fontWeight: 'bolder',
+            //                     fontSize: 20,
+            //                     fontStyle: 'italic',
+            //                     color:'gray'
+            //                 }
+            //             },
+            //             axisLine: {            // 坐标轴线
+            //                  lineStyle: {       // 属性lineStyle控制线条样式
+            //                      color: [[0.5, '#E47470'], [1, '#7EBF50']],
+            //                      width:20
+            //                  },
+            //
+            //
+            //             },
+            //             axisLabel:{
+            //                 formatter: function (v){
+            //                     switch (v + '') {
+            //                         case '-1' : return '100';
+            //                         case '0' : return '0';
+            //                         case '1' : return '100';
+            //                     }
+            //                 },
+            //
+            //                 distance:-65,
+            //                 textStyle:{
+            //                     fontSize:15
+            //                 }
+            //             }
+            //
+            //         }
+            //
+            //     ]
+            // };
+            // this.charts.setOption(option);
+            //
+            // // setInterval(event =>  {
+            // //     option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+            // //     this.charts.setOption(option, true);
+            // // },2000);
+            // window.addEventListener("resize", () =>
+            // {
+            //     this.charts.resize();
+            // });
+
+        },
+        drawProgress(id,score){
+          this.charts = echarts.init(document.getElementById(id));
+          // if (classf == '负面'){
+          //     score_pos = 0
+          // }else if(classf == '正面'){
+          //   score_neg = 0
+          // };
+          var origindata = [100];
+          if(score<0)
+          {
+            origindata = [-100];
+          }
+          var option = {
+              // backgroundColor: '#0a1d53',
+              grid: {
+                left: '2%',
+                top: '2%',
+                right: '2%',
+                bottom: '2%',
+                containLabel: true
+              },
+              tooltip: {
+                trigger: 'item',
+                axisPointer: {
+                  // 坐标轴指示器，坐标轴触发有效
+                  type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                }
+              },
+              // textStyle: {
+              //   color: '#35363b'
+              // },
+              title: {
+                    text: '情感偏',
+                    x: "center",
+                    top:'-50%',
+                    textStyle:{//标题内容的样式
+                        fontStyle:'normal',//主标题文字字体风格，默认normal，有italic(斜体),oblique(斜体)
+                        fontWeight:"normal",//可选normal(正常)，bold(加粗)，bolder(加粗)，lighter(变细)，100|200|300|400|500...
+                        fontSize:15//主题文字字体大小，默认为18px
+                    },
+                    color: '#000',
+              },
+              xAxis: {
+                show: false,
+                type: 'value',
+                // inverse: true,
+                splitLine: {
+                  show: false
                 },
-                toolbox: {
-                    feature: {
-                        restore: {},
-                        saveAsImage: {}
-                    }
+              },
+              yAxis: {
+                show: true,
+                type: 'category',
+                data: [
+                  ''
+                ],
+                axisTick: { show: false },
+                axisLine: {
+                  show: false,
+                  lineStyle: {
+                    color: '#bb7e43',
+                  }
                 },
-                series: [
-                    {
-                        name: '分类置信度',
-                        type: 'gauge',
-                        min: -1,
-                        max: 1,
-                        startAngle: 180,
-                        endAngle: 0,
-                        detail: {
-                            // formatter: Math.abs(score)*100+'%',
-                            formatter: Math.abs(score)*100+'%',
-                            textStyle:{
-                                fontSize:20
-                            },
-                            fontWeight: 'bolder'
-                        },
-                        data: [{
-                            value: score,
-                            name: '置信度',
+                splitLine: {
+                  show: false
+                },
+                inside: true,
+                textStyle: {
+                  color: '#000c45'
+                }
+              },
+              series: [
+                  {
+                      type: 'bar',
+                      itemStyle: {
+                      normal: {
+                          color: '#35363b', // 定义柱形的背景色
+                          barBorderRadius: [15, 15, 15, 15] // 定义背景柱形的圆角
+                      }
+                    },
+                    barGap: '-100%', // 设置柱形重合的重要步骤
+                    data: origindata,
+                    z: 0,
+                    silent: true,
+                    animation: false, // 关闭动画效果
+                    barWidth: '20px' // 设置柱形宽度
+                  },
+                  {
+                      type: 'bar',
+                      data: [score*100],
+                      barWidth: '20px',
+                      barGap: '-100%', // 设置柱形重合的重要步骤
+                      label: {
+                          normal: {
+                          show: true, //是否显现，不显示的话设置成false
+                          position: "bottom", //显示的位置
 
-                        }],
-                        title : {
-                            textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                                fontWeight: 'bolder',
-                                fontSize: 20,
-                                fontStyle: 'italic',
-                                color:'gray'
-                            }
-                        },
-                        axisLine: {            // 坐标轴线
-                             lineStyle: {       // 属性lineStyle控制线条样式
-                                 color: [[0.5, '#E47470'], [1, '#7EBF50']],
-                                 width:20
-                             },
+                          formatter: function(param) {
+                              return Math.abs(param.value)+'%';
+                          },
+                          textStyle: {
+                            //这个地方颜色是支持回调函数的这种的，如果是一种颜色则可以写成： color :'#1089E7'
+                              color: '#000',
+                              fontSize: "16",
 
-
-                        },
-                        axisLabel:{
-                            formatter: function (v){
-                                switch (v + '') {
-                                    case '-1' : return '100';
-                                    case '0' : return '0';
-                                    case '1' : return '100';
-                                }
-                            },
-
-                            distance:-65,
-                            textStyle:{
-                                fontSize:15
-                            }
+                          }
                         }
+                      },
+                      itemStyle:{
 
-                    }
+                            color: function (param){
+                                if(param.value < 0)
+                                {
+                                  return '#E47470';
+                                }else{
+                                  return '#8dbf6a';
+                                }
 
-                ]
-            };
-            this.charts.setOption(option);
+                            } ,
+                            barBorderRadius: [15, 15,15, 15] // 定义柱形的圆角
+                      },
+                      animation: false, // 关闭动画效果
+                  },
+                  // {
+                  //     type: 'bar',
+                  //     data: [Math.abs(score)*100],
+                  //     barWidth: '20px',
+                  //     barGap: '-100%', // 设置柱形重合的重要步骤
+                  //     label: {
+                  //         normal: {
+                  //         show: true, //是否显现，不显示的话设置成false
+                  //         position: "bottom", //显示的位置
+                  //
+                  //         formatter: function(param) {
+                  //             return param.value+'%';
+                  //         },
+                  //         textStyle: {
+                  //           //这个地方颜色是支持回调函数的这种的，如果是一种颜色则可以写成： color :'#1089E7'
+                  //             color: '#000',
+                  //             fontSize: "16",
+                  //
+                  //         }
+                  //       }
+                  //     },
+                  //     itemStyle: {
+                  //           color: '#8dbf6a',
+                  //           barBorderRadius: [15, 15, 15, 15] // 定义柱形的圆角
+                  //     }
+                  // }
+              ]
+          }
+          this.charts.setOption(option);
 
             // setInterval(event =>  {
             //     option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
             //     this.charts.setOption(option, true);
             // },2000);
-            window.addEventListener("resize", () =>
-            {
-                this.charts.resize();
-            });
+          window.addEventListener("resize", () =>
+          {
+              this.charts.resize();
+          });
 
         },
+        drawToday(id,pos,neg,hour){
+          this.charts = echarts.init(document.getElementById(id));
+          var option = {
+            color:['#8dbf6a','#eb7777'],
+            title: {
+                text: '近24小时增长图',
+                textAlign: 'center',
+                left:'260px'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['正面新闻', '负面新闻'],
+                orient: 'vertical',
+                right: '10%',
+            },
+            toolbox: {
+              feature: {
+                  saveAsImage: {}
+              }
+            },
+            xAxis: {
+                  type: 'category',
+                  name: '时间',
+                  data: hour,
+                  axisLabel: {
+                        interval:0,
+                        rotate:90,
+                        formatter:'{value}',
+                        fontSize: '14',
+                        fontFamily: '微软雅黑',
+                        marginleft: '15px',
+                        show: true,
+                  },
+
+            },
+            yAxis: {
+                // splitLine: {
+                //     show: false
+                // }
+                type: 'value',
+                name: '增长数量',
+            },
+            series: [
+                {
+                    name: '正面新闻',
+                    type: 'line',
+                    data: pos,
+                    smooth: true
+                },
+                {
+                    name: '负面新闻',
+                    type: 'line',
+                    data: neg,
+                    smooth: true
+                },
+            ]
+          }
+          this.charts.setOption(option);
+          window.addEventListener("resize", () =>
+          {
+              this.charts.resize();
+          });
+
+        },
+        drawWeek(id,pos,neg,week){
+          this.charts = echarts.init(document.getElementById(id));
+          var option = {
+            color:['#8dbf6a','#eb7777'],
+            title: {
+                text: '近七天增长图',
+                textAlign: 'center',
+                left:'260px'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['正面新闻', '负面新闻'],
+                orient: 'vertical',
+                right: '10%',
+            },
+            toolbox: {
+              feature: {
+                  saveAsImage: {}
+              }
+            },
+            xAxis: {
+                  type: 'category',
+                  name: '日期',
+                  data: hour,
+                  axisLabel: {
+                        interval:0,
+                        rotate:90,
+                        formatter:'{value}:00',
+                        fontSize: '14',
+                        fontFamily: '微软雅黑',
+                        marginleft: '15px',
+                        show: true,
+                  },
+
+            },
+            yAxis: {
+                // splitLine: {
+                //     show: false
+                // }
+                type: 'value',
+                name: '增长数量',
+            },
+            series: [
+                {
+                    name: '正面新闻',
+                    type: 'line',
+                    data: pos,
+                    smooth: true
+                },
+                {
+                    name: '负面新闻',
+                    type: 'line',
+                    data: neg,
+                    smooth: true
+                },
+            ]
+          }
+          this.charts.setOption(option);
+          window.addEventListener("resize", () =>
+          {
+              this.charts.resize();
+          });
+
+        },
+        drawSum(id,pos,neg){
+          this.charts = echarts.init(document.getElementById(id));
+          var option = {
+              color:['#8dbf6a','#eb7777'],
+              title: {
+                  text: '历史分析总数',
+                  left: 'center'
+              },
+              grid: {
+                    width:'200px',
+                    left: '6%',
+                    right: '10%',
+                    top: '30%',
+                    containLabel: true
+                },
+              tooltip: {
+                  trigger: 'item',
+                  formatter: '<br/>{b} : {c} ({d}%)'
+              },
+              // legend: {
+              //     orient: 'vertical',
+              //     left: 'left',
+              //     top: '15%',
+              //     data: ['正面新闻', '负面新闻']
+              // },
+              series: [
+                  {
+                      type: 'pie',
+                      radius: ['20%', '70%'],
+                      center: ['50%', '60%'],
+                      roseType: 'radius',
+                      // roseType: 'area',
+                      data: [
+                          {value: pos, name: '正面新闻'},
+                          {value: neg, name: '负面新闻'},
+                      ],
+                      emphasis: {
+                          itemStyle: {
+                              shadowBlur: 10,
+                              shadowOffsetX: 0,
+                              shadowColor: 'rgba(0, 0, 0, 0.5)'
+                          }
+                      }
+                  }
+              ]
+          };
+          this.charts.setOption(option);
+          window.onresize = () => {
+            this.charts.resize();
+          }
+
+        },
+        drawSum_TWO(id){
+          this.charts = echarts.init(document.getElementById(id));
+          var option = {
+                legend: {},
+                tooltip: {
+                    trigger: 'axis',
+                    showContent: false
+                },
+                dataset: {
+                    source: [
+                        ['product', '2012', '2013', '2014', '2015', '2016', '2017'],
+                        ['Matcha Latte', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7],
+                        ['Milk Tea', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
+                        ['Cheese Cocoa', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5],
+                        ['Walnut Brownie', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
+                    ]
+                },
+                xAxis: {type: 'category'},
+                yAxis: {gridIndex: 0},
+                grid: {top: '55%'},
+                series: [
+                    {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                    {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                    {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                    {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                    {
+                        type: 'pie',
+                        id: 'pie',
+                        radius: '30%',
+                        center: ['50%', '25%'],
+                        label: {
+                            formatter: '{b}: {@2012} ({d}%)'
+                        },
+                        encode: {
+                            itemName: 'product',
+                            value: '2012',
+                            tooltip: '2012'
+                        }
+                    }
+                ]
+          };
+          this.charts.on('updateAxisPointer', function (event) {
+              var xAxisInfo = event.axesInfo[2];
+              if (xAxisInfo) {
+                  var dimension = xAxisInfo.value + 1;
+                  this.charts.setOption({
+                      series: {
+                          id: 'pie',
+                          label: {
+                              formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                          },
+                          encode: {
+                              value: dimension,
+                              tooltip: dimension
+                          }
+                      }
+                  });
+              }
+          });
+          this.charts.setOption(option);
+          window.addEventListener("resize", () =>
+          {
+              this.charts.resize();
+          });
+
+        },
+        drawTrend(id,pos,neg,date_arr) {
+          this.charts = echarts.init(document.getElementById(id));
+          var option = {
+            color: ['#8dbf6a', '#eb7777'],
+            title: {
+              text: '近七日增长图',
+              textAlign: 'center',
+              left: '190px'
+            },
+            tooltip: {
+              trigger: 'axis'
+            },
+            legend: {
+              data: ['正面新闻', '负面新闻'],
+              orient: 'vertical',
+              right: '10%',
+            },
+            toolbox: {
+              feature: {
+                saveAsImage: {}
+              }
+            },
+            grid: {
+                width:'300px',
+                left: '10%',
+
+                bottom: '-3%',
+                containLabel: true
+            },
+            xAxis: {
+              type: 'category',
+              name: '时间',
+              data: date_arr,
+              axisLabel: {
+                interval: 0,
+                rotate: 40,
+                fontFamily: '微软雅黑',
+
+                show: true,
+              },
+
+            },
+            yAxis: {
+              // splitLine: {
+              //     show: false
+              // }
+              type: 'value',
+              name: '增长数量',
+            },
+            series: [
+              {
+                name: '正面新闻',
+                type: 'line',
+                data: pos,
+                smooth: true
+              },
+              {
+                name: '负面新闻',
+                type: 'line',
+                data: neg,
+                smooth: true
+              },
+            ]
+
+          };
+          this.charts.setOption(option);
+          window.addEventListener("resize", () =>
+          {
+              this.charts.resize();
+          });
+        },
+        drawHotDis(id,pos,neg) {
+           this.chart = echarts.init(document.getElementById(id));
+           var option = {
+                color: ['#8dbf6a', '#eb7777'],
+                // color : ['#7db5e2', '#81cacc', '#cca8ba', "#7EBF50", "#82a0c5", '#fddb7e', '#bda29a', '#d2a59a', '#7f9979', '#c4ccd3','#5F9EA0','#a498d6'],
+                // color:['rgb(210,100,93)','rgb(228,116,79)','rgb(242,176,110)','rgb(249,224,150)','rgb(255,254,198)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,134,183)','rgb(125,169,185)'].reverse(),
+                // color:['rgb(215,121,118)','rgb(224,108,146)','rgb(175,110,195)','rgb(249,224,150)','rgb(255,254,198)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,134,183)','rgb(125,169,185)'].reverse(),
+                // color:['rgb(227,158,156)','rgb(224,108,146)','rgb(197,151,212)','rgb(175,159,215)','rgb(160,169,214)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,144,173)','rgb(126,180,225)'].reverse(),
+                // color:['#DC143C','#FFB6C1','#BA55D3','#483D8B','#1E90FF','#5F9EA0','#90EE90','#556B2F','#808000','#FFD700','#FFA500','#8B4513'],
+                //标题
+                tooltip: {
+                      trigger: 'axis',
+                      axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                      },
+                      formatter: function (params, ticket, callback) {
+                          var res = params.name+'</br>'+params.marker+params.seriesName+' : '+Math.abs(params.value)
+                          return res;
+                         console.log(params)
+                         var res = params[0].name ;
+
+                         for (var i = 0, l = params.length; i < l; i++) {
+                             res += '<br/>' + params[i].marker+params[i].seriesName + ' : ' + Math.abs(params[i].value) ;
+
+                         }
+                         setTimeout(function () {
+                             // 仅为了模拟异步回调
+                             callback(ticket, res);
+                         }, 10)
+                         return res;
+                      },
+
+                },
+                // dataset: {data},
+                grid: {
+                    width:'360px',
+                    left: '6%',
+                    right: '10%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                //工具箱
+                //保存图片
+                // toolbox:{
+                //     show:true,
+                //     feature:{
+                //         saveAsImage:{
+                //             show:true
+                //         }
+                //     }
+                // },
+                //图例-每一条数据的名字叫销量
+                legend:{
+                    data:['正面','负面'],
+                },
+                //x轴没有显式设置，根据值自动生成x轴
+                xAxis:[{
+                    type: 'value',
+                    name: '增长数量',
+                    // nameTextStyle:{
+                    //     fontSize:'15',
+                    //     padding:10
+                    // },
+                    axisLabel: {
+                        formatter:function(value)
+                        {
+                            return Math.abs(value)
+                        },
+                        fontFamily: '微软雅黑',
+                        show: true,
+                    },
+                }],
+                //y轴
+                yAxis:[{
+                    type: 'category',
+                    name: '主题',
+                    axisTick: {
+                        show: false
+                    },
+                    data: ['education','entertainment','finance','politics','society','sports','technology'],
+                    // seriesLayoutBy: 'column',
+                    // axisLabel: {
+                    //     fontSize:'15',
+                    //     fontFamily:'微软雅黑',
+                    //     marginTop:'35px',
+                    //     show:true,
+                    // },
+                }],
+
+                //数据-data是最终要显示的数据
+
+                /*  [+] Here I need Initial the series arr */
+                series:[
+                  {
+                      name: '正面',
+                      type: 'bar',
+                      radius: '50%',
+                      center: ['50%', '60%'],
+
+                      label: {
+                          show: true,
+                          position: 'right'
+
+                      },
+                      data: pos
+                  },
+                  {
+                      name: '负面',
+                      type: 'bar',
+                      data: neg,
+                      radius: '50%',
+
+                      label: {
+                          // formatter:function(data)
+                          // {
+                          //     return Math.abs(data)
+                          // },
+                          // show: true,
+                          // position: 'left'
+                      },
+
+                  }
+                ]
+          };
+          // var option = {
+          //       tooltip: {
+          //           trigger: 'axis',
+          //           axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+          //               type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+          //           }
+          //       },
+          //       legend: {
+          //           data: ['利润', '支出', '收入']
+          //       },
+          //       grid: {
+          //           left: '3%',
+          //           right: '4%',
+          //           bottom: '3%',
+          //           containLabel: true
+          //       },
+          //       xAxis: [
+          //           {
+          //               type: 'value'
+          //           }
+          //       ],
+          //       yAxis: [
+          //           {
+          //               type: 'category',
+          //               axisTick: {
+          //                   show: false
+          //               },
+          //               data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+          //           }
+          //       ],
+          //       series: [
+          //           {
+          //               name: '利润',
+          //               type: 'bar',
+          //               label: {
+          //                   show: true,
+          //                   position: 'inside'
+          //               },
+          //               data: [200, 170, 240, 244, 200, 220, 210]
+          //           },
+          //           {
+          //               name: '收入',
+          //               type: 'bar',
+          //               stack: '总量',
+          //               label: {
+          //                   show: true
+          //               },
+          //               data: [320, 302, 341, 374, 390, 450, 420]
+          //           },
+          //           {
+          //               name: '支出',
+          //               type: 'bar',
+          //               stack: '总量',
+          //               label: {
+          //                   show: true,
+          //                   position: 'left'
+          //               },
+          //               data: [-120, -132, -101, -134, -190, -230, -210]
+          //           }
+          //       ]
+          //   };
+
+          this.chart.setOption(option);
+          window.addEventListener("resize", () =>
+          {
+              this.chart.resize();
+          });
+        },
+
+
         init() {
            const self = this;//因为箭头函数会改变this指向，指向windows。所以先把this保存
            setTimeout(() => {
@@ -790,7 +1523,7 @@ export default {
         // newVal ，oldVal无function类型，故转化为string来深层对比
         if (newOption !== oldOption) {
             // 数据更改时更新echart
-            console.log('updateEchart');
+            // console.log('updateEchart');
             this.lineChart.setOption(this.echartOption);
         }
     }
@@ -1016,9 +1749,28 @@ export default {
         height: 400px;
         justify-content: flex-start;
     }
+    #pos_emoji{
+      display: flex;
+      height: 100px;
+      justify-content: flex-start;
+    }
+    #neg_emoji{
+      display: flex;
+      height: 100px;
+      justify-content: flex-start;
+
+    }
+
     a:link {color:#000000;}      /* 未访问链接*/
     a:visited {color:#000000;}  /* 已访问链接 */
     a:hover {color: #589ef8;}  /* 鼠标移动到链接上 */
     a:active {color: #589ef8;}  /* 鼠标点击时 */
 
 </style>
+<style>
+.el-input__count{
+    background-color: transparent !important;
+    margin-bottom: -2%;
+}
+</style>
+

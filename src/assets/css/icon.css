@@ -1,4 +1,8 @@
-
-    [class*=" el-icon-lx"], [class^=el-icon-lx] {
-        font-family: lx-iconfont!important;
-    }
+[class*=" ldmc"], [class^="ldmc"] {
+    font-family:"iconfont" !important;
+    font-size:16px;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-right: 8%;
+}

@@ -1,8 +1,9 @@
 <template>
+    <!--<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_2015036_ral7di9rm4.css">-->
     <div>
         <el-container>
             <el-header style="height: max-content;text-align: center">
-                <h1 style="margin-top: 20px;color: gray; letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-bottom: -1%">
+                <h1 style="margin-top: 20px;letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-bottom: -1%">
                   热点挖掘
                 </h1>
 
@@ -22,7 +23,11 @@
 
                             <span style="">
                                 <!--<link rel="icon" href="../../assets/icon/news.icon" type="image/x-icon">-->
+                                <!--<svg class="icon" aria-hidden="true">-->
+                                    <!--<use xlink:href="#iconxinwen"></use>-->
+                                <!--</svg>-->
                                 <i class="iconfont iconxinwen"></i>
+                                <!--<i class="ldmcxinwen" style="font-size: 21px;"></i>-->
                                 热点新闻
                             </span>
                         </div>
@@ -77,7 +82,7 @@
                         </div>
                     </el-card>
                     </el-col>
-                    <el-col :span="9">
+                    <el-col :span="8">
                         <!--<el-card shadow="always" :body-style="{padding: '0px'}" style="min-height: 458px;">-->
                       <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="min-height: 466px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
                         <div slot="header" class="clearfix" style="font-size: 18px;height: 30px">
@@ -144,7 +149,7 @@
                         </div>
                     </el-card>
                     </el-col>
-                    <el-col :span="7">
+                    <el-col :span="8">
                         <!--<el-card shadow="always" :body-style="{padding: '0px'}" style="min-height: 458px;">-->
                       <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="min-height: 466px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
                             <div slot="header" class="clearfix" style="font-size: 18px;height: 30px">
@@ -159,7 +164,7 @@
                                     style="width: 100%; text-align: center;"
                                     stripe
                                     @sort-change="changeSort"
-                                    :default-sort="{prop: 'publish_time', order: 'ascending'}"
+                                    :default-sort="{prop: 'publish_time', order: 'descending'}"
                                     :row-class-name="tableRowClassName"
                                     :show-overflow-tooltip=true
                                     max-height="400px"
@@ -192,7 +197,6 @@
                         </el-card>
                     </el-col>
                 </el-row>
-
                 <!--<el-card class="box-card" style="min-height:200px; margin-top: 20px;text-align: center">-->
                 <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
                     <el-tabs type="card" v-model="activeName" @tab-click="handleClick" style="border: 0px;border-radius: 0">
@@ -204,14 +208,6 @@
                                 <!--<div>{{this.freq_words2_list}}</div>-->
                             </div>
                         </el-tab-pane>
-                        <el-tab-pane label="近三日" name="second" >
-                            <div class="wrap" v-if="isChildUpdate2">
-                                <div id = "hot_freq_words2" style="width:100%;min-height:400px;"  ></div>
-                                <!--<div id="hot_distribution" style="width:100%;min-height:400px;"></div>-->
-                                <div id = "hot_key_words2" style="width:100%;min-height:400px;" ></div>
-                                <!--<div>{{this.key_words2_list}}</div>-->
-                            </div>
-                        </el-tab-pane>
                         <el-tab-pane label="近七日" name="third">
                             <div class="wrap" v-if="isChildUpdate3">
                                 <div id = "hot_freq_words3" style="width:100%;min-height:400px;" ></div>
@@ -220,40 +216,7 @@
                             </div>
                         </el-tab-pane>
                     </el-tabs>
-                    <!--<div :id="id" :class="className" :style="{ height:height,width:width }" />-->
-                     <!--<el-table-->
-                            <!--:data="hotspotRes.hot_key_words.today"-->
-                            <!--style="width: 100%; text-align: center"-->
-                            <!--@sort-change="changeSort"-->
-                            <!--:default-sort="{prop: 'rank', order: 'ascending'}"-->
-                            <!--:row-class-name="tableRowClassName"-->
-                            <!--border-->
-                            <!--max-height="500px"-->
-                     <!--&gt;-->
-                          <!--<el-table-column align='center'-->
-                            <!--prop="rank"-->
-                            <!--label="排序"-->
-                            <!--sortable-->
-                            <!--:sort-orders="['ascending', 'descending']"-->
-                            <!--&gt;-->
-                          <!--</el-table-column>-->
-                          <!--<el-table-column align='center'-->
-                            <!--prop="word"-->
-                            <!--label="关键词"-->
-                            <!--&gt;-->
-                          <!--</el-table-column>-->
-                          <!--<el-table-column align='center'-->
-                            <!--prop="influence"-->
-                            <!--label="影响力"-->
-                          <!--&gt;-->
-                          <!--</el-table-column>-->
-                          <!--&lt;!&ndash;<el-table-column&ndash;&gt;-->
-                            <!--&lt;!&ndash;prop="url"&ndash;&gt;-->
-                            <!--&lt;!&ndash;label="链接"&ndash;&gt;-->
-                            <!--&lt;!&ndash;sortable="custom">&ndash;&gt;-->
-                          <!--&lt;!&ndash;</el-table-column>&ndash;&gt;-->
-                            <!--&lt;!&ndash;{{ item.label }}&ndash;&gt;-->
-                        <!--</el-table>-->
+
                 </el-card>
             <!--</el-main>-->
             <!--<el-main style="text-align: center; margin-top: 10px; ">-->
@@ -262,7 +225,12 @@
                     <div slot="header" class="clearfix" style="font-size: 18px">
                         <span>新闻主题分布图</span>
                     </div>
-                    <div id="hot_distribution" style="width:100%;min-height:400px;"></div>
+                    <div id="today_hot_distribution" style="width:100%;height:600px;"></div>
+                    <div id="week_hot_distribution" style="width:100%;height:600px;">近七日</div>
+                  <!--{{this.recent_half_hour_increase_news}}-->
+                  <!--{{this.nearly_one_week_news_dis}}-->
+                  <!--{{this.nearly_three_days_news_dis}}-->
+                  <!--{{this.today_news_dis}}-->
                 </el-card>
                 <!--<el-card class="box-card" style="min-height: 50px; margin-top: 20px">-->
                 <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
@@ -290,23 +258,12 @@ export default {
     name: 'basetable',
     data() {
         return {
-            hotspotRes:{
-            },
-            items: [
-                // { type: '', label: '标签一' },
-                // { type: 'success', label: '标签二' },
-            ],
+            hotspotRes:{},
+            items: [],
             // 柱状图
             charts: "",
             view_number: "",
-            hot_event:[
-                // { rank: 1, topic: '新冠' ,view_number: 1000000, url:"http://baidu.com"},
-                // { rank: 2, topic: '中国' ,view_number: 950101,url:"http://baidu.com"},
-                // { rank: 3, topic: '奥运' ,view_number: 905100,url:"http://baidu.com"},
-                // { rank: 4, topic: '国庆' ,view_number: 904100, url:"http://baidu.com"},
-                // { rank: 5, topic: 'IPHONE' ,view_number: 850101,url:"http://baidu.com"},
-                // { rank: 6, topic: '出轨' ,view_number: 805100,url:"http://baidu.com"},
-            ],
+            hot_event:[],
             hot_topic:[],
             freq_words:[],
             freq_words_list:[],
@@ -334,15 +291,10 @@ export default {
 
             one_week_time : [],
             news_info:[],
-     // charts: '',
-            // opinion:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'],
-            // opinionData:[
-            //     {value:335, name:'直接访问'},
-            //     {value:310, name:'邮件营销'},
-            //     {value:234, name:'联盟广告'},
-            //     {value:135, name:'视频广告'},
-            //     {value:1548, name:'搜索引擎'}
-            // ]
+            name:["Domestic国内","World世界","Sports体育","Society社会","History历史","Entertainment娱乐",
+                        "Military军事","Government政府","Education教育","Finance经济","Comment评论","Other其他"],
+            source:[['topic','今日','近七日'],['Comment评论'],['Domestic国内'], ['Education教育'], ['Entertainment娱乐'], ['Finance经济'],['Government政府'],
+              ['History历史'], ['Military军事'], ['Other其他'], ['Society社会'], ['Sports体育'], ['World世界']]
         };
     },
     created() {
@@ -361,13 +313,7 @@ export default {
                 this.getFreqWords("hot_freq_words1",this.freq_words.today,'今日新闻高频词分布词云');
                 this.isChildUpdate2 = false;
                 this.isChildUpdate3 = false;
-            } else if(tab.name == "second") {
-                this.isChildUpdate1 = false;
-                this.isChildUpdate2 = true;
-                this.getKeyWords("hot_key_words2",this.key_words.nearly_three_days,'近三日新闻高影响力词分布词云');
-                this.getFreqWords("hot_freq_words2",this.freq_words.nearly_three_days,'近三日新闻高频词分布词云');
-                this.isChildUpdate3 = false;
-            }else if(tab.name == "third") {
+            } else if(tab.name == "third") {
                 this.isChildUpdate1 = false;
                 this.isChildUpdate2 = false;
                 this.isChildUpdate3 = true;
@@ -427,14 +373,22 @@ export default {
                 this.recent_half_hour_increase_news = this.hotspotRes.hot_statistics.recent_half_hour_increase_news;
                 this.today_news_distribution = this.hotspotRes.hot_statistics.today_news_distribution;
                 this.today_news_dis = Object.values(this.today_news_distribution);
-                this.nearly_three_days_news_distribution = this.hotspotRes.hot_statistics.nearly_three_days_news_distribution;
-                this.nearly_three_days_news_dis = Object.values(this.nearly_three_days_news_distribution);
                 this.nearly_one_week_news_distribution = this.hotspotRes.hot_statistics.nearly_one_week_news_distribution;
                 this.nearly_one_week_news_dis = Object.values(this.nearly_one_week_news_distribution);
                 // console.log(this.today_news_dis);
                 //柱状图
+                var i = 1
+
+                for(i;i < 13;i++){
+                     this.source[i].push(this.today_news_dis[i-1]);
+                       // .push(this.nearly_three_days_news_dis[i-1]).push(this.nearly_one_week_news_dis[i-1])
+                     this.source[i].push(this.nearly_one_week_news_dis[i-1]);
+                     console.log(i)
+                     // this.source = a.concat(b);
+                }
                 setTimeout(()=>{
-                    this.drawDistribution("hot_distribution",this.today_news_dis,this.nearly_three_days_news_dis,this.nearly_one_week_news_dis);
+                    this.drawDistribution("today_hot_distribution",this.today_news_distribution,'今日');
+                    // this.drawDistribution("today_hot_distribution",this.nearly_one_week_news_dis,'近七日');
                 })
                 console.log("success")
                 //折线图
@@ -443,120 +397,120 @@ export default {
                     name: 'Domestic国内',
                     type: 'bar',
                     stack: '总量',
-                    label: {
-                        show: true,
-                        position: 'insideRight'
-                    },
+                    // label: {
+                    //     show: true,
+                    //     position: 'right'
+                    // },
                     data: this.hot_statistics.domestic_trend
                 },
                 this.news_info[1] = {
                     name: 'World世界',
                     type: 'bar',
                     stack: '总量',
-                    label: {
-                        show: true,
-                        position: 'insideRight'
-                    },
+                    // label: {
+                    //     show: true,
+                    //     position: 'right'
+                    // },
                     data: this.hot_statistics.world_trend
                 },
                 this.news_info[2] = {
                     name: 'Sports体育',
                     type: 'bar',
                     stack: '总量',
-                    label: {
-                        show: true,
-                        position: 'insideRight'
-                    },
-                    data: this.hot_statistics.sports_trend
+                    // label: {
+                    //     show: true,
+                    //     position: 'right'
+                    // },
+                    data: this.hot_statistics.sports_trend.map((item, index, arr)=> item * -1 )
                 },
                 this.news_info[3] = {
                     name: 'Society社会',
                     type: 'bar',
                     stack: '总量',
-                    label: {
-                        show: true,
-                        position: 'insideRight'
-                    },
+                    // label: {
+                    //     show: true,
+                    //     position: 'right'
+                    // },
                     data: this.hot_statistics.society_trend
                 },
                 this.news_info[4] = {
                     name: 'History历史',
                     type: 'bar',
                     stack: '总量',
-                    label: {
-                        show: true,
-                        position: 'insideRight'
-                    },
-                    data: this.hot_statistics.history_trend
+                    // label: {
+                    //     show: true,
+                    //     position: 'right'
+                    // },
+                    data: this.hot_statistics.history_trend.map((item, index, arr)=> item * -1 )
                 },
                 this.news_info[5] = {
                     name: 'Entertainment娱乐',
                     type: 'bar',
                     stack: '总量',
-                    label: {
-                        show: true,
-                        position: 'insideRight'
-                    },
-                    data: this.hot_statistics.entertainment_trend
+                    // label: {
+                    //     show: true,
+                    //     position: 'right'
+                    // },
+                    data: this.hot_statistics.entertainment_trend.map((item, index, arr)=> item * -1 )
                 },
                 this.news_info[6] = {
                     name: 'Military军事',
                     type: 'bar',
                     stack: '总量',
-                    label: {
-                        show: true,
-                        position: 'insideRight'
-                    },
-                    data: this.hot_statistics.military_trend
+                    // label: {
+                    //     show: true,
+                    //     position: 'right'
+                    // },
+                    data: this.hot_statistics.military_trend.map((item, index, arr)=> item * -1 )
                 },
                 this.news_info[7] = {
                     name: 'Government政府',
                     type: 'bar',
                     stack: '总量',
-                    label: {
-                        show: true,
-                        position: 'insideRight'
-                    },
-                    data: this.hot_statistics.government_trend
+                    // label: {
+                    //     show: true,
+                    //     position: 'right'
+                    // },
+                    data: this.hot_statistics.government_trend.map((item, index, arr)=> item * -1 )
                 },
                 this.news_info[8] = {
                     name: 'Education教育',
                     type: 'bar',
                     stack: '总量',
-                    label: {
-                        show: true,
-                        position: 'insideRight'
-                    },
-                    data: this.hot_statistics.education_trend
+                    // label: {
+                    //     show: true,
+                    //     position: 'right'
+                    // },
+                    data: this.hot_statistics.education_trend.map((item, index, arr)=> item * -1 )
                 },
                 this.news_info[9] = {
                     name: 'Finance经济',
                     type: 'bar',
                     stack: '总量',
-                    label: {
-                        show: true,
-                        position: 'insideRight'
-                    },
+                    // label: {
+                    //     show: true,
+                    //     position: 'right'
+                    // },
                     data: this.hot_statistics.finance_trend
                 },
                 this.news_info[10] = {
                     name: 'Comment评论',
                     type: 'bar',
                     stack: '总量',
-                    label: {
-                        show: true,
-                        position: 'insideRight'
-                    },
-                    data: this.hot_statistics.comment_trend
+                    // label: {
+                    //     show: true,
+                    //     position: 'right'
+                    // },
+                    data: this.hot_statistics.comment_trend.map((item, index, arr)=> item * -1 )
                 },
                 this.news_info[11] = {
                     name: 'Other其他',
                     type: 'bar',
                     stack: '总量',
-                    label: {
-                        show: true,
-                        position: 'insideRight'
-                    },
+                    // label: {
+                    //     show: true,
+                    //     position: 'right'
+                    // },
                     data: this.hot_statistics.other_trend
                 },
                 this.getDay();
@@ -569,38 +523,7 @@ export default {
                 // this.getFreqWords("hot_freq_words1",freq_words1,'今日新闻高频词分布词云');
                 // this.getFreqWords("hot_freq_words2",freq_words2,'近三日新闻高频词分布词云');
                 this.getFreqWords("hot_freq_words3",freq_words3,'近七日新闻高频词分布词云');
-                // if(this.activeName=="third"){
-                //     for(let j = 0; j < 100; j++){
-                //         let obj = {};
-                //         obj.name = freq_words3[j].word;
-                //         obj.value = freq_words3[j].frequency;
-                //         this.freq_words3_list[j] = obj;
-                //     }
-                //     this.WordCloud("hot_freq_words3",this.freq_words3_list);
-                // }else if(this.activeName=="second"){
-                //     for(let i = 0; i < 100; i++){
-                //     let obj = {};
-                //     obj.name = freq_words2[i].word;
-                //     obj.value = freq_words2[i].frequency;
-                //     this.freq_words2_list[i] = obj;
-                //     this.WordCloud("hot_freq_words2",this.freq_words2_list);
-                // }
 
-                // for(let i = 0; i < 100; i++){
-                //     let obj = {};
-                //     obj.name = freq_words2[i].word;
-                //     obj.value = freq_words2[i].frequency;
-                //     this.freq_words2_list[i] = obj;
-                // }
-                // this.WordCloud("hot_freq_words2",this.freq_words2_list);
-                //
-                // for(let j = 0; j < 100; j++){
-                //     let obj = {};
-                //     obj.name = freq_words3[j].word;
-                //     obj.value = freq_words3[j].frequency;
-                //     this.freq_words3_list[j] = obj;
-                // }
-                // this.WordCloud("hot_freq_words3",this.freq_words3_list);
                 //词云2
                 this.key_words = this.hotspotRes.hot_key_words;
                 // var key_words1 = this.key_words.today;
@@ -632,7 +555,6 @@ export default {
                 colorArr:['#fda67e', '#81cacc', '#cca8ba', "#88cc81", "#82a0c5", '#fddb7e', '#735BA1', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
                 title: {
                     text: title,
-
                     x: "center",
                     padding:9,
                     top:'0%',//各个方向的内边距，默认是5，可以自行设置
@@ -645,7 +567,6 @@ export default {
                 },
                 tooltip: {
                     trigger: 'item',
-
                 },
                 backgroundColor: "#fff",
                 grid:{
@@ -714,118 +635,146 @@ export default {
             });
         },
         //场景分布柱状图
-        drawDistribution(id,data1,data2,data3) {
+        drawDistribution(id,data1,date) {
             // 基于准备好的dom，初始化echarts实例
             this.chart = echarts.init(document.getElementById(id));
             // 指定图表的配置项和数据
             var option = {
-                color:['#E47470','#7EBF50','#589EF8'],
+                // color:['#E47470','#7EBF50','#589EF8'],
+                // color:['rgb(210,100,93)','rgb(228,116,79)','rgb(242,176,110)','rgb(249,224,150)','rgb(255,254,198)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,134,183)','rgb(125,169,185)'],
+                color:['rgb(227,158,156)','rgb(224,108,146)','rgb(197,151,212)','rgb(175,159,215)','rgb(160,169,214)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,144,173)','rgb(126,180,225)'].reverse(),
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {
                         type: 'shadow'
                     }
                 },
+                title: {
+                    // text: '主题分布图',
+                    textAlign: "center",
+                    left:'50%',//各个方向的内边距，默认是5，可以自行设置
+                },
+                dataset: {
+                    source: this.source
+                },
                 grid:{
-                    left:'5%',
-                    right:'8%',
-                    bottom:'10%',
-                    containLabel:true
+                    top:'10%',
+                    // left:'5%',
+                    right:'60%',
+                    bottom:'40%',
+                    // containLabel:true
                 },
                 legend: {
-                    data: [
-                        {
-                            name: '今日',
-                            icon: '',
-                            textStyle: {
-                              fontSize:15,
-                              // color: 'red',  // 单独设置某一个图列的颜色
-                              // backgroundColor: '#fff' // 单独设置某一个图列的字体背景色
-                            }
-                        },
-                        {
-                            name: '近三日',
-                            icon: '',
-                            textStyle: {
-                              fontSize:15,
-                              // color: 'red',  // 单独设置某一个图列的颜色
-                              // backgroundColor: '#fff' // 单独设置某一个图列的字体背景色
-                            }
-                        },
-                        {
-                            name: '近七日',
-                            icon: '',
-                            textStyle: {
-                              fontSize:15,
-                              // color: 'red',  // 单独设置某一个图列的颜色
-                              // backgroundColor: '#fff' // 单独设置某一个图列的字体背景色
-                            }
-                        },
-                    ],
-                    textStyle: {
-
-                        fontSize:15
-                    },
-                    right: 100,
-                },
-                title: {
-                    text: ""
+                  data:this.source[0],
+                    // data: [
+                    //     {
+                    //         name: '今日',
+                    //         icon: '',
+                    //         textStyle: {
+                    //           fontSize:15,
+                    //           // color: 'red',  // 单独设置某一个图列的颜色
+                    //           // backgroundColor: '#fff' // 单独设置某一个图列的字体背景色
+                    //         }
+                    //     },
+                    //     {
+                    //         name: '近三日',
+                    //         icon: '',
+                    //         textStyle: {
+                    //           fontSize:15,
+                    //           // color: 'red',  // 单独设置某一个图列的颜色
+                    //           // backgroundColor: '#fff' // 单独设置某一个图列的字体背景色
+                    //         }
+                    //     },
+                    //     {
+                    //         name: '近七日',
+                    //         icon: '',
+                    //         textStyle: {
+                    //           fontSize:15,
+                    //           // color: 'red',  // 单独设置某一个图列的颜色
+                    //           // backgroundColor: '#fff' // 单独设置某一个图列的字体背景色
+                    //         }
+                    //     },
+                    // ],
+                    // textStyle: {
+                    //
+                    //     fontSize:15
+                    // },
+                    // right: 100,
                 },
 
-                xAxis: {
+                yAxis: {
                     type: 'category',
                     name: '主题',
                     nameTextStyle:{
-
-                        fontSize:'15',
-                        padding:10
+                        fontSize:'10',
                     },
                     axisLabel: {
                         interval:0,
-                        rotate:40,
-                        fontSize:'15',
-
+                        fontSize:'10',
                         fontFamily:'微软雅黑',
                     },
                     data:['Comment评论', 'Domestic国内', 'Education教育', 'Entertainment娱乐', 'Finance经济','Government政府', 'History历史', 'Military军事', 'Other其他', 'Society社会', 'Sports体育', 'World世界']
                 },
-                yAxis: {
+                xAxis: {
                     type: 'value',
                     name: '数量',
                     nameTextStyle:{
-
-                        fontSize:'15',
-                        padding:10
+                        fontSize:'10',
                     },
                     axisLabel: {
-                        fontSize:'15',
-
+                        fontSize:'10',
                         fontFamily:'微软雅黑',
                         marginTop:'35px',
                         show:true,
-                        textStyle: {
-                          fontSize : 14   //更改坐标轴文字大小
-                        }
                     },
                 },
                 series: [
                     {
-                        name: "今日",
+                        name: date,
                         type: "bar",
-                        data: data1,
+                        data: Object.values(data1),
                     },
                     {
-                        name: "近三日",
-                        type: "bar",
-                        data: data2,
-                    },
-                    {
-                        name: "近七日",
-                        type: "bar",
-                        data: data3,
+                        type: 'pie',
+                        id: 'pie',
+                        radius: [20, 110],
+                        //
+                        // roseType: 'radius',
+                        roseType: 'area',
+                        left:'40%',
+                        bottom:'30%',
+                        label: {
+                            formatter: '{@date}'+':'+ '{@今日}({d}%)'
+                        },
+                        // data: [Object.keys(data1),Object.values(data1)],
+                        encode: {
+                            itemName: date,
+                            value: '今日',
+                            tooltip: '今日'
+                        }
+
+
                     }
                 ]
             };
+            this.chart.on('updateAxisPointer', function (event) {
+                var xAxisInfo = event.axesInfo[0];
+                if (xAxisInfo) {
+                    var dimension = xAxisInfo.value + 1;
+                    this.chart.setOption({
+                        series: {
+                            id: 'pie',
+                            label: {
+                                formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                            },
+                            encode: {
+                                value: dimension,
+                                tooltip: dimension
+                            }
+                        }
+                    });
+                }
+            });
             this.chart.setOption(option);
             // window.addEventListener("resize", function() {
             //   this.chart.resize()
@@ -875,17 +824,33 @@ export default {
             // 指定图表的配置项和数据
             var option = {
                 // color : ['#7db5e2', '#81cacc', '#cca8ba', "#7EBF50", "#82a0c5", '#fddb7e', '#bda29a', '#d2a59a', '#7f9979', '#c4ccd3','#5F9EA0','#a498d6'],
-                color:['rgb(197,74,83)','rgb(228,116,79)','rgb(242,176,110)','rgb(249,224,150)','rgb(255,254,198)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,134,183)','rgb(125,169,185)'],
+                color:['rgb(210,100,93)','rgb(228,116,79)','rgb(242,176,110)','rgb(249,224,150)','rgb(255,254,198)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,134,183)','rgb(125,169,185)'].reverse(),
+                // color:['rgb(215,121,118)','rgb(224,108,146)','rgb(175,110,195)','rgb(249,224,150)','rgb(255,254,198)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,134,183)','rgb(125,169,185)'].reverse(),
+                // color:['rgb(227,158,156)','rgb(224,108,146)','rgb(197,151,212)','rgb(175,159,215)','rgb(160,169,214)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,144,173)','rgb(126,180,225)'].reverse(),
                 // color:['#DC143C','#FFB6C1','#BA55D3','#483D8B','#1E90FF','#5F9EA0','#90EE90','#556B2F','#808000','#FFD700','#FFA500','#8B4513'],
                 //标题
-                title:{
-                  // text: `各主题新闻每日增长数`  /*  [+] 折线图叫啥名字 */
-                },
                 tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                      type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                  }
+                      trigger: 'item',
+                      axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                      },
+                      formatter: function (params, ticket, callback) {
+                          var res = params.name+'</br>'+params.marker+params.seriesName+' : '+Math.abs(params.value)
+                          return res;
+                         // console.log(params)
+                         // var res = params[0].name ;
+                         //
+                         // for (var i = 0, l = params.length; i < l; i++) {
+                         //     res += '<br/>' + params[i].marker+params[i].seriesName + ' : ' + Math.abs(params[i].value) ;
+                         //
+                         // }
+                         // setTimeout(function () {
+                         //     // 仅为了模拟异步回调
+                         //     callback(ticket, res);
+                         // }, 10)
+                         // return res;
+                      },
+
                 },
                 grid: {
                     top:'10%',
@@ -906,8 +871,7 @@ export default {
                 },
                 //图例-每一条数据的名字叫销量
                 legend:{
-                    data:["Domestic国内","World世界","Sports体育","Society社会","History历史","Entertainment娱乐",
-                        "Military军事","Government政府","Education教育","Finance经济","Comment评论","Other其他"],
+                    data:this.name,
                     textStyle: {
                       //legend字体颜色
                     },
@@ -921,16 +885,18 @@ export default {
                     type: 'value',
                     name: '增长数量',
                     nameTextStyle:{
-
                         fontSize:'15',
                         padding:10
                     },
                     axisLabel: {
-                        fontSize:'15',
-                        fontFamily:'微软雅黑',
-                        marginTop:'35px',
-                        show:true,
-
+                        formatter:function(value)
+                        {
+                            return Math.abs(value)
+                        },
+                        fontSize: '15',
+                        fontFamily: '微软雅黑',
+                        marginTop: '35px',
+                        show: true,
                     },
                 },
                 //y轴
@@ -942,6 +908,7 @@ export default {
                     },
                     data: date_arr,
                     axisLabel: {
+
                         fontSize:'15',
                         fontFamily:'微软雅黑',
                         marginTop:'35px',
@@ -973,10 +940,6 @@ export default {
               })
            },10)
          },
-        // 修改table header的背景色
-        tableHeaderColor() {
-            return 'tableStyle'
-        },
         // tableRowClassName({row, rowIndex}) {
         //     if (rowIndex === 0) {
         //       return 'warning-row';
@@ -991,8 +954,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped type="text/css">
     @import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
+    @import '../../assets/css/icon.css';
 
     .el-header, .el-footer {
         font-size: 20px;
