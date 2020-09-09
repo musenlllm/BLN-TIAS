@@ -3,215 +3,224 @@
     <div>
         <el-container>
             <el-header style="height: max-content;text-align: center">
-                <h1 style="margin-top: 20px;letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-bottom: -1%">
-                  热点挖掘
-                </h1>
+              <el-card class="noBorderInput"style="border: 0px; margin-top: 20px;border-radius: 0;
+      background-color: #fff;
+      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
 
-                <!--<h1 style="color: gray;font-size: 30px">热点挖掘</h1>-->
+                <div slot="header" class="diyCardHead" >
+                <h1 style="color: black; letter-spacing: 10px; font-weight: normal; font-size: 25px; "> 热点挖掘</h1>
+                </div>
 
-                <!--<el-row style="margin-top: 30px; display: flex; justify-content: center">-->
-                    <!--<el-button v-on:click="getData" type="primary" style="background: #242f42; border: 0px">开始分析</el-button>-->
-                    <!--<el-button >随机样例</el-button>-->
-                <!--</el-row>-->
-            </el-header>
-            <el-main  style="margin-left: 1px; margin-top: 10px; text-align: center">
-                <el-row :gutter="20" >
+                <div class="diyCardBody" style="margin-top: 0px">
+                  <el-row :gutter="20" >
                     <el-col :span="8">
-                        <!--<el-card shadow="always" class="box-card" :body-style="{padding: '0px'}" style="min-height: 458px;font-size: 18px">-->
+                      <!--<el-card shadow="always" class="box-card" :body-style="{padding: '0px'}" style="min-height: 458px;font-size: 18px">-->
                       <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="min-height: 466px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
-                      <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                        <div slot="header" class="clearfix" style="font-size: 18px;height: 30px; margin-top: -25px; margin-bottom: 20px">
 
                             <span style="">
                                 <!--<link rel="icon" href="../../assets/icon/news.icon" type="image/x-icon">-->
-                                <!--<svg class="icon" aria-hidden="true">-->
-                                    <!--<use xlink:href="#iconxinwen"></use>-->
-                                <!--</svg>-->
+                              <!--<svg class="icon" aria-hidden="true">-->
+                              <!--<use xlink:href="#iconxinwen"></use>-->
+                              <!--</svg>-->
                                 <i class="iconfont iconxinwen"></i>
-                                <!--<i class="ldmcxinwen" style="font-size: 21px;"></i>-->
+                              <!--<i class="ldmcxinwen" style="font-size: 21px;"></i>-->
                                 热点新闻
                             </span>
                         </div>
                         <div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">
-                            <el-table
-                                    :data="this.hotspotRes.hot_event"
-                                    style="width: 100%; text-align: center; "
-                                    stripe
-                                    :row-class-name="tableRowClassName"
-                                    @sort-change="changeSort"
-                                    :default-sort="{prop: 'rank', order: 'ascending'}"
-                                    :show-overflow-tooltip=true
-                                    max-height="400px"
+                          <el-table
+                            :data="this.hotspotRes.hot_event"
+                            style="width: 100%; text-align: center; "
+                            stripe
+                            :row-class-name="tableRowClassName"
+                            @sort-change="changeSort"
+                            :default-sort="{prop: 'rank', order: 'ascending'}"
+                            :show-overflow-tooltip=true
+                            max-height="400px"
+                          >
+                            <el-table-column align='center'
+                                             header-align="center"
+                                             prop="rank"
+                                             label="排序"
+                                             sortable
+                                             :sort-orders="['ascending', 'descending']"
+                                             width="80%"
                             >
-                                <el-table-column align='center'
-                                    header-align="center"
-                                    prop="rank"
-                                    label="排序"
-                                    sortable
-                                    :sort-orders="['ascending', 'descending']"
-                                    width="80%"
-                                >
 
-                                  <div slot-scope="scope" v-if="scope.row.rank<4">
+                              <div slot-scope="scope" v-if="scope.row.rank<4">
 
-                                    <i class="iconfont iconmingcheng-huobao-t"></i>
-                                  </div>
-                                  <div slot-scope="scope" v-else>
-                                    {{scope.row.rank}}
+                                <i class="iconfont iconmingcheng-huobao-t"></i>
+                              </div>
+                              <div slot-scope="scope" v-else>
+                                {{scope.row.rank}}
 
-                                  </div>
-                                </el-table-column>
-                                <el-table-column align='left'
-                                    header-align="center"
-                                    prop="event"
-                                    label="新闻话题"
-                                    :show-overflow-tooltip=true
-                                                 width="200%"
-                                >
-                                      <template slot-scope="scope">
+                              </div>
+                            </el-table-column>
+                            <el-table-column align='left'
+                                             header-align="center"
+                                             prop="event"
+                                             label="新闻话题"
+                                             :show-overflow-tooltip=true
+                                             width="200%"
+                            >
+                              <template slot-scope="scope">
 
-                                        <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.event}}</a>
-                                      </template>
-                                </el-table-column>
-                                <el-table-column align='center'
-                                    prop="popularity"
-                                    label="阅读量"
-                                    :show-overflow-tooltip=true
-                                >
-                                </el-table-column>
-                            </el-table>
+                                <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.event}}</a>
+                              </template>
+                            </el-table-column>
+                            <el-table-column align='center'
+                                             prop="popularity"
+                                             label="阅读量"
+                                             :show-overflow-tooltip=true
+                            >
+                            </el-table-column>
+                          </el-table>
                         </div>
-                    </el-card>
+                      </el-card>
                     </el-col>
                     <el-col :span="8">
-                        <!--<el-card shadow="always" :body-style="{padding: '0px'}" style="min-height: 458px;">-->
+                      <!--<el-card shadow="always" :body-style="{padding: '0px'}" style="min-height: 458px;">-->
                       <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="min-height: 466px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
-                        <div slot="header" class="clearfix" style="font-size: 18px;height: 30px">
+                        <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;margin-top: -25px; margin-bottom: 20px">
                             <span>
 
                                 <i class="el-icon-chat-line-square" style="font-size: 21px"></i>
 
-                                <!--<i class="iconfont iconhuati"></i>-->
+                              <!--<i class="iconfont iconhuati"></i>-->
                                 热点话题
                             </span>
                         </div>
                         <div class="tag-group" style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;">
-                            <el-table
-                                    :data="hotspotRes.hot_topic"
-                                    style="width: 100%; text-align: center;"
-                                    header-cell-style="font-weight:500"
-                                    @sort-change="changeSort"
-                                    :default-sort="{prop: 'rank', order: 'ascending'}"
-                                    :row-class-name="tableRowClassName"
-                                    stripe
-                                    :show-overflow-tooltip=true
-                                    max-height="400px"
+                          <el-table
+                            :data="hotspotRes.hot_topic"
+                            style="width: 100%; text-align: center;"
+                            header-cell-style="font-weight:500"
+                            @sort-change="changeSort"
+                            :default-sort="{prop: 'rank', order: 'ascending'}"
+                            :row-class-name="tableRowClassName"
+                            stripe
+                            :show-overflow-tooltip=true
+                            max-height="400px"
+                          >
+                            <el-table-column align='center'
+                                             prop="rank"
+                                             label="排序"
+                                             sortable
+                                             :sort-orders="['ascending', 'descending']"
+                                             width="80%">
+                              <div slot-scope="scope" v-if="scope.row.rank<4">
+
+                                <i class="iconfont iconmingcheng-huobao-t"></i>
+                              </div>
+                              <div slot-scope="scope" v-else>
+                                {{scope.row.rank}}
+
+                              </div>
+
+                            </el-table-column>
+                            <el-table-column align='left'
+                                             header-align="center"
+                                             prop="topic"
+                                             label="新闻话题"
+                                             :show-overflow-tooltip=true
                             >
-                                  <el-table-column align='center'
-                                    prop="rank"
-                                    label="排序"
-                                    sortable
-                                    :sort-orders="['ascending', 'descending']"
-                                    width="80%">
-                                      <div slot-scope="scope" v-if="scope.row.rank<4">
+                              <template slot-scope="scope">
+                                <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.topic}}</a>
+                              </template>
+                            </el-table-column>
+                            <el-table-column align='center'
+                                             prop="view_number"
+                                             label="阅读量"
+                                             width="100%"
+                            >
+                            </el-table-column>
+                            <!--<el-table-column-->
+                            <!--prop="url"-->
+                            <!--label="链接"-->
+                            <!--sortable="custom">-->
+                            <!--</el-table-column>-->
 
-                                        <i class="iconfont iconmingcheng-huobao-t"></i>
-                                      </div>
-                                      <div slot-scope="scope" v-else>
-                                        {{scope.row.rank}}
-
-                                  </div>
-
-                                  </el-table-column>
-                                  <el-table-column align='left'
-                                    header-align="center"
-                                    prop="topic"
-                                    label="新闻话题"
-                                    :show-overflow-tooltip=true
-                                  >
-                                       <template slot-scope="scope">
-                                           <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.topic}}</a>
-                                       </template>
-                                  </el-table-column>
-                                  <el-table-column align='center'
-                                    prop="view_number"
-                                    label="阅读量"
-                                    width="100%"
-                                  >
-                                  </el-table-column>
-                                  <!--<el-table-column-->
-                                    <!--prop="url"-->
-                                    <!--label="链接"-->
-                                    <!--sortable="custom">-->
-                                  <!--</el-table-column>-->
-
-                                <!--{{ item.label }}-->
-                            </el-table>
+                            <!--{{ item.label }}-->
+                          </el-table>
                         </div>
-                    </el-card>
+                      </el-card>
                     </el-col>
                     <el-col :span="8">
-                        <!--<el-card shadow="always" :body-style="{padding: '0px'}" style="min-height: 458px;">-->
+                      <!--<el-card shadow="always" :body-style="{padding: '0px'}" style="min-height: 458px;">-->
                       <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="min-height: 466px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
-                            <div slot="header" class="clearfix" style="font-size: 18px;height: 30px">
+                        <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;margin-top: -25px; margin-bottom: 20px">
                                 <span>
                                     <i class="iconfont iconzengchang1" ></i>
-                                <!--</div>-->
+                                  <!--</div>-->
                                     最近半小时增长新闻
                                 </span>
-                            </div>
-                            <el-table
-                                    :data="this.recent_half_hour_increase_news"
-                                    style="width: 100%; text-align: center;"
-                                    stripe
-                                    @sort-change="changeSort"
-                                    :default-sort="{prop: 'publish_time', order: 'descending'}"
-                                    :row-class-name="tableRowClassName"
-                                    :show-overflow-tooltip=true
-                                    max-height="400px"
-                            >
-                                <el-table-column align='left'
-                                    type="index"
-                                    header-align="center"
-                                    prop="news"
-                                    label="新闻话题"
-                                     :show-overflow-tooltip=true
-                                    width="220%"
-                                >
-                                    <template slot-scope="scope" v-if="scope.row.url">
-                                        <i :href="scope.row.url" class="iconfont iconzuixin" ></i>
-                                        <a :href="scope.row.url" target="_blank" class="buttonText" >【{{scope.row.news_type}}】{{scope.row.news}}</a>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column align='center'
-                                    prop="publish_time"
-                                    label="发布时间"
-                                    sortable
-                                    :sort-orders="['ascending', 'descending']"
-                                     :show-overflow-tooltip=true
-                                >
-                                    <template slot-scope="scope">
-                                          <span >{{scope.row.publish_time}}</span>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                        </el-card>
+                        </div>
+                        <el-table
+                          :data="this.recent_half_hour_increase_news"
+                          style="width: 100%; text-align: center;"
+                          stripe
+                          @sort-change="changeSort"
+                          :default-sort="{prop: 'publish_time', order: 'descending'}"
+                          :row-class-name="tableRowClassName"
+                          :show-overflow-tooltip=true
+                          max-height="400px"
+                        >
+                          <el-table-column align='left'
+                                           type="index"
+                                           header-align="center"
+                                           prop="news"
+                                           label="新闻话题"
+                                           :show-overflow-tooltip=true
+                                           width="220%"
+                          >
+                            <template slot-scope="scope" v-if="scope.row.url">
+                              <i :href="scope.row.url" class="iconfont iconzuixin" ></i>
+                              <a :href="scope.row.url" target="_blank" class="buttonText" >【{{scope.row.news_type}}】{{scope.row.news}}</a>
+                            </template>
+                          </el-table-column>
+                          <el-table-column align='center'
+                                           prop="publish_time"
+                                           label="发布时间"
+                                           sortable
+                                           :sort-orders="['ascending', 'descending']"
+                                           :show-overflow-tooltip=true
+                          >
+                            <template slot-scope="scope">
+                              <span >{{scope.row.publish_time}}</span>
+                            </template>
+                          </el-table-column>
+                        </el-table>
+                      </el-card>
                     </el-col>
-                </el-row>
+                  </el-row>
+                </div>
+
+
+              </el-card>
+
+            </el-header>
+            <el-main  style="margin-left: 1px; margin-top: 10px; text-align: center">
+
                 <!--<el-card class="box-card" style="min-height:200px; margin-top: 20px;text-align: center">-->
                 <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
                     <el-tabs type="card" v-model="activeName" @tab-click="handleClick" style="border: 0px;border-radius: 0">
                         <el-tab-pane label="今日" name="first">
 
-                            <div class="wrap" v-if="isChildUpdate1">
-                                <div id = "hot_freq_words1" style="width:100%;min-height:400px;" ></div>
-                                <div id = "hot_key_words1" style="width:100%;min-height:400px;"></div>
+                            <div class="wrap" v-if="isChildUpdate1" style="display: flex; justify-content: space-around">
+                                <div id = "hot_key_words1" style="width:30%;min-height:400px;" ></div>
+                                <div id="hot_freq_words1" style="width:30%;height:400px;"></div>
+                                <div id="today_hot_distribution1" style="width:30%;height:400px;"></div>
+
+
                                 <!--<div>{{this.freq_words2_list}}</div>-->
                             </div>
                         </el-tab-pane>
                         <el-tab-pane label="近七日" name="third">
                             <div class="wrap" v-if="isChildUpdate3">
-                                <div id = "hot_freq_words3" style="width:100%;min-height:400px;" ></div>
-                                <div id = "hot_key_words3" style="width:100%;min-height:400px;" ></div>
+                                <div id = "hot_key_words3" style="width:30%;min-height:400px;" ></div>
+                                <div id = "hot_freq_words3" style="width:30%;min-height:400px;" ></div>
+                                <div id="today_hot_distribution3" style="width:30%;height:400px;"></div>
                                 <!--<div>{{this.key_words2_list}}</div>-->
                             </div>
                         </el-tab-pane>
@@ -291,10 +300,16 @@ export default {
 
             one_week_time : [],
             news_info:[],
-            name:["Domestic国内","World世界","Sports体育","Society社会","History历史","Entertainment娱乐",
-                        "Military军事","Government政府","Education教育","Finance经济","Comment评论","Other其他"],
-            source:[['topic','今日','近七日'],['Comment评论'],['Domestic国内'], ['Education教育'], ['Entertainment娱乐'], ['Finance经济'],['Government政府'],
-              ['History历史'], ['Military军事'], ['Other其他'], ['Society社会'], ['Sports体育'], ['World世界']]
+            name:["国内","世界","体育","社会","历史","娱乐",
+                        "军事","政府","教育","经济","评论","其他"],
+            source:[['topic','今日','近七日'],['评论'],['国内'], ['教育'], ['娱乐'], ['经济'],['政府'],
+              ['历史'], ['军事'], ['其他'], ['社会'], ['体育'], ['世界']] ,
+
+            //高频词的热力图数据
+            heatmap_x_axis:[],
+            today_freq_heat_data:[],
+            one_week_freq_heat_data:[],
+            heatmap:'',
         };
     },
     created() {
@@ -303,22 +318,26 @@ export default {
         this.init()
         // this.WordCloud('hot_freq_words');
         this.ResultofHospot();
+
         this.init()
     },
     methods: {
+
         handleClick(tab) {
             if(tab.name == "first") {
                 this.isChildUpdate1 = true;
+                this.getHotTopic("today_hot_distribution1",this.today_news_distribution,'今日新闻主题分类')
                 this.getKeyWords("hot_key_words1",this.key_words.today,'今日新闻高影响力词分布词云');
-                this.getFreqWords("hot_freq_words1",this.freq_words.today,'今日新闻高频词分布词云');
+                this.getFreqWords("hot_freq_words1",this.freq_words.today,'今日新闻高频词分布');
                 this.isChildUpdate2 = false;
                 this.isChildUpdate3 = false;
             } else if(tab.name == "third") {
                 this.isChildUpdate1 = false;
                 this.isChildUpdate2 = false;
                 this.isChildUpdate3 = true;
+                this.getHotTopic("today_hot_distribution3",this.nearly_one_week_news_distribution,'近七日新闻主题分类')
                 this.getKeyWords("hot_key_words3",this.key_words.nearly_one_week,'近七日新闻高影响力词分布词云');
-                this.getFreqWords("hot_freq_words3",this.freq_words.nearly_one_week,'近七日新闻高频词分布词云');
+                this.getFreqWords("hot_freq_words3",this.freq_words.nearly_one_week,'近七日新闻高频词分布');
             }
         },
         // 获取高频词列表
@@ -330,7 +349,8 @@ export default {
                 this.freq_words_list[i] = obj;
             }
             this.$nextTick(() => {
-                this.WordCloud(id,this.freq_words_list,title);
+                this.drawRose(id,this.freq_words_list,title);
+
             })
 
         },
@@ -347,6 +367,64 @@ export default {
             })
 
         },
+      getHotTopic(id,today_news_distribution,title){
+        this.$nextTick(() => {
+          this.drawDistribution(id,today_news_distribution,title);
+        })
+      },
+
+      drawRose(id,data,title){
+          data = data.slice(0,20);
+        // 基于准备好的dom，初始化echarts实例
+        this.chart = echarts.init(document.getElementById(id));
+        // 指定图表的配置项和数据
+
+
+        var option = {
+          title: {
+            text: title,
+            x: "center",
+            top:'1%',//各个方向的内边距，默认是5，可以自行设置
+            textStyle:{//标题内容的样式
+              fontStyle:'normal',//主标题文字字体风格，默认normal，有italic(斜体),oblique(斜体)
+              fontWeight:"normal",//可选normal(正常)，bold(加粗)，bolder(加粗)，lighter(变细)，100|200|300|400|500...
+              fontSize:15//主题文字字体大小，默认为18px
+
+            },
+            left: 'center'
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+          },
+
+          series: [
+
+            {
+              name: '面积模式',
+              type: 'pie',
+              radius: [30, 110],
+              roseType: 'area',
+              data: data,
+            }
+          ]
+        }
+
+
+        this.chart.setOption(option);
+        // window.addEventListener("resize", function() {
+        //   this.chart.resize()
+        // })
+        // setTimeout(function () {
+        //     var width = $('#aside').width();
+        //     if(width=='100'|| width=='60'){ //一定要加定时器，然后判断宽度是展开或者收起的时候再去调用echarts提供的resize()方法
+        //         this.chart.resize();
+        //     }
+        //  },200);
+        // window.addEventListener("resize", function() {
+        //   this.chart.resize();
+        // });
+      },
         // 获取热点挖掘的数据
         ResultofHospot(){
             fetch(hotspoturl, {
@@ -375,7 +453,18 @@ export default {
                 this.today_news_dis = Object.values(this.today_news_distribution);
                 this.nearly_one_week_news_distribution = this.hotspotRes.hot_statistics.nearly_one_week_news_distribution;
                 this.nearly_one_week_news_dis = Object.values(this.nearly_one_week_news_distribution);
-                // console.log(this.today_news_dis);
+
+                //获取高频词热力图所需要的数据
+                var today_freq_heat = this.hotspotRes.hot_freq_words.today;
+                //测试接受数据是否正确
+                for(let i=0;i<10;i++){
+                  this.today_freq_heat_data.push({
+                    'name':today_freq_heat[i].word,
+                    'value':today_freq_heat[i].frequency
+                  });
+                }
+
+
                 //柱状图
                 var i = 1
 
@@ -386,15 +475,16 @@ export default {
                      console.log(i)
                      // this.source = a.concat(b);
                 }
-                setTimeout(()=>{
-                    this.drawDistribution("today_hot_distribution",this.today_news_distribution,'今日');
-                    // this.drawDistribution("today_hot_distribution",this.nearly_one_week_news_dis,'近七日');
-                })
+
+                // setTimeout(()=>{
+                //     this.drawDistribution("today_hot_distribution",this.today_news_distribution,'今日');
+                //     // this.drawDistribution("today_hot_distribution",this.nearly_one_week_news_dis,'近七日');
+                // })
                 console.log("success")
                 //折线图
                 this.hot_statistics = this.hotspotRes.hot_statistics;
                 this.news_info[0] = {
-                    name: 'Domestic国内',
+                    name: '国内',
                     type: 'bar',
                     stack: '总量',
                     // label: {
@@ -404,7 +494,7 @@ export default {
                     data: this.hot_statistics.domestic_trend
                 },
                 this.news_info[1] = {
-                    name: 'World世界',
+                    name: '世界',
                     type: 'bar',
                     stack: '总量',
                     // label: {
@@ -414,7 +504,7 @@ export default {
                     data: this.hot_statistics.world_trend
                 },
                 this.news_info[2] = {
-                    name: 'Sports体育',
+                    name: '体育',
                     type: 'bar',
                     stack: '总量',
                     // label: {
@@ -424,7 +514,7 @@ export default {
                     data: this.hot_statistics.sports_trend.map((item, index, arr)=> item * -1 )
                 },
                 this.news_info[3] = {
-                    name: 'Society社会',
+                    name: '社会',
                     type: 'bar',
                     stack: '总量',
                     // label: {
@@ -434,7 +524,7 @@ export default {
                     data: this.hot_statistics.society_trend
                 },
                 this.news_info[4] = {
-                    name: 'History历史',
+                    name: '历史',
                     type: 'bar',
                     stack: '总量',
                     // label: {
@@ -444,7 +534,7 @@ export default {
                     data: this.hot_statistics.history_trend.map((item, index, arr)=> item * -1 )
                 },
                 this.news_info[5] = {
-                    name: 'Entertainment娱乐',
+                    name: '娱乐',
                     type: 'bar',
                     stack: '总量',
                     // label: {
@@ -454,7 +544,7 @@ export default {
                     data: this.hot_statistics.entertainment_trend.map((item, index, arr)=> item * -1 )
                 },
                 this.news_info[6] = {
-                    name: 'Military军事',
+                    name: '军事',
                     type: 'bar',
                     stack: '总量',
                     // label: {
@@ -464,7 +554,7 @@ export default {
                     data: this.hot_statistics.military_trend.map((item, index, arr)=> item * -1 )
                 },
                 this.news_info[7] = {
-                    name: 'Government政府',
+                    name: '政府',
                     type: 'bar',
                     stack: '总量',
                     // label: {
@@ -474,7 +564,7 @@ export default {
                     data: this.hot_statistics.government_trend.map((item, index, arr)=> item * -1 )
                 },
                 this.news_info[8] = {
-                    name: 'Education教育',
+                    name: '教育',
                     type: 'bar',
                     stack: '总量',
                     // label: {
@@ -484,7 +574,7 @@ export default {
                     data: this.hot_statistics.education_trend.map((item, index, arr)=> item * -1 )
                 },
                 this.news_info[9] = {
-                    name: 'Finance经济',
+                    name: '经济',
                     type: 'bar',
                     stack: '总量',
                     // label: {
@@ -494,7 +584,7 @@ export default {
                     data: this.hot_statistics.finance_trend
                 },
                 this.news_info[10] = {
-                    name: 'Comment评论',
+                    name: '评论',
                     type: 'bar',
                     stack: '总量',
                     // label: {
@@ -504,7 +594,7 @@ export default {
                     data: this.hot_statistics.comment_trend.map((item, index, arr)=> item * -1 )
                 },
                 this.news_info[11] = {
-                    name: 'Other其他',
+                    name: '其他',
                     type: 'bar',
                     stack: '总量',
                     // label: {
@@ -515,6 +605,7 @@ export default {
                 },
                 this.getDay();
                 this.drawTrend("hot_trend",this.one_week_time.reverse(),this.news_info);
+
                 //词云1
                 this.freq_words = this.hotspotRes.hot_freq_words;
                 // var freq_words1 = this.freq_words.today;
@@ -532,20 +623,9 @@ export default {
                 // this.getKeyWords("hot_key_words1",key_words1,'今日新闻高影响力词分布词云');
                 // this.getKeyWords("hot_key_words2",key_words2,'近三日新闻高影响力词分布词云');
                 this.getKeyWords("hot_key_words3",key_words3,'近七日新闻高影响力词分布词云');
-                // for(let i = 0; i < 100; i++){
-                //     let obj = {};
-                //     obj.name = key_words2[i].word;
-                //     obj.value = key_words2[i].influence;
-                //     this.key_words2_list[i] = obj;
-                // }
-                // this.$nextTick(() => {
-                //     this.WordCloud("hot_key_words2",this.key_words2_list,'近三日新闻高影响力词分布词云');
-                // })
 
-
-
-                // }
-                // this.recent_half_hour_increase_news = hotspotRes.hot_statistics.nearly_one_week_news_distribution
+                //近七天的话题柱状图
+                this.getHotTopic("today_hot_distribution3",this.nearly_one_week_news_distribution,'近七日新闻主题分类')
             })
         },
         //词云
@@ -622,7 +702,7 @@ export default {
                     width: "200%",
                     height: "200%",
                     //数据
-                    data: words
+                    data: words.slice(0,words.length-40)
                   }
                 ]
             };
@@ -639,31 +719,97 @@ export default {
             // 基于准备好的dom，初始化echarts实例
             this.chart = echarts.init(document.getElementById(id));
             // 指定图表的配置项和数据
+            var option1 = {
+              title: {
+                text: date,
+                x: "center",
+                padding:9,
+                top:'0%',//各个方向的内边距，默认是5，可以自行设置
+                textStyle:{//标题内容的样式
+                  fontStyle:'normal',//主标题文字字体风格，默认normal，有italic(斜体),oblique(斜体)
+                  fontWeight:"normal",//可选normal(正常)，bold(加粗)，bolder(加粗)，lighter(变细)，100|200|300|400|500...
+                  fontSize:15//主题文字字体大小，默认为18px
+                },
+
+              },
+              color: ['#3398DB'],
+              tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                  type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+              },
+              dataset: {
+                source: this.source
+              },
+              grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '10%',
+                containLabel: true
+              },
+              xAxis: [
+                {
+                  type: 'value',
+                }
+
+              ],
+              yAxis: [
+                {
+                  type: 'category',
+                  name: '主题',
+                  nameTextStyle:{
+                    fontSize:'10',
+                  },
+                  axisLabel: {
+                    interval:0,
+                    fontSize:'10',
+                    fontFamily:'微软雅黑',
+                  },
+                  data:['评论', '国内', '教育', '娱乐', '经济','政府', '历史', '军事', '其他', '社会', '体育', '世界'],
+
+                  axisTick: {
+                    alignWithLabel: true
+                  }
+                }
+              ],
+              series: [
+                {
+                  name: date,
+                  type: "bar",
+                  data: Object.values(data1),
+                  // name: '直接访问',
+                  // type: 'bar',
+                  barWidth: '60%',
+                  // data: [10, 52, 200, 334, 390, 330, 220]
+                }
+              ]
+            }
             var option = {
                 // color:['#E47470','#7EBF50','#589EF8'],
                 // color:['rgb(210,100,93)','rgb(228,116,79)','rgb(242,176,110)','rgb(249,224,150)','rgb(255,254,198)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,134,183)','rgb(125,169,185)'],
                 color:['rgb(227,158,156)','rgb(224,108,146)','rgb(197,151,212)','rgb(175,159,215)','rgb(160,169,214)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,144,173)','rgb(126,180,225)'].reverse(),
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow'
-                    }
-                },
+                // tooltip: {
+                //     trigger: 'axis',
+                //     axisPointer: {
+                //         type: 'shadow'
+                //     }
+                // },
                 title: {
-                    // text: '主题分布图',
+                    text: '今日主题分布图',
                     textAlign: "center",
                     left:'50%',//各个方向的内边距，默认是5，可以自行设置
                 },
                 dataset: {
                     source: this.source
                 },
-                grid:{
-                    top:'10%',
-                    // left:'5%',
-                    right:'60%',
-                    bottom:'40%',
-                    // containLabel:true
-                },
+                // grid:{
+                //     top:'10%',
+                //     // left:'5%',
+                //     right:'0%',
+                //     bottom:'10%',
+                //     // containLabel:true
+                // },
                 legend: {
                   data:this.source[0],
                     // data: [
@@ -713,7 +859,7 @@ export default {
                         fontSize:'10',
                         fontFamily:'微软雅黑',
                     },
-                    data:['Comment评论', 'Domestic国内', 'Education教育', 'Entertainment娱乐', 'Finance经济','Government政府', 'History历史', 'Military军事', 'Other其他', 'Society社会', 'Sports体育', 'World世界']
+                    data:['评论', '国内', '教育', '娱乐', '经济','政府', '历史', '军事', '其他', '社会', '体育', '世界']
                 },
                 xAxis: {
                     type: 'value',
@@ -734,48 +880,27 @@ export default {
                         type: "bar",
                         data: Object.values(data1),
                     },
-                    {
-                        type: 'pie',
-                        id: 'pie',
-                        radius: [20, 110],
-                        //
-                        // roseType: 'radius',
-                        roseType: 'area',
-                        left:'40%',
-                        bottom:'30%',
-                        label: {
-                            formatter: '{@date}'+':'+ '{@今日}({d}%)'
-                        },
-                        // data: [Object.keys(data1),Object.values(data1)],
-                        encode: {
-                            itemName: date,
-                            value: '今日',
-                            tooltip: '今日'
-                        }
-
-
-                    }
                 ]
             };
-            this.chart.on('updateAxisPointer', function (event) {
-                var xAxisInfo = event.axesInfo[0];
-                if (xAxisInfo) {
-                    var dimension = xAxisInfo.value + 1;
-                    this.chart.setOption({
-                        series: {
-                            id: 'pie',
-                            label: {
-                                formatter: '{b}: {@[' + dimension + ']} ({d}%)'
-                            },
-                            encode: {
-                                value: dimension,
-                                tooltip: dimension
-                            }
-                        }
-                    });
-                }
-            });
-            this.chart.setOption(option);
+            // this.chart.on('updateAxisPointer', function (event) {
+            //     var xAxisInfo = event.axesInfo[0];
+            //     if (xAxisInfo) {
+            //         var dimension = xAxisInfo.value + 1;
+            //         this.chart.setOption({
+            //             series: {
+            //                 id: 'pie',
+            //                 label: {
+            //                     formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+            //                 },
+            //                 encode: {
+            //                     value: dimension,
+            //                     tooltip: dimension
+            //                 }
+            //             }
+            //         });
+            //     }
+            // });
+            this.chart.setOption(option1);
             // window.addEventListener("resize", function() {
             //   this.chart.resize()
             // })
@@ -930,7 +1055,7 @@ export default {
                 // this.percentCharts.resize();
             }
         },
-
+        //画出热力图
         init() {
            const self = this;//因为箭头函数会改变this指向，指向windows。所以先把this保存
            setTimeout(() => {
@@ -940,6 +1065,8 @@ export default {
               })
            },10)
          },
+    }
+}
         // tableRowClassName({row, rowIndex}) {
         //     if (rowIndex === 0) {
         //       return 'warning-row';
@@ -950,8 +1077,6 @@ export default {
         //     }
         //     return '';
         // }
-    }
-};
 </script>
 
 <style scoped type="text/css">
