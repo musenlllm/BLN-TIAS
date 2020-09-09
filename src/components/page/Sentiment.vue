@@ -4,7 +4,7 @@
             <el-header style="height: max-content;text-align: center;">
                 <!--<h1 style="color: gray">情感分析</h1>-->
 
-              <el-card class="noBorderInput"style="border: 0px; margin-top: 20px;border-radius: 0;
+              <el-card class="noBorderInput"style="border: 0px; margin-top: 20px;border-radius: 0;max-height: 275px;
         background-color: #fff;
         box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
                       <h1 style=" letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px">情感分析</h1>
@@ -51,8 +51,8 @@
                         <div slot="header" class="clearfix">
                             <span style="color: black;font-size: 18px">今日新闻情感分析结果</span>
                         </div>
-                        <el-container style="margin: -20px">
-                            <el-aside width="50%" style="margin-top:-1px">
+                        <el-container style="margin: -20px;margin-right: -9px;height:100%;">
+                            <el-aside width="50%" style="margin-top:-1px;margin-right: 10px;margin-left: 11px;height:100%">
                                 <el-row :gutter="0" >
                                     <el-col :span="24" style="padding: 0px;margin-top:-2px;margin-left: -1px;margin-right: 1px">
                                         <el-card :body-style="{padding: '0px',shadow:'never'}" style="border-radius: 0;" shadow="never">
@@ -78,12 +78,12 @@
                                     </el-col>
                                 </el-row>
                                 <!--今日小时曲线图-->
-                                <div id="today_emotionLevel" style="width:100%;height:400px;"></div>
+                                <div id="today_emotionLevel" style="width:100%;height:390px;"></div>
                             </el-aside>
-                            <el-main style="text-align:center;margin: -20px;margin-bottom: -10px" >
-                                <el-tabs type="card" stretch=true style="margin-right:-16px;margin-left: -2px;margin-top:-1px;border-radius: 0;">
+                            <el-main style="text-align:center;margin: -20px;margin-bottom: -20px;margin-right: 0px" >
+                                <el-tabs type="border-card" stretch=true style="padding:-10%;margin-right:-16px;margin-left: -2px;margin-top:-1px;border-radius: 0;">
                                     <el-tab-pane>
-                                      <span slot="label" style="">正面新闻</span>
+                                      <span slot="label" >正面新闻</span>
                                         <el-table
                                             :data="pos_news"
                                             stripe
@@ -92,20 +92,23 @@
                                             :show-overflow-tooltip=true
                                             @sort-change="changeSort"
                                             :default-sort="{prop: 'rank', order: 'ascending'}"
-                                            max-height="460px"
-
+                                            max-height="420px"
+                                            margin-right = "-10%"
                                         >
                                             <el-table-column align='center'
                                                     type="index"
                                                     :show-overflow-tooltip=true
                                                     :sort-orders="['ascending', 'descending']"
                                                     width="40%"
+
                                             >
                                             </el-table-column>
                                             <el-table-column
                                               prop="news"
                                               label="日期"
                                               :show-overflow-tooltip=true
+                                              width="280%"
+                                              margin-right = "-10%"
                                             >
                                                 <template slot-scope="scope">
                                                     <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.news}}</a>
@@ -127,6 +130,7 @@
                                                     sortable
                                                     label="日期"
                                                     :show-overflow-tooltip=true
+                                                    margin-left = "-10%"
                                             >
                                                 <template slot-scope="scope">
                                                     <span >发布时间：{{scope.row.publish_time}}</span>
@@ -135,14 +139,15 @@
                                       </el-table>
                                     </el-tab-pane>
                                     <el-tab-pane label="负面新闻">
-                                      <span slot="label" style="">负面新闻</span>
+                                      <span slot="label" >负面新闻</span>
                                         <el-table
                                             :data="neg_news"
                                             stripe
-                                            style="width: 100%;text-align: center;fontSize:13px"
+                                            style="width: 120%;text-align: center;fontSize:13px;margin-bottom: -10px"
                                             :show-header=false
                                             :show-overflow-tooltip=true
-                                            max-height="400px"
+                                            max-height="460px"
+                                            margin-right = "-10%"
 
                                         >
                                             <el-table-column align='center'
@@ -151,11 +156,14 @@
                                                     sortable
                                                     :sort-orders="['ascending', 'descending']"
                                                     width="40%"
+                                                             margin-right = "-10%"
                                             >
                                             </el-table-column>
                                             <el-table-column
                                                     prop="news"
                                                     :show-overflow-tooltip=true
+                                                    width="280%"
+                                                    margin-right = "-10%"
                                             >
                                                 <template slot-scope="scope">
                                                     <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.news}}</a>
@@ -172,6 +180,7 @@
                                             <!--</el-table-column>-->
                                             <el-table-column prop="publish_time"
                                                             :show-overflow-tooltip=true
+                                                             margin-left = "-10%"
                                             >
                                                 <template slot-scope="scope">
                                                     <span >发布时间：{{scope.row.publish_time}}</span>
@@ -228,7 +237,7 @@ export default {
     data() {
         return {
             text: '',
-            summaryText: '印度军方说，解放军的重型坦克和轻型坦克部署位置处在印度驻军的火力范围以内。印度驻军全副武装，拥有坦克和火炮的支援。据《今日印度》9月1日报道，印度陆军已经在斯潘古尔湖和楚舒勒之间的平原上部署了一个坦克团，这里也是8月底印度侵犯中国领土、与解放军发生冲突的位置附近。(请输入文本)',
+            summaryText: '9月8日上午，全国抗击新冠肺炎疫情表彰大会在北京人民大会堂隆重举行。已84岁高龄的中国工程院院士、广州医科大学附属第一医院国家呼吸系统疾病临床医学研究中心主任钟南山获颁“共和国勋章”。',
             sentimentscore:0,
             history:{},
 
@@ -378,7 +387,7 @@ export default {
                 for (let i = 0; i < 24; i++) {
                     pos_count.push(this.today_pos_trend[i].count);
                     neg_count.push(this.today_neg_trend[i].count);
-                    each_hour.push(this.today_pos_trend[i].timestamp+':00');
+                    each_hour.push(this.today_pos_trend[i].timestamp);
                 }
                 //热门主题情感分布
 
@@ -873,15 +882,25 @@ export default {
         drawToday(id,pos,neg,hour){
           this.charts = echarts.init(document.getElementById(id));
           var option = {
-            color:['#8dbf6a','#eb7777'],
-            title: {
-                text: '近24小时增长图',
-                textAlign: 'center',
-                left:'260px'
-            },
+            // color:['#8dbf6a','#eb7777'],
+            // color:['#E9E9E9','#9EBACB'],
+            color:['#9EBACB','#E9E9E9'],
+            // color:['#E47470','#6B2A4A'],
+            // title: {
+            //     text: '近24小时增长图',
+            //     textAlign: 'center',
+            //     left:'260px'
+            // },
             tooltip: {
                 trigger: 'axis'
             },
+            grid:{
+                  x:50,
+                  y:50,
+                  x2:40,
+                  y2:60,
+                  borderWidth:10
+	          },
             legend: {
                 data: ['正面新闻', '负面新闻'],
                 orient: 'vertical',
@@ -893,8 +912,19 @@ export default {
                   data: hour,
                   axisLabel: {
                         interval:0,
-                        rotate:90,
-                        formatter:'{value}',
+                        // rotate:90,
+                        formatter:function(value) {
+                            if (Math.abs(value) % 2 == 0) {
+                              return value+':00';
+                          }
+                        },
+                        //     if(parseInt(param.value) % 2 ==0)
+                        //     {
+                        //       return '{a}:00';
+                        //     }else {
+                        //       return "1";
+                        //     }
+                        // },
                         fontSize: '14',
                         fontFamily: '微软雅黑',
                         marginleft: '15px',
@@ -914,13 +944,15 @@ export default {
                     name: '正面新闻',
                     type: 'line',
                     data: pos,
-                    smooth: true
+                    smooth: true,
+                    areaStyle: {}
                 },
                 {
                     name: '负面新闻',
                     type: 'line',
                     data: neg,
-                    smooth: true
+                    smooth: true,
+                    areaStyle: {}
                 },
             ]
           }
@@ -1169,13 +1201,15 @@ export default {
                 name: '正面新闻',
                 type: 'line',
                 data: pos,
-                smooth: true
+                smooth: true,
+                areaStyle: {}
               },
               {
                 name: '负面新闻',
                 type: 'line',
                 data: neg,
-                smooth: true
+                smooth: true,
+                areaStyle: {}
               },
             ]
 
@@ -1249,7 +1283,7 @@ export default {
                     axisTick: {
                         show: false
                     },
-                    data: ['education','entertainment','finance','politics','society','sports','technology'],
+                    data: ['教育','娱乐','经济','政治','社会','体育','科技'],
                     // seriesLayoutBy: 'column',
                     // axisLabel: {
                     //     fontSize:'15',
@@ -1493,6 +1527,7 @@ export default {
         font-size: 14px;
         color: #f3fbf8;
 
+
     }
     .right-text{
         margin-bottom: 5%;
@@ -1502,6 +1537,7 @@ export default {
     .right-text .grid-text {
         font-size: 22px;
         font-weight: bold;
+
         margin-left: 10%;
         margin: 10%;
     }
@@ -1509,11 +1545,13 @@ export default {
         font-size: 20px;
         font-weight: bold;
         margin-left: 10%;
+
         /*margin: 10%;*/
     }
 
     .grid-con-1 .grid-con-text {
         flex: 1;
+
         /*flex-direction: row;*/
         font-weight: bold;
         font-size: 20px;
@@ -1522,7 +1560,7 @@ export default {
         text-align: center;
         /*line-height: 100%;*/
         /*justify-content: center;*/
-        color: #fff;
+        /*color: #fff;*/
     }
     .grid-con-text .grid-num {
         font-size: 20px;
@@ -1578,28 +1616,9 @@ export default {
         align-items: center;
         height: 100px;
         background: rgb(45, 140, 240);
+        /*background-color: #488CE9;*/
     }
-    .grid-content1 {
-        flex-direction: row;
-        display: flex;
-        align-items: center;
-        height: 100px;
-        background: #589bf5;
-    }
-    .grid-content2 {
-        flex-direction: row;
-        display: flex;
-        align-items: center;
-        height: 100px;
-        background: #57a6ff;
-    }
-    .grid-content3 {
-        flex-direction: row;
-        display: flex;
-        align-items: center;
-        height: 100px;
-        background: #61aaff;
-    }
+
     .el-div{
         width: 1px;
         height: 70%;
@@ -1640,5 +1659,6 @@ export default {
 .el-card__body{
   box-shadow: none !important;
 }
+
 </style>
 

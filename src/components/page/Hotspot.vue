@@ -3,12 +3,12 @@
     <div>
         <el-container>
             <el-header style="height: max-content;text-align: center">
-              <el-card class="noBorderInput"style="border: 0px; margin-top: 20px;border-radius: 0;
+              <el-card class="noBorderInput"style="border: 0px; margin-top: 15px;border-radius: 0;
       background-color: #fff;
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
 
-                <div slot="header" class="diyCardHead" >
-                <h1 style="color: black; letter-spacing: 10px; font-weight: normal; font-size: 25px; "> 热点挖掘</h1>
+                <div slot="header" class="diyCardHead" style="margin-bottom: -1%;margin-top: -1.5%">
+                  <h1 style="color: black; letter-spacing: 10px; font-weight: normal; font-size: 25px; "> 热点挖掘</h1>
                 </div>
 
                 <div class="diyCardBody" style="margin-top: 0px">
@@ -195,12 +195,9 @@
                     </el-col>
                   </el-row>
                 </div>
-
-
               </el-card>
-
             </el-header>
-            <el-main  style="margin-left: 1px; margin-top: 10px; text-align: center">
+            <el-main  style="margin-left: 0px; margin-top: -30px; text-align: center">
 
                 <!--<el-card class="box-card" style="min-height:200px; margin-top: 20px;text-align: center">-->
                 <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
@@ -217,7 +214,7 @@
                             </div>
                         </el-tab-pane>
                         <el-tab-pane label="近七日" name="third">
-                            <div class="wrap" v-if="isChildUpdate3">
+                            <div class="wrap" v-if="isChildUpdate3" style="display: flex; justify-content: space-around">
                                 <div id = "hot_key_words3" style="width:30%;min-height:400px;" ></div>
                                 <div id = "hot_freq_words3" style="width:30%;min-height:400px;" ></div>
                                 <div id="today_hot_distribution3" style="width:30%;height:400px;"></div>
@@ -230,17 +227,17 @@
             <!--</el-main>-->
             <!--<el-main style="text-align: center; margin-top: 10px; ">-->
                 <!--<el-card class="box-card" style="min-height: 400px;margin-top: 20px;text-align: center">-->
-                <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
-                    <div slot="header" class="clearfix" style="font-size: 18px">
-                        <span>新闻主题分布图</span>
-                    </div>
-                    <div id="today_hot_distribution" style="width:100%;height:600px;"></div>
-                    <div id="week_hot_distribution" style="width:100%;height:600px;">近七日</div>
-                  <!--{{this.recent_half_hour_increase_news}}-->
-                  <!--{{this.nearly_one_week_news_dis}}-->
-                  <!--{{this.nearly_three_days_news_dis}}-->
-                  <!--{{this.today_news_dis}}-->
-                </el-card>
+                <!--<el-card class="noBorderInput" :body-style="{padding: '0px'}" style="text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">-->
+                    <!--<div slot="header" class="clearfix" style="font-size: 18px">-->
+                        <!--<span>新闻主题分布图</span>-->
+                    <!--</div>-->
+                    <!--<div id="today_hot_distribution" style="width:100%;height:600px;"></div>-->
+                    <!--<div id="week_hot_distribution" style="width:100%;height:600px;">近七日</div>-->
+                  <!--&lt;!&ndash;{{this.recent_half_hour_increase_news}}&ndash;&gt;-->
+                  <!--&lt;!&ndash;{{this.nearly_one_week_news_dis}}&ndash;&gt;-->
+                  <!--&lt;!&ndash;{{this.nearly_three_days_news_dis}}&ndash;&gt;-->
+                  <!--&lt;!&ndash;{{this.today_news_dis}}&ndash;&gt;-->
+                <!--</el-card>-->
                 <!--<el-card class="box-card" style="min-height: 50px; margin-top: 20px">-->
                 <el-card class="noBorderInput" :body-style="{padding: '0px'}" style="text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
                     <div slot="header" class="clearfix" style="font-size: 18px">
@@ -266,51 +263,62 @@ const hotspoturl = "http://49.234.217.110:5000/api/hotspot";
 export default {
     name: 'basetable',
     data() {
-        return {
-            hotspotRes:{},
-            items: [],
-            // 柱状图
-            charts: "",
-            view_number: "",
-            hot_event:[],
-            hot_topic:[],
-            freq_words:[],
-            freq_words_list:[],
-            freq_words1_list:[],
-            freq_words2_list:[],
-            freq_words3_list:[],
-            key_words:[],
-            key_words_list:[],
-            key_words1_list:[],
-            key_words2_list:[],
-            entData:[],
-            activeName: 'third',
-            isChildUpdate1:false,
-            isChildUpdate2:false,
-            isChildUpdate3:true,
-            recent_half_hour_increase_news:[],
-            test:{"name":"Liza", "password":"123"},
-            hot_statistics:{},
-            today_news_distribution:{},
-            today_news_dis:[],
-            nearly_three_days_news_distribution:{},
-            nearly_three_days_news_dis:[],
-            nearly_one_week_news_distribution:{},
-            nearly_one_week_news_dis:[],
+      return {
+        hotspotRes: {},
+        items: [],
+        // 柱状图
+        charts: "",
+        view_number: "",
+        hot_event: [],
+        hot_topic: [],
+        freq_words: [],
+        freq_words_list: [],
+        freq_words1_list: [],
+        freq_words2_list: [],
+        freq_words3_list: [],
+        key_words: [],
+        key_words_list: [],
+        key_words1_list: [],
+        key_words2_list: [],
+        entData: [],
+        activeName: 'third',
+        isChildUpdate1: false,
+        isChildUpdate2: false,
+        isChildUpdate3: true,
+        recent_half_hour_increase_news: [],
+        test: {"name": "Liza", "password": "123"},
+        hot_statistics: {},
+        today_news_distribution: {},
+        today_news_dis: [],
+        nearly_three_days_news_distribution: {},
+        nearly_three_days_news_dis: [],
+        nearly_one_week_news_distribution: {},
+        nearly_one_week_news_dis: [],
 
-            one_week_time : [],
-            news_info:[],
-            name:["国内","世界","体育","社会","历史","娱乐",
-                        "军事","政府","教育","经济","评论","其他"],
-            source:[['topic','今日','近七日'],['评论'],['国内'], ['教育'], ['娱乐'], ['经济'],['政府'],
-              ['历史'], ['军事'], ['其他'], ['社会'], ['体育'], ['世界']] ,
+        one_week_time: [],
+        news_info: [],
+// <<<<<<< Updated upstream
+        name: ["国内", "世界", "体育", "社会", "历史", "娱乐",
+          "军事", "政府", "教育", "经济", "评论", "其他"],
+        source: [['topic', '今日', '近七日'], ['评论'], ['国内'], ['教育'], ['娱乐'], ['经济'], ['政府'],
+          ['历史'], ['军事'], ['其他'], ['社会'], ['体育'], ['世界']],
 
-            //高频词的热力图数据
-            heatmap_x_axis:[],
-            today_freq_heat_data:[],
-            one_week_freq_heat_data:[],
-            heatmap:'',
-        };
+        //高频词的热力图数据
+        heatmap_x_axis: [],
+        today_freq_heat_data: [],
+        one_week_freq_heat_data: [],
+        heatmap: '',
+        image1: "data:image/png;base64,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",
+
+// =======
+//             name:["Domestic国内","World世界","Sports体育","Society社会","History历史","Entertainment娱乐",
+//                         "Military军事","Government政府","Education教育","Finance经济","Comment评论","Other其他"],
+//             source:[['topic','今日','近七日'],['Comment评论'],['Domestic国内'], ['Education教育'], ['Entertainment娱乐'], ['Finance经济'],['Government政府'],
+//               ['History历史'], ['Military军事'], ['Other其他'], ['Society社会'], ['Sports体育'], ['World世界']],
+        image2:"data:image/png;base64,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",
+        image3:"data:image/png;base64,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",
+        image4:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABU0lEQVQ4T6WTsUsCYRjGf9/daXfnFu1N1RoFESQJLf0DBU39Bw5KChY0OHgStdTQ1iAELo2NDhYZtBXhEm0RlNGUnEl3X5yinJJ60jd9vB/83ud93ucTUkqVfxwxLmD5nMjjO9NfCape37EBSo47CQt6iFU7RaUHED5g23FYUVVummkK/ZMZeWINl1KnLqDcBfgfFUHWyZDtB5iHLNlNKp16WGNT6JZc+3Y5kjALmH66oZOoJ3mInmHevrHjSvZ90GrEYKulQOT4GbKIDwEvEuZbpkHZNIh7d8/IFkDJUZIQC7pNuYvWVeoBJvJsNF2KQQFmiMV6ivueNY4DUQTHTobkwByoVtusPtO6AhXBqZNp+zAwSEMU1aZ0orUkzyOTqFgUBbxKyZyEdQEXYY1CI81lj4mjzAtZ7Gkq13aaK288f8gC/YWZEyaf4nz+1SgQYJjCXzBWkv34rjyaAAAAAElFTkSuQmCC",
+      }
     },
     created() {
     },
@@ -329,11 +337,11 @@ export default {
                 this.getHotTopic("today_hot_distribution1",this.today_news_distribution,'今日新闻主题分类')
                 this.getKeyWords("hot_key_words1",this.key_words.today,'今日新闻高影响力词分布词云');
                 this.getFreqWords("hot_freq_words1",this.freq_words.today,'今日新闻高频词分布');
-                this.isChildUpdate2 = false;
+                // this.isChildUpdate2 = false;
                 this.isChildUpdate3 = false;
             } else if(tab.name == "third") {
                 this.isChildUpdate1 = false;
-                this.isChildUpdate2 = false;
+                // this.isChildUpdate2 = false;
                 this.isChildUpdate3 = true;
                 this.getHotTopic("today_hot_distribution3",this.nearly_one_week_news_distribution,'近七日新闻主题分类')
                 this.getKeyWords("hot_key_words3",this.key_words.nearly_one_week,'近七日新闻高影响力词分布词云');
@@ -463,8 +471,6 @@ export default {
                     'value':today_freq_heat[i].frequency
                   });
                 }
-
-
                 //柱状图
                 var i = 1
 
@@ -481,6 +487,18 @@ export default {
                 //     // this.drawDistribution("today_hot_distribution",this.nearly_one_week_news_dis,'近七日');
                 // })
                 console.log("success")
+
+                //词云
+                this.key_words = this.hotspotRes.hot_key_words;
+                // var key_words1 = this.key_words.today;
+                // var key_words2 = this.key_words.nearly_three_days;
+                // var key_words3 = this.key_words.nearly_one_week;
+                // this.getKeyWords("hot_key_words1",key_words1,'今日新闻高影响力词分布词云');
+                // this.getKeyWords("hot_key_words2",key_words2,'近三日新闻高影响力词分布词云');
+                this.getKeyWords("hot_key_words3",this.key_words.nearly_one_week,'近七日新闻高影响力词分布词云');
+
+
+
                 //折线图
                 this.hot_statistics = this.hotspotRes.hot_statistics;
                 this.news_info[0] = {
@@ -615,14 +633,7 @@ export default {
                 // this.getFreqWords("hot_freq_words2",freq_words2,'近三日新闻高频词分布词云');
                 this.getFreqWords("hot_freq_words3",freq_words3,'近七日新闻高频词分布词云');
 
-                //词云2
-                this.key_words = this.hotspotRes.hot_key_words;
-                // var key_words1 = this.key_words.today;
-                // var key_words2 = this.key_words.nearly_three_days;
-                var key_words3 = this.key_words.nearly_one_week;
-                // this.getKeyWords("hot_key_words1",key_words1,'今日新闻高影响力词分布词云');
-                // this.getKeyWords("hot_key_words2",key_words2,'近三日新闻高影响力词分布词云');
-                this.getKeyWords("hot_key_words3",key_words3,'近七日新闻高影响力词分布词云');
+
 
                 //近七天的话题柱状图
                 this.getHotTopic("today_hot_distribution3",this.nearly_one_week_news_distribution,'近七日新闻主题分类')
@@ -631,7 +642,12 @@ export default {
         //词云
         WordCloud(id,words,title) {
             this.chart = echarts.init(document.getElementById(id));
-            const option = {
+            var maskImage = new Image();
+            maskImage.src = this.image2;
+            maskImage.style.width='100px';
+            maskImage.style.height='100px';
+
+            var option = {
                 colorArr:['#fda67e', '#81cacc', '#cca8ba', "#88cc81", "#82a0c5", '#fddb7e', '#735BA1', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
                 title: {
                     text: title,
@@ -650,9 +666,9 @@ export default {
                 },
                 backgroundColor: "#fff",
                 grid:{
-                    left:'5%',
-                    right:'8%',
-                    bottom:'10%',
+                    left:'',
+                    right:'0%',
+                    bottom:'5%',
                     top:'19%',
                     containLabel:true
                 },
@@ -660,18 +676,19 @@ export default {
                 series: [{
                     type: "wordCloud",
                     //用来调整词之间的距离
-                    gridSize: 5,
+                    gridSize: 0,
                     //用来调整字的大小范围
                     // Text size range which the value in data will be mapped to.
                     // Default to have minimum 12px and maximum 60px size.
-                    sizeRange: [14, 60],
+                    sizeRange: [9, 30],
                     // Text rotation range and step in degree. Text will be rotated randomly in range [-90,                                                                             90] by rotationStep 45
                     //用来调整词的旋转方向，，[0,0]--代表着没有角度，也就是词为水平方向，需要设置角度参考注释内容
                     rotationRange: [-40, 0, 45, 90],
                     // rotationRange: [ 0,90],
                     // rotationRange: [0, 0],
                     //随机生成字体颜色
-                    // maskImage: maskImage,
+                    maskImage: maskImage,
+                    drawOutOfBound:true,
                     textStyle: {
                       normal: {
                         color: function() {
@@ -699,14 +716,17 @@ export default {
                     top: "center",
                     right: null,
                     bottom: null,
-                    width: "200%",
-                    height: "200%",
+                    width: "100%",
+                    height: "100%",
                     //数据
-                    data: words.slice(0,words.length-40)
+                    // data: words.slice(0,words.length-40),
+                    data:words
                   }
                 ]
             };
+
             this.chart.setOption(option);
+
             // window.addEventListener("resize", function() {
             //   this.chart.resize()
             // })
