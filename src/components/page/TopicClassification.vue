@@ -13,7 +13,7 @@
               show-word-limit
               :autosize="{ minRows: 8, maxRows: 11}"
               clearable
-              style="font-size: 15px"
+              style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); font-size: 15px;"
             />
           </el-row>
           <el-row style="margin-top: 17px; display: flex; justify-content: center">

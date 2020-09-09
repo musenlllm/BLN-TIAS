@@ -17,13 +17,8 @@
             show-word-limit
             :autosize="{ minRows: 4, maxRows: 8}"
             clearable
-            style="font-size: 15px"
-          >
-            <!--style=" font-size: 15px; margin-top: 0px;border-radius: 0;-->
-            <!--background-color: #fff;-->
-            <!--box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"-->
-            >
-          </el-input>
+            style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); font-size: 15px;"
+          />
           <el-row style="margin-top: 17px; display: flex; justify-content: center">
             <el-button
               v-on:click="getData"
@@ -511,53 +506,36 @@ export default {
 
         var id = 0;
         // 依据关系列表生成连线
+        var pushlink = function (person, relation) {
+          linklist.push({
+            source: nodedict.indexOf(person),
+            target: nodedict.indexOf(relation),
+            id: id,
+            tooltip: {
+              formatter: personRelationLabel[person + "-" + relation],
+            },
+            lineStyle: {
+              type: "solid",
+              width: 2,
+              color: type2color[relation],
+            },
+            emphasis: {
+              lineStyle: {
+                width: 2 + 2 * lineCnt[person + "-" + relation],
+                type: "solid",
+              },
+            },
+          });
+        };
         items.forEach(function (item) {
           if (personRelationLabel[item.person1 + "-" + item.relation]) {
             id++;
-            linklist.push({
-              source: nodedict.indexOf(item.person1),
-              target: nodedict.indexOf(item.relation),
-              id: id,
-              tooltip: {
-                formatter:
-                  personRelationLabel[item.person1 + "-" + item.relation],
-              },
-              lineStyle: {
-                type: "solid",
-                width: 1,
-                color: type2color[item.relation],
-              },
-              emphasis: {
-                lineStyle: {
-                  width: 2 + 2 * lineCnt[item.person1 + "-" + item.relation],
-                  type: "solid",
-                },
-              },
-            });
+            pushlink(item.person1, item.relation);
             delete personRelationLabel[item.person1 + "-" + item.relation];
           }
           if (personRelationLabel[item.person2 + "-" + item.relation]) {
             id++;
-            linklist.push({
-              target: nodedict.indexOf(item.person2),
-              source: nodedict.indexOf(item.relation),
-              id: id,
-              tooltip: {
-                formatter:
-                  personRelationLabel[item.person2 + "-" + item.relation],
-              },
-              lineStyle: {
-                type: "solid",
-                width: 1,
-                color: type2color[item.relation],
-              },
-              emphasis: {
-                lineStyle: {
-                  width: 2 + 2 * lineCnt[item.person2 + "-" + item.relation],
-                  type: "solid",
-                },
-              },
-            });
+            pushlink(item.person2, item.relation);
             delete personRelationLabel[item.person2 + "-" + item.relation];
           }
         });
