@@ -48,3 +48,8 @@ export default {
     }
 };
 </script>
+<style>
+  .content-box{
+    margin-left: -50px;
+  }
+</style>
