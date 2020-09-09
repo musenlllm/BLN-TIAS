@@ -126,7 +126,7 @@
           </el-card>
         </el-row>
 
-        <el-row style="margin-top:20px">
+        <el-row style="margin:20px 0">
           <el-col :span="12">
             <el-card class="box-card">
               <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">

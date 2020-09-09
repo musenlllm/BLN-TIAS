@@ -31,7 +31,7 @@
       </el-header>
       <el-main
         ref="mainContainer"
-        style="text-align:center;margin-top: 20px;height: 100%;padding:0 20px"
+        style="text-align:center;margin: 20px 0;height: 100%;padding:0 20px"
       >
         <el-row>
           <el-col :span="14">
