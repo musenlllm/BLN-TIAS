@@ -46,12 +46,12 @@
                         </div>
                     </el-card>
                     <!--<el-card class="box-card" style="min-height: 300px;margin-top: 20px" align="middle">-->
-                    <el-card class="box-card" width="60%" style="padding-bottom:-10px;margin-bottom: -10px;margin-right:20px;text-align:center;margin-left:20px;margin-top: 20px;min-height: 170px;border-radius: 0;background-color: #fff;
+                    <el-card class="box-card" width="60%" style="margin-bottom: -10px;margin-right:20px;text-align:center;margin-left:20px;margin-top: 20px;height: 527px;border-radius: 0;background-color: #fff;
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading" shadow="never">
                         <div slot="header" class="clearfix">
                             <span style="color: black;font-size: 18px">今日新闻情感分析结果</span>
                         </div>
-                        <el-container style="margin: -20px;margin-right: -9px;height:100%;">
+                        <el-container style="margin: -20px;margin-right: -9px">
                             <el-aside width="50%" style="margin-top:-1px;margin-right: 10px;margin-left: 11px;height:100%">
                                 <el-row :gutter="0" >
                                     <el-col :span="24" style="padding: 0px;margin-top:-2px;margin-left: -1px;margin-right: 1px">
@@ -92,7 +92,7 @@
                                             :show-overflow-tooltip=true
                                             @sort-change="changeSort"
                                             :default-sort="{prop: 'rank', order: 'ascending'}"
-                                            max-height="420px"
+                                            max-height="388px"
                                             margin-right = "-10%"
                                         >
                                             <el-table-column align='center'
@@ -146,7 +146,7 @@
                                             style="width: 120%;text-align: center;fontSize:13px;margin-bottom: -10px"
                                             :show-header=false
                                             :show-overflow-tooltip=true
-                                            max-height="460px"
+                                            max-height="388px"
                                             margin-right = "-10%"
 
                                         >
@@ -194,33 +194,115 @@
                             </el-main>
                         </el-container>
                     </el-card>
-                    <el-card class="box-card" width="60%" style="margin-right:20px;text-align:center;margin-left:20px;margin-top: 30px;min-height: 300px;border-radius: 0;background-color: #fff;
+                    <el-card class="box-card" width="60%" style="margin-right:20px;text-align:center;margin-left:20px;margin-top: 30px;height: 540px;border-radius: 0;background-color: #fff;
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading">
                         <div slot="header" class="clearfix">
                             <span style="color: black;font-size: 18px">历史新闻情感分析结果</span>
                         </div>
-
-                        <el-row :gutter="20" >
-                            <el-col :span="4">
-                              <div id="history_sum" style="width:300px;height:400px;">
-                              </div>
+                        <el-row :gutter="10" style="width: 1160px;height: 50%" shadow="never">
+                            <!--<el-col :span="8" style="padding: 0px;margin-top:-2px;margin-left: -1%;margin-right: -1%;">-->
+                            <el-col :span="8" style="margin-left: -0.5%">
+                                <el-card :body-style="{padding: '0px',shadow:'never'}" style="border-radius: 0;" shadow="never">
+                                    <div class="grid-content grid-con-1" style="color:#E47470;background-color: white ">
+                                        <div class="grid-con-text" style="width: 30px;color: #35363b;">
+                                            <div class="iconof1" style="border-radius:15px;">
+                                              <span style="color: white">
+                                                <i class="el-icon-s-data" ></i>
+                                              </span>
+                                            </div>
+                                        </div>
+                                        <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
+                                        <div class="grid-cont-right1" style="margin-left: -110px;width:50px;">
+                                            <!--<div class="right-text" style="color: #35363b;margin: 0px">-->
+                                              <div class="right-text">
+                                                <span class="grid-num" style="font-size: 30px;font-weight: bold;color: #35363b;">{{today_num = history_pos_count+history_neg_count}} 条</span>
+                                            </div>
+                                            <!--<div class="right-text" style="color: #35363b;margin: 0px">-->
+                                          <div class="right-text">
+                                                <!--<span class="grid-num">{{today_num = today_negative_count+today_positive_count}} 条</span>-->
+                                                <span class="grid-text" style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;">历史检测新闻总数</span>
+                                            </div>
+                                            <!--<div class="grid-num"></div>-->
+                                        </div>
+                                    </div>
+                                </el-card>
                             </el-col>
-                            <el-col :span="8">
-                              <div id="history_trend" style="width:400px;height:420px;margin-left: 100px">
+                          <!--<el-col :span="8" style="padding: 0px;margin-top:-2px;margin-left: -1%;margin-right: -1%;">-->
+                            <el-col :span="8" style="" shadow="never">
 
-                              </div>
+                                <el-card :body-style="{padding: '0px',shadow:'never'}" style="border-radius: 0;" shadow="never">
+                                    <div class="grid-content grid-con-1" style="color:#E47470;background-color: white ">
+                                        <div class="grid-con-text">
+                                            <div class="iconof1" style="background-color: #dd6161;align-items: center;border-radius:15px;">
+                                              <span style="color: white">
+                                                <i class="el-icon-top" style="font-size: 50px;margin-top: 12%;"></i>
+                                              </span>
+
+                                            </div>
+                                        </div>
+
+                                        <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
+                                        <div class="grid-cont-right1" style="margin-left: -110px;width:50px;">
+                                            <div class="right-text">
+
+                                                <span class="grid-num" style="font-size: 30px;color: #35363b;">{{history_pos_count}} 条</span>
+                                            </div>
+                                            <div class="right-text" >
+                                                <span class="grid-text" style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;">历史检测正面新闻总数</span>
+                                                <!--<span class="grid-num">{{today_negative_count}} 条</span>-->
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </el-card>
                             </el-col>
-                            <el-col :span="12">
-                              <div id="hot_theme_sen_dis" style="width:400px;height:400px;margin-left: 100px">
-                                <!--{{this.hot_theme_dis}}-->
+                          <!--<el-col :span="8" style="padding: 0px;margin-top:-2px;margin-left: -1%;margin-right: -1%;">-->
+                            <el-col :span="8" style="margin-right: -1%">
+                                <el-card :body-style="{padding: '0px',shadow:'never'}" style="border-radius: 0;" shadow="never">
+                                    <div class="grid-content grid-con-1" style="color:#E47470;background-color: white ">
+                                        <div class="grid-con-text">
+                                            <div class="iconof1" style="background-color: #8dbf6a;border-radius:15px;">
+                                              <span style="color: white">
+                                                <i class="el-icon-bottom" style="font-size: 50px;margin-top: 10%;"></i>
+                                              </span>
 
-                              </div>
+                                            </div>
+                                        </div>
+
+                                        <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
+                                        <div class="grid-cont-right1" style="margin-left: -110px;width:50px;">
+                                            <div class="right-text">
+
+                                                <span class="grid-num" style="font-size: 30px;color: #35363b;">{{history_neg_count}} 条</span>
+                                            </div>
+                                            <div class="right-text">
+                                                <span class="grid-text" style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;">历史检测负面新闻总数</span>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </el-card>
                             </el-col>
                         </el-row>
 
+                        <el-row :gutter="20" >
+                            <!--<el-col :span="4">-->
+                              <!--<div id="history_sum" style="width:300px;height:400px;">-->
+                              <!--</div>-->
+                            <!--</el-col>-->
+                            <el-col :span="10">
+                              <div id="history_trend" style="width:800px;height:400px;">
+
+                              </div>
+                            </el-col>
+                            <el-col :span="14">
+                              <div id="hot_theme_sen_dis" style="width:800px;height:400px;">
+                                <!--{{this.hot_theme_dis}}-->
+                              </div>
+                            </el-col>
+                        </el-row>
                     </el-card>
-
-
         </el-container>
     </div>
 
@@ -416,7 +498,7 @@ export default {
 
 
                 this.drawToday('today_emotionLevel',pos_count,neg_count,each_hour);
-                this.drawSum('history_sum',this.history_pos_count,this.history_neg_count);
+                // this.drawSum('history_sum',this.history_pos_count,this.history_neg_count);
                 this.drawTrend('history_trend',this.history_pos_trend,this.history_neg_trend,this.one_week_time.reverse());
 
                 this.drawHotDis('hot_theme_sen_dis',this.source_pos,this.source_neg);
@@ -896,15 +978,15 @@ export default {
             },
             grid:{
                   x:50,
-                  y:50,
+                  y:30,
                   x2:40,
-                  y2:60,
+                  y2:80,
                   borderWidth:10
 	          },
             legend: {
                 data: ['正面新闻', '负面新闻'],
-                orient: 'vertical',
-                right: '10%',
+                // orient: 'vertical',
+                right: '6%',
             },
             xAxis: {
                   type: 'category',
@@ -925,7 +1007,7 @@ export default {
                         //       return "1";
                         //     }
                         // },
-                        fontSize: '14',
+                        fontSize: '13',
                         fontFamily: '微软雅黑',
                         marginleft: '15px',
                         show: true,
@@ -938,6 +1020,13 @@ export default {
                 // }
                 type: 'value',
                 name: '增长数量',
+                splitLine:{
+                      show:true,
+                      lineStyle:{
+                        width:0.35
+
+                      }
+                },
             },
             series: [
                 {
@@ -1150,31 +1239,32 @@ export default {
         drawTrend(id,pos,neg,date_arr) {
           this.charts = echarts.init(document.getElementById(id));
           var option = {
-            color: ['#8dbf6a', '#eb7777'],
-            title: {
-              text: '近七日增长图',
-              textAlign: 'center',
-              left: '190px'
-            },
+            color:['#9EBACB','#E9E9E9'],
+            // title: {
+            //   text: '近七日增长图',
+            //   textAlign: 'center',
+            //   left: '190px'
+            // },
             tooltip: {
               trigger: 'axis'
             },
             legend: {
               data: ['正面新闻', '负面新闻'],
-              orient: 'vertical',
-              right: '10%',
-            },
-            toolbox: {
-              feature: {
-                saveAsImage: {}
-              }
-            },
-            grid: {
-                width:'300px',
-                left: '10%',
+              left:'50%',
 
-                bottom: '3%',
-                containLabel: true
+            },
+            // toolbox: {
+            //   feature: {
+            //     saveAsImage: {}
+            //   }
+            // },
+
+            grid:{
+                  x:45,
+                  y:30,
+                  x2:250,
+                  y2:100,
+                  borderWidth:10
             },
             xAxis: {
               type: 'category',
@@ -1182,7 +1272,7 @@ export default {
               data: date_arr,
               axisLabel: {
                 interval: 0,
-                rotate: 40,
+                // rotate: 40,
                 fontFamily: '微软雅黑',
 
                 show: true,
@@ -1195,6 +1285,13 @@ export default {
               // }
               type: 'value',
               name: '增长数量',
+              splitLine:{
+                  show:true,
+                  lineStyle:{
+                    width:0.35
+
+                  }
+              },
             },
             series: [
               {
@@ -1223,7 +1320,8 @@ export default {
         drawHotDis(id,pos,neg) {
            this.chart = echarts.init(document.getElementById(id));
            var option = {
-                color: ['#8dbf6a', '#eb7777'],
+                color:['#9EBACB','#b7b7b7'],
+                // color: ['#8dbf6a', '#eb7777'],
                 // color : ['#7db5e2', '#81cacc', '#cca8ba', "#7EBF50", "#82a0c5", '#fddb7e', '#bda29a', '#d2a59a', '#7f9979', '#c4ccd3','#5F9EA0','#a498d6'],
                 // color:['rgb(210,100,93)','rgb(228,116,79)','rgb(242,176,110)','rgb(249,224,150)','rgb(255,254,198)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,134,183)','rgb(125,169,185)'].reverse(),
                 // color:['rgb(215,121,118)','rgb(224,108,146)','rgb(175,110,195)','rgb(249,224,150)','rgb(255,254,198)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,134,183)','rgb(125,169,185)'].reverse(),
@@ -1239,11 +1337,11 @@ export default {
                 },
                 // dataset: {data},
                 grid: {
-                    width:'360px',
-                    left: '6%',
-                    right: '10%',
-                    bottom: '3%',
-                    containLabel: true
+                    x:160,
+                    y:30,
+                    x2:170,
+                    y2:100,
+                    borderWidth:10
                 },
                 //工具箱
                 //保存图片
@@ -1258,11 +1356,13 @@ export default {
                 //图例-每一条数据的名字叫销量
                 legend:{
                     data:['正面','负面'],
+                    left:'63%',
+
                 },
                 //x轴没有显式设置，根据值自动生成x轴
                 xAxis:[{
                     type: 'value',
-                    name: '增长数量',
+                    name: '数量',
                     // nameTextStyle:{
                     //     fontSize:'15',
                     //     padding:10
@@ -1284,12 +1384,17 @@ export default {
                         show: false
                     },
                     data: ['教育','娱乐','经济','政治','社会','体育','科技'],
+                    splitLine:{
+                      show:true,
+                      lineStyle:{
+                        width:0.25
+
+                      }
+
+                    },
                     // seriesLayoutBy: 'column',
-                    // axisLabel: {
-                    //     fontSize:'15',
-                    //     fontFamily:'微软雅黑',
-                    //     marginTop:'35px',
-                    //     show:true,
+                    // axisLine: {
+                    //
                     // },
                 }],
 
@@ -1509,8 +1614,7 @@ export default {
         /*align : center;*/
     }
     .el-row {
-        margin-bottom: 20px;
-
+        margin-bottom: 20px
     }
     .el-col {
         border-radius: 4px;
@@ -1521,15 +1625,21 @@ export default {
     .bg-purple {
         background: #589ef8;
     }
+    .iconof1{
+      width: 40%;
+      height: 80px;
+      background-color: #20a0ff;
+      margin-left: 10%;
+    }
     .grid-cont-right1 {
         flex: 1;
         text-align: left;
         font-size: 14px;
         color: #f3fbf8;
-
-
+        /*color: #35363b;*/
     }
     .right-text{
+
         margin-bottom: 5%;
         margin-top: 5%;
     }
@@ -1537,20 +1647,24 @@ export default {
     .right-text .grid-text {
         font-size: 22px;
         font-weight: bold;
-
         margin-left: 10%;
         margin: 10%;
     }
     .right-text .grid-num {
+        /*font-size: 30px;*/
+        /*font-weight: bold;*/
+        /*margin-left: 10%;*/
+        /*!*margin: 10%;*!*/
+        /*color: white;*/
         font-size: 20px;
         font-weight: bold;
         margin-left: 10%;
 
-        /*margin: 10%;*/
     }
 
     .grid-con-1 .grid-con-text {
         flex: 1;
+        /*width: 30px;*/
 
         /*flex-direction: row;*/
         font-weight: bold;
@@ -1558,6 +1672,8 @@ export default {
         /*width: 50%;*/
         /*height: 100%;*/
         text-align: center;
+        /*color: #35363b;*/
+
         /*line-height: 100%;*/
         /*justify-content: center;*/
         /*color: #fff;*/
@@ -1570,6 +1686,17 @@ export default {
     }
 
     .grid-con-text {
+        /*width: 30px;*/
+        /*flex: 1;*/
+        /*!*flex-direction: row;*!*/
+        /*!*font-weight:bolder;*!*/
+        /*font-size:10px;*/
+        /*!*width: 50%;*!*/
+        /*!*height: 100%;*!*/
+        /*text-align: center;*/
+        /*!*line-height: 100%;*!*/
+        /*!*justify-content: center;*!*/
+        /*color: #35363b;*/
         flex: 1;
         /*flex-direction: row;*/
         /*font-weight:bolder;*/
@@ -1581,12 +1708,9 @@ export default {
         /*justify-content: center;*/
         color: #fff;
     }
-    .grid-text-2{
-        font-size: 20px;
-        font-weight: bold;
-        text-align: center;
-        /*justify-content: center;*/
-        /*align-items: center;*/
+    .el-icon-s-data{
+      font-size: 60px;
+      margin-top: 10%;
     }
     .grid-text2{
         text-align: left;
