@@ -37,17 +37,17 @@
                         </div>
                         <el-row>
                           <span :style=style_sen > {{this.classification}} </span>
-                          <div id="wrap" align="middle" style="width: 100%;justify-content: center;margin-top: -5.5%">
+                          <div id="wrap" align="middle" style="width: 100%;justify-content: center;margin-top: -60px">
                               <div id = "pos_emoji" style="margin-top: 45px" align="bottom">
-                                  <span style="font-size:15px;color:#909399;text-align:center;display:block;position:relative;top:50%;margin-right: 15px;letter-spacing: 5px">正面情绪</span>
+                                  <span style="font-size:15px;color:#909399;text-align:center;display:block;position:relative;top:40px;margin-right: 15px;letter-spacing: 5px">正面情绪</span>
                                   <img src="../../assets/img/pos2.png" width="100px"/>
                               </div>
 
-                              <div align="middle" id="emotionLevel" style="width:500px;height:400px;margin-top: -8%"></div>
+                              <div align="middle" id="emotionLevel" style="width:500px;height:400px;margin-top: -90px"></div>
 
                               <div id = "neg_emoji" style="margin-left:8px;margin-top: 45px">
                                   <img src="../../assets/img/neg2.png" width="100px"/>
-                                  <span style="font-size:15px;color:#909399;text-align:center;display:block;position:relative;top:50%;margin-left: 15px;letter-spacing: 5px">负面情绪</span>
+                                  <span style="font-size:15px;color:#909399;text-align:center;display:block;position:relative;top:40px;margin-left: 15px;letter-spacing: 5px">负面情绪</span>
                               </div>
                           </div>
                         </el-row>
@@ -60,6 +60,7 @@
                             <span style="color: black;font-size: 18px">今日新闻分析结果</span>
                             <div class="showupdatetime">更新时间：{{lastupdatetime}}</div>
                         </div>
+
                         <el-container style="margin: -20px;margin-right: -9px">
                             <el-aside width="50%" style="margin-top:-1px;margin-right: 10px;margin-left: 11px;height:100%">
                                 <el-row :gutter="0" >
@@ -89,35 +90,37 @@
                                 <!--今日小时曲线图-->
                                 <div id="today_emotionLevel" style="width:100%;height:390px;margin-top: -2%"></div>
                             </el-aside>
-                            <el-main style="text-align:center;margin: -20px;margin-bottom: -20px;margin-right: 0px" >
+                            <el-main style="margin: -20px;margin-bottom: -20px;margin-right: 0px" >
+
                                 <el-tabs type="border-card" stretch=true style="padding:-10%;margin-right:-16px;margin-left: -2px;margin-top:-1px;border-radius: 0;">
                                     <el-tab-pane>
                                       <span slot="label" >正面新闻</span>
+                                      <!--<el-card class="box-card" :body-style="{padding: '0px'}">-->
+                                      <div
+                                        class="tag-group"
+                                        style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;"
+                                      >
                                         <el-table
                                             :data="pos_news"
                                             stripe
-                                            style="width: 120%;text-align: center;fontSize:13px;margin-bottom: -10px"
+                                            :height="tableHeight"
+                                            style="width: 100%;text-align: center;fontSize:13px;margin-bottom: -10px"
                                             :show-header=false
                                             :show-overflow-tooltip=true
                                             @sort-change="changeSort"
                                             :default-sort="{prop: 'rank', order: 'ascending'}"
                                             max-height="377px"
-                                            margin-right = "-10%"
                                         >
                                             <el-table-column align='center'
                                                     type="index"
                                                     :show-overflow-tooltip=true
                                                     :sort-orders="['ascending', 'descending']"
-                                                    width="40%"
-
                                             >
                                             </el-table-column>
                                             <el-table-column
                                               prop="news"
-                                              label="日期"
+                                              label="主题和链接"
                                               :show-overflow-tooltip=true
-                                              width="280%"
-                                              margin-right = "-10%"
                                             >
                                                 <template slot-scope="scope">
                                                     <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.news}}</a>
@@ -139,13 +142,15 @@
                                                     sortable
                                                     label="日期"
                                                     :show-overflow-tooltip=true
-                                                    margin-left = "-10%"
+                                                    width="200%"
                                             >
                                                 <template slot-scope="scope">
                                                     <span >发布时间：{{scope.row.publish_time}}</span>
                                                 </template>
                                             </el-table-column>
-                                      </el-table>
+                                       </el-table>
+                                     </div>
+                                   <!--</el-card>-->
                                     </el-tab-pane>
                                     <el-tab-pane label="负面新闻">
                                       <span slot="label" >负面新闻</span>
@@ -200,6 +205,7 @@
                                 </el-tabs>
 
 
+
                             </el-main>
                         </el-container>
                     </el-card>
@@ -214,7 +220,7 @@
                           </span>
                           <div class="showupdatetime">更新时间：{{lastupdatetime}}</div>
                       </div>
-                      <el-row :gutter="10" style="width: 100%;margin-top: -1.8%">
+                      <el-row :gutter="10" style="width: 100%;margin-top: -21px">
                           <el-col :span="8" style="">
                               <el-card :body-style="{padding: '0px',shadow:'never'}" style="box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
                                   <div class="grid-content grid-con-1" style="height:90px;color:#E47470;background-color: white ">
@@ -229,7 +235,7 @@
                                       <div class="grid-cont-right1" style="margin-left: -110px;width:70%;">
                                           <!--<div class="right-text" style="color: #35363b;margin: 0px">-->
                                           <div class="right-text">
-                                            <span class="grid-num" style="font-size: 30px;font-weight: bold;color: #35363b;">{{today_num = history_pos_count+history_neg_count}} 条</span>
+                                            <span class="grid-num" style="font-size: 28px;font-weight: bold;color: #35363b;">{{today_num = history_pos_count+history_neg_count}} 条</span>
                                           </div>
                                         <!--<div class="right-text" style="color: #35363b;margin: 0px">-->
                                           <div class="right-text">
@@ -258,7 +264,7 @@
                                       <div class="grid-cont-right1" style="margin-left: -110px;width:50px;">
                                           <div class="right-text">
 
-                                              <span class="grid-num" style="font-size: 30px;color: #35363b;">{{history_pos_count}} 条</span>
+                                              <span class="grid-num" style="font-size: 28px;color: #35363b;">{{history_pos_count}} 条</span>
                                           </div>
                                           <div class="right-text" >
                                               <span class="grid-text" style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;">历史检测正面新闻总数</span>
@@ -286,10 +292,10 @@
                                       <div class="grid-cont-right1" style="margin-left: -110px;width:50px;">
                                           <div class="right-text">
 
-                                              <span class="grid-num" style="font-size: 30px;color: #35363b;">{{history_neg_count}} 条</span>
+                                              <span class="grid-num" style="font-size: 28px;color: #35363b;margin-bottom: -10px">{{history_neg_count}} 条</span>
                                           </div>
                                           <div class="right-text">
-                                              <span class="grid-text" style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;">历史检测负面新闻总数</span>
+                                              <span class="grid-text" style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10px;margin-bottom: 10px;">历史检测负面新闻总数</span>
 
                                           </div>
 
@@ -1103,12 +1109,13 @@ export default {
                 },
             ]
           }
+          //防止越界，重绘canvas
+          window.onresize = this.charts.resize;
           this.charts.setOption(option);
-          window.addEventListener("resize", () =>
-          {
-              this.charts.resize();
-          });
-
+          // window.addEventListener("resize", () =>
+          // {
+          //     this.charts.resize();
+          // });
         },
         drawWeek(id,pos,neg,week){
           this.charts = echarts.init(document.getElementById(id));
@@ -1375,11 +1382,13 @@ export default {
             ]
 
           };
+          //防止越界，重绘canvas
+          window.onresize = this.charts.resize;
           this.charts.setOption(option);
-          window.addEventListener("resize", () =>
-          {
-              this.charts.resize();
-          });
+          // window.addEventListener("resize", () =>
+          // {
+          //     this.charts.resize();
+          // });
         },
         drawHotDis(id,pos,neg) {
            this.chart = echarts.init(document.getElementById(id));
@@ -1572,12 +1581,13 @@ export default {
           //           }
           //       ]
           //   };
-
+          //防止越界，重绘canvas
+          window.onresize = this.chart.resize;
           this.chart.setOption(option);
-          window.addEventListener("resize", () =>
-          {
-              this.chart.resize();
-          });
+          // window.addEventListener("resize", () =>
+          // {
+          //     this.chart.resize();
+          // });
         },
 
 
@@ -1606,6 +1616,11 @@ export default {
     }
 },
     computed: {
+        tableHeight: function () {
+            var width = window.innerWidth * 0.5;
+            var height = parseInt(width * 0.39);
+            return height + 770;
+        },
         echartOption() {
             let seriesArr = []
             this.echartData.forEach((item) => {
