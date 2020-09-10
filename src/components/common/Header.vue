@@ -27,7 +27,7 @@
                     </span>
                     <el-dropdown-menu slot="dropdown">
 
-                        <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
+                        <el-dropdown-item divided command="loginout" style="border-top-width: 0px; margin-top: -3px">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>

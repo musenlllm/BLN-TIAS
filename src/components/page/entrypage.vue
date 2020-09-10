@@ -35,11 +35,12 @@
                 const data = event.data;
                 switch (data.cmd) {
                     case "loginRequest":
+                        var url = data.url;
                         //得到登陆请求
                         console.log("login!!")
                         localStorage.setItem('ms_username', 'ldmc');
 
-                        this.$router.push('/recognition');
+                        this.$router.push('/'+url);
                         break;
                 }
             },

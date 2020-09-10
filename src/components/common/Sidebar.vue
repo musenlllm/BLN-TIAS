@@ -64,12 +64,12 @@ export default {
             items: [
                 {
                     icon: 'iconfont icon2_shitishibie',
-                    index: 'recognition',
+                    index: 'ner',
                     title: '实体识别'
                 },
                 {
                     icon: 'iconfont icon3_qingganfenxi',
-                    index: 'form',
+                    index: 'emotion',
                     title: '情感分析'
                 },
                 {
