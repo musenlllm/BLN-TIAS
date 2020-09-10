@@ -167,7 +167,7 @@
                 text: '',
                 nerText: '',
                 nerRes:'实体命名识别结果',
-                queryURL:'http://49.234.217.110:5000/api/ner',
+                queryURL:'http://115.236.52.123:6012/api/ner',
                 resloading: false,
                 restypeloading: false,
                 isDiyCardHead:true,
