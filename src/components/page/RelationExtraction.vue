@@ -49,7 +49,7 @@
                   <span>人物关系和弦图</span>
                 </div>
                 <el-row style="margin-top:20px">
-                  <div id="showCircleRelation" :style="{width: '100%', height: '380px'}"></div>
+                  <div id="showCircleRelation" :style="{width: '100%', height: circleHeight}"></div>
                 </el-row>
               </el-card>
             </el-row>
@@ -68,7 +68,7 @@
                   :show-header="true"
                   :data="items"
                   stripe
-                  height="1030"
+                  :height="tableHeight"
                   style="width: 100%;text-align:center;fontSize:13px"
                   :header-cell-style="{color:'white', backgroundColor:'#7266ba!important',fontWeight:500}"
                 >
@@ -208,8 +208,22 @@ export default {
       ],
     };
   },
+  computed: {
+    circleHeight: function () {
+      //var width = document.getElementById("showArrowRelation").clientWidth;
+      var width = window.innerWidth * 0.5;
+      var height = parseInt(width * 0.39) + 100;
+
+      return height + "px";
+    },
+    tableHeight: function(){
+      var width = window.innerWidth * 0.5;
+      var height = parseInt(width * 0.39) + 100;
+
+      return height + 650;
+    }
+  },
   created() {
-    // this.getData();
   },
   methods: {
     drawArrowRelation() {
