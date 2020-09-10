@@ -32,14 +32,14 @@ export default new Router({
                     meta: { title: '自动摘要' }
                 },
                 {
-                    path: '/recognition',
+                    path: '/ner',
                     component: () => import(/* webpackChunkName: "tabs" */ '../components/page/Tabs.vue'),
                     meta: { title: '实体识别' }
                 },
 
                 // 二级三级表单的示范（留着没删
                 {
-                    path: '/form',
+                    path: '/emotion',
                     component: () => import(/* webpackChunkName: "form" */ '../components/page/Sentiment.vue'),
                     meta: { title: '情感分析' }
                 },
