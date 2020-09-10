@@ -205,8 +205,8 @@ const type2color = {
   股票: "#84CF96",
   财经: "#67C23A",
 };
-const tpclassurl = "http://49.234.217.110:5000/api/tpclassification";
-const carouselurl = "http://49.234.217.110:5000/api/getRealTimeThemeInfo";
+const tpclassurl = "http://115.236.52.123:6012/api/tpclassification";
+const carouselurl = "http://115.236.52.123:6012/api/getRealTimeThemeInfo";
 
 export default {
   name: "markdown",
