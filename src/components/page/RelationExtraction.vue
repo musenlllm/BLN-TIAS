@@ -143,7 +143,7 @@ const type2color = {
   兄弟姐妹: "#67C23A",
 };
 
-const relationUrl = "http://49.234.217.110:5000/api/relation";
+const relationUrl = "http://115.236.52.123:6012/api/relation";
 
 function getPersonList(links) {
   var personList = [];

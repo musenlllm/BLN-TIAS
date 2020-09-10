@@ -111,7 +111,7 @@ export default {
             text: '',
             summaryText: '',
             summaryRes:'',
-            queryURL:'http://49.234.217.110:5000/api/summarization',
+            queryURL:'http://115.236.52.123:6012/api/summarization',
             loading: false
         };
     },

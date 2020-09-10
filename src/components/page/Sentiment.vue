@@ -311,8 +311,8 @@
 <script>
 import echarts from 'echarts'
 import { fetchData } from '../../api/index';
-const sentimenturl = "http://49.234.217.110:5000/api/sentiment";
-const realurl = "http://49.234.217.110:5000/api/getRealTimeSentimentInfo";
+const sentimenturl = "http://115.236.52.123:6012/api/sentiment";
+const realurl = "http://115.236.52.123:6012/api/getRealTimeSentimentInfo";
 // const score = 0.5;
 export default {
     name: 'basetable',

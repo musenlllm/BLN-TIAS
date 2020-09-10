@@ -261,7 +261,7 @@ import { fetchData } from '../../api/index';
 // import resize from "./mixins/resize";
 import "echarts-wordcloud/dist/echarts-wordcloud";
 import "echarts-wordcloud/dist/echarts-wordcloud.min";
-const hotspoturl = "http://49.234.217.110:5000/api/hotspot";
+const hotspoturl = "http://115.236.52.123:6012/api/hotspot";
 
 export default {
     name: 'basetable',
