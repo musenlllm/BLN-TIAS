@@ -36,21 +36,19 @@
         <el-row>
           <el-col :span="14">
             <el-row>
-              <el-card class="box-card">
+              <el-card class="box-card" :body-style="{padding:0}">
                 <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
                   <span>人物关系图谱</span>
                 </div>
-                <div id="showArrowRelation" :style="{width: '100%', height: '460px'}"></div>
+                <div id="showArrowRelation" :style="{width: '100%', height: '500px'}"></div>
               </el-card>
             </el-row>
             <el-row style="margin-top:20px">
-              <el-card>
+              <el-card class="box-card" :body-style="{padding:0}">
                 <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
                   <span>人物关系和弦图</span>
                 </div>
-                <el-row style="margin-top:20px">
-                  <div id="showCircleRelation" :style="{width: '100%', height: circleHeight}"></div>
-                </el-row>
+                <div id="showCircleRelation" :style="{width: '100%', height: circleHeight}"></div>
               </el-card>
             </el-row>
           </el-col>
@@ -210,15 +208,14 @@ export default {
   },
   computed: {
     circleHeight: function () {
-      //var width = document.getElementById("showArrowRelation").clientWidth;
       var width = window.innerWidth * 0.5;
-      var height = parseInt(width * 0.39) + 100;
+      var height = parseInt(width * 0.39) + 180;
       return height + "px";
     },
     tableHeight: function () {
       var width = window.innerWidth * 0.5;
-      var height = parseInt(width * 0.39) + 100;
-      return height + 650;
+      var height = parseInt(width * 0.39);
+      return height + 770;
     },
   },
   created() {},
@@ -267,7 +264,7 @@ export default {
               repulsion: [500, 600],
               initLayout: "circular",
               gravity: 0.05,
-              edgeLength: [150, 210],
+              edgeLength: [150, 180],
               friction: 0.8,
               focusNodeAdjacency: true,
             },
@@ -363,7 +360,6 @@ export default {
         },
       };
 
-      // 绘制图表
       var option = {
         legend: {
           type: "scroll",
