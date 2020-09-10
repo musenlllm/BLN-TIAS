@@ -81,7 +81,7 @@
                       version="1.1"
                       xmlns="http://www.w3.org/2000/svg"
                       p-id="2116"
-                      width="30"
+                      width="40"
                       height="16"
                       preserveAspectRatio="none"
                       style="display：inline-block;vertical-align:middle;"
@@ -102,10 +102,10 @@
                       version="1.1"
                       xmlns="http://www.w3.org/2000/svg"
                       p-id="3973"
-                      width="30"
+                      width="40"
                       height="16"
                       preserveAspectRatio="none"
-                      style="display：inline-block;vertical-align:middle;"
+                      style="display：inline-block;vertical-align:middle"
                     >
                       <path
                         d="M304.264533 546.133333l214.801067 214.801067-48.264533 48.264533L173.602133 512l297.198934-297.198933 48.264533 48.264533L304.264533 477.866667H853.333333v68.266666z"

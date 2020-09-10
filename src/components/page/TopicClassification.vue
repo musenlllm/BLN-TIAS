@@ -79,7 +79,7 @@
             </div>
             <el-row style="text-align:left">
               <el-carousel
-                :interval="120000"
+                :interval="12000"
                 direction="vertical"
                 arrow="never"
                 indicator-position="none"
