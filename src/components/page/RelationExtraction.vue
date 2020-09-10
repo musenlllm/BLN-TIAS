@@ -213,18 +213,15 @@ export default {
       //var width = document.getElementById("showArrowRelation").clientWidth;
       var width = window.innerWidth * 0.5;
       var height = parseInt(width * 0.39) + 100;
-
       return height + "px";
     },
-    tableHeight: function(){
+    tableHeight: function () {
       var width = window.innerWidth * 0.5;
       var height = parseInt(width * 0.39) + 100;
-
       return height + 650;
-    }
+    },
   },
-  created() {
-  },
+  created() {},
   methods: {
     drawArrowRelation() {
       // 初始化echarts实例
