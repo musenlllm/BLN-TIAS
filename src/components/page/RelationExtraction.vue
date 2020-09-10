@@ -58,6 +58,7 @@
               <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
                 <span>人物关系列表</span>
               </div>
+
               <div
                 class="tag-group"
                 style=" display: flex; justify-content: center; flex-direction: row; flex-wrap: wrap;"
@@ -70,15 +71,49 @@
                   style="width: 100%;text-align:center;fontSize:13px"
                   :header-cell-style="{color:'white', backgroundColor:'#7266ba!important',fontWeight:500}"
                 >
-                  <el-table-column prop="person1" align="center" label="人物1"></el-table-column>
-                  <el-table-column align="center" width="50">
-                    <i class="el-icon-right"></i>
+                  <el-table-column prop="person1" align="center" label="人物1" width="100"></el-table-column>
+                  <el-table-column align="center">
+                    <!-- <i class="el-icon-right"></i> -->
+                    <svg
+                      t="1599728422081"
+                      class="icon"
+                      viewBox="0 0 1024 1024"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      p-id="2116"
+                      width="30"
+                      height="16"
+                      preserveAspectRatio="none"
+                      style="display：inline-block;vertical-align:middle;"
+                    >
+                      <path
+                        d="M717.312 477.866667l-214.801067-214.801067 48.298667-48.264533L848.008533 512l-297.198933 297.198933-48.298667-48.264533L717.312 546.133333H170.666667v-68.266666z"
+                        p-id="2117"
+                      />
+                    </svg>
                   </el-table-column>
                   <el-table-column prop="relation" label="关系" align="center" width="80"></el-table-column>
-                  <el-table-column align="center" width="50">
-                    <i class="el-icon-back"></i>
+                  <el-table-column align="center">
+                    <!-- <i class="el-icon-back"></i> -->
+                    <svg
+                      t="1599728342890"
+                      class="icon"
+                      viewBox="0 0 1024 1024"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      p-id="3973"
+                      width="30"
+                      height="16"
+                      preserveAspectRatio="none"
+                      style="display：inline-block;vertical-align:middle;"
+                    >
+                      <path
+                        d="M304.264533 546.133333l214.801067 214.801067-48.264533 48.264533L173.602133 512l297.198934-297.198933 48.264533 48.264533L304.264533 477.866667H853.333333v68.266666z"
+                        p-id="3974"
+                      />
+                    </svg>
                   </el-table-column>
-                  <el-table-column prop="person2" align="center" label="人物2"></el-table-column>
+                  <el-table-column prop="person2" align="center" label="人物2" width="100"></el-table-column>
                 </el-table>
               </div>
             </el-card>
