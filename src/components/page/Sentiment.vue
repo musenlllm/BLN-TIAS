@@ -4,7 +4,7 @@
             <el-header style="height: max-content;text-align: center;">
                 <!--<h1 style="color: gray">情感分析</h1>-->
 
-              <el-card class="noBorderInput"style="border: 0px; margin-top: 20px;border-radius: 0;max-height: 275px;
+              <el-card class="noBorderInput" style="border: 0px; margin-top: 20px;border-radius: 0;max-height: 275px;
         background-color: #fff;
         box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
                       <h1 style=" letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px">情感分析</h1>
@@ -25,31 +25,40 @@
                       </el-row>
               </el-card>
            </el-header>
-                    <!--<el-card class="box-card" style="min-height: 250px;margin-top: 20px" align="middle">-->
-                    <el-card class="box-card" width="60%" style="margin-right:20px;text-align:center;margin-left:20px;margin-top: 20px;height: 240px;border-radius: 0;background-color: #fff;
+            <el-main
+              ref = "mainContainer"
+              style="text-align: center;margin-top: 20px;height: 100%;padding: 0 20px"
+              >
+              <el-row style="max-height: 480px;max-width: 100%">
+                    <el-card class="box-card" style="height: 240px;background-color: #fff;
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading">
-                        <div slot="header" class="clearfix" >
-                            <span style="color: #000;font-size: 18px">本次分析结果</span>
+                        <div slot="header" class="clearfix" style="font-size: 18px">
+                            <span>本次分析结果</span>
                         </div>
-                        <span :style=style_sen > {{this.classification}} </span>
-                        <div id="wrap" align="middle" style="width: 100%;justify-content: center;margin-top: -5.5%">
-                            <div id = "pos_emoji" style="margin-top: 45px" align="bottom">
-                                <span style="font-size:15px;color:#909399;text-align:center;display:block;position:relative;top:50%;margin-right: 15px;letter-spacing: 5px">正面情绪</span>
-                                <img src="../../assets/img/pos2.png" width="100px"/>
-                            </div>
+                        <el-row>
+                          <span :style=style_sen > {{this.classification}} </span>
+                          <div id="wrap" align="middle" style="width: 100%;justify-content: center;margin-top: -5.5%">
+                              <div id = "pos_emoji" style="margin-top: 45px" align="bottom">
+                                  <span style="font-size:15px;color:#909399;text-align:center;display:block;position:relative;top:50%;margin-right: 15px;letter-spacing: 5px">正面情绪</span>
+                                  <img src="../../assets/img/pos2.png" width="100px"/>
+                              </div>
 
-                            <div align="middle" id="emotionLevel" style="width:500px;height:400px;margin-top: -8%"></div>
-                            <div id = "neg_emoji" style="margin-left:8px;margin-top: 45px">
-                                <img src="../../assets/img/neg2.png" width="100px"/>
-                                <span style="font-size:15px;color:#909399;text-align:center;display:block;position:relative;top:50%;margin-left: 15px;letter-spacing: 5px">负面情绪</span>
-                            </div>
-                        </div>
+                              <div align="middle" id="emotionLevel" style="width:500px;height:400px;margin-top: -8%"></div>
+
+                              <div id = "neg_emoji" style="margin-left:8px;margin-top: 45px">
+                                  <img src="../../assets/img/neg2.png" width="100px"/>
+                                  <span style="font-size:15px;color:#909399;text-align:center;display:block;position:relative;top:50%;margin-left: 15px;letter-spacing: 5px">负面情绪</span>
+                              </div>
+                          </div>
+                        </el-row>
                     </el-card>
-                    <!--<el-card class="box-card" style="min-height: 300px;margin-top: 20px" align="middle">-->
-                    <el-card class="box-card" width="60%" style="margin-bottom: -10px;margin-right:20px;text-align:center;margin-left:20px;margin-top: 20px;height: 527px;border-radius: 0;background-color: #fff;
-      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading" shadow="never">
+              </el-row>
+
+              <el-row style="max-width: 100%;margin-top: 20px">
+                    <el-card class="box-card" style="height:520px;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading">
                         <div slot="header" class="clearfix">
-                            <span style="color: black;font-size: 18px">今日新闻情感分析结果</span>
+                            <span style="color: black;font-size: 18px">今日新闻分析结果</span>
+                            <div class="showupdatetime">更新时间：{{lastupdatetime}}</div>
                         </div>
                         <el-container style="margin: -20px;margin-right: -9px">
                             <el-aside width="50%" style="margin-top:-1px;margin-right: 10px;margin-left: 11px;height:100%">
@@ -78,7 +87,7 @@
                                     </el-col>
                                 </el-row>
                                 <!--今日小时曲线图-->
-                                <div id="today_emotionLevel" style="width:100%;height:390px;"></div>
+                                <div id="today_emotionLevel" style="width:100%;height:390px;margin-top: -2%"></div>
                             </el-aside>
                             <el-main style="text-align:center;margin: -20px;margin-bottom: -20px;margin-right: 0px" >
                                 <el-tabs type="border-card" stretch=true style="padding:-10%;margin-right:-16px;margin-left: -2px;margin-top:-1px;border-radius: 0;">
@@ -92,7 +101,7 @@
                                             :show-overflow-tooltip=true
                                             @sort-change="changeSort"
                                             :default-sort="{prop: 'rank', order: 'ascending'}"
-                                            max-height="388px"
+                                            max-height="377px"
                                             margin-right = "-10%"
                                         >
                                             <el-table-column align='center'
@@ -194,122 +203,149 @@
                             </el-main>
                         </el-container>
                     </el-card>
-                    <el-card class="box-card" width="60%" style="margin-right:20px;text-align:center;margin-left:20px;margin-top: 30px;height: 540px;border-radius: 0;background-color: #fff;
-      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" v-loading="resloading">
-                        <div slot="header" class="clearfix">
-                            <span style="color: black;font-size: 18px">历史新闻情感分析结果</span>
-                        </div>
-                        <el-row :gutter="10" style="width: 1160px;height: 50%" shadow="never">
-                            <!--<el-col :span="8" style="padding: 0px;margin-top:-2px;margin-left: -1%;margin-right: -1%;">-->
-                            <el-col :span="8" style="margin-left: -0.5%">
-                                <el-card :body-style="{padding: '0px',shadow:'never'}" style="border-radius: 0;" shadow="never">
-                                    <div class="grid-content grid-con-1" style="color:#E47470;background-color: white ">
-                                        <div class="grid-con-text" style="width: 30px;color: #35363b;">
-                                            <div class="iconof1" style="border-radius:15px;">
-                                              <span style="color: white">
-                                                <i class="el-icon-s-data" ></i>
-                                              </span>
-                                            </div>
-                                        </div>
-                                        <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
-                                        <div class="grid-cont-right1" style="margin-left: -110px;width:50px;">
-                                            <!--<div class="right-text" style="color: #35363b;margin: 0px">-->
-                                              <div class="right-text">
-                                                <span class="grid-num" style="font-size: 30px;font-weight: bold;color: #35363b;">{{today_num = history_pos_count+history_neg_count}} 条</span>
-                                            </div>
-                                            <!--<div class="right-text" style="color: #35363b;margin: 0px">-->
+              </el-row>
+
+              <el-row style="margin-bottom:20px">
+                  <el-card class="box-card" style="height:520px;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);align-items: center" v-loading="resloading">
+                      <div slot="header" class="clearfix" style="color: black;font-size: 18px">
+                          <span>
+                            <i class="iconfont iconxinwen"></i>
+                            历史新闻分析结果
+                          </span>
+                          <div class="showupdatetime">更新时间：{{lastupdatetime}}</div>
+                      </div>
+                      <el-row :gutter="10" style="width: 100%;margin-top: -1.8%">
+                          <el-col :span="8" style="">
+                              <el-card :body-style="{padding: '0px',shadow:'never'}" style="box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
+                                  <div class="grid-content grid-con-1" style="height:90px;color:#E47470;background-color: white ">
+                                      <div class="grid-con-text" style="">
+                                          <div class="iconof1" style="margin-left:10%;border-radius:15px;align-items: center">
+                                            <span style="color: white">
+                                              <i class="el-icon-s-data" style="font-size: 45px;margin-top: 15%;"></i>
+                                            </span>
+                                          </div>
+                                      </div>
+                                      <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
+                                      <div class="grid-cont-right1" style="margin-left: -110px;width:70%;">
+                                          <!--<div class="right-text" style="color: #35363b;margin: 0px">-->
                                           <div class="right-text">
-                                                <!--<span class="grid-num">{{today_num = today_negative_count+today_positive_count}} 条</span>-->
-                                                <span class="grid-text" style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;">历史检测新闻总数</span>
-                                            </div>
-                                            <!--<div class="grid-num"></div>-->
-                                        </div>
-                                    </div>
-                                </el-card>
-                            </el-col>
-                          <!--<el-col :span="8" style="padding: 0px;margin-top:-2px;margin-left: -1%;margin-right: -1%;">-->
-                            <el-col :span="8" style="" shadow="never">
+                                            <span class="grid-num" style="font-size: 30px;font-weight: bold;color: #35363b;">{{today_num = history_pos_count+history_neg_count}} 条</span>
+                                          </div>
+                                        <!--<div class="right-text" style="color: #35363b;margin: 0px">-->
+                                          <div class="right-text">
+                                            <!--<span class="grid-num">{{today_num = today_negative_count+today_positive_count}} 条</span>-->
+                                            <span class="grid-text" style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;">历史检测新闻总数</span>
+                                          </div>
+                                          <!--<div class="grid-num"></div>-->
+                                      </div>
+                                  </div>
+                              </el-card>
+                          </el-col>
+                        <!--<el-col :span="8" style="padding: 0px;margin-top:-2px;margin-left: -1%;margin-right: -1%;">-->
+                          <el-col :span="8" style="">
+                              <el-card :body-style="{padding: '0px',shadow:'never'}" style="border-radius: 0;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" >
+                                  <div class="grid-content grid-con-1" style="height:90px;color:#E47470;background-color: white ">
+                                      <div class="grid-con-text">
+                                          <div class="iconof1" style="margin-left:10%;background-color: #dd6161;align-items: center;border-radius:15px;">
+                                            <span style="color: white">
+                                              <i class="el-icon-top" style="font-size: 45px;margin-top: 15%;"></i>
+                                            </span>
 
-                                <el-card :body-style="{padding: '0px',shadow:'never'}" style="border-radius: 0;" shadow="never">
-                                    <div class="grid-content grid-con-1" style="color:#E47470;background-color: white ">
-                                        <div class="grid-con-text">
-                                            <div class="iconof1" style="background-color: #dd6161;align-items: center;border-radius:15px;">
-                                              <span style="color: white">
-                                                <i class="el-icon-top" style="font-size: 50px;margin-top: 12%;"></i>
-                                              </span>
+                                          </div>
+                                      </div>
 
-                                            </div>
-                                        </div>
+                                      <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
+                                      <div class="grid-cont-right1" style="margin-left: -110px;width:50px;">
+                                          <div class="right-text">
 
-                                        <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
-                                        <div class="grid-cont-right1" style="margin-left: -110px;width:50px;">
-                                            <div class="right-text">
+                                              <span class="grid-num" style="font-size: 30px;color: #35363b;">{{history_pos_count}} 条</span>
+                                          </div>
+                                          <div class="right-text" >
+                                              <span class="grid-text" style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;">历史检测正面新闻总数</span>
+                                              <!--<span class="grid-num">{{today_negative_count}} 条</span>-->
+                                          </div>
 
-                                                <span class="grid-num" style="font-size: 30px;color: #35363b;">{{history_pos_count}} 条</span>
-                                            </div>
-                                            <div class="right-text" >
-                                                <span class="grid-text" style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;">历史检测正面新闻总数</span>
-                                                <!--<span class="grid-num">{{today_negative_count}} 条</span>-->
-                                            </div>
+                                      </div>
+                                  </div>
+                              </el-card>
+                          </el-col>
+                        <!--<el-col :span="8" style="padding: 0px;margin-top:-2px;margin-left: -1%;margin-right: -1%;">-->
+                          <el-col :span="8" style="">
+                              <el-card :body-style="{padding: '0px',shadow:'never'}" style="border-radius: 0;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" shadow="never">
+                                  <div class="grid-content grid-con-1" style="height:90px;color:#E47470;background-color: white ">
+                                      <div class="grid-con-text">
+                                          <div class="iconof1" style="margin-left:10%;background-color: #8dbf6a;border-radius:15px;">
+                                            <span style="color: white">
+                                              <i class="el-icon-bottom" style="font-size: 45px;margin-top: 15%;"></i>
+                                            </span>
 
-                                        </div>
-                                    </div>
-                                </el-card>
-                            </el-col>
-                          <!--<el-col :span="8" style="padding: 0px;margin-top:-2px;margin-left: -1%;margin-right: -1%;">-->
-                            <el-col :span="8" style="margin-right: -1%">
-                                <el-card :body-style="{padding: '0px',shadow:'never'}" style="border-radius: 0;" shadow="never">
-                                    <div class="grid-content grid-con-1" style="color:#E47470;background-color: white ">
-                                        <div class="grid-con-text">
-                                            <div class="iconof1" style="background-color: #8dbf6a;border-radius:15px;">
-                                              <span style="color: white">
-                                                <i class="el-icon-bottom" style="font-size: 50px;margin-top: 10%;"></i>
-                                              </span>
+                                          </div>
+                                      </div>
 
-                                            </div>
-                                        </div>
+                                      <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
+                                      <div class="grid-cont-right1" style="margin-left: -110px;width:50px;">
+                                          <div class="right-text">
 
-                                        <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
-                                        <div class="grid-cont-right1" style="margin-left: -110px;width:50px;">
-                                            <div class="right-text">
+                                              <span class="grid-num" style="font-size: 30px;color: #35363b;">{{history_neg_count}} 条</span>
+                                          </div>
+                                          <div class="right-text">
+                                              <span class="grid-text" style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;">历史检测负面新闻总数</span>
 
-                                                <span class="grid-num" style="font-size: 30px;color: #35363b;">{{history_neg_count}} 条</span>
-                                            </div>
-                                            <div class="right-text">
-                                                <span class="grid-text" style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;">历史检测负面新闻总数</span>
+                                          </div>
 
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </el-card>
-                            </el-col>
-                        </el-row>
-
-                        <el-row :gutter="20" >
-                            <!--<el-col :span="4">-->
-                              <!--<div id="history_sum" style="width:300px;height:400px;">-->
-                              <!--</div>-->
-                            <!--</el-col>-->
-                            <el-col :span="10">
-                              <div id="history_trend" style="width:800px;height:400px;">
-
-                              </div>
-                            </el-col>
-                            <el-col :span="14">
-                              <div id="hot_theme_sen_dis" style="width:800px;height:400px;">
-                                <!--{{this.hot_theme_dis}}-->
-                              </div>
-                            </el-col>
-                        </el-row>
+                                      </div>
+                                  </div>
+                              </el-card>
+                          </el-col>
+                      </el-row>
+                      <el-row :gutter="20" >
+                          <!--<el-col :span="4">-->
+                            <!--<div id="history_sum" style="width:300px;height:400px;">-->
+                            <!--</div>-->
+                          <!--</el-col>-->
+                          <el-col :span="10">
+                            <div id="history_trend" style="width:800px;height:400px;"></div>
+                          </el-col>
+                          <el-col :span="14">
+                            <div id="hot_theme_sen_dis" style="width:800px;min-height:400px;"></div>
+                          </el-col>
+                      </el-row>
                     </el-card>
+              </el-row>
+
+            </el-main>
         </el-container>
     </div>
 
 
 </template>
 <script>
+import "echarts/dist/extension/dataTool";
 import echarts from 'echarts'
+Date.prototype.Format = function (fmt) {
+  // author: meizz
+  var o = {
+    "M+": this.getMonth() + 1, // 月份
+    "d+": this.getDate(), // 日
+    "h+": this.getHours(), // 小时
+    "m+": this.getMinutes(), // 分
+    "s+": this.getSeconds(), // 秒
+    "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+    S: this.getMilliseconds(), // 毫秒
+  };
+  if (/(y+)/.test(fmt))
+    fmt = fmt.replace(
+      RegExp.$1,
+      (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+    );
+  for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt))
+      fmt = fmt.replace(
+        RegExp.$1,
+        RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length)
+      );
+  return fmt;
+};
 import { fetchData } from '../../api/index';
 const sentimenturl = "http://115.236.52.123:6012/api/sentiment";
 const realurl = "http://115.236.52.123:6012/api/getRealTimeSentimentInfo";
@@ -348,7 +384,7 @@ export default {
             source_neg:[],
             source:['education教育','entertainment娱乐','finance经济','politics','society','sports','technology'],
             // todaydatatest: [[1,2,3,4,5,6,7,8,9,10,11, 12, 13, 14, 15,16,17],[150, 232, 201, 154, 190, 330, 410]]
-
+            lastupdatetime: new Date().Format("yyyy-MM-dd hh:mm:ss"),
 
             // "positive_news": [],  //列表每个item为字典形式, {"news": str, "url": str, "score": float, "publish_time": str}, 每个列表最多包含20条
             // "negative_news": []   //列表每个item为字典形式, {"news": str, "url": str, "score": float, "publish_time": str}, 每个列表最多包含20条
@@ -360,13 +396,24 @@ export default {
          // this.getData();
     },
     mounted() {
-        this.ResultofSentiment();
+
         // this.drawProgress("emotionLevel",this.sentimentscore);
-        setTimeout(()=>{
-          this.drawSum('history_sum',this.history_pos_count,this.history_neg_count);
-        })
-        this.getRealTimeSentimentInfo();
+
+        // this.getRealTimeSentimentInfo();
+        this.ResultofSentiment();
+
+        const refreshTime = 5 * 60 * 1000;
+        var that = this;
         this.getDay();
+        var func = function () {
+          that.lastupdatetime = new Date().Format("yyyy-MM-dd hh:mm:ss");
+          that.getRealTimeSentimentInfo();
+        };
+        func();
+        setInterval(func, refreshTime);
+        // setTimeout(()=>{
+        //   this.drawSum('history_sum',this.history_pos_count,this.history_neg_count);
+        // })
         // this.drawToday('today_emotionLevel',this.todaydatatest);
         // this.drawHistory('historyChart');
         // this.getDay();
@@ -375,7 +422,7 @@ export default {
         // });
         // this.$nextTick(function() {
         // });
-        this.init()
+        // this.init()
     },
     methods: {
         ResultofSentiment() {
@@ -974,7 +1021,17 @@ export default {
             //     left:'260px'
             // },
             tooltip: {
-                trigger: 'axis'
+                trigger: 'axis',
+                formatter:function (params, ticket, callback) {
+                  var res = '时间：'+params[0].name+':00'+'</br>'+params[0].marker+params[0].seriesName+':'+params[0].value+'</br>'+params[1].marker+params[1].seriesName+':'+params[1].value;
+                  console.log("pare:",params);
+                  return res;
+                },
+                textStyle:{
+                        align:'left'
+                }
+
+
             },
             grid:{
                   x:50,
@@ -985,6 +1042,7 @@ export default {
 	          },
             legend: {
                 data: ['正面新闻', '负面新闻'],
+                formatter:'',
                 // orient: 'vertical',
                 right: '6%',
             },
@@ -1239,14 +1297,18 @@ export default {
         drawTrend(id,pos,neg,date_arr) {
           this.charts = echarts.init(document.getElementById(id));
           var option = {
-            color:['#9EBACB','#E9E9E9'],
+            // color:['#9EBACB','#E9E9E9'],
+            color: ['#7bbf67', '#e39fa1'].reverse(),
             // title: {
             //   text: '近七日增长图',
             //   textAlign: 'center',
             //   left: '190px'
             // },
             tooltip: {
-              trigger: 'axis'
+              trigger: 'axis',
+              textStyle:{
+                        align:'left'
+                }
             },
             legend: {
               data: ['正面新闻', '负面新闻'],
@@ -1270,13 +1332,11 @@ export default {
               type: 'category',
               name: '时间',
               data: date_arr,
-              axisLabel: {
-                interval: 0,
-                // rotate: 40,
-                fontFamily: '微软雅黑',
-
-                show: true,
-              },
+              boundaryGap: false,
+              nameTextStyle:{
+                  fontSize:14,
+                  fontWeight: 700,
+              }
 
             },
             yAxis: {
@@ -1292,6 +1352,10 @@ export default {
 
                   }
               },
+              nameTextStyle:{
+                  fontSize:14,
+                  fontWeight: 700,
+              }
             },
             series: [
               {
@@ -1320,8 +1384,8 @@ export default {
         drawHotDis(id,pos,neg) {
            this.chart = echarts.init(document.getElementById(id));
            var option = {
-                color:['#9EBACB','#b7b7b7'],
-                // color: ['#8dbf6a', '#eb7777'],
+                // color:['#9EBACB','#b7b7b7'],
+                color: ['#eb7777','#8dbf6a'],
                 // color : ['#7db5e2', '#81cacc', '#cca8ba', "#7EBF50", "#82a0c5", '#fddb7e', '#bda29a', '#d2a59a', '#7f9979', '#c4ccd3','#5F9EA0','#a498d6'],
                 // color:['rgb(210,100,93)','rgb(228,116,79)','rgb(242,176,110)','rgb(249,224,150)','rgb(255,254,198)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,134,183)','rgb(125,169,185)'].reverse(),
                 // color:['rgb(215,121,118)','rgb(224,108,146)','rgb(175,110,195)','rgb(249,224,150)','rgb(255,254,198)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,134,183)','rgb(125,169,185)'].reverse(),
@@ -1339,7 +1403,7 @@ export default {
                 grid: {
                     x:160,
                     y:30,
-                    x2:170,
+                    x2:180,
                     y2:100,
                     borderWidth:10
                 },
@@ -1375,6 +1439,10 @@ export default {
                         fontFamily: '微软雅黑',
                         show: true,
                     },
+                    nameTextStyle:{
+                        fontSize:14,
+                        fontWeight: 700,
+                    }
                 }],
                 //y轴
                 yAxis:[{
@@ -1392,6 +1460,10 @@ export default {
                       }
 
                     },
+                    nameTextStyle:{
+                        fontSize:14,
+                        fontWeight: 700,
+                    }
                     // seriesLayoutBy: 'column',
                     // axisLine: {
                     //
@@ -1626,10 +1698,10 @@ export default {
         background: #589ef8;
     }
     .iconof1{
-      width: 40%;
-      height: 80px;
+      width: 30%;
+      height: 70px;
       background-color: #20a0ff;
-      margin-left: 10%;
+      text-align: center;
     }
     .grid-cont-right1 {
         flex: 1;
@@ -1639,7 +1711,6 @@ export default {
         /*color: #35363b;*/
     }
     .right-text{
-
         margin-bottom: 5%;
         margin-top: 5%;
     }
@@ -1768,6 +1839,12 @@ export default {
       justify-content: flex-start;
 
     }
+    .showupdatetime {
+      color: gray;
+      font-size: 10px;
+      text-align: right;
+      margin-bottom: -1%;
+    }
 
     a:link {color:#000000;}      /* 未访问链接*/
     a:visited {color:#000000;}  /* 已访问链接 */
@@ -1783,6 +1860,9 @@ export default {
 .el-card__body{
   box-shadow: none !important;
 }
-
+.el-col el-col-8{
+  box-shadow: none !important;
+  shadow:'nerver' !important;
+}
 </style>
 
