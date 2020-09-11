@@ -609,9 +609,9 @@
                 this.treeCharts.hideLoading();
                 // this.percentCharts.hideLoading();
 
-              // window.onresize = this.$refs.treePic.resize;
-              window.onresize = () => {
-                this.treeCharts.resize();
+                // window.onresize = this.$refs.treePic.resize;
+                window.onresize = () => {
+                  this.treeCharts.resize();
                 // this.percentCharts.resize();
 
                 // let height = this.$refs.asideContainer.offsetHeight;

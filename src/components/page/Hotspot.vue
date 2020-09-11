@@ -303,6 +303,7 @@ import { fetchData } from "../../api/index";
 import "echarts-wordcloud/dist/echarts-wordcloud";
 import "echarts-wordcloud/dist/echarts-wordcloud.min";
 const hotspoturl = "http://115.236.52.123:6012/api/hotspot";
+// const maskImage = new Image();
 
 const type2color = [
   "rgb(151, 94, 109)",
@@ -383,6 +384,8 @@ export default {
       nearly_three_days_news_dis: [],
       nearly_one_week_news_distribution: {},
       nearly_one_week_news_dis: [],
+      // var maskImage = new Image();
+      // maskImage.src = this.image2;
 
       one_week_time: [],
       news_info: [],
@@ -424,7 +427,7 @@ export default {
       one_week_freq_heat_data: [],
       heatmap: "",
       image1:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAO4AAADICAYAAADvG90JAAAWNElEQVR4Xu2dedS/5ZzHX/6YmVJRKi1ojwqjydaqIilJacgkhFSYM5UkSyiFSpaypIXRiJBjyJqTZBjLjL2hxZpMRqEkSxznzJz3dH1PT0/P83zv5bqv5b7fn3O+5+l3uu/r8/m8r/t9L9f1We6GxQgYgeoQuFt1FttgI2AEMHF9ERiBChEwcSucNJtsBExcXwNGoEIETNwKJ80mGwET19dAbAS2BDYNv/sA9wLWAtYEVpuj7M/Ab8LvZuB64Mrw+3lsQ2sez8Stefby2r4TsBtw/wVEve+AJv0C+BxwOfAZ4GcD6ip+aBO3+CkqxsB1gKcBewK7Aqtntuwa4JPA24CfZLYluXoTNznkVSlcA/h74OnAYwq2/ELgNcBVBdsY1TQTNyqcoxnsAcAxgbB3r8grvUafCVxckc2dTDVxO8E22pM2CRf+Eyv38EvAUcA3KvdjWfNN3LHObHu/TgJe2f60os/Q6/PYfPp/wE3coq+7JMZtD7wf0NN2jPKFsKimraXSZGNgL+BfgNvaGGfitkFrfMe+FDhlfG7dxaNbgBcAWsTKLdrXfirwDGAH4BHA19oaZeK2RWwcx2vB6WOFrxQPgfR5wOFDDDxnTAWePBn4h/CEnR1+EPCBLvYMQdytp7Qs3wX0As5RIMPuBdiRw4QvA/uE6Kyh9e8NHBy21FZZpExrCid0NWAI4upOrjvM/sCtXQ3zeYMhoK2S2leN+4KjMMpdgJv6DrTE+YooU6CKnqYK9VxKPgQc2Ed3bOJuGOJLZdN3wmuBQtUsZSBwLnBYGaZkt+KK8NYRg7wK+3xm+G7daI5nXwce3tf72MQ9GnjzAqO0krcHcHVfQ31+bwQOAD7ce5RxDaCHi67PX3Vwa/0QoKJX4W0bnq/46ocCv2x4/LKHxSbuUt9OyvJ4PPDVvsb6/M4IKPj/v0KGTudBRnqiyKstsSbbMfcMC0xaFW67RqDxHwnoSd9bYhJ3XeDGZSz6Y3BY37+W9AhcBjw6vdpqNCrS6uSQdbSU0SLpc8O3a1en9gU+0fXkxefFJO6hwDvnGPY84JxYxnucRggcApzf6EgfpLfD2RPxr4ENIgWmHAu8MSa8MYnbdLXydcDxMZ3wWMsisCrwY0DfY5Y8CLwbeE5s1TGJ+78tjNNyuFbhmnxXtBjWhy5C4MQ+e4VGszcCegXfufcoSwwQi7jK1fxsSwMV5qX3/htanufDmyGwXkgw11PXkh4BJfdrBVmv39ElFnFPB/Qe31ZUR+hxwHfbnujj5yLwcuC1c4/yAUMg8NuwV/v9IQbXmLGIq62GB3U08vdhtc4rzh0BXOY0VYPYKu6QHq0hAtob1kr+YBKDuMp2+HUEC18GnBphHA9x+yuaInQs6RFQZNq83ZXeVsUgruJeY5UK6R3D2RuRcQxwRqgAMQ5v6vFCuL8whbkxiHsacFxEYxVhtd8KwRwRVY12KMWHa3HKkg6BSwBlAyWRGMRVhQFlWsQUXXgi73/GHHQiYz3Qi33JZ1rZRgpn/F0qzTGIq8WloSoBvgh4UyowRqLn+cBZI/GlBjeUoPAw4Kc9jd0GUHVNBcwofnpF6UtcKRo680erzcpv1A3CMh8BVVRQELwlDQJtSs8oSUG7L1rtF3dmf5UWKGm8xtOXuE8BLkqAj6rWKzF/6JtEAlcGV/E/DnEcHOOZAj1QVGhvsYiIWwSSiqD6t56o2oFZTrQS3ThXui9xXwW8OhFMeuIq5jPFjSKRS9HVbA78MPqoHnApBPQJp/xmkVK/Bweydtk7f0vbXYC+xNXdRgWwUkprJ1Mal1mXFvQ+mtkGq2+HgGIXFMPQSvoSV5Xit2ulMc7B3wrfcT+IM9xoRlHbkKjpY6NBpkxHVKxdRdtbS1/iql7tPVprjXOCkvO16vyOOMONYhStJmtV2VI+AgrUUMBGJ+lDXK2QqQlxblGrRSWLxwi7zO1LX/3qG6s2mJayEdDN9ew+JvYhrlbNSnlVVckcrfANGtjdB+hE5/4I2CyRLqvphoBalr6v26l3nNWHuIoUKa0AnJoc/1NfUCo+v00xg4rdrNZ07a9H2RXpQ9xHAf9WIIR6C1B1jdJuKimgMnFToNxNhyqdfrrbqXc9qw9x1bBI7RxKFRWle/GEuilokVCLhZbyEIien9uHuKrGXnoSgJIVjggNrsqbzrgW3dtlgOICGmE01VRTxtDnI4x1pyH6EPdvmwRDxza443iKcFGbxeXqPncctqjT7gdcV5RF0zZG5WtUlmmQT7Y+xFVol8qj1CICUnnDY63rXNIqfy3XxFB26pNFBei/OZSCPsRVrV4FtNcmAlPB3IOBmgkQ5+FmAn6RWsUTaOFWObqDSR/iyqiaVzHVue4lhQSRxJjgmj5dYvhb4hh6kKldibLZBpW+xFXy8Ly2goM60HNwtVhUGdMxvD4rz1PVNi15EFAnvl1DLevBLehLXIUban+qdtHq+FFDLSQkAidFUYNErlSnRrEDetKqrWwS6Utc9QFqnZKUxLNuSnQjUsaGso9qk01S3e1rA2Zge/UtK9Im3bHoS1xtLF86MDA5hv/XQOBBFxgiO7ZSm9PIqjxcQODbgNrvxOhq3wrUvsRVX5o/tNJY18EXhgofg7WSiAjH6hOKEosIW+ehRNZNAW0zJpe+xJXBCppW7akxi4p4nVLBK3TNq/y1XT9ajMq2MBuDuDsCaic4Bbk8lIuN1lk8MmgmbmRAVxhOZVn1eZJFYhBXhmvfalZiMosjiZWqu+CZgEqhJiuC3cBH2bJag+N8SH8EVLxQnydZJBZxp1qEW9/3Ks72HkDVJ3LLL4F1chsxIf2x+NMasliKVwGunXi/GpFGBP4goKbdOURJBko2sKRBIBZ/WlsbU7Gyb97e2oJxnqCbmMqT6FU6ZdNurX5vOU5Ii/RKrXdUtDC5xCSujFffEy2RW+5AQHvBWpX+SII0yCtCYW7jnwYBFS+4NY2qO2uJTVwVR1+qJUMO30rUqS4DIrD6If37AAb+B6BeNpY0CKyZq+pIbOIKLnVCV0d0y3wEVLNLW2lfDNVE+kbgaDyllFnSILB2jqgpuTYEcUus/phmGvtr0aa+4qT10z6hcju16KW/ioVdKYhdscp6JVfLR0saBNQ8PGmM8sytIYirsY/v2lohDd7WYgSiIKA6X7qxJpehiCtHvgJsn9wjKzQC6RBQ28yb06m7Q9OQxNV+orZCcvUWyoGndU4LAbXhqTbJYKWp2gcoNa53WpeYvR0CAYWXZsmOG/KJOwNKja/VANtiBMaGQAr+LIlZKsVKTH/S2GbN/kwegVT8uQvQXRQfCagrfFvRXuXObU/y8UagUASUibVGLtvaEndWZUElO5Q8r0igpiInFTG0W9MTfJwRKBiBGwDVFs8ibYm7MGle+YhHA+9sablCIhUaaTECNSOgXsTqHpFF2hL3ucB5iyxVaVPl47bpDHAicEIWj63UCMRB4DvAtnGGaj9KW+KeFvrvLKXpvaEuU9PKiAcAFwBKjbIYgdoQUJLILrmMbktckfPgOcZ+FjgbUIe8eaLcUWXLqO+NxQjUhIDWa/bLZXBb4l4SWgc2sVcf76oIIWIq/HE50RP3WOAYQJEoFiNQAwL/DByay9C2xNX3rBpatxU1Q7osEFhlXX4Ssl80jkIj1bBKokZcG7Yd3McbgQwIvD40jcugun1an5pKqbmUxQhMHQH1Wj49Fwhtn7haeNo6l7HWawQKQuA5wLtz2dOWuAq8eEguY63XCBSEwN6A1nyySFviuqZRlmmy0gIR0LpMtn7EbYmrrR51J7MYgakjkC2JXsC3Ja6KfR849Rmz/0agA3eigtaWuCp4rsLnFiMwZQTUgT5rr6y2xFWgRLYl8ClfKfa9KAT0yfjYnBa1Je4TgI/nNNi6jUABCCikV4k12aQtcVW7V1FPFiMwZQT05vnGnAC0Ja5sVQyy6slajMBUEdgfuDin812IK4OfmNNo6zYCmRFQ2O/3ctrQhbhHAWfkNNq6jUBmBFYFbstpQxfiqo2m2mlajMAUEbgG2Cq3412IK5tVtmOWipfbB+s3AikRUGO17EFIXYmrInFvTomWdRmBQhB4ZQkN7boSV5UqflMIkDbDCKREIPuKspztSlyd+y5AOYkWIzAlBDYGrsvtcB/ibgaotqzFCEwFATUbX7cEZ/sQV/afAxxegiO2wQgkQEDhvkXEMPQl7gaAMiXUbtBiBMaOQBELU32/cWeTpDQ/pftZjMDYEdgTuLQEJ/s+cWc+fBnYoQSHbIMRGBCBbB3oF/sUi7haafsuoG5+FiMwRgS+BWxXimOxiCt/9g1tNEvxzXYYgZgIKOBI3TaKkJjElUOvBV5ehGc2wgjEReBJwEfjDtl9tNjElSVn5a4O0B0On2kElkVgbeCmUvAZgrjy7UzgyFKctB1GoCcCRX3fypehiKux9cqsV2eLEagdgZOBV5XkxJDElZ+7AkqDKiJMrCTgbUtVCDwSUKfKYmRo4srR9UPn+T2K8dqGGIHmCBQTn7zQ5BTEnelTE2BVxnPz6uYXjY/Mj4A68hWXBZeSuJoCNa3WqvN++efDFhiBRggoqaC4WuKpiTtDavtQRcANxBpdOz4oEwK3AvfIpHtFtbmIOzNqF+DVwO4lgmObJo/Ae4BDSkQhN3FnmGwR8nqf5RXoEi+TydqkMN5PlOh9KcRdiM1BIe55N0D5vhYjkAOBW4A1cyhuorNE4i60W60MtRcsEu8MbNTEKR9jBCIgcC5wRIRxBhmidOIudlo9i3YMub9a4HoYcPdBkPGgU0dgJ0B55kVKbcRdCKIIrJhokddiBGIioCKIWncpVmojrkInDwAOBrQibTECQyBQTG2p5ZzLQdxtgFeE0q7XAj8F/rKMgSKqgjY2D9+6bnsyxGXqMRcjUETt5JWmJQdxtVJ3s68VI1AoAh8Jb3WFmne7WTmIK71fBZRxYTECpSGgXYwvlGbUYntyEfc44LTSwbF9k0PgKkCfcsVLLuK6x27xl8YkDXw2cH4NnucirrD5YgiqqAEn2zh+BIrMu10O9pzEPQxQdIrFCJSAwLEhX7wEW+bakJO4qwLXA2vNtdIHGIFhEVCv5/sBvxtWTbzRcxJXXiilr6giXPGg9UgVIXAScEJF9mbbDpphtE4IwHC8cU1Xzbhs/UNIXvl1TW7lfuIKK4WX6Y5nMQI5ENAbn8qvViUlEFe9dRXUvV5VyNnYMSBwI7AZ8PvanCmBuMJMxeOK6ctS2yTa3s4IPA84p/PZGU8shbiC4EJA1S8sRiAFAlcDW6dQNISOkoir5IMrXa5miGn2mEsgsBfwmVqRKYm4wnDbUHVAe7wWIzAUAh+rvbZ3acTVRKkA9cVDzZjHNQJh++dnNSNRInGF50uAU2sG1rYXi4A6SKqQQ9VSKnEF6hnAUVWja+NLQ0Dbjg8CbivNsLb2lExc+aKGSyqSbjECMRB4BPC1GAPlHqN04gqfC4Cn5wbK+qtH4A3Ai6v3IjhQA3Fl6vGhSdhYcLcfaREovtxqWzhqIa78UnSVgjSckNB2ln383wHfHhMMNRFXuD8YuAjYakyTYF8GRaCqBPmmSNRG3Jlf6mBwZFMnfdxkEbgM2GOM3tdKXM2FmmLr1Vn9hCxGYDECqiGlWGT9HZ3UTFxNhrqFK59Xr0MWI7AQgSrqI3edstqJO/Nb9YJOB57aFQifNyoEqkyObzMDYyHuzGd17jsR2KcNCD52VAhcCuw5Ko+WcGZsxJ25+ADgaOCZ3j4a+yV8J/9+HjoRqJv8qGWsxJ1Nmkq/Hgqo0oE6/lnGi4Aaye0ccrrH62XwbOzEXTiBegrvG36PGv3MTstBVWrcbSxxyE2mbkrEXYjHPYH9Q8/dHRzQ0eRSKfqYRwOXF21hZOOmStzFMIrIOwHbAzuGFqCrR8baww2DgAovfHyYocsd1cRdem5eP6ZMknIvv96WPQN4b+9RKhzAxL3rpGkrodoiYhVeg11N/kfgrK4n136eiXvnGdwF+DSgIu2WchHQXr36Tk1WTNw7pl6rkiLtKpO9GupwXBFyx9Vh6nBWmri3Y/sC4O3DweyRIyGguPTXRBqr6mGmTlzt7X4QeEjVszgN4xUJp3ROC2Rvs5lzEp4citF52yfnLDTTfThwXrNDp3HUFJ+42qt9HbD7NKa4ai/VRU832Euq9mIA46dEXNWs0uuWFqEs5SPw38DjphJ73HY6xk7c+wDPDokGm7QFx8dnQ+ArIaa8qi7xKdEaK3EVUSPC+nU45dUUR5eCKhRcYVkBgTERVxUglTjwfLfqrPaa1832/GqtT2h4zcRVfWUVjHtseK3yq3DCCyeyquvDTffrkccd7XC1EVcFwPT6qzQuhSda6kfgU8AhY63GONT0lEpcVW/cBrg/oCAJJb6ruoFlPAj8ETgGOHs8LqXzpATibgpsBqiTmoq96e9900FgTRkQUMe8gwD19LF0QCAFcbcIRBRBNw6/jQJZ/V3aYdIqP0VNpdVc2tIDgT7EVdWIDcMKruoaa89UPz0t1wdE1HV72OZTx4XAN8K37PfG5VYeb1Yirkj4ImANQPG8+qtvzxlZ3TUvz5zVqPVlwKk1Gl6qzfOeuNoXVVf4NUt1wHYVjcDnQjDF1UVbWaFx84grl9YJmRkiscUINEHgupDsrpRJywAINCHuTO2zgLeG1+YBTPGQI0BA9Y1PcbL78DPZhriyRqvCenV2DPDwc1OThtuAc8Nq8Y01GV6rrW2JO/NTkS5vAu5Vq+O2OxoCCqA4GVDfHksiBLoSV+ZphfmlwAtdYC3RbJWl5m1hpVhxxpbECPQh7szU9YCTAJUXsYwbAb0SK+1OBeNvGLerZXsXg7gzDxVwoYgYhbJZxoXAb0MVzDcAN43LtTq9iUncGQJKDlDB6qfUCYmtXoDAr4Azwm6CyGspBIEhiDtzTYkD+gY+rBBfbUZzBBT8r6erM3eaY5b0yCGJO3NE8coKnVTRcYVNWspF4DLgXcD7yzXRlgmBFMSdIa14Z3WG1yq04p0tZSDwTeB9oeud92DLmJO5VqQk7kJjjgCODMnyc430AdER+CHwAeAC4PvRR/eAgyOQi7gzx5Q4r1BKrUQ7mGPY6Vb88EWBsEqxs1SMQG7iLoTuwJCv+fiK8SzN9F8EsoqwXyrNONvTHYGSiDvzQnm+qmC/L7APcO/u7k3yTO2zfjg8WZVWZxkhAiUSdzHMOwQC7w1sN8I5iOGSvlkvBy4GPhljQI9RNgI1EHchgmsDe4Un8p6Awi2nKD8APr/g5wD/iV0FtRF38fQ8FNgJ0FNZP6UdjlFmT9QZWU3UMc5yC59qJ+5iV/U9LCLvCDw81GXeoAUeuQ/Vk/Qq4BpA5V709wrg1tyGWX9ZCIyNuEuhuyqwJaAysZuHvwrHVDVKkVrVKlOJYn/VPlI/pcNdG/ZRRdIrUxlhPfUjMAXizpulVUJZWZFYP0V1rQWsFvKM/yb81XGz318Bfwo/pbrN/lt/Z/++ZRFJXfx73kz4/zdGwMRtDJUPNALlIGDiljMXtsQINEbAxG0MlQ80AuUgYOKWMxe2xAg0RsDEbQyVDzQC5SBg4pYzF7bECDRG4P8A3SKu5/rwGYoAAAAASUVORK5CYII=",
+        "data:image/png;base64,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",
 
       // =======
       //             name:["Domestic国内","World世界","Sports体育","Society社会","History历史","Entertainment娱乐",
@@ -574,8 +577,10 @@ export default {
     WordCloud(id, words, title) {
       this.chart = echarts.init(document.getElementById(id));
       var maskImage = new Image();
+
       maskImage.src = this.image5;
       //maskImage.src = this.image2;
+
       var option = {
         /*colorArr: [
           "#fda67e",
@@ -629,6 +634,7 @@ export default {
             // rotationRange: [ 0,90],
             // rotationRange: [0, 0],
             //随机生成字体颜色
+
             maskImage: maskImage,
             textStyle: {
               normal: {
@@ -669,10 +675,15 @@ export default {
           },
         ],
       };
+      // maskImage.onload=function(){
+      //
+      //     this.chart.setOption(option);
+      //
+      // };
       this.chart.setOption(option);
-      // window.addEventListener("resize", function() {
-      //   this.chart.resize()
-      // })
+      window.addEventListener("resize", function() {
+        this.chart.resize()
+      })
     },
     // 获取热点挖掘的数据
     ResultofHospot() {
@@ -771,134 +782,6 @@ export default {
           console.log("success");
           //折线图
           this.hot_statistics = this.hotspotRes.hot_statistics;
-          // this.news_info[0] = {
-          //     name: '国内',
-          //     type: 'bar',
-          //     stack: '总量',
-          //     // label: {
-          //     //     show: true,
-          //     //     position: 'right'
-          //     // },
-          //     data: this.hot_statistics.domestic_trend
-          // },
-          // this.news_info[1] = {
-          //     name: '世界',
-          //     type: 'bar',
-          //     stack: '总量',
-          //     // label: {
-          //     //     show: true,
-          //     //     position: 'right'
-          //     // },
-          //     data: this.hot_statistics.world_trend
-          // },
-          // this.news_info[2] = {
-          //     name: '体育',
-          //     type: 'bar',
-          //     stack: '总量',
-          //     // label: {
-          //     //     show: true,
-          //     //     position: 'right'
-          //     // },
-          //     // data: this.hot_statistics.sports_trend.map((item, index, arr)=> item * -1 )
-          //     data: this.hot_statistics.sports_trend
-          // },
-          // this.news_info[3] = {
-          //     name: '社会',
-          //     type: 'bar',
-          //     stack: '总量',
-          //     // label: {
-          //     //     show: true,
-          //     //     position: 'right'
-          //     // },
-          //     data: this.hot_statistics.society_trend
-          // },
-          // this.news_info[4] = {
-          //     name: '历史',
-          //     type: 'bar',
-          //     stack: '总量',
-          //     // label: {
-          //     //     show: true,
-          //     //     position: 'right'
-          //     // },
-          //     // data: this.hot_statistics.history_trend.map((item, index, arr)=> item * -1 )
-          //     data: this.hot_statistics.history_trend
-          // },
-          // this.news_info[5] = {
-          //     name: '娱乐',
-          //     type: 'bar',
-          //     stack: '总量',
-          //     // label: {
-          //     //     show: true,
-          //     //     position: 'right'
-          //     // },
-          //     // data: this.hot_statistics.entertainment_trend.map((item, index, arr)=> item * -1 )
-          //     data: this.hot_statistics.entertainment_trend
-          // },
-          // this.news_info[6] = {
-          //     name: '军事',
-          //     type: 'bar',
-          //     stack: '总量',
-          //     // label: {
-          //     //     show: true,
-          //     //     position: 'right'
-          //     // },
-          //     // data: this.hot_statistics.military_trend.map((item, index, arr)=> item * -1 )
-          //     data: this.hot_statistics.military_trend
-          // },
-          // this.news_info[7] = {
-          //     name: '政府',
-          //     type: 'bar',
-          //     stack: '总量',
-          //     // label: {
-          //     //     show: true,
-          //     //     position: 'right'
-          //     // },
-          //     // data: this.hot_statistics.government_trend.map((item, index, arr)=> item * -1 )
-          //     data: this.hot_statistics.government_trend
-          // },
-          // this.news_info[8] = {
-          //     name: '教育',
-          //     type: 'bar',
-          //     stack: '总量',
-          //     // label: {
-          //     //     show: true,
-          //     //     position: 'right'
-          //     // },
-          //     // data: this.hot_statistics.education_trend.map((item, index, arr)=> item * -1 )
-          //     data: this.hot_statistics.education_trend
-          // },
-          // this.news_info[9] = {
-          //     name: '经济',
-          //     type: 'bar',
-          //     stack: '总量',
-          //     // label: {
-          //     //     show: true,
-          //     //     position: 'right'
-          //     // },
-          //     data: this.hot_statistics.finance_trend
-          // },
-          // this.news_info[10] = {
-          //     name: '评论',
-          //     type: 'bar',
-          //     stack: '总量',
-          //     // label: {
-          //     //     show: true,
-          //     //     position: 'right'
-          //     // },
-          //     // data: this.hot_statistics.comment_trend.map((item, index, arr)=> item * -1 )
-          //     data: this.hot_statistics.comment_trend
-          // },
-          // this.news_info[11] = {
-          //     name: '其他',
-          //     type: 'bar',
-          //     stack: '总量',
-          //     // label: {
-          //     //     show: true,
-          //     //     position: 'right'
-          //     // },
-          //     data: this.hot_statistics.other_trend
-          // },
-
           this.getDay();
           for (let i = 0; i < 7; i++) {
             let key = this.one_week_time[i];
@@ -917,8 +800,6 @@ export default {
               this.hot_statistics.other_trend[i],
             ];
           }
-          // console.log("data formatter suc:",this.dataTrend)
-          // this.drawTest('hot_trend_test',this.one_week_time.reverse(),this.news_info);
           this.drawDTrend(
             "hot_trend",
             this.one_week_time.reverse(),
@@ -1325,634 +1206,6 @@ export default {
       };
     },
     //动态柱状图
-    drawDyTrend(id, date_arr, new_info) {
-      // 基于准备好的dom，初始化echarts实例
-      this.chart = echarts.init(document.getElementById(id));
-
-      var dataMap = {};
-      function dataFormatter(obj) {
-        var pList = this.name;
-        var temp;
-        for (var day = date_arr[0]; day <= 2011; year++) {
-          var max = 0;
-          var sum = 0;
-          temp = obj[year];
-          for (var i = 0, l = temp.length; i < l; i++) {
-            max = Math.max(max, temp[i]);
-            sum += temp[i];
-            obj[year][i] = {
-              name: pList[i],
-              value: temp[i],
-            };
-          }
-          obj[year + "max"] = Math.floor(max / 100) * 100;
-          obj[year + "sum"] = sum;
-        }
-        return obj;
-      }
-
-      dataMap.dataGDP = dataFormatter({
-        //max : 60000,
-        2011: [
-          16251.93,
-          11307.28,
-          24515.76,
-          11237.55,
-          14359.88,
-          22226.7,
-          10568.83,
-          12582,
-          19195.69,
-          49110.27,
-          32318.85,
-          15300.65,
-          17560.18,
-          11702.82,
-          45361.85,
-          26931.03,
-          19632.26,
-          19669.56,
-          53210.28,
-          11720.87,
-          2522.66,
-          10011.37,
-          21026.68,
-          5701.84,
-          8893.12,
-          605.83,
-          12512.3,
-          5020.37,
-          1670.44,
-          2102.21,
-          6610.05,
-        ],
-        2010: [
-          14113.58,
-          9224.46,
-          20394.26,
-          9200.86,
-          11672,
-          18457.27,
-          8667.58,
-          10368.6,
-          17165.98,
-          41425.48,
-          27722.31,
-          12359.33,
-          14737.12,
-          9451.26,
-          39169.92,
-          23092.36,
-          15967.61,
-          16037.96,
-          46013.06,
-          9569.85,
-          2064.5,
-          7925.58,
-          17185.48,
-          4602.16,
-          7224.18,
-          507.46,
-          10123.48,
-          4120.75,
-          1350.43,
-          1689.65,
-          5437.47,
-        ],
-        2009: [
-          12153.03,
-          7521.85,
-          17235.48,
-          7358.31,
-          9740.25,
-          15212.49,
-          7278.75,
-          8587,
-          15046.45,
-          34457.3,
-          22990.35,
-          10062.82,
-          12236.53,
-          7655.18,
-          33896.65,
-          19480.46,
-          12961.1,
-          13059.69,
-          39482.56,
-          7759.16,
-          1654.21,
-          6530.01,
-          14151.28,
-          3912.68,
-          6169.75,
-          441.36,
-          8169.8,
-          3387.56,
-          1081.27,
-          1353.31,
-          4277.05,
-        ],
-        2008: [
-          11115,
-          6719.01,
-          16011.97,
-          7315.4,
-          8496.2,
-          13668.58,
-          6426.1,
-          8314.37,
-          14069.87,
-          30981.98,
-          21462.69,
-          8851.66,
-          10823.01,
-          6971.05,
-          30933.28,
-          18018.53,
-          11328.92,
-          11555,
-          36796.71,
-          7021,
-          1503.06,
-          5793.66,
-          12601.23,
-          3561.56,
-          5692.12,
-          394.85,
-          7314.58,
-          3166.82,
-          1018.62,
-          1203.92,
-          4183.21,
-        ],
-        2007: [
-          9846.81,
-          5252.76,
-          13607.32,
-          6024.45,
-          6423.18,
-          11164.3,
-          5284.69,
-          7104,
-          12494.01,
-          26018.48,
-          18753.73,
-          7360.92,
-          9248.53,
-          5800.25,
-          25776.91,
-          15012.46,
-          9333.4,
-          9439.6,
-          31777.01,
-          5823.41,
-          1254.17,
-          4676.13,
-          10562.39,
-          2884.11,
-          4772.52,
-          341.43,
-          5757.29,
-          2703.98,
-          797.35,
-          919.11,
-          3523.16,
-        ],
-        2006: [
-          8117.78,
-          4462.74,
-          11467.6,
-          4878.61,
-          4944.25,
-          9304.52,
-          4275.12,
-          6211.8,
-          10572.24,
-          21742.05,
-          15718.47,
-          6112.5,
-          7583.85,
-          4820.53,
-          21900.19,
-          12362.79,
-          7617.47,
-          7688.67,
-          26587.76,
-          4746.16,
-          1065.67,
-          3907.23,
-          8690.24,
-          2338.98,
-          3988.14,
-          290.76,
-          4743.61,
-          2277.35,
-          648.5,
-          725.9,
-          3045.26,
-        ],
-        2005: [
-          6969.52,
-          3905.64,
-          10012.11,
-          4230.53,
-          3905.03,
-          8047.26,
-          3620.27,
-          5513.7,
-          9247.66,
-          18598.69,
-          13417.68,
-          5350.17,
-          6554.69,
-          4056.76,
-          18366.87,
-          10587.42,
-          6590.19,
-          6596.1,
-          22557.37,
-          3984.1,
-          918.75,
-          3467.72,
-          7385.1,
-          2005.42,
-          3462.73,
-          248.8,
-          3933.72,
-          1933.98,
-          543.32,
-          612.61,
-          2604.19,
-        ],
-        2004: [
-          6033.21,
-          3110.97,
-          8477.63,
-          3571.37,
-          3041.07,
-          6672,
-          3122.01,
-          4750.6,
-          8072.83,
-          15003.6,
-          11648.7,
-          4759.3,
-          5763.35,
-          3456.7,
-          15021.84,
-          8553.79,
-          5633.24,
-          5641.94,
-          18864.62,
-          3433.5,
-          819.66,
-          3034.58,
-          6379.63,
-          1677.8,
-          3081.91,
-          220.34,
-          3175.58,
-          1688.49,
-          466.1,
-          537.11,
-          2209.09,
-        ],
-        2003: [
-          5007.21,
-          2578.03,
-          6921.29,
-          2855.23,
-          2388.38,
-          6002.54,
-          2662.08,
-          4057.4,
-          6694.23,
-          12442.87,
-          9705.02,
-          3923.11,
-          4983.67,
-          2807.41,
-          12078.15,
-          6867.7,
-          4757.45,
-          4659.99,
-          15844.64,
-          2821.11,
-          713.96,
-          2555.72,
-          5333.09,
-          1426.34,
-          2556.02,
-          185.09,
-          2587.72,
-          1399.83,
-          390.2,
-          445.36,
-          1886.35,
-        ],
-        2002: [
-          4315,
-          2150.76,
-          6018.28,
-          2324.8,
-          1940.94,
-          5458.22,
-          2348.54,
-          3637.2,
-          5741.03,
-          10606.85,
-          8003.67,
-          3519.72,
-          4467.55,
-          2450.48,
-          10275.5,
-          6035.48,
-          4212.82,
-          4151.54,
-          13502.42,
-          2523.73,
-          642.73,
-          2232.86,
-          4725.01,
-          1243.43,
-          2312.82,
-          162.04,
-          2253.39,
-          1232.03,
-          340.65,
-          377.16,
-          1612.6,
-        ],
-      });
-      var option = {
-        baseOption: {
-          timeline: {
-            axisType: "category",
-            // realtime: false,
-            // loop: false,
-            autoPlay: true,
-            // currentIndex: 2,
-            playInterval: 1000,
-            // controlStyle: {
-            //     position: 'left'
-            // },
-            data: date_arr,
-            label: [],
-          },
-          title: {
-            subtext: "数据更新于：" + date_arr[-1],
-          },
-          tooltip: {},
-          legend: {
-            // left: 'right',
-            // orient: 'vertical',
-            // data: this.name,
-            // selected: {
-            //   'GDP': false, '金融': false, '房地产': false
-            // }
-          },
-          calculable: true,
-          grid: {
-            top: 80,
-            bottom: 100,
-            tooltip: {
-              trigger: "axis",
-              axisPointer: {
-                type: "shadow",
-                label: {
-                  show: true,
-                  formatter: function (params) {
-                    return params.value.replace("\n", "");
-                  },
-                },
-              },
-            },
-          },
-          xAxis: [
-            {
-              type: "category",
-              axisLabel: { interval: 0 },
-              // 'data':[
-              //     '北京','\n天津','河北','\n山西','内蒙古','\n辽宁','吉林','\n黑龙江',
-              //     '上海','\n江苏','浙江','\n安徽','福建','\n江西','山东','\n河南',
-              //     '湖北','\n湖南','广东','\n广西','海南','\n重庆','四川','\n贵州',
-              //     '云南','\n西藏','陕西','\n甘肃','青海','\n宁夏','新疆'
-              // ],
-              data: this.name,
-              splitLine: { show: false },
-            },
-          ],
-          yAxis: [
-            {
-              type: "value",
-              name: "增长数量（条）",
-            },
-          ],
-          series: news_info,
-          //   [
-          //     {name: 'GDP', type: 'bar'},
-          //     {name: '金融', type: 'bar'},
-          //     {name: '房地产', type: 'bar'},
-          //     {name: '第一产业', type: 'bar'},
-          //     {name: '第二产业', type: 'bar'},
-          //     {name: '第三产业', type: 'bar'},
-          //     {
-          //         name: 'GDP占比',
-          //         type: 'pie',
-          //         center: ['75%', '35%'],
-          //         radius: '28%',
-          //         z: 100
-          //     }
-          // ]
-        },
-        options: [
-          {
-            title: { text: date_arr[0] + "各个主题增长" },
-            series: [
-              { data: dataMap.dataGDP[date_arr[0]] },
-              {
-                data: [
-                  { name: "第一产业", value: dataMap.dataPI["2002sum"] },
-                  { name: "第二产业", value: dataMap.dataSI["2002sum"] },
-                  { name: "第三产业", value: dataMap.dataTI["2002sum"] },
-                ],
-              },
-            ],
-          },
-          {
-            title: { text: "2003全国宏观经济指标" },
-            series: [
-              { data: dataMap.dataGDP["2003"] },
-              { data: dataMap.dataFinancial["2003"] },
-              { data: dataMap.dataEstate["2003"] },
-              { data: dataMap.dataPI["2003"] },
-              { data: dataMap.dataSI["2003"] },
-              { data: dataMap.dataTI["2003"] },
-              {
-                data: [
-                  { name: "第一产业", value: dataMap.dataPI["2003sum"] },
-                  { name: "第二产业", value: dataMap.dataSI["2003sum"] },
-                  { name: "第三产业", value: dataMap.dataTI["2003sum"] },
-                ],
-              },
-            ],
-          },
-          {
-            title: { text: "2004全国宏观经济指标" },
-            series: [
-              { data: dataMap.dataGDP["2004"] },
-              { data: dataMap.dataFinancial["2004"] },
-              { data: dataMap.dataEstate["2004"] },
-              { data: dataMap.dataPI["2004"] },
-              { data: dataMap.dataSI["2004"] },
-              { data: dataMap.dataTI["2004"] },
-              {
-                data: [
-                  { name: "第一产业", value: dataMap.dataPI["2004sum"] },
-                  { name: "第二产业", value: dataMap.dataSI["2004sum"] },
-                  { name: "第三产业", value: dataMap.dataTI["2004sum"] },
-                ],
-              },
-            ],
-          },
-          {
-            title: { text: "2005全国宏观经济指标" },
-            series: [
-              { data: dataMap.dataGDP["2005"] },
-              { data: dataMap.dataFinancial["2005"] },
-              { data: dataMap.dataEstate["2005"] },
-              { data: dataMap.dataPI["2005"] },
-              { data: dataMap.dataSI["2005"] },
-              { data: dataMap.dataTI["2005"] },
-              {
-                data: [
-                  { name: "第一产业", value: dataMap.dataPI["2005sum"] },
-                  { name: "第二产业", value: dataMap.dataSI["2005sum"] },
-                  { name: "第三产业", value: dataMap.dataTI["2005sum"] },
-                ],
-              },
-            ],
-          },
-          {
-            title: { text: "2006全国宏观经济指标" },
-            series: [
-              { data: dataMap.dataGDP["2006"] },
-              { data: dataMap.dataFinancial["2006"] },
-              { data: dataMap.dataEstate["2006"] },
-              { data: dataMap.dataPI["2006"] },
-              { data: dataMap.dataSI["2006"] },
-              { data: dataMap.dataTI["2006"] },
-              {
-                data: [
-                  { name: "第一产业", value: dataMap.dataPI["2006sum"] },
-                  { name: "第二产业", value: dataMap.dataSI["2006sum"] },
-                  { name: "第三产业", value: dataMap.dataTI["2006sum"] },
-                ],
-              },
-            ],
-          },
-          {
-            title: { text: "2007全国宏观经济指标" },
-            series: [
-              { data: dataMap.dataGDP["2007"] },
-              { data: dataMap.dataFinancial["2007"] },
-              { data: dataMap.dataEstate["2007"] },
-              { data: dataMap.dataPI["2007"] },
-              { data: dataMap.dataSI["2007"] },
-              { data: dataMap.dataTI["2007"] },
-              {
-                data: [
-                  { name: "第一产业", value: dataMap.dataPI["2007sum"] },
-                  { name: "第二产业", value: dataMap.dataSI["2007sum"] },
-                  { name: "第三产业", value: dataMap.dataTI["2007sum"] },
-                ],
-              },
-            ],
-          },
-          {
-            title: { text: "2008全国宏观经济指标" },
-            series: [
-              { data: dataMap.dataGDP["2008"] },
-              { data: dataMap.dataFinancial["2008"] },
-              { data: dataMap.dataEstate["2008"] },
-              { data: dataMap.dataPI["2008"] },
-              { data: dataMap.dataSI["2008"] },
-              { data: dataMap.dataTI["2008"] },
-              {
-                data: [
-                  { name: "第一产业", value: dataMap.dataPI["2008sum"] },
-                  { name: "第二产业", value: dataMap.dataSI["2008sum"] },
-                  { name: "第三产业", value: dataMap.dataTI["2008sum"] },
-                ],
-              },
-            ],
-          },
-          {
-            title: { text: "2009全国宏观经济指标" },
-            series: [
-              { data: dataMap.dataGDP["2009"] },
-              { data: dataMap.dataFinancial["2009"] },
-              { data: dataMap.dataEstate["2009"] },
-              { data: dataMap.dataPI["2009"] },
-              { data: dataMap.dataSI["2009"] },
-              { data: dataMap.dataTI["2009"] },
-              {
-                data: [
-                  { name: "第一产业", value: dataMap.dataPI["2009sum"] },
-                  { name: "第二产业", value: dataMap.dataSI["2009sum"] },
-                  { name: "第三产业", value: dataMap.dataTI["2009sum"] },
-                ],
-              },
-            ],
-          },
-          {
-            title: { text: "2010全国宏观经济指标" },
-            series: [
-              { data: dataMap.dataGDP["2010"] },
-              { data: dataMap.dataFinancial["2010"] },
-              { data: dataMap.dataEstate["2010"] },
-              { data: dataMap.dataPI["2010"] },
-              { data: dataMap.dataSI["2010"] },
-              { data: dataMap.dataTI["2010"] },
-              {
-                data: [
-                  { name: "第一产业", value: dataMap.dataPI["2010sum"] },
-                  { name: "第二产业", value: dataMap.dataSI["2010sum"] },
-                  { name: "第三产业", value: dataMap.dataTI["2010sum"] },
-                ],
-              },
-            ],
-          },
-          {
-            title: { text: "2011全国宏观经济指标" },
-            series: [
-              { data: dataMap.dataGDP["2011"] },
-              { data: dataMap.dataFinancial["2011"] },
-              { data: dataMap.dataEstate["2011"] },
-              { data: dataMap.dataPI["2011"] },
-              { data: dataMap.dataSI["2011"] },
-              { data: dataMap.dataTI["2011"] },
-              {
-                data: [
-                  { name: "第一产业", value: dataMap.dataPI["2011sum"] },
-                  { name: "第二产业", value: dataMap.dataSI["2011sum"] },
-                  { name: "第三产业", value: dataMap.dataTI["2011sum"] },
-                ],
-              },
-            ],
-          },
-        ],
-      };
-
-      this.chart.setOption(option);
-      // window.addEventListener("resize", () => {
-      //     this.chart.resize();
-      // });
-      window.onresize = () => {
-        this.chart.resize();
-        // this.percentCharts.resize();
-      };
-    },
     drawDTrend(id, date_arr, news_info) {
       this.chart = echarts.init(document.getElementById(id));
       function dataFormat(obj) {
@@ -2068,11 +1321,6 @@ export default {
           ],
           series: [
             { name: "主题", type: "bar" },
-            // {name: '金融', type: 'bar'},
-            // {name: '房地产', type: 'bar'},
-            // {name: '第一产业', type: 'bar'},
-            // {name: '第二产业', type: 'bar'},
-            // {name: '第三产业', type: 'bar'},
             {
               name: "Trend占比",
               type: "pie",
@@ -2087,15 +1335,8 @@ export default {
             title: { text: date_arr[0] + "各个主题增长" },
             series: [
               { data: tempdataTrend[date_arr[0]] },
-              // {data: dataMap.dataFinancial['2002']},
-              // {data: dataMap.dataEstate['2002']},
-              // {data: dataMap.dataPI['2002']},
-              // {data: dataMap.dataSI['2002']},
-              // {data: dataMap.dataTI['2002']},
               {
                 data: tempdataTrend[date_arr[0]],
-                // {name: '第二产业', value: dataMap.dataFinancial['2002sum']},
-                // {name: 'dataEstate', value: dataMap.dataEstate['2002sum']}
               },
             ],
           },
@@ -2103,11 +1344,6 @@ export default {
             title: { text: date_arr[1] + "各个主题增长" },
             series: [
               { data: tempdataTrend[date_arr[1]] },
-              // {data: dataMap.dataFinancial['2003']},
-              // {data: dataMap.dataEstate['2003']},
-              // {data: dataMap.dataPI['2003']},
-              // {data: dataMap.dataSI['2003']},
-              // {data: dataMap.dataTI['2003']},
               { data: tempdataTrend[date_arr[1]] },
             ],
           },
@@ -2115,11 +1351,6 @@ export default {
             title: { text: date_arr[2] + "各个主题增长" },
             series: [
               { data: tempdataTrend[date_arr[2]] },
-              // {data: dataMap.dataFinancial['2004']},
-              // {data: dataMap.dataEstate['2004']},
-              // {data: dataMap.dataPI['2004']},
-              // {data: dataMap.dataSI['2004']},
-              // {data: dataMap.dataTI['2004']},
               { data: tempdataTrend[date_arr[2]] },
             ],
           },
@@ -2127,11 +1358,6 @@ export default {
             title: { text: date_arr[3] + "各个主题增长" },
             series: [
               { data: tempdataTrend[date_arr[3]] },
-              // {data: dataMap.dataFinancial['2005']},
-              // {data: dataMap.dataEstate['2005']},
-              // {data: dataMap.dataPI['2005']},
-              // {data: dataMap.dataSI['2005']},
-              // {data: dataMap.dataTI['2005']},
               { data: tempdataTrend[date_arr[3]] },
             ],
           },
@@ -2139,11 +1365,6 @@ export default {
             title: { text: date_arr[4] + "各个主题增长" },
             series: [
               { data: tempdataTrend[date_arr[4]] },
-              // {data: dataMap.dataFinancial['2006']},
-              // {data: dataMap.dataEstate['2006']},
-              // {data: dataMap.dataPI['2006']},
-              // {data: dataMap.dataSI['2006']},
-              // {data: dataMap.dataTI['2006']},
               { data: tempdataTrend[date_arr[4]] },
             ],
           },
@@ -2151,11 +1372,6 @@ export default {
             title: { text: date_arr[5] + "各个主题增长" },
             series: [
               { data: tempdataTrend[date_arr[5]] },
-              // {data: dataMap.dataFinancial['2007']},
-              // {data: dataMap.dataEstate['2007']},
-              // {data: dataMap.dataPI['2007']},
-              // {data: dataMap.dataSI['2007']},
-              // {data: dataMap.dataTI['2007']},
               { data: tempdataTrend[date_arr[6]] },
             ],
           },
@@ -2163,11 +1379,6 @@ export default {
             title: { text: date_arr[6] + "各个主题增长" },
             series: [
               { data: tempdataTrend[date_arr[6]] },
-              // {data: dataMap.dataFinancial['2008']},
-              // {data: dataMap.dataEstate['2008']},
-              // {data: dataMap.dataPI['2008']},
-              // {data: dataMap.dataSI['2008']},
-              // {data: dataMap.dataTI['2008']},
               { data: tempdataTrend[date_arr[6]] },
             ],
           },
@@ -2194,16 +1405,6 @@ export default {
     },
   },
 };
-// tableRowClassName({row, rowIndex}) {
-//     if (rowIndex === 0) {
-//       return 'warning-row';
-//     } else if (rowIndex === 1) {
-//       return 'warning-row';
-//     }else if (rowIndex === 2) {
-//       return 'warning-row';
-//     }
-//     return '';
-// }
 </script>
 
 <style scoped type="text/css">

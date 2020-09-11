@@ -157,27 +157,23 @@
                                         <el-table
                                             :data="neg_news"
                                             stripe
-                                            style="width: 120%;text-align: center;fontSize:13px;margin-bottom: -10px"
+                                            style="width: 100%;text-align: center;fontSize:13px;margin-bottom: -10px"
                                             :show-header=false
                                             :show-overflow-tooltip=true
-                                            max-height="388px"
-                                            margin-right = "-10%"
-
+                                            max-height="377px"
                                         >
                                             <el-table-column align='center'
                                                      type="index"
                                                     :show-overflow-tooltip=true
                                                     sortable
                                                     :sort-orders="['ascending', 'descending']"
-                                                    width="40%"
+
                                                              margin-right = "-10%"
                                             >
                                             </el-table-column>
                                             <el-table-column
                                                     prop="news"
                                                     :show-overflow-tooltip=true
-                                                    width="280%"
-                                                    margin-right = "-10%"
                                             >
                                                 <template slot-scope="scope">
                                                     <a :href="scope.row.url" target="_blank" class="buttonText" >{{scope.row.news}}</a>
@@ -194,7 +190,7 @@
                                             <!--</el-table-column>-->
                                             <el-table-column prop="publish_time"
                                                             :show-overflow-tooltip=true
-                                                             margin-left = "-10%"
+                                                             width="200%"
                                             >
                                                 <template slot-scope="scope">
                                                     <span >发布时间：{{scope.row.publish_time}}</span>
@@ -220,19 +216,19 @@
                           </span>
                           <div class="showupdatetime">更新时间：{{lastupdatetime}}</div>
                       </div>
-                      <el-row :gutter="10" style="width: 100%;margin-top: -21px">
+                      <el-row :gutter="10" style="width: 100%;margin-top: -10px;margin-left: 0.1px">
                           <el-col :span="8" style="">
                               <el-card :body-style="{padding: '0px',shadow:'never'}" style="box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
                                   <div class="grid-content grid-con-1" style="height:90px;color:#E47470;background-color: white ">
                                       <div class="grid-con-text" style="">
                                           <div class="iconof1" style="margin-left:10%;border-radius:15px;align-items: center">
-                                            <span style="color: white">
+                                            <span style="color: #ffffff">
                                               <i class="el-icon-s-data" style="font-size: 45px;margin-top: 15%;"></i>
                                             </span>
                                           </div>
                                       </div>
                                       <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
-                                      <div class="grid-cont-right1" style="margin-left: -110px;width:70%;">
+                                      <div class="grid-cont-right1" style="margin-left: -140px;width:70%;">
                                           <!--<div class="right-text" style="color: #35363b;margin: 0px">-->
                                           <div class="right-text">
                                             <span class="grid-num" style="font-size: 28px;font-weight: bold;color: #35363b;">{{today_num = history_pos_count+history_neg_count}} 条</span>
@@ -252,8 +248,8 @@
                               <el-card :body-style="{padding: '0px',shadow:'never'}" style="border-radius: 0;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);" >
                                   <div class="grid-content grid-con-1" style="height:90px;color:#E47470;background-color: white ">
                                       <div class="grid-con-text">
-                                          <div class="iconof1" style="margin-left:10%;background-color: #dd6161;align-items: center;border-radius:15px;">
-                                            <span style="color: white">
+                                          <div class="iconof1" style="margin-left:10%;background-color: #e47470;align-items: center;border-radius:15px;">
+                                            <span style="color: #ffffff">
                                               <i class="el-icon-top" style="font-size: 45px;margin-top: 15%;"></i>
                                             </span>
 
@@ -261,7 +257,7 @@
                                       </div>
 
                                       <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
-                                      <div class="grid-cont-right1" style="margin-left: -110px;width:50px;">
+                                      <div class="grid-cont-right1" style="margin-left: -140px;width:50px;">
                                           <div class="right-text">
 
                                               <span class="grid-num" style="font-size: 28px;color: #35363b;">{{history_pos_count}} 条</span>
@@ -281,7 +277,7 @@
                                   <div class="grid-content grid-con-1" style="height:90px;color:#E47470;background-color: white ">
                                       <div class="grid-con-text">
                                           <div class="iconof1" style="margin-left:10%;background-color: #8dbf6a;border-radius:15px;">
-                                            <span style="color: white">
+                                            <span style="color: #ffffff">
                                               <i class="el-icon-bottom" style="font-size: 45px;margin-top: 15%;"></i>
                                             </span>
 
@@ -289,13 +285,13 @@
                                       </div>
 
                                       <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
-                                      <div class="grid-cont-right1" style="margin-left: -110px;width:50px;">
+                                      <div class="grid-cont-right1" style="margin-left: -140px;width:50px;">
                                           <div class="right-text">
 
-                                              <span class="grid-num" style="font-size: 28px;color: #35363b;margin-bottom: -10px">{{history_neg_count}} 条</span>
+                                              <span class="grid-num" style="align: left;font-size: 28px;color: #35363b;">{{history_neg_count}} 条</span>
                                           </div>
                                           <div class="right-text">
-                                              <span class="grid-text" style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10px;margin-bottom: 10px;">历史检测负面新闻总数</span>
+                                              <span class="grid-text" style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%">历史检测负面新闻总数</span>
 
                                           </div>
 
@@ -1016,6 +1012,8 @@ export default {
         },
         drawToday(id,pos,neg,hour){
           this.charts = echarts.init(document.getElementById(id));
+          window.onresize = this.charts.resize;
+          // window.onresize = this.percentCharts.resiz
           var option = {
             // color:['#8dbf6a','#eb7777'],
             // color:['#E9E9E9','#9EBACB'],
@@ -1035,9 +1033,13 @@ export default {
                 },
                 textStyle:{
                         align:'left'
+                },
+                confine:true,
+                position: function(point, params, dom, rect, size){
+                  //其中params为当前鼠标的位置
+                  return [point+20,'40%'];
+
                 }
-
-
             },
             grid:{
                   x:50,
@@ -1048,7 +1050,7 @@ export default {
 	          },
             legend: {
                 data: ['正面新闻', '负面新闻'],
-                formatter:'',
+
                 // orient: 'vertical',
                 right: '6%',
             },
@@ -1056,6 +1058,7 @@ export default {
                   type: 'category',
                   name: '时间',
                   data: hour,
+                  boundaryGap: false,
                   axisLabel: {
                         interval:0,
                         // rotate:90,
@@ -1091,6 +1094,10 @@ export default {
 
                       }
                 },
+              // nameTextStyle:{
+              //     fontSize:14,
+              //     fontWeight: 700,
+              // }
             },
             series: [
                 {
@@ -1110,8 +1117,17 @@ export default {
             ]
           }
           //防止越界，重绘canvas
-          window.onresize = this.charts.resize;
+          // window.onresize = this.charts.resize;
           this.charts.setOption(option);
+          window.onresize = () => {
+                  this.charts.resize();
+                // this.percentCharts.resize();
+
+                // let height = this.$refs.asideContainer.offsetHeight;
+                // this.$refs.mainContainer.offsetHeight = height;
+
+                //如果有多个表变动在下方依次写下去就可以了
+              }
           // window.addEventListener("resize", () =>
           // {
           //     this.charts.resize();
@@ -1303,9 +1319,11 @@ export default {
         },
         drawTrend(id,pos,neg,date_arr) {
           this.charts = echarts.init(document.getElementById(id));
+
+          window.onresize = this.charts.resize;
           var option = {
-            // color:['#9EBACB','#E9E9E9'],
-            color: ['#7bbf67', '#e39fa1'].reverse(),
+            color:['#86c1f5','#E9E9E9'],
+            // color: ['#7bbf67', '#e39fa1'].reverse(),
             // title: {
             //   text: '近七日增长图',
             //   textAlign: 'center',
@@ -1313,8 +1331,22 @@ export default {
             // },
             tooltip: {
               trigger: 'axis',
+              axisPointer: {
+
+              },
+              formatter:function (params, ticket, callback) {
+                  var res = '日期：'+params[0].name+'</br>'+params[0].marker+params[0].seriesName+':'+params[0].value+'</br>'+params[1].marker+params[1].seriesName+':'+params[1].value;
+                  console.log("pare:",params);
+                  return res;
+                },
               textStyle:{
                         align:'left'
+                },
+                // confine:true,
+               position: function(point, params, dom, rect, size){
+                  //其中params为当前鼠标的位置
+                  return [point+30,'40%'];
+
                 }
             },
             legend: {
@@ -1329,10 +1361,10 @@ export default {
             // },
 
             grid:{
-                  x:45,
+                  x:50,
                   y:30,
-                  x2:250,
-                  y2:100,
+                  x2:260,
+                  y2:115,
                   borderWidth:10
             },
             xAxis: {
@@ -1383,8 +1415,18 @@ export default {
 
           };
           //防止越界，重绘canvas
-          window.onresize = this.charts.resize;
+          // window.onresize = this.charts.resize;
           this.charts.setOption(option);
+          window.onresize = () => {
+                this.charts.resize();
+                // this.percentCharts.resize();
+
+                // let height = this.$refs.asideContainer.offsetHeight;
+                // this.$refs.mainContainer.offsetHeight = height;
+
+                //如果有多个表变动在下方依次写下去就可以了
+          }
+
           // window.addEventListener("resize", () =>
           // {
           //     this.charts.resize();
@@ -1392,9 +1434,10 @@ export default {
         },
         drawHotDis(id,pos,neg) {
            this.chart = echarts.init(document.getElementById(id));
+           window.onresize = this.chart.resize;
            var option = {
-                // color:['#9EBACB','#b7b7b7'],
-                color: ['#eb7777','#8dbf6a'],
+                color:['#6eb4f8','#d2e2eb'],
+                // color: ['#eb7777','#8dbf6a'],
                 // color : ['#7db5e2', '#81cacc', '#cca8ba', "#7EBF50", "#82a0c5", '#fddb7e', '#bda29a', '#d2a59a', '#7f9979', '#c4ccd3','#5F9EA0','#a498d6'],
                 // color:['rgb(210,100,93)','rgb(228,116,79)','rgb(242,176,110)','rgb(249,224,150)','rgb(255,254,198)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,134,183)','rgb(125,169,185)'].reverse(),
                 // color:['rgb(215,121,118)','rgb(224,108,146)','rgb(175,110,195)','rgb(249,224,150)','rgb(255,254,198)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,134,183)','rgb(125,169,185)'].reverse(),
@@ -1406,14 +1449,24 @@ export default {
                       axisPointer: {            // 坐标轴指示器，坐标轴触发有效
                         type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
                       },
+                      axisLabel:{
+                        fontColor:'#000',
+                      },
+                      confine:true,
+                      formatter:function (params, ticket, callback) {
+                        var res = '主题：'+params[0].name+'</br>'+params[0].marker+params[0].seriesName+':'+Math.abs(-params[0].value)+'</br>'+params[1].marker+params[1].seriesName+':'+Math.abs(params[1].value);
+                        console.log("pare:",params);
+                        return res;
+                      },
+                      fontColor:'#000',
 
                 },
                 // dataset: {data},
                 grid: {
-                    x:160,
+                    x:180,
                     y:30,
-                    x2:180,
-                    y2:100,
+                    x2:175,
+                    y2:115,
                     borderWidth:10
                 },
                 //工具箱
@@ -1445,12 +1498,14 @@ export default {
                         {
                             return Math.abs(value)
                         },
+                        fontColor:'#000',
                         fontFamily: '微软雅黑',
                         show: true,
                     },
                     nameTextStyle:{
                         fontSize:14,
                         fontWeight: 700,
+                        fontColor:'#000',
                     }
                 }],
                 //y轴
@@ -1489,7 +1544,8 @@ export default {
                       // barWidth : 30,//柱图宽度
                       label: {
                           show: true,
-                          position: 'right'
+                          position: 'right',
+                          color:'#000',
 
                       },
                       data: pos
@@ -1504,6 +1560,7 @@ export default {
                         normal: {
                             show: true,
                             position: 'left',
+                            color:'#000',
                             formatter:function(v)
                             {
                               return Math.abs(v.data)
@@ -1582,8 +1639,17 @@ export default {
           //       ]
           //   };
           //防止越界，重绘canvas
-          window.onresize = this.chart.resize;
+          // window.onresize = this.chart.resize;
           this.chart.setOption(option);
+          window.onresize = () => {
+                this.chart.resize();
+                // this.percentCharts.resize();
+
+                // let height = this.$refs.asideContainer.offsetHeight;
+                // this.$refs.mainContainer.offsetHeight = height;
+
+                //如果有多个表变动在下方依次写下去就可以了
+              }
           // window.addEventListener("resize", () =>
           // {
           //     this.chart.resize();
@@ -1713,9 +1779,9 @@ export default {
         background: #589ef8;
     }
     .iconof1{
-      width: 30%;
+      width: 80px;
       height: 70px;
-      background-color: #20a0ff;
+      background-color: #589ef8;
       text-align: center;
     }
     .grid-cont-right1 {
