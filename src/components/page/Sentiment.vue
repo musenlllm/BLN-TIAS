@@ -277,7 +277,7 @@
                         style="margin-left:10%;border-radius:5px;align-items: center"
                       >
                         <span style="color: #ffffff">
-                          <i class="el-icon-s-data" style="font-size: 45px;margin-top: 15%;"></i>
+                          <i class="el-icon-s-data" style="font-size: 45px;margin-top:8%;"></i>
                         </span>
                       </div>
                     </div>
@@ -319,7 +319,7 @@
                         style="margin-left:10%;background-color: #e47470;align-items: center;border-radius:5px;"
                       >
                         <span style="color: #ffffff">
-                          <i class="el-icon-top" style="font-size: 45px;margin-top: 15%;"></i>
+                          <i class="el-icon-top" style="font-size: 45px;margin-top:8%;"></i>
                         </span>
                       </div>
                     </div>
@@ -360,7 +360,7 @@
                         style="margin-left:10%;background-color: #8dbf6a;border-radius:5px;"
                       >
                         <span style="color: #ffffff">
-                          <i class="el-icon-bottom" style="font-size: 45px;margin-top: 15%;"></i>
+                          <i class="el-icon-bottom" style="font-size: 45px;margin-top:8%;"></i>
                         </span>
                       </div>
                     </div>
@@ -1912,8 +1912,8 @@ export default {
   background: #589ef8;
 }
 .iconof1 {
-  width: 80px;
-  height: 70px;
+  width: 76px;
+  height: 60px;
   background-color: #589ef8;
   text-align: center;
 }
