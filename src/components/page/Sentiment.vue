@@ -1443,7 +1443,7 @@ export default {
 
       window.onresize = this.charts.resize;
       var option = {
-        color: ["#86c1f5", "#E9E9E9"],
+        color: ["rgb(250, 213, 213)", "#C0C0C0"],
         // color: ['#7bbf67', '#e39fa1'].reverse(),
         // title: {
         //   text: '近七日增长图',
@@ -1562,7 +1562,8 @@ export default {
       this.chart = echarts.init(document.getElementById(id));
       window.onresize = this.chart.resize;
       var option = {
-        color: ["#6eb4f8", "#d2e2eb"],
+        color: ["rgb(60, 118, 61)", "rgb(207, 250, 189)"],
+        //color: ["#6eb4f8", "#d2e2eb"],
         // color: ['#eb7777','#8dbf6a'],
         // color : ['#7db5e2', '#81cacc', '#cca8ba', "#7EBF50", "#82a0c5", '#fddb7e', '#bda29a', '#d2a59a', '#7f9979', '#c4ccd3','#5F9EA0','#a498d6'],
         // color:['rgb(210,100,93)','rgb(228,116,79)','rgb(242,176,110)','rgb(249,224,150)','rgb(255,254,198)','rgb(233,244,163)','rgb(181,219,169)','rgb(156,218,174)','rgb(125,191,166)','rgb(93,178,155)','rgb(74,134,183)','rgb(125,169,185)'].reverse(),
