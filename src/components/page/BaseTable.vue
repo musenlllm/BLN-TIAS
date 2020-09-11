@@ -1,8 +1,8 @@
 <template>
     <div>
         <el-container>
-          <el-header style="height: max-content">
-              <el-card class="noBorderInput"style="border: 0px; margin-top: 20px;border-radius: 0;
+          <el-header style="height: max-content;padding:0">
+              <el-card class="noBorderInput" style="border: 0px;border-radius: 0;
           background-color: #fff;
           box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
 
@@ -31,7 +31,7 @@
           </el-header>
             <!--<el-container>-->
                 <!--<el-aside width="200px">Aside</el-aside>-->
-                <el-main>
+                <el-main style="padding:0;margin-top:20px">
                     <!--</span>-->
 
                     <el-card class="box-card" style="font-size:18px; text-align: center;min-height: 250px" v-loading="loading">

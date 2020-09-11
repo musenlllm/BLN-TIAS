@@ -1,8 +1,8 @@
 <template>
   <div class="unifiedldmc">
     <el-container>
-      <el-header style="height: max-content">
-        <el-card class="noBorderInput" style="margin-top: 20px">
+      <el-header style="height: max-content;padding:0">
+        <el-card class="noBorderInput">
           <h1 class="pageheader">文本主题分类</h1>
           <el-row>
             <el-input
@@ -28,7 +28,7 @@
       </el-header>
       <el-main
         ref="mainContainer"
-        style="text-align:center;margin-top: 20px;height: 100%;padding:0 20px"
+        style="text-align:center;margin-top: 20px;height: 100%;padding:0"
       >
         <el-row style="max-width:100%;max-height:480px">
           <el-card class="box-card">
