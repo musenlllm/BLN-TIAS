@@ -244,13 +244,13 @@ export default {
   computed: {
     circleHeight: function () {
       var width = window.innerWidth * 0.5;
-      var height = parseInt(width * 0.39) + 180;
+      var height = parseInt(width * 0.39) + 190;
       return height + "px";
     },
     tableHeight: function () {
       var width = window.innerWidth * 0.5;
       var height = parseInt(width * 0.39);
-      return height + 765;
+      return height + 774;
     },
   },
   created() {},
