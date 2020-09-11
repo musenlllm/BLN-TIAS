@@ -439,7 +439,7 @@ export default {
     return {
       text: "",
       summaryText:
-        "9月8日上午，全国抗击新冠肺炎疫情表彰大会在北京人民大会堂隆重举行。已84岁高龄的中国工程院院士、广州医科大学附属第一医院国家呼吸系统疾病临床医学研究中心主任钟南山获颁“共和国勋章”。",
+        "9月8日上午，全国抗击新冠肺炎疫情表彰大会在北京人民大会堂隆重举行。已84岁高龄的中国工程院院士、广州医科大学附属第一医院国家呼吸系统疾病临床医学研究中心主任钟南山获颁“共和国勋章”。(请输入文本)",
       sentimentscore: 0,
       history: {},
 
@@ -640,7 +640,7 @@ export default {
           this.source_pos.push(this.hot_theme_dis.technology.positive_count);
           this.source_neg.push(-this.hot_theme_dis.education.negative_count);
           this.source_neg.push(
-            -this.hot_theme_dis.entertainment.negative_count
+            this.hot_theme_dis.entertainment.negative_count
           );
           this.source_neg.push(-this.hot_theme_dis.finance.negative_count);
           this.source_neg.push(-this.hot_theme_dis.politics.negative_count);
@@ -1440,8 +1440,6 @@ export default {
     },
     drawTrend(id, pos, neg, date_arr) {
       this.charts = echarts.init(document.getElementById(id));
-
-      window.onresize = this.charts.resize;
       var option = {
         color: ["rgb(250, 213, 213)", "#C0C0C0"],
         // color: ['#7bbf67', '#e39fa1'].reverse(),
@@ -1499,11 +1497,13 @@ export default {
         xAxis: {
           type: "category",
           name: "时间",
-          data: date_arr,
+          // data: function () {
+          //    date_arr[0]
+          // },
+          data:date_arr.reverse(),
           boundaryGap: false,
           nameTextStyle: {
             fontSize: 13,
-            //fontWeight: 700,
           },
         },
         yAxis: {
@@ -1545,12 +1545,6 @@ export default {
       this.charts.setOption(option);
       window.onresize = () => {
         this.charts.resize();
-        // this.percentCharts.resize();
-
-        // let height = this.$refs.asideContainer.offsetHeight;
-        // this.$refs.mainContainer.offsetHeight = height;
-
-        //如果有多个表变动在下方依次写下去就可以了
       };
 
       // window.addEventListener("resize", () =>

@@ -524,6 +524,7 @@ export default {
     // this.drawTest('hot_trend_test');
     // this.ResultofHospot();
     // this.init();
+    this.getDay();
     const refreshTime = 5 * 60 * 1000;
     var that = this;
     var func = function () {
@@ -873,7 +874,7 @@ export default {
 
           /***Part 3***/
           this.hot_statistics = this.hotspotRes.hot_statistics;
-          this.getDay();
+
           console.log("successgetday:",this.two_week_time);
           for (let i = 0; i < 14; i++) {
             let key = this.two_week_time[i];
@@ -1153,7 +1154,9 @@ export default {
     },
     //获取近七日日期 step_2
     getDay() {
+      this.two_week_time = [];
       for (var i = 0; i > -14; i--) {
+
         // console.log("iiiiiii:",this.getBeforeDate(i));
         this.two_week_time.push(this.getBeforeDate(i));
       }
