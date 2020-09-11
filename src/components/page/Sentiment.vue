@@ -269,12 +269,12 @@
                 >
                   <div
                     class="grid-content grid-con-1"
-                    style="height:90px;color:#E47470;background-color: white "
+                    style="height:80px;color:#E47470;background-color: white "
                   >
                     <div class="grid-con-text" style>
                       <div
                         class="iconof1"
-                        style="margin-left:10%;border-radius:15px;align-items: center"
+                        style="margin-left:10%;border-radius:5px;align-items: center"
                       >
                         <span style="color: #ffffff">
                           <i class="el-icon-s-data" style="font-size: 45px;margin-top: 15%;"></i>
@@ -282,12 +282,12 @@
                       </div>
                     </div>
                     <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
-                    <div class="grid-cont-right1" style="margin-left: -140px;width:70%;">
+                    <div class="grid-cont-right1" style="margin-left: -180px;width:70%;">
                       <!--<div class="right-text" style="color: #35363b;margin: 0px">-->
                       <div class="right-text">
                         <span
                           class="grid-num"
-                          style="font-size: 28px;font-weight: bold;color: #35363b;"
+                          style="font-size: 26px;font-weight: bold;color: #35363b;"
                         >{{today_num = history_pos_count+history_neg_count}} 条</span>
                       </div>
                       <!--<div class="right-text" style="color: #35363b;margin: 0px">-->
@@ -295,7 +295,7 @@
                         <!--<span class="grid-num">{{today_num = today_negative_count+today_positive_count}} 条</span>-->
                         <span
                           class="grid-text"
-                          style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;"
+                          style="font-size: 14px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;"
                         >历史检测新闻总数</span>
                       </div>
                       <!--<div class="grid-num"></div>-->
@@ -311,12 +311,12 @@
                 >
                   <div
                     class="grid-content grid-con-1"
-                    style="height:90px;color:#E47470;background-color: white "
+                    style="height:80px;color:#E47470;background-color: white "
                   >
                     <div class="grid-con-text">
                       <div
                         class="iconof1"
-                        style="margin-left:10%;background-color: #e47470;align-items: center;border-radius:15px;"
+                        style="margin-left:10%;background-color: #e47470;align-items: center;border-radius:5px;"
                       >
                         <span style="color: #ffffff">
                           <i class="el-icon-top" style="font-size: 45px;margin-top: 15%;"></i>
@@ -325,17 +325,17 @@
                     </div>
 
                     <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
-                    <div class="grid-cont-right1" style="margin-left: -140px;width:50px;">
+                    <div class="grid-cont-right1" style="margin-left: -180px;width:50px;">
                       <div class="right-text">
                         <span
                           class="grid-num"
-                          style="font-size: 28px;color: #35363b;"
+                          style="font-size: 26px;color: #35363b;"
                         >{{history_pos_count}} 条</span>
                       </div>
                       <div class="right-text">
                         <span
                           class="grid-text"
-                          style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;"
+                          style="font-size: 14px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;"
                         >历史检测正面新闻总数</span>
                         <!--<span class="grid-num">{{today_negative_count}} 条</span>-->
                       </div>
@@ -352,12 +352,12 @@
                 >
                   <div
                     class="grid-content grid-con-1"
-                    style="height:90px;color:#E47470;background-color: white "
+                    style="height:80px;color:#E47470;background-color: white "
                   >
                     <div class="grid-con-text">
                       <div
                         class="iconof1"
-                        style="margin-left:10%;background-color: #8dbf6a;border-radius:15px;"
+                        style="margin-left:10%;background-color: #8dbf6a;border-radius:5px;"
                       >
                         <span style="color: #ffffff">
                           <i class="el-icon-bottom" style="font-size: 45px;margin-top: 15%;"></i>
@@ -366,17 +366,17 @@
                     </div>
 
                     <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
-                    <div class="grid-cont-right1" style="margin-left: -140px;width:50px;">
+                    <div class="grid-cont-right1" style="margin-left: -180px;width:50px;">
                       <div class="right-text">
                         <span
                           class="grid-num"
-                          style="align: left;font-size: 28px;color: #35363b;"
+                          style="align: left;font-size: 26px;color: #35363b;"
                         >{{history_neg_count}} 条</span>
                       </div>
                       <div class="right-text">
                         <span
                           class="grid-text"
-                          style="font-size: 15px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%"
+                          style="font-size: 14px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%"
                         >历史检测负面新闻总数</span>
                       </div>
                     </div>
@@ -384,7 +384,7 @@
                 </el-card>
               </el-col>
             </el-row>
-            <el-row :gutter="20">
+            <el-row :gutter="20" style="margin-top:35px">
               <!--<el-col :span="4">-->
               <!--<div id="history_sum" style="width:300px;height:400px;">-->
               <!--</div>-->
