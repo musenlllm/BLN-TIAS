@@ -70,7 +70,7 @@
 
         <el-row style="max-width:100%;margin-top:20px">
           <el-card class="box-card">
-            <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+            <div slot="header" class="clearfix" style="color: black;font-size: 18px">
               <span>
                 <i class="iconfont iconxinwen"></i>
                 实时主题新闻分类结果
@@ -129,7 +129,7 @@
         <el-row style="margin:20px 0">
           <el-col :span="12">
             <el-card class="box-card">
-              <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+              <div slot="header" class="clearfix" style="font-size: 18px;height: 28px;">
                 <span>实时主题新闻数量统计</span>
                 <div class="showupdatetime">更新时间：{{lastupdatetime}}</div>
               </div>
@@ -139,7 +139,7 @@
 
           <el-col :span="12" style="padding-left:20px">
             <el-card class="box-card">
-              <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+              <div slot="header" class="clearfix" style="font-size: 18px;height: 28px;">
                 <span>实时主题新闻比例统计</span>
                 <div class="showupdatetime">更新时间：{{lastupdatetime}}</div>
               </div>
@@ -453,6 +453,7 @@ export default {
   color: gray;
   font-size: 10px;
   text-align: right;
+  margin-bottom: -1%;
 }
 </style>
 

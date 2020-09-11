@@ -37,7 +37,7 @@
           <el-col :span="14">
             <el-row>
               <el-card class="box-card" :body-style="{padding:0}">
-                <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                <div slot="header" class="clearfix" style="font-size: 18px">
                   <span>人物关系图谱</span>
                 </div>
                 <div id="showArrowRelation" :style="{width: '100%', height: '500px'}"></div>
@@ -45,7 +45,7 @@
             </el-row>
             <el-row style="margin-top:20px">
               <el-card class="box-card" :body-style="{padding:0}">
-                <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                <div slot="header" class="clearfix" style="font-size: 18px">
                   <span>人物关系和弦图</span>
                 </div>
                 <div id="showCircleRelation" :style="{width: '100%', height: circleHeight}"></div>
@@ -55,7 +55,7 @@
 
           <el-col :span="10" style="padding-left:20px">
             <el-card class="box-card" :body-style="{padding: '0px'}">
-              <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+              <div slot="header" class="clearfix" style="font-size: 18px">
                 <span>人物关系列表</span>
               </div>
 
@@ -250,7 +250,7 @@ export default {
     tableHeight: function () {
       var width = window.innerWidth * 0.5;
       var height = parseInt(width * 0.39);
-      return height + 770;
+      return height + 765;
     },
   },
   created() {},
