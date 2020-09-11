@@ -10,7 +10,7 @@
     export default {
         data: function() {
             return {
-                getPageUrl: 'https://kingsundad.gitee.io/ldmc-tias-index/',
+                getPageUrl: 'http://115.236.52.123:6013/entryindex/',
                 iframeWin: {},
                 // publicPath: process.env.BASE_URL
             };
