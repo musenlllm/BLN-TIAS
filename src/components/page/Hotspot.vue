@@ -7,16 +7,20 @@
           class="noBorderInput"
           style="margin-top:20px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.1);"
         >
-          <h1
-            class="pageheader"
-            style="
-  color: black;
-  letter-spacing: 10px;
-  font-weight: normal;
-  font-size: 25px"
-          >热点挖掘</h1>
+          <!--<h1-->
+            <!--class="pageheader"-->
+            <!--style="-->
+            <!--color: black;-->
+            <!--letter-spacing: 10px;-->
+            <!--font-weight: normal;-->
+            <!--font-size: 25px"-->
+          <!--&gt;热点挖掘</h1>-->
+          <div slot="header" class="pageheader" style="font-size: 25px;font-weight: normal;">
+              <span style="letter-spacing: 10px;">热点挖掘</span>
+              <div class="showupdatetime" style="margin-bottom: -22px;margin-right: 10px">更新时间：{{lastupdatetime}}</div>
+          </div>
 
-          <div class="diyCardBody">
+          <div class="diyCardBody" style="margin-top: -10px">
             <el-row :gutter="20">
               <el-col :span="8">
                 <!--<el-card shadow="always" class="box-card" :body-style="{padding: '0px'}" style="min-height: 458px;font-size: 18px">-->
@@ -26,7 +30,7 @@
                   style="min-height: 466px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
                 >
                   <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
-                    <span>
+                    <span style="">
                       <!--<link rel="icon" href="../../assets/icon/news.icon" type="image/x-icon">-->
                       <!--<svg class="icon" aria-hidden="true">-->
                       <!--<use xlink:href="#iconxinwen"></use>-->
@@ -35,6 +39,7 @@
                       <!--<i class="ldmcxinwen" style="font-size: 21px;"></i>-->
                       热点新闻
                     </span>
+
                   </div>
                   <div
                     class="tag-group"
@@ -61,7 +66,13 @@
                         width="80%"
                       >
                         <div slot-scope="scope" v-if="scope.row.rank<4">
-                          <i class="iconfont iconmingcheng-huobao-t"></i>
+                          <!--<i class="iconfont iconmingcheng-huobao-t"></i>-->
+
+                          <!--<span class="Uiconfont ldmcmingcheng-huobao-t" v-html="iconTag"></span>-->
+                          <!--<svg class="icon" aria-hidden="true">-->
+                            <!--<use :xlink:href="#ldmcxin"></use>-->
+                          <!--</svg>-->
+                          <svg-icon class-name="icon" icon-class="hot" ></svg-icon>
                         </div>
                         <div slot-scope="scope" v-else>{{scope.row.rank}}</div>
                       </el-table-column>
@@ -104,6 +115,7 @@
 
                       <!--<i class="iconfont iconhuati"></i>-->
                       热点话题
+                      <!--<div class="showupdatetime" style="">更新时间：{{lastupdatetime}}</div>-->
                     </span>
                   </div>
                   <div
@@ -173,6 +185,7 @@
                       <i class="iconfont iconzengchang1"></i>
                       <!--</div>-->
                       最近半小时增长新闻
+                      <!--<div class="showupdatetime" style="">更新时间：{{lastupdatetime}}</div>-->
                     </span>
                   </div>
                   <el-table
@@ -227,7 +240,7 @@
         <el-card
           class="noBorderInput"
           :body-style="{padding: '0px'}"
-          style="text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+          style="height:400px;text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
         >
           <el-tabs
             type="card"
@@ -235,29 +248,30 @@
             @tab-click="handleClick"
             style="border: 0px;border-radius: 0"
           >
-            <el-tab-pane label="今日" name="first">
-              <div
-                class="wrap"
-                v-if="isChildUpdate1"
-                style="display: flex; justify-content: space-around"
-              >
-                <div id="hot_key_words1" style="width:30%;min-height:400px;"></div>
-                <div id="hot_freq_words1" style="width:30%;height:400px;"></div>
-                <div id="today_hot_distribution1" style="width:38%;height:380px;margin-bottom:20px"></div>
 
-                <!--<div>{{this.freq_words2_list}}</div>-->
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="近七日" name="third">
+            <el-tab-pane label="今日" name="third">
               <div
                 class="wrap"
                 v-if="isChildUpdate3"
                 style="display: flex; justify-content: space-around"
               >
-                <div id="hot_key_words3" style="width:30%;min-height:400px;"></div>
-                <div id="hot_freq_words3" style="width:30%;min-height:400px;"></div>
-                <div id="today_hot_distribution3" style="width:38%;height:380px;margin-bottom:20px"></div>
+                <div id="hot_key_words3" style="width:30%;min-height:360px;"></div>
+                <div id="hot_freq_words3" style="width:30%;min-height:360px;"></div>
+                <div id="today_hot_distribution3" style="width:38%;height:360px;margin-bottom:0px"></div>
                 <!--<div>{{this.key_words2_list}}</div>-->
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="近七日" name="first">
+              <div
+                class="wrap"
+                v-if="isChildUpdate1"
+                style="display: flex; justify-content: space-around"
+              >
+                <div id="hot_key_words1" style="width:30%;min-height:360px;"></div>
+                <div id="hot_freq_words1" style="width:30%;min-height:360px;"></div>
+                <div id="today_hot_distribution1" style="width:38%;height:360px;margin-bottom:0px"></div>
+
+                <!--<div>{{this.freq_words2_list}}</div>-->
               </div>
             </el-tab-pane>
           </el-tabs>
@@ -280,14 +294,15 @@
         <el-card
           class="noBorderInput"
           :body-style="{padding: '0px'}"
-          style="text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+          style="text-align: center;margin-top: 20px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
         >
           <div slot="header" class="clearfix" style="font-size: 18px">
             <span>近7日各主题新闻的每天增长数</span>
+            <div class="showupdatetime" style="margin-bottom: -14px;margin-right: 3px">更新时间：{{lastupdatetime}}</div>
           </div>
-          <!--折线图-->
+          <!--动态-->
           <div class="wrap">
-            <div id="hot_trend" style="width:100%;min-height: 600px;"></div>
+            <div id="hot_trend" style="width:100%;min-height: 600px;margin-bottom: 15px"></div>
           </div>
 
           <!--<div>{{this.hot_statistics}}</div>-->
@@ -302,6 +317,31 @@ import { fetchData } from "../../api/index";
 // import resize from "./mixins/resize";
 import "echarts-wordcloud/dist/echarts-wordcloud";
 import "echarts-wordcloud/dist/echarts-wordcloud.min";
+Date.prototype.Format = function (fmt) {
+  // author: meizz
+  var o = {
+    "M+": this.getMonth() + 1, // 月份
+    "d+": this.getDate(), // 日
+    "h+": this.getHours(), // 小时
+    "m+": this.getMinutes(), // 分
+    "s+": this.getSeconds(), // 秒
+    "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+    S: this.getMilliseconds(), // 毫秒
+  };
+  if (/(y+)/.test(fmt))
+    fmt = fmt.replace(
+      RegExp.$1,
+      (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+    );
+  for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt))
+      fmt = fmt.replace(
+        RegExp.$1,
+        RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length)
+      );
+  return fmt;
+};
+
 const hotspoturl = "http://115.236.52.123:6012/api/hotspot";
 // const maskImage = new Image();
 
@@ -335,15 +375,15 @@ const type2color = [
   "rgb( )",
 ];
 const cloudcolor = [
-  "#F56C6C",
+  "#f58c89",
   "pink",
   "#A39391",
   "#D45246",
   "#FFCC99",
   "#9999CC",
-  "#3366CC",
+  "#487fcc",
   "#E6A23C",
-  "#FB3C3C",
+  "#fb605a",
   "#203643",
   "#74C2E1",
   "#84CF96",
@@ -351,6 +391,20 @@ const cloudcolor = [
 ];
 
 export default {
+
+
+  props: {
+    iconClass: {
+      type: String,
+      required: true
+    }
+  },
+  computed: {
+    iconTag() {
+      return `#icon-${this.iconClass}`;
+    }
+  },
+
   name: "basetable",
   data() {
     return {
@@ -386,10 +440,14 @@ export default {
       nearly_one_week_news_dis: [],
       // var maskImage = new Image();
       // maskImage.src = this.image2;
+      lastupdatetime: new Date().Format("yyyy-MM-dd hh:mm:ss"),
 
+      two_week_time: [],
       one_week_time: [],
       news_info: [],
       dataTrend: {},
+      dataLong:{},
+      dataShort:{},
       // <<<<<<< Updated upstream
       name: [
         "国内",
@@ -448,8 +506,16 @@ export default {
   mounted() {
     // this.WordCloud('hot_freq_words');
     // this.drawTest('hot_trend_test');
-    this.ResultofHospot();
-    this.init();
+    // this.ResultofHospot();
+    // this.init();
+    const refreshTime = 5 * 60 * 1000;
+    var that = this;
+    var func = function () {
+      that.lastupdatetime = new Date().Format("yyyy-MM-dd hh:mm:ss");
+      that.ResultofHospot();
+    };
+    func();
+    setInterval(func, refreshTime);
   },
   methods: {
     handleClick(tab) {
@@ -457,40 +523,49 @@ export default {
         this.isChildUpdate1 = true;
         this.getHotTopic(
           "today_hot_distribution1",
-          this.today_news_distribution,
-          "今日新闻主题分类"
+          this.nearly_one_week_news_distribution,
+          "近七日新闻主题分类"
+
         );
         this.getKeyWords(
           "hot_key_words1",
-          this.key_words.today,
-          "今日新闻高影响力词分布词云"
+          this.key_words.nearly_one_week,
+          "近七日新闻高影响力词分布词云"
+
         );
         this.getFreqWords(
           "hot_freq_words1",
-          this.freq_words.today,
-          "今日新闻高频词分布"
+          this.freq_words.nearly_one_week,
+          "近七日新闻高频词分布"
+
         );
+
+
         // this.isChildUpdate2 = false;
         this.isChildUpdate3 = false;
       } else if (tab.name == "third") {
         this.isChildUpdate1 = false;
         // this.isChildUpdate2 = false;
         this.isChildUpdate3 = true;
+
         this.getHotTopic(
           "today_hot_distribution3",
-          this.nearly_one_week_news_distribution,
-          "近七日新闻主题分类"
+          this.today_news_distribution,
+          "今日新闻主题分类"
         );
         this.getKeyWords(
           "hot_key_words3",
-          this.key_words.nearly_one_week,
-          "近七日新闻高影响力词分布词云"
+          this.key_words.today,
+          "今日新闻高影响力词分布词云"
+
         );
         this.getFreqWords(
           "hot_freq_words3",
-          this.freq_words.nearly_one_week,
-          "近七日新闻高频词分布"
+          this.freq_words.today,
+          "今日新闻高频词分布"
+
         );
+
       }
     },
     // 获取高频词列表
@@ -540,7 +615,7 @@ export default {
             //标题内容的样式
             fontStyle: "normal", //主标题文字字体风格，默认normal，有italic(斜体),oblique(斜体)
             fontWeight: "normal", //可选normal(正常)，bold(加粗)，bolder(加粗)，lighter(变细)，100|200|300|400|500...
-            fontSize: 15, //主题文字字体大小，默认为18px
+            fontSize: 18, //主题文字字体大小，默认为18px
           },
           left: "center",
         },
@@ -604,7 +679,7 @@ export default {
             //标题内容的样式
             fontStyle: "normal", //主标题文字字体风格，默认normal，有italic(斜体),oblique(斜体)
             fontWeight: "normal", //可选normal(正常)，bold(加粗)，bolder(加粗)，lighter(变细)，100|200|300|400|500...
-            fontSize: 15, //主题文字字体大小，默认为18px
+            fontSize: 18, //主题文字字体大小，默认为18px
           },
         },
         tooltip: {
@@ -712,9 +787,9 @@ export default {
           this.recent_half_hour_increase_news = this.hotspotRes.hot_statistics.recent_half_hour_increase_news;
 
           this.today_news_distribution = this.hotspotRes.hot_statistics.today_news_distribution;
-          console.log("success3");
+          // console.log("success3");
           this.today_news_dis = Object.values(this.today_news_distribution);
-          console.log("success5");
+          // console.log("success5");
           this.nearly_one_week_news_distribution = this.hotspotRes.hot_statistics.nearly_one_week_news_distribution;
           this.nearly_one_week_news_dis = Object.values(
             this.nearly_one_week_news_distribution
@@ -723,7 +798,7 @@ export default {
           /****Part 2****/
           //词云
           this.key_words = this.hotspotRes.hot_key_words;
-          // var key_words1 = this.key_words.today;
+          var key_words1 = this.key_words.today;
           // var key_words2 = this.key_words.nearly_three_days;
           var key_words3 = this.key_words.nearly_one_week;
           // this.getKeyWords("hot_key_words1",key_words1,'今日新闻高影响力词分布词云');
@@ -735,26 +810,26 @@ export default {
           console.log("success draw ciyun");
           this.getKeyWords(
             "hot_key_words3",
-            key_words3,
-            "近七日新闻高影响力词分布词云"
+            key_words1,
+            "今日新闻高影响力词分布词云"
           );
           //玫瑰图
           this.freq_words = this.hotspotRes.hot_freq_words;
-          // var freq_words1 = this.freq_words.today;
+          var freq_words1 = this.freq_words.today;
           // var freq_words2 = this.freq_words.nearly_three_days;
           var freq_words3 = this.freq_words.nearly_one_week;
           // this.getFreqWords("hot_freq_words1",freq_words1,'今日新闻高频词分布词云');
           // this.getFreqWords("hot_freq_words2",freq_words2,'近三日新闻高频词分布词云');
           this.getFreqWords(
             "hot_freq_words3",
-            freq_words3,
-            "近七日新闻高频词分布"
+            freq_words1,
+            "今日新闻高频词分布"
           );
           //近七天的话题柱状图
           this.getHotTopic(
             "today_hot_distribution3",
-            this.nearly_one_week_news_distribution,
-            "近七日新闻主题分类"
+            this.today_news_distribution,
+            "今日新闻主题分类"
           );
           // //获取高频词热力图所需要的数据
           // var today_freq_heat = this.hotspotRes.hot_freq_words.today;
@@ -779,36 +854,63 @@ export default {
           //     this.drawDistribution("today_hot_distribution",this.today_news_distribution,'今日');
           //     // this.drawDistribution("today_hot_distribution",this.nearly_one_week_news_dis,'近七日');
           // })
-          console.log("success");
-          //折线图
+
+          /***Part 3***/
           this.hot_statistics = this.hotspotRes.hot_statistics;
           this.getDay();
-          for (let i = 0; i < 7; i++) {
-            let key = this.one_week_time[i];
+          console.log("successgetday:",this.two_week_time);
+          for (let i = 0; i < 14; i++) {
+            let key = this.two_week_time[i];
             this.dataTrend[key] = [
-              this.hot_statistics.domestic_trend[i],
-              this.hot_statistics.world_trend[i],
-              this.hot_statistics.sports_trend[i],
-              this.hot_statistics.society_trend[i],
-              this.hot_statistics.history_trend[i],
-              this.hot_statistics.entertainment_trend[i],
-              this.hot_statistics.military_trend[i],
-              this.hot_statistics.government_trend[i],
-              this.hot_statistics.education_trend[i],
-              this.hot_statistics.finance_trend[i],
-              this.hot_statistics.comment_trend[i],
-              this.hot_statistics.other_trend[i],
+              this.hot_statistics.domestic_trend[i].sum,
+              this.hot_statistics.world_trend[i].sum,
+              this.hot_statistics.sports_trend[i].sum,
+              this.hot_statistics.society_trend[i].sum,
+              this.hot_statistics.history_trend[i].sum,
+              this.hot_statistics.entertainment_trend[i].sum,
+              this.hot_statistics.military_trend[i].sum,
+              this.hot_statistics.government_trend[i].sum,
+              this.hot_statistics.education_trend[i].sum,
+              this.hot_statistics.finance_trend[i].sum,
+              this.hot_statistics.comment_trend[i].sum,
+              this.hot_statistics.other_trend[i].sum,
+            ];
+            this.dataLong[key] = [
+              this.hot_statistics.domestic_trend[i].long,
+              this.hot_statistics.world_trend[i].long,
+              this.hot_statistics.sports_trend[i].long,
+              this.hot_statistics.society_trend[i].long,
+              this.hot_statistics.history_trend[i].long,
+              this.hot_statistics.entertainment_trend[i].long,
+              this.hot_statistics.military_trend[i].long,
+              this.hot_statistics.government_trend[i].long,
+              this.hot_statistics.education_trend[i].long,
+              this.hot_statistics.finance_trend[i].long,
+              this.hot_statistics.comment_trend[i].long,
+              this.hot_statistics.other_trend[i].long,
+            ];
+            this.dataShort[key] = [
+              this.hot_statistics.domestic_trend[i].long,
+              this.hot_statistics.world_trend[i].long,
+              this.hot_statistics.sports_trend[i].long,
+              this.hot_statistics.society_trend[i].long,
+              this.hot_statistics.history_trend[i].long,
+              this.hot_statistics.entertainment_trend[i].long,
+              this.hot_statistics.military_trend[i].long,
+              this.hot_statistics.government_trend[i].long,
+              this.hot_statistics.education_trend[i].long,
+              this.hot_statistics.finance_trend[i].long,
+              this.hot_statistics.comment_trend[i].long,
+              this.hot_statistics.other_trend[i].long,
             ];
           }
           this.drawDTrend(
             "hot_trend",
-            this.one_week_time.reverse(),
+            this.two_week_time.reverse(),
             this.dataTrend,
-            this
           );
         });
     },
-
     //场景分布柱状图
     drawDistribution(id, data1, date) {
       // 基于准备好的dom，初始化echarts实例
@@ -824,7 +926,7 @@ export default {
             //标题内容的样式
             fontStyle: "normal", //主标题文字字体风格，默认normal，有italic(斜体),oblique(斜体)
             fontWeight: "normal", //可选normal(正常)，bold(加粗)，bolder(加粗)，lighter(变细)，100|200|300|400|500...
-            fontSize: 15, //主题文字字体大小，默认为18px
+            fontSize: 18, //主题文字字体大小，默认为18px
           },
         },
         color: ["rgb(218, 29, 35)"],
@@ -919,53 +1021,15 @@ export default {
           text: "今日主题分布图",
           textAlign: "center",
           left: "50%", //各个方向的内边距，默认是5，可以自行设置
+          fontSize:'22px',
         },
         dataset: {
           source: this.source,
         },
-        // grid:{
-        //     top:'10%',
-        //     // left:'5%',
-        //     right:'0%',
-        //     bottom:'10%',
-        //     // containLabel:true
-        // },
+
         legend: {
           data: this.source[0],
-          // data: [
-          //     {
-          //         name: '今日',
-          //         icon: '',
-          //         textStyle: {
-          //           fontSize:15,
-          //           // color: 'red',  // 单独设置某一个图列的颜色
-          //           // backgroundColor: '#fff' // 单独设置某一个图列的字体背景色
-          //         }
-          //     },
-          //     {
-          //         name: '近三日',
-          //         icon: '',
-          //         textStyle: {
-          //           fontSize:15,
-          //           // color: 'red',  // 单独设置某一个图列的颜色
-          //           // backgroundColor: '#fff' // 单独设置某一个图列的字体背景色
-          //         }
-          //     },
-          //     {
-          //         name: '近七日',
-          //         icon: '',
-          //         textStyle: {
-          //           fontSize:15,
-          //           // color: 'red',  // 单独设置某一个图列的颜色
-          //           // backgroundColor: '#fff' // 单独设置某一个图列的字体背景色
-          //         }
-          //     },
-          // ],
-          // textStyle: {
-          //
-          //     fontSize:15
-          // },
-          // right: 100,
+
         },
 
         yAxis: {
@@ -1071,9 +1135,11 @@ export default {
     },
     //获取近七日日期 step_2
     getDay() {
-      for (var i = 0; i > -7; i--) {
-        this.one_week_time.push(this.getBeforeDate(i));
+      for (var i = 0; i > -14; i--) {
+        // console.log("iiiiiii:",this.getBeforeDate(i));
+        this.two_week_time.push(this.getBeforeDate(i));
       }
+
     },
     //近七日主题新闻每日增长数
     drawTrend(id, date_arr, news_info) {
@@ -1226,9 +1292,9 @@ export default {
         ];
         // console.log("pList:",pList)
         var day = date_arr;
-        console.log("day:", day);
+        // console.log("dayday:", day);
         let temp;
-        for (var i = 0; i <= 6; i++) {
+        for (var i = 0; i <= 13; i++) {
           var index = day[i];
           temp = obj[index];
           for (var j = 0, l = temp.length; j < l; j++)
@@ -1242,7 +1308,7 @@ export default {
       console.log("data formatter suc11:", news_info);
       var tempdataTrend = {};
       tempdataTrend = dataFormat(news_info);
-      // console.log("data formatter suc22:",tempdataTrend)
+      console.log("data formatter suc22:",tempdataTrend)
 
       // console.log(this.dataTrend)
       var option = {
@@ -1275,8 +1341,8 @@ export default {
             label: {},
           },
           title: {
-            subtext: "数据更新于：" + date_arr[6],
-            left: "center",
+            // subtext: "数据更新于：" + date_arr[6],
+            left: "25%",
           },
           tooltip: {},
           // legend: {
@@ -1290,7 +1356,7 @@ export default {
           grid: {
             x: 90,
             y: 80,
-            x2: 60,
+            x2: 500,
             y2: 100,
             tooltip: {
               trigger: "axis",
@@ -1308,6 +1374,7 @@ export default {
           xAxis: [
             {
               type: "category",
+              name:"主题",
               axisLabel: { interval: 0 },
               data: this.name,
               splitLine: { show: true },
@@ -1320,12 +1387,18 @@ export default {
             },
           ],
           series: [
-            { name: "主题", type: "bar" },
+            {
+              name: "主题",
+              type: "bar" ,
+              barWidth : 10,
+            },
             {
               name: "Trend占比",
               type: "pie",
-              center: ["85%", "19%"],
-              radius: "28%",
+              center: ["80%", "45%"],
+              // radius: "50%",
+              radius: [20, 110],
+              roseType: 'radius',
               z: 100,
             },
           ],
@@ -1372,7 +1445,7 @@ export default {
             title: { text: date_arr[5] + "各个主题增长" },
             series: [
               { data: tempdataTrend[date_arr[5]] },
-              { data: tempdataTrend[date_arr[6]] },
+              { data: tempdataTrend[date_arr[5]] },
             ],
           },
           {
@@ -1380,6 +1453,59 @@ export default {
             series: [
               { data: tempdataTrend[date_arr[6]] },
               { data: tempdataTrend[date_arr[6]] },
+            ],
+          },
+          {
+            title: { text: date_arr[7] + "各个主题增长" },
+            series: [
+              { data: tempdataTrend[date_arr[7]] },
+              {
+                data: tempdataTrend[date_arr[7]],
+              },
+            ],
+          },
+          {
+            title: { text: date_arr[8] + "各个主题增长" },
+            series: [
+              { data: tempdataTrend[date_arr[8]] },
+              { data: tempdataTrend[date_arr[8]] },
+            ],
+          },
+          {
+            title: { text: date_arr[9] + "各个主题增长" },
+            series: [
+              { data: tempdataTrend[date_arr[9]] },
+              { data: tempdataTrend[date_arr[9]] },
+            ],
+          },
+          {
+            title: { text: date_arr[10] + "各个主题增长" },
+            series: [
+              { data: tempdataTrend[date_arr[10]] },
+              { data: tempdataTrend[date_arr[10]] },
+            ],
+          },
+          {
+            title: { text: date_arr[11] + "各个主题增长" },
+            series: [
+              { data: tempdataTrend[date_arr[11]] },
+              { data: tempdataTrend[date_arr[11]] },
+            ],
+          },
+          {
+            title: {
+              text: date_arr[12] + "各个主题增长"
+            },
+            series: [
+              { data: tempdataTrend[date_arr[12]] },
+              { data: tempdataTrend[date_arr[12]] },
+            ],
+          },
+          {
+            title: { text: date_arr[12] + "各个主题增长" },
+            series: [
+              { data: tempdataTrend[date_arr[12]] },
+              { data: tempdataTrend[date_arr[12]] },
             ],
           },
         ],
@@ -1393,7 +1519,6 @@ export default {
         // this.percentCharts.resize();
       };
     },
-
     init() {
       const self = this; //因为箭头函数会改变this指向，指向windows。所以先把this保存
       setTimeout(() => {
@@ -1460,5 +1585,19 @@ a:active {
 } /* 鼠标点击时 */
 .chartsClass {
   padding-left: 1.2rem;
+}
+.showupdatetime {
+  color: gray;
+  font-size: 10px;
+  text-align: right;
+  margin-top: 1px;
+  margin-right: -18px;
+}
+.icon {
+   width: 1em; height: 1em;
+   vertical-align: -0.15em;
+   fill: currentColor;
+   overflow: hidden;
+
 }
 </style>

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
+// import SvgIcon from '@/components/SvgIcon';
 import router from './router';
 import ElementUI from 'element-ui';
 import VueI18n from 'vue-i18n';
@@ -9,8 +10,14 @@ import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
 // import './assets/css/theme-green/index.css'; // 浅绿色主题
 import './assets/css/icon.css';
 import './assets/icon/iconfont.css';
+// import './assets/unicodeicon/Uiconfont.css';
+// import './assets/svgicon/SVGiconfont.css';
+import './assets/svgicon/iconfont.js';
 import './components/common/directives';
 import 'babel-polyfill';
+import "@/assets/icon";
+import "./assets/icon";
+
 
 Vue.config.productionTip = false;
 Vue.use(VueI18n);

@@ -40,7 +40,7 @@
                         console.log("login!!")
                         localStorage.setItem('ms_username', 'ldmc');
 
-                        this.$router.push('/'+'ner');
+                        this.$router.push('/'+url);
                         break;
                 }
             },
