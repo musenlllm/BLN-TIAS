@@ -239,7 +239,7 @@
         <el-card
           class="noBorderInput"
           :body-style="{padding: '0px'}"
-          style="height:400px;text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+          style="height:404px;text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
         >
           <el-tabs
             type="card"
@@ -296,12 +296,12 @@
           style="text-align: center;margin-top: 20px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
         >
           <div slot="header" class="clearfix" style="font-size: 18px">
-            <span>近两周各主题新闻的每天增长数</span>
+            <span style="margin-bottom: -10px">近两周各主题新闻的每天增长数</span>
             <div class="showupdatetime" style="margin-bottom: -14px;margin-right: 3px">更新时间：{{lastupdatetime}}</div>
           </div>
           <!--动态-->
           <div class="wrap">
-            <div id="hot_trend" style="width:100%;height: 450px;margin-bottom: 15px"></div>
+            <div id="hot_trend" style="width:100%;height: 440px;margin-bottom: 15px"></div>
           </div>
 
           <!--<div>{{this.hot_statistics}}</div>-->
@@ -368,10 +368,6 @@ const type2color = [
   "rgb(177, 77, 87 )",
   "rgb(199, 136, 105 )",
   "rgb(187, 118, 76 )",
-  "rgb( )",
-  "rgb( )",
-  "rgb( )",
-  "rgb( )",
 ];
 const cloudcolor = [
   "#f58c89",
@@ -387,6 +383,20 @@ const cloudcolor = [
   "#74C2E1",
   "#84CF96",
   "#67C23A",
+];
+const type3color = [
+  "rgb(210,100,93)",
+  "rgb(228,116,79)",
+  "rgb(242,176,110)",
+  "rgb(249,224,150)",
+  "#ffec7a",
+  "#cdcf5f",
+  "rgb(181,219,169)",
+  "rgb(156,218,174)",
+  "rgb(125,191,166)",
+  "rgb(93,178,155)",
+  "rgb(74,134,183)",
+  "rgb(125,169,185)",
 ];
 
 export default {
@@ -714,7 +724,7 @@ export default {
             textStyle: {
               normal: {
                 color: function () {
-                  var colorArr = cloudcolor.slice(
+                  var colorArr = type3color.slice(
                     0,
                     10
                   ); /*[
@@ -1321,20 +1331,21 @@ export default {
       // console.log(this.dataTrend)
       var option = {
         baseOption: {
-          color: [
-            "rgb(210,100,93)",
-            "rgb(228,116,79)",
-            "rgb(242,176,110)",
-            "#F9CC64",
-            "#ffe064",
-            "rgb(233,244,163)",
-            "rgb(181,219,169)",
-            "rgb(156,218,174)",
-            "rgb(125,191,166)",
-            "rgb(93,178,155)",
-            "rgb(74,134,183)",
-            "rgb(125,169,185)",
-          ].reverse(),
+          // color: [
+          //   "rgb(210,100,93)",
+          //   "rgb(228,116,79)",
+          //   "rgb(242,176,110)",
+          //   "#F9CC64",
+          //   "#cdcf5f",
+          //   "#bfdf54",
+          //   "rgb(181,219,169)",
+          //   "rgb(156,218,174)",
+          //   "rgb(125,191,166)",
+          //   "rgb(93,178,155)",
+          //   "rgb(74,134,183)",
+          //   "#6EB4F8",
+          // ].reverse(),
+          color:type3color.reverse(),
           timeline: {
             axisType: "category",
             // realtime: false,
@@ -1352,8 +1363,8 @@ export default {
           title: {
             // subtext: "数据更新于：" + date_arr[6],
 
-            top: '20px',
-            left: "395px",
+            top: '10px',
+            left: "415px",
           },
           tooltip: {
             formatter:function (params, ticket, callback) {
@@ -1377,7 +1388,7 @@ export default {
           calculable: true,
           grid: {
             x: 90,
-            y: 70,
+            y: 50,
             x2: 400,
             y2: 120,
             tooltip: {
@@ -1401,11 +1412,15 @@ export default {
                 interval: 0
               },
               nameTextStyle:{
-                  fontSize:14,
-                  fontWeight: 700,
+                  // fontSize:14,
+                  // fontWeight: 700,
               },
               data: this.name,
-              splitLine: { show: true },
+              splitLine: { show: true ,
+                lineStyle: {
+                  width: 0.35,
+                  },
+              },
             },
           ],
           yAxis: [
@@ -1413,9 +1428,15 @@ export default {
               type: "value",
               name: "增长数量（条）",
               nameTextStyle:{
-                  fontSize:14,
-                  fontWeight: 700,
-              }
+                  // fontSize:14,
+                  // fontWeight: 700,
+              },
+              splitLine: {
+                  show: true,
+                  lineStyle: {
+                  width: 0.35,
+                  },
+              },
             },
           ],
           series: [
@@ -1706,7 +1727,6 @@ a:active {
   color: gray;
   font-size: 10px;
   text-align: right;
-  margin-top: 1px;
   margin-right: -18px;
 }
 
