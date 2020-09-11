@@ -525,7 +525,7 @@ export default {
     // this.ResultofHospot();
     // this.init();
     this.getDay();
-    const refreshTime = 5  * 1000;
+    const refreshTime = 5  * 60 * 1000;
     var that = this;
     var func = function () {
       that.lastupdatetime = new Date().Format("yyyy-MM-dd hh:mm:ss");
@@ -731,7 +731,7 @@ export default {
             textStyle: {
               normal: {
                 color: function () {
-                  var colorArr = type3color.slice(
+                  var colorArr = cloudcolor.slice(
                     0,
                     10
                   ); /*[
@@ -1340,21 +1340,21 @@ export default {
       // console.log(this.dataTrend)
       var option = {
         baseOption: {
-          // color: [
-          //   "rgb(210,100,93)",
-          //   "rgb(228,116,79)",
-          //   "rgb(242,176,110)",
-          //   "#F9CC64",
-          //   "#cdcf5f",
-          //   "#bfdf54",
-          //   "rgb(181,219,169)",
-          //   "rgb(156,218,174)",
-          //   "rgb(125,191,166)",
-          //   "rgb(93,178,155)",
-          //   "rgb(74,134,183)",
-          //   "#6EB4F8",
-          // ].reverse(),
-          color:type3color.reverse(),
+          color: [
+            "rgb(210,100,93)",
+            "rgb(228,116,79)",
+            "rgb(242,176,110)",
+            "#F9CC64",
+            "#cdcf5f",
+            "#bfdf54",
+            "rgb(181,219,169)",
+            "rgb(156,218,174)",
+            "rgb(125,191,166)",
+            "rgb(93,178,155)",
+            "rgb(74,134,183)",
+            "#6EB4F8",
+          ].reverse(),
+
           timeline: {
             axisType: "category",
             // realtime: false,
@@ -1373,7 +1373,7 @@ export default {
             // subtext: "数据更新于：" + date_arr[6],
 
             top: '10px',
-            left: "415px",
+            left: "560px",
           },
           tooltip: {
             formatter:function (params, ticket, callback) {

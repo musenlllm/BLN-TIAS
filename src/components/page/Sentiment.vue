@@ -660,6 +660,7 @@ export default {
 
           this.drawToday("today_emotionLevel", pos_count, neg_count, each_hour);
           // this.drawSum('history_sum',this.history_pos_count,this.history_neg_count);
+          console.log("the week",this.one_week_time)
           this.drawTrend(
             "history_trend",
             this.history_pos_trend,
@@ -1502,7 +1503,7 @@ export default {
           // data: function () {
           //    date_arr[0]
           // },
-          data:date_arr.reverse(),
+          data:date_arr,
           boundaryGap: false,
           nameTextStyle: {
             fontSize: 13,
