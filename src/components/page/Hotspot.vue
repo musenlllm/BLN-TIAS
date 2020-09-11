@@ -525,7 +525,7 @@ export default {
     // this.ResultofHospot();
     // this.init();
     this.getDay();
-    const refreshTime = 5 * 60 * 1000;
+    const refreshTime = 5  * 1000;
     var that = this;
     var func = function () {
       that.lastupdatetime = new Date().Format("yyyy-MM-dd hh:mm:ss");
@@ -824,7 +824,7 @@ export default {
           //     this.getKeyWords("hot_key_words3",this.key_words.nearly_one_week,'近七日新闻高影响力词分布词云');
           //     // this.drawDistribution("today_hot_distribution",this.nearly_one_week_news_dis,'近七日');
           // })
-          console.log("success draw ciyun");
+          // console.log("success draw ciyun");
           this.getKeyWords(
             "hot_key_words3",
             key_words1,
@@ -864,7 +864,7 @@ export default {
             this.source[i].push(this.today_news_dis[i - 1]);
             // .push(this.nearly_three_days_news_dis[i-1]).push(this.nearly_one_week_news_dis[i-1])
             this.source[i].push(this.nearly_one_week_news_dis[i - 1]);
-            console.log(i);
+            // console.log(i);
             // this.source = a.concat(b);
           }
           // setTimeout(()=>{
@@ -923,7 +923,7 @@ export default {
           }
           this.drawDTrend(
             "hot_trend",
-            this.two_week_time.reverse(),
+            this.two_week_time,
             this.dataSum,
             this.dataLong,
             this.dataShort
@@ -1156,10 +1156,10 @@ export default {
     getDay() {
       this.two_week_time = [];
       for (var i = 0; i > -14; i--) {
-
         // console.log("iiiiiii:",this.getBeforeDate(i));
         this.two_week_time.push(this.getBeforeDate(i));
       }
+      this.two_week_time=this.two_week_time.reverse();
 
     },
     //近七日主题新闻每日增长数

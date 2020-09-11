@@ -490,10 +490,11 @@ export default {
 
     // this.getRealTimeSentimentInfo();
     this.ResultofSentiment();
+    this.getDay();
 
     const refreshTime = 5 * 60 * 1000;
     var that = this;
-    this.getDay();
+
     var func = function () {
       that.lastupdatetime = new Date().Format("yyyy-MM-dd hh:mm:ss");
       that.getRealTimeSentimentInfo();
@@ -588,6 +589,7 @@ export default {
       for (var i = 0; i > -7; i--) {
         this.one_week_time.push(this.getBeforeDate(i));
       }
+      this.one_week_time = this.one_week_time.reverse();
     },
     getRealTimeSentimentInfo() {
       // 获取实时新闻列表
@@ -662,7 +664,7 @@ export default {
             "history_trend",
             this.history_pos_trend,
             this.history_neg_trend,
-            this.one_week_time.reverse()
+            this.one_week_time
           );
 
           this.drawHotDis(
