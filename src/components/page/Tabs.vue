@@ -41,10 +41,7 @@
         </el-card>
       </el-header>
       <el-container style="width: 100%">
-        <div
-          ref="asideContainer"
-          style="width: 100%;margin-top: 20px"
-        >
+        <div ref="asideContainer" style="width: 100%;margin-top: 20px">
           <el-aside width="100%" style=" text-align: center">
             <el-card
               class="box-card"
@@ -114,9 +111,7 @@
 
             <el-card
               class="box-card"
-              style=" margin-top: 20px;border-radius: 0;
-      background-color: #fff;
-      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+              style=" margin-top:20px;margin-bottom:20px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1)"
             >
               <div slot="header" class="clearfix">
                 <span style="font-size: 18px">实体分类树</span>
@@ -159,11 +154,6 @@
         <!--</el-main>-->
         <!--</div>-->
       </el-container>
-      <el-footer>
-        <el-container>
-          <el-main></el-main>
-        </el-container>
-      </el-footer>
       <!--<el-footer>Footer</el-footer>-->
     </el-container>
   </div>
