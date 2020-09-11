@@ -1502,8 +1502,8 @@ export default {
           data: date_arr,
           boundaryGap: false,
           nameTextStyle: {
-            fontSize: 14,
-            fontWeight: 700,
+            fontSize: 13,
+            //fontWeight: 700,
           },
         },
         yAxis: {
@@ -1641,8 +1641,8 @@ export default {
               show: true,
             },
             nameTextStyle: {
-              fontSize: 14,
-              fontWeight: 700,
+              fontSize: 13,
+              //fontWeight: 700,
               fontColor: "#000",
             },
           },
