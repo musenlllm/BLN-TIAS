@@ -1,11 +1,10 @@
 <template>
   <!--<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_2015036_ral7di9rm4.css">-->
-  <div>
-    <el-container>
-      <el-header style="height: max-content;text-align: center">
+  <div class="unifiedldmc">
+    <el-container style="">
+      <el-header style="padding:0;height: max-content;text-align: center;margin-top: 0;margin-right: 0;margin-left: 0">
         <el-card
-          class="noBorderInput"
-          style="margin-top:20px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.1);"
+          style="margin-top: 0;margin-right: 0;margin-left: 0;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.1);"
         >
           <!--<h1-->
             <!--class="pageheader"-->
@@ -17,7 +16,7 @@
           <!--&gt;热点挖掘</h1>-->
           <div slot="header" class="pageheader" style="font-size: 25px;font-weight: normal;">
               <span style="letter-spacing: 10px;">热点挖掘</span>
-              <div class="showupdatetime" style="margin-bottom: -22px;margin-right: 10px">更新时间：{{lastupdatetime}}</div>
+              <div class="showupdatetime" style="margin-bottom: -15px;margin-right: 6px">更新时间：{{lastupdatetime}}</div>
           </div>
 
           <div class="diyCardBody" style="margin-top: -10px">
@@ -66,13 +65,13 @@
                         width="80%"
                       >
                         <div slot-scope="scope" v-if="scope.row.rank<4">
-                          <!--<i class="iconfont iconmingcheng-huobao-t"></i>-->
+                          <i class="iconfont iconmingcheng-huobao-t"></i>
 
                           <!--<span class="Uiconfont ldmcmingcheng-huobao-t" v-html="iconTag"></span>-->
                           <!--<svg class="icon" aria-hidden="true">-->
                             <!--<use :xlink:href="#ldmcxin"></use>-->
                           <!--</svg>-->
-                          <svg-icon class-name="icon" icon-class="hot" ></svg-icon>
+                          <!--<svg-icon class-name="icon" icon-class="hot" ></svg-icon>-->
                         </div>
                         <div slot-scope="scope" v-else>{{scope.row.rank}}</div>
                       </el-table-column>
@@ -235,7 +234,7 @@
           </div>
         </el-card>
       </el-header>
-      <el-main style="margin-left: 0px; margin-top: -30px; text-align: center">
+      <el-main style="padding:0;margin-left: 0px; margin-top: -10px; text-align: center;margin-bottom: 20px">
         <!--<el-card class="box-card" style="min-height:200px; margin-top: 20px;text-align: center">-->
         <el-card
           class="noBorderInput"
@@ -297,12 +296,12 @@
           style="text-align: center;margin-top: 20px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
         >
           <div slot="header" class="clearfix" style="font-size: 18px">
-            <span>近7日各主题新闻的每天增长数</span>
+            <span>近两周各主题新闻的每天增长数</span>
             <div class="showupdatetime" style="margin-bottom: -14px;margin-right: 3px">更新时间：{{lastupdatetime}}</div>
           </div>
           <!--动态-->
           <div class="wrap">
-            <div id="hot_trend" style="width:100%;min-height: 600px;margin-bottom: 15px"></div>
+            <div id="hot_trend" style="width:100%;height: 450px;margin-bottom: 15px"></div>
           </div>
 
           <!--<div>{{this.hot_statistics}}</div>-->
@@ -445,7 +444,8 @@ export default {
       two_week_time: [],
       one_week_time: [],
       news_info: [],
-      dataTrend: {},
+
+      dataSum: {},
       dataLong:{},
       dataShort:{},
       // <<<<<<< Updated upstream
@@ -861,7 +861,7 @@ export default {
           console.log("successgetday:",this.two_week_time);
           for (let i = 0; i < 14; i++) {
             let key = this.two_week_time[i];
-            this.dataTrend[key] = [
+            this.dataSum[key] = [
               this.hot_statistics.domestic_trend[i].sum,
               this.hot_statistics.world_trend[i].sum,
               this.hot_statistics.sports_trend[i].sum,
@@ -890,24 +890,26 @@ export default {
               this.hot_statistics.other_trend[i].long,
             ];
             this.dataShort[key] = [
-              this.hot_statistics.domestic_trend[i].long,
-              this.hot_statistics.world_trend[i].long,
-              this.hot_statistics.sports_trend[i].long,
-              this.hot_statistics.society_trend[i].long,
-              this.hot_statistics.history_trend[i].long,
-              this.hot_statistics.entertainment_trend[i].long,
-              this.hot_statistics.military_trend[i].long,
-              this.hot_statistics.government_trend[i].long,
-              this.hot_statistics.education_trend[i].long,
-              this.hot_statistics.finance_trend[i].long,
-              this.hot_statistics.comment_trend[i].long,
-              this.hot_statistics.other_trend[i].long,
+              this.hot_statistics.domestic_trend[i].short,
+              this.hot_statistics.world_trend[i].short,
+              this.hot_statistics.sports_trend[i].short,
+              this.hot_statistics.society_trend[i].short,
+              this.hot_statistics.history_trend[i].short,
+              this.hot_statistics.entertainment_trend[i].short,
+              this.hot_statistics.military_trend[i].short,
+              this.hot_statistics.government_trend[i].short,
+              this.hot_statistics.education_trend[i].short,
+              this.hot_statistics.finance_trend[i].short,
+              this.hot_statistics.comment_trend[i].short,
+              this.hot_statistics.other_trend[i].short,
             ];
           }
           this.drawDTrend(
             "hot_trend",
             this.two_week_time.reverse(),
-            this.dataTrend,
+            this.dataSum,
+            this.dataLong,
+            this.dataShort
           );
         });
     },
@@ -1272,7 +1274,7 @@ export default {
       };
     },
     //动态柱状图
-    drawDTrend(id, date_arr, news_info) {
+    drawDTrend(id, date_arr, news_info, datalong,datashort) {
       this.chart = echarts.init(document.getElementById(id));
       function dataFormat(obj) {
         // console.log("data formatter suc22:",obj)
@@ -1309,6 +1311,12 @@ export default {
       var tempdataTrend = {};
       tempdataTrend = dataFormat(news_info);
       console.log("data formatter suc22:",tempdataTrend)
+      var tempdataLong = {};
+      tempdataLong = dataFormat(datalong);
+      console.log("data formatter suc33:",tempdataLong)
+      var tempdataShort = {};
+      tempdataShort = dataFormat(datashort);
+      console.log("data formatter suc44:",tempdataShort)
 
       // console.log(this.dataTrend)
       var option = {
@@ -1339,12 +1347,26 @@ export default {
             // },
             data: date_arr,
             label: {},
+            bottom: 20,
           },
           title: {
             // subtext: "数据更新于：" + date_arr[6],
-            left: "25%",
+
+            top: '20px',
+            left: "395px",
           },
-          tooltip: {},
+          tooltip: {
+            formatter:function (params, ticket, callback) {
+                  var res = '</t>主题：'+params[0].name+'</br>'+params[0].marker+params[0].seriesName+':'+
+                    params[0].value+'</br>'+params[1].marker+params[1].seriesName+':'+params[1].value+
+                    '</br>'+params[2].marker+params[2].seriesName+':'+params[2].value;
+                  console.log("pare:",params);
+                  return res;
+                },
+            textStyle:{
+              align:'left'
+            },
+          },
           // legend: {
           //     left: '50%',
           //     data: ['主题'],
@@ -1355,9 +1377,9 @@ export default {
           calculable: true,
           grid: {
             x: 90,
-            y: 80,
-            x2: 500,
-            y2: 100,
+            y: 70,
+            x2: 400,
+            y2: 120,
             tooltip: {
               trigger: "axis",
               axisPointer: {
@@ -1375,7 +1397,13 @@ export default {
             {
               type: "category",
               name:"主题",
-              axisLabel: { interval: 0 },
+              axisLabel: {
+                interval: 0
+              },
+              nameTextStyle:{
+                  fontSize:14,
+                  fontWeight: 700,
+              },
               data: this.name,
               splitLine: { show: true },
             },
@@ -1384,18 +1412,33 @@ export default {
             {
               type: "value",
               name: "增长数量（条）",
+              nameTextStyle:{
+                  fontSize:14,
+                  fontWeight: 700,
+              }
             },
           ],
           series: [
             {
-              name: "主题",
+              name: "主题总数",
               type: "bar" ,
               barWidth : 10,
             },
             {
-              name: "Trend占比",
+              name: "长文本数量",
+              type: "bar" ,
+              barWidth : 10,
+            },
+            {
+              name: "短文本数量",
+              type: "bar" ,
+              barWidth : 10,
+            },
+            {
+              name: "各主题总数占比",
+              title:{text:"各主题总数占比"},
               type: "pie",
-              center: ["80%", "45%"],
+              center: ['1030px', "45%"],
               // radius: "50%",
               radius: [20, 110],
               roseType: 'radius',
@@ -1403,109 +1446,167 @@ export default {
             },
           ],
         },
-        options: [
+        options:
+        // function () {
+        //   let temp = [];
+        //   console.log("data option:",temp)
+        //   for (let i = 0;i < 14;i++)
+        //   {
+        //     temp[i] = {
+        //       title: { text: date_arr[i] + "各个主题增长" },
+        //       series: [
+        //         { data: tempdataTrend[date_arr[i]] },
+        //         { data: tempdataLong[date_arr[i]] },
+        //         { data: tempdataShort[date_arr[i]] },
+        //         {
+        //           data: tempdataTrend[date_arr[i]],
+        //         },
+        //       ],
+        //     };
+        //
+        //   }
+        //   console.log("data formatter suc55:",temp)
+        //   return temp;
+        // }
+        [
           {
-            title: { text: date_arr[0] + "各个主题增长" },
+            title: { text: date_arr[0].slice(0,2) + "月"+date_arr[0].slice(-2)+"日" },
             series: [
               { data: tempdataTrend[date_arr[0]] },
+              { data: tempdataLong[date_arr[0]] },
+              { data: tempdataShort[date_arr[0]] },
               {
                 data: tempdataTrend[date_arr[0]],
               },
             ],
           },
           {
-            title: { text: date_arr[1] + "各个主题增长" },
+            title: { text: date_arr[1].slice(0,2) + "月"+date_arr[1].slice(-2)+"日" },
             series: [
               { data: tempdataTrend[date_arr[1]] },
+              { data: tempdataLong[date_arr[1]] },
+              { data: tempdataShort[date_arr[1]] },
               { data: tempdataTrend[date_arr[1]] },
             ],
           },
           {
-            title: { text: date_arr[2] + "各个主题增长" },
+            title: { text: date_arr[2].slice(0,2) + "月"+date_arr[2].slice(-2)+"日" },
             series: [
               { data: tempdataTrend[date_arr[2]] },
+              { data: tempdataLong[date_arr[2]] },
+              { data: tempdataShort[date_arr[2]] },
               { data: tempdataTrend[date_arr[2]] },
             ],
           },
           {
-            title: { text: date_arr[3] + "各个主题增长" },
+            title: { text: date_arr[3].slice(0,2) + "月"+date_arr[3].slice(-2)+"日" },
             series: [
               { data: tempdataTrend[date_arr[3]] },
+              { data: tempdataLong[date_arr[3]] },
+              { data: tempdataShort[date_arr[3]] },
               { data: tempdataTrend[date_arr[3]] },
             ],
           },
           {
-            title: { text: date_arr[4] + "各个主题增长" },
+            title: { text: date_arr[4].slice(0,2) + "月"+date_arr[4].slice(-2)+"日" },
             series: [
               { data: tempdataTrend[date_arr[4]] },
+              { data: tempdataLong[date_arr[4]] },
+              { data: tempdataShort[date_arr[4]] },
               { data: tempdataTrend[date_arr[4]] },
             ],
           },
           {
-            title: { text: date_arr[5] + "各个主题增长" },
+            title: { text: date_arr[5].slice(0,2) + "月"+date_arr[5].slice(-2)+"日" },
             series: [
               { data: tempdataTrend[date_arr[5]] },
+              { data: tempdataLong[date_arr[5]] },
+              { data: tempdataShort[date_arr[5]] },
               { data: tempdataTrend[date_arr[5]] },
             ],
           },
           {
-            title: { text: date_arr[6] + "各个主题增长" },
+            title: { text: date_arr[6].slice(0,2) + "月"+date_arr[6].slice(-2)+"日" },
             series: [
               { data: tempdataTrend[date_arr[6]] },
+              // { data: tempdataTrend[date_arr[4]] },
+              { data: tempdataLong[date_arr[6]] },
+              { data: tempdataShort[date_arr[6]] },
               { data: tempdataTrend[date_arr[6]] },
             ],
           },
           {
-            title: { text: date_arr[7] + "各个主题增长" },
+            title: { text: date_arr[7].slice(0,2) + "月"+date_arr[7].slice(-2)+"日" },
             series: [
               { data: tempdataTrend[date_arr[7]] },
+              // { data: tempdataTrend[date_arr[4]] },
+              { data: tempdataLong[date_arr[7]] },
+              { data: tempdataShort[date_arr[7]] },
               {
                 data: tempdataTrend[date_arr[7]],
               },
             ],
           },
           {
-            title: { text: date_arr[8] + "各个主题增长" },
+            title: { text: date_arr[8].slice(0,2) + "月"+date_arr[8].slice(-2)+"日" },
             series: [
               { data: tempdataTrend[date_arr[8]] },
+              // { data: tempdataTrend[date_arr[4]] },
+              { data: tempdataLong[date_arr[8]] },
+              { data: tempdataShort[date_arr[8]] },
               { data: tempdataTrend[date_arr[8]] },
             ],
           },
           {
-            title: { text: date_arr[9] + "各个主题增长" },
+            title: { text: date_arr[9].slice(0,2) + "月"+date_arr[9].slice(-2)+"日" },
             series: [
               { data: tempdataTrend[date_arr[9]] },
+              // { data: tempdataTrend[date_arr[4]] },
+              { data: tempdataLong[date_arr[9]] },
+              { data: tempdataShort[date_arr[9]] },
               { data: tempdataTrend[date_arr[9]] },
             ],
           },
           {
-            title: { text: date_arr[10] + "各个主题增长" },
+            title: { text: date_arr[10].slice(0,2) + "月"+date_arr[10].slice(-2)+"日" },
             series: [
               { data: tempdataTrend[date_arr[10]] },
+              // { data: tempdataTrend[date_arr[4]] },
+              { data: tempdataLong[date_arr[10]] },
+              { data: tempdataShort[date_arr[10]] },
               { data: tempdataTrend[date_arr[10]] },
             ],
           },
           {
-            title: { text: date_arr[11] + "各个主题增长" },
+            title: { text: date_arr[11].slice(0,2) + "月"+date_arr[11].slice(-2)+"日" },
             series: [
               { data: tempdataTrend[date_arr[11]] },
+              // { data: tempdataTrend[date_arr[4]] },
+              { data: tempdataLong[date_arr[11]] },
+              { data: tempdataShort[date_arr[11]] },
               { data: tempdataTrend[date_arr[11]] },
             ],
           },
           {
             title: {
-              text: date_arr[12] + "各个主题增长"
+              text: date_arr[12].slice(0,2) + "月"+date_arr[12].slice(-2)+"日"
             },
             series: [
               { data: tempdataTrend[date_arr[12]] },
+              // { data: tempdataTrend[date_arr[4]] },
+              { data: tempdataLong[date_arr[12]] },
+              { data: tempdataShort[date_arr[12]] },
               { data: tempdataTrend[date_arr[12]] },
             ],
           },
           {
-            title: { text: date_arr[12] + "各个主题增长" },
+            title: { text: date_arr[13].slice(0,2) + "月"+date_arr[13].slice(-2)+"日" },
             series: [
-              { data: tempdataTrend[date_arr[12]] },
-              { data: tempdataTrend[date_arr[12]] },
+              { data: tempdataTrend[date_arr[13]] },
+              // { data: tempdataTrend[date_arr[4]] },
+              { data: tempdataLong[date_arr[13]] },
+              { data: tempdataShort[date_arr[13]] },
+              { data: tempdataTrend[date_arr[13]] },
             ],
           },
         ],
@@ -1535,8 +1636,23 @@ export default {
 <style scoped type="text/css">
 @import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
 @import "../../assets/css/icon.css";
-
-.el-header,
+.unifiedldmc .el-card {
+  border-radius: 0;
+  background-color: #fff;
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.1);
+}
+.unifiedldmc h1.pageheader {
+  color: black;
+  letter-spacing: 10px;
+  font-weight: normal;
+  font-size: 25px;
+  margin-top: -20px;
+}
+.unifiedldmc .showupdatetime {
+  color: gray;
+  font-size: 10px;
+  text-align: right;
+}
 .el-footer {
   font-size: 20px;
   color: black;
@@ -1593,6 +1709,7 @@ a:active {
   margin-top: 1px;
   margin-right: -18px;
 }
+
 .icon {
    width: 1em; height: 1em;
    vertical-align: -0.15em;
