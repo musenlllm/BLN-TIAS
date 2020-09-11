@@ -12,11 +12,11 @@ import './assets/css/icon.css';
 import './assets/icon/iconfont.css';
 // import './assets/unicodeicon/Uiconfont.css';
 // import './assets/svgicon/SVGiconfont.css';
-import './assets/svgicon/iconfont.js';
+// import './assets/svgicon/iconfont.js';
 import './components/common/directives';
 import 'babel-polyfill';
-import "@/assets/icon";
-import "./assets/icon";
+// import "@/assets/icon";
+// import "./assets/icon";
 
 
 Vue.config.productionTip = false;
