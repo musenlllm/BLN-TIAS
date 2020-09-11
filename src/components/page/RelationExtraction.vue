@@ -1,10 +1,10 @@
 <template>
   <div class="unifiedldmc">
     <el-container>
-      <el-header style="height: max-content">
+      <el-header style="height: max-content;padding:0">
         <el-card
           class="noBorderInput"
-          style="border: 0px; margin-top: 20px;border-radius: 0;
+          style="border: 0px;border-radius: 0;
       background-color: #fff;
       box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
         >
@@ -31,7 +31,7 @@
       </el-header>
       <el-main
         ref="mainContainer"
-        style="text-align:center;margin: 20px 0;height: 100%;padding:0 20px"
+        style="text-align:center;margin: 20px 0;height: 100%;padding:0"
       >
         <el-row>
           <el-col :span="14">
