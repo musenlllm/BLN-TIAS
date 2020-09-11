@@ -253,6 +253,7 @@
             class="box-card"
             style="height:520px;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);align-items: center"
             v-loading="resloading"
+            align="center"
           >
             <div slot="header" class="clearfix" style="color: black;font-size: 18px">
               <span>
@@ -384,16 +385,16 @@
                 </el-card>
               </el-col>
             </el-row>
-            <el-row :gutter="20" style="margin-top:35px">
+            <el-row :gutter="20" align="center" style="margin-top:35px;align-items: center">
               <!--<el-col :span="4">-->
               <!--<div id="history_sum" style="width:300px;height:400px;">-->
               <!--</div>-->
               <!--</el-col>-->
               <el-col :span="10">
-                <div id="history_trend" style="width:800px;height:400px;"></div>
+                <div id="history_trend" align="center" style="width:800px;height:400px;"></div>
               </el-col>
               <el-col :span="14">
-                <div id="hot_theme_sen_dis" style="width:800px;min-height:400px;"></div>
+                <div id="hot_theme_sen_dis" align="center" style="width:800px;min-height:400px;"></div>
               </el-col>
             </el-row>
           </el-card>
@@ -1546,14 +1547,14 @@ export default {
       //防止越界，重绘canvas
       // window.onresize = this.charts.resize;
       this.charts.setOption(option);
-      window.onresize = () => {
-        this.charts.resize();
-      };
+      // window.onresize = () => {
+      //   this.charts.resize();
+      // };
 
-      // window.addEventListener("resize", () =>
-      // {
-      //     this.charts.resize();
-      // });
+      window.addEventListener("resize", () =>
+      {
+          this.charts.resize();
+      });
     },
     drawHotDis(id, pos, neg) {
       this.chart = echarts.init(document.getElementById(id));

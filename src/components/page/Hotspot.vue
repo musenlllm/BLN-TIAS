@@ -28,7 +28,7 @@
                   :body-style="{padding: '0px'}"
                   style="min-height: 466px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
                 >
-                  <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                  <div slot="header" class="clearfix" style="font-size: 18px;height: 23px;margin-top: -12px">
                     <span style="">
                       <!--<link rel="icon" href="../../assets/icon/news.icon" type="image/x-icon">-->
                       <!--<svg class="icon" aria-hidden="true">-->
@@ -108,7 +108,7 @@
                   :body-style="{padding: '0px'}"
                   style="min-height: 466px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
                 >
-                  <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                  <div slot="header" class="clearfix" style="font-size: 18px;height: 23px;margin-top: -12px">
                     <span>
                       <i class="el-icon-chat-line-square" style="font-size: 21px"></i>
 
@@ -179,7 +179,7 @@
                   :body-style="{padding: '0px'}"
                   style="min-height: 466px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
                 >
-                  <div slot="header" class="clearfix" style="font-size: 18px;height: 30px;">
+                  <div slot="header" class="clearfix" style="font-size: 18px;height: 23px;margin-top: -12px">
                     <span>
                       <i class="iconfont iconzengchang1"></i>
                       <!--</div>-->
@@ -208,7 +208,7 @@
                     >
                       <template slot-scope="scope" v-if="scope.row.url">
                         <div style="display: flex; margin-top: 1%; margin-bottom: 1%">
-                          <img :href="scope.row.url" src="../../assets/icon/svg/new.svg" style="width: 10%; height: 12%;transform: scale(1.4)"></img>
+                          <img :href="scope.row.url" src="../../assets/icon/svg/new.svg" style="width: 10%; height: 12%;transform: scale(1.4);mar"></img>
                           <a
                             :href="scope.row.url"
                             target="_blank"
@@ -216,12 +216,7 @@
 
                           >【{{scope.row.news_type}}】{{scope.row.news}}</a>
                         </div>
-
                         <!--<i :href="scope.row.url" class="iconfont iconzuixin"></i>-->
-
-
-
-
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -248,7 +243,7 @@
         <el-card
           class="noBorderInput"
           :body-style="{padding: '0px'}"
-          style="height:404px;text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+          style="align-items:center;height:404px;text-align: center;margin-top: 30px;min-height: 200px;border: 0px;border-radius: 0;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
         >
           <el-tabs
             type="card"
@@ -259,25 +254,27 @@
 
             <el-tab-pane label="今日" name="third">
               <div
+                align="center"
                 class="wrap"
                 v-if="isChildUpdate3"
-                style="display: flex; justify-content: space-around"
+                style="display: flex; justify-content: space-around;align-items: center"
               >
-                <div id="hot_key_words3" style="width:30%;min-height:360px;"></div>
-                <div id="hot_freq_words3" style="width:30%;min-height:360px;"></div>
-                <div id="today_hot_distribution3" style="width:38%;height:360px;margin-bottom:0px"></div>
+                <div id="hot_key_words3" style="width:33%;min-height:360px;margin-left: 20px"></div>
+                <div id="hot_freq_words3" style="width:33%;min-height:360px;"></div>
+                <div id="today_hot_distribution3" style="width:34%;height:360px;margin-bottom:0px"></div>
                 <!--<div>{{this.key_words2_list}}</div>-->
               </div>
             </el-tab-pane>
             <el-tab-pane label="近七日" name="first">
               <div
+                align="center"
                 class="wrap"
                 v-if="isChildUpdate1"
-                style="display: flex; justify-content: space-around"
+                style="display: flex; justify-content: space-around;align-items: center"
               >
-                <div id="hot_key_words1" style="width:30%;min-height:360px;"></div>
-                <div id="hot_freq_words1" style="width:30%;min-height:360px;"></div>
-                <div id="today_hot_distribution1" style="width:38%;height:360px;margin-bottom:0px"></div>
+                <div id="hot_key_words1" style="width:33%;min-height:360px;"></div>
+                <div id="hot_freq_words1" style="width:33%;min-height:360px;"></div>
+                <div id="today_hot_distribution1" style="width:34%;height:360px;margin-bottom:0px"></div>
 
                 <!--<div>{{this.freq_words2_list}}</div>-->
               </div>
@@ -309,7 +306,7 @@
             <div class="showupdatetime" style="margin-bottom: -14px;margin-right: 3px">更新时间：{{lastupdatetime}}</div>
           </div>
           <!--动态-->
-          <div class="wrap">
+          <div class="wrap" align="center">
             <div id="hot_trend" style="width:100%;height: 440px;margin-bottom: 15px"></div>
           </div>
 
@@ -351,7 +348,9 @@
   };
 
   const hotspoturl = "http://115.236.52.123:6012/api/hotspot";
-  // const maskImage = new Image();
+  const maskImage = new Image();
+  const image5="data:image/png;base64,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";
+  maskImage.src = image5;
 
   const type2color = [
     "rgb(151, 94, 109)",
@@ -409,8 +408,6 @@
   ];
 
   export default {
-
-
     props: {
       iconClass: {
         type: String,
@@ -523,6 +520,7 @@
     },
     created() {},
     mounted() {
+      this.getDay();
       // this.WordCloud('hot_freq_words');
       // this.drawTest('hot_trend_test');
       // this.ResultofHospot();
@@ -670,9 +668,7 @@
       //词云
       WordCloud(id, words, title) {
         this.chart = echarts.init(document.getElementById(id));
-        var maskImage = new Image();
 
-        maskImage.src = this.image5;
         //maskImage.src = this.image2;
 
         var option = {
@@ -733,7 +729,7 @@
               textStyle: {
                 normal: {
                   color: function () {
-                    var colorArr = type3color.slice(
+                    var colorArr = cloudcolor.slice(
                       0,
                       10
                     ); /*[
@@ -780,38 +776,39 @@
         })
       },
       // 获取热点挖掘的数据
-      ResultofHospot() {
-        fetch(hotspoturl, {
-          method: "POST",
-          body: JSON.stringify({
-            // docs: [{
-            //       "id":0,
-            //       "doc":this.summaryText,
-            // }]
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .catch((error) => console.error("Error:", error))
-          .then((response) => {
-            this.hotspotRes = response.results;
-            // console.log("success")
-            // this.hot_event = hotspotRes.hot_event;
-            // this.hot_topic = hotspotRes.hot_topic;
-            // this.hot_freq_words = hotspotRes.hot_freq_words;
-            // this.hot_key_words = hotspotRes.hot_key_words;
-            // this.hot_statistics = hotspotRes.hot_statistics;
-            this.recent_half_hour_increase_news = this.hotspotRes.hot_statistics.recent_half_hour_increase_news;
 
-            this.today_news_distribution = this.hotspotRes.hot_statistics.today_news_distribution;
+      // 获取热点挖掘的数据
+      ResultofHospot() {
+      fetch(hotspoturl, {
+        method: "POST",
+        body: JSON.stringify({
+          // docs: [{
+          //       "id":0,
+          //       "doc":this.summaryText,
+          // }]
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .catch((error) => console.error("Error:", error))
+        .then((response) => {
+          this.hotspotRes = response.results;
+          // console.log("success")
+          // this.hot_event = hotspotRes.hot_event;
+          // this.hot_topic = hotspotRes.hot_topic;
+          // this.hot_freq_words = hotspotRes.hot_freq_words;
+          // this.hot_key_words = hotspotRes.hot_key_words;
+          // this.hot_statistics = hotspotRes.hot_statistics;
+          this.recent_half_hour_increase_news = this.hotspotRes.hot_statistics.recent_half_hour_increase_news;
+          this.today_news_distribution = this.hotspotRes.hot_statistics.today_news_distribution;
             // console.log("success3");
-            this.today_news_dis = Object.values(this.today_news_distribution);
+          this.today_news_dis = Object.values(this.today_news_distribution);
             // console.log("success5");
-            this.nearly_one_week_news_distribution = this.hotspotRes.hot_statistics.nearly_one_week_news_distribution;
-            this.nearly_one_week_news_dis = Object.values(
-              this.nearly_one_week_news_distribution
+          this.nearly_one_week_news_distribution = this.hotspotRes.hot_statistics.nearly_one_week_news_distribution;
+          this.nearly_one_week_news_dis = Object.values(
+            this.nearly_one_week_news_distribution
             );
 
             /****Part 2****/
@@ -876,7 +873,7 @@
 
             /***Part 3***/
             this.hot_statistics = this.hotspotRes.hot_statistics;
-            this.getDay();
+
             console.log("successgetday:",this.two_week_time);
             for (let i = 0; i < 14; i++) {
               let key = this.two_week_time[i];
@@ -925,11 +922,13 @@
             }
             this.drawDTrend(
               "hot_trend",
-              this.two_week_time.reverse(),
+              this.two_week_time,
               this.dataSum,
               this.dataLong,
               this.dataShort
             );
+            console.log("data formatter suc55:", news_info);
+
           });
       },
       //场景分布柱状图
@@ -1156,11 +1155,12 @@
       },
       //获取近七日日期 step_2
       getDay() {
+        this.two_week_time = [];
         for (var i = 0; i > -14; i--) {
           // console.log("iiiiiii:",this.getBeforeDate(i));
           this.two_week_time.push(this.getBeforeDate(i));
         }
-
+        this.two_week_time = this.two_week_time.reverse();
       },
       //近七日主题新闻每日增长数
       drawTrend(id, date_arr, news_info) {
@@ -1281,7 +1281,7 @@
           //数据-data是最终要显示的数据
 
           /*  [+] Here I need Initial the series arr */
-          series: news_info,
+          // series: news_info,
         };
         this.chart.setOption(option);
         // window.addEventListener("resize", () => {
@@ -1340,21 +1340,21 @@
         // console.log(this.dataTrend)
         var option = {
           baseOption: {
-            // color: [
-            //   "rgb(210,100,93)",
-            //   "rgb(228,116,79)",
-            //   "rgb(242,176,110)",
-            //   "#F9CC64",
-            //   "#cdcf5f",
-            //   "#bfdf54",
-            //   "rgb(181,219,169)",
-            //   "rgb(156,218,174)",
-            //   "rgb(125,191,166)",
-            //   "rgb(93,178,155)",
-            //   "rgb(74,134,183)",
-            //   "#6EB4F8",
-            // ].reverse(),
-            color:type3color.reverse(),
+            color: [
+              "rgb(210,100,93)",
+              "rgb(228,116,79)",
+              "rgb(242,176,110)",
+              "#F9CC64",
+              "#cdcf5f",
+              "#bfdf54",
+              "rgb(181,219,169)",
+              "rgb(156,218,174)",
+              "rgb(125,191,166)",
+              "rgb(93,178,155)",
+              "rgb(74,134,183)",
+              "#6EB4F8",
+            ].reverse(),
+            // color: type3color.reverse(),
             timeline: {
               axisType: "category",
               // realtime: false,
@@ -1371,29 +1371,15 @@
             },
             title: {
               // subtext: "数据更新于：" + date_arr[6],
-
               top: '10px',
-              left: "415px",
+              left: "46%",
             },
-            tooltip: {
-              formatter:function (params, ticket, callback) {
-                var res = '</t>主题：'+params[0].name+'</br>'+params[0].marker+params[0].seriesName+':'+
-                  params[0].value+'</br>'+params[1].marker+params[1].seriesName+':'+params[1].value+
-                  '</br>'+params[2].marker+params[2].seriesName+':'+params[2].value;
-                console.log("pare:",params);
-                return res;
-              },
-              textStyle:{
-                align:'left'
-              },
+            legend: {
+              left: '44%',
+              data: ['主题总数', '长文本数量', '短文本数量'],
+              top: 50,
+              // orient: 'vertical'
             },
-            // legend: {
-            //     left: '50%',
-            //     data: ['主题'],
-            //     // selected: {
-            //     //     'GDP': true, '金融': false, '房地产': false,'第一产业': false, '第二产业': false, '第三产业': false
-            //     // }
-            // },
             calculable: true,
             grid: {
               x: 90,
@@ -1401,254 +1387,282 @@
               x2: 400,
               y2: 120,
               tooltip: {
-                trigger: "axis",
-                axisPointer: {
-                  type: "shadow",
-                  label: {
+                formatter: function (params, ticket, callback) {
+                  var res = '</t>主题：' + params[0].name + '</br>' + params[0].marker + params[0].seriesName + ':' +
+                    params[0].value + '</br>' + params[1].marker + params[1].seriesName + ':' + params[1].value +
+                    '</br>' + params[2].marker + params[2].seriesName + ':' + params[2].value;
+                  console.log("pare:", params);
+                  return res;
+                },
+                textStyle: {
+                  align: 'left'
+                },
+              },
+              // legend: {
+              //     left: '50%',
+              //     data: ['主题'],
+              //     // selected: {
+              //     //     'GDP': true, '金融': false, '房地产': false,'第一产业': false, '第二产业': false, '第三产业': false
+              //     // }
+              // },
+              // calculable: true,
+              // grid: {
+              //   x: 90,
+              //   y: 50,
+              //   x2: 400,
+              //   y2: 120,
+              //   tooltip: {
+              //     trigger: "axis",
+              //     axisPointer: {
+              //       type: "shadow",
+              //       label: {
+              //         show: true,
+              //         formatter: function (params) {
+              //           return params.value.replace("\n", "");
+              //         },
+              //       },
+              //     },
+              //   },
+              },
+              xAxis: [
+                {
+                  type: "category",
+                  name: "主题",
+                  axisLabel: {
+                    interval: 0
+                  },
+                  nameTextStyle: {
+                    // fontSize:14,
+                    // fontWeight: 700,
+                  },
+                  data: this.name,
+                  splitLine: {
                     show: true,
-                    formatter: function (params) {
-                      return params.value.replace("\n", "");
+                    lineStyle: {
+                      width: 0.35,
                     },
                   },
                 },
-              },
+              ],
+              yAxis: [
+                {
+                  type: "value",
+                  name: "增长数量（条）",
+                  nameTextStyle: {
+                    // fontSize:14,
+                    // fontWeight: 700,
+                  },
+                  splitLine: {
+                    show: true,
+                    lineStyle: {
+                      width: 0.35,
+                    },
+                  },
+                },
+              ],
+              series: [
+                {
+                  name: "主题总数",
+                  type: "bar",
+                  barWidth: 10,
+                },
+                {
+                  name: "长文本数量",
+                  type: "bar",
+                  barWidth: 10,
+                },
+                {
+                  name: "短文本数量",
+                  type: "bar",
+                  barWidth: 10,
+                },
+                {
+                  name: "各主题总数占比",
+                  title: {text: "各主题总数占比"},
+                  type: "pie",
+                  center: ['85%', "45%"],
+                  // radius: "50%",
+                  radius: [20, 110],
+                  roseType: 'radius',
+                  z: 100,
+                },
+              ],
             },
-            xAxis: [
-              {
-                type: "category",
-                name:"主题",
-                axisLabel: {
-                  interval: 0
+            options:
+            // function () {
+            //   let temp = [];
+            //   console.log("data option:",temp)
+            //   for (let i = 0;i < 14;i++)
+            //   {
+            //     temp[i] = {
+            //       title: { text: date_arr[i] + "各个主题增长" },
+            //       series: [
+            //         { data: tempdataTrend[date_arr[i]] },
+            //         { data: tempdataLong[date_arr[i]] },
+            //         { data: tempdataShort[date_arr[i]] },
+            //         {
+            //           data: tempdataTrend[date_arr[i]],
+            //         },
+            //       ],
+            //     };
+            //
+            //   }
+            //   console.log("data formatter suc55:",temp)
+            //   return temp;
+            // }
+              [
+                {
+                  title: {text: date_arr[0].slice(0, 2) + "月" + date_arr[0].slice(-2) + "日"},
+                  series: [
+                    {data: tempdataTrend[date_arr[0]]},
+                    {data: tempdataLong[date_arr[0]]},
+                    {data: tempdataShort[date_arr[0]]},
+                    {
+                      data: tempdataTrend[date_arr[0]],
+                    },
+                  ],
                 },
-                nameTextStyle:{
-                  // fontSize:14,
-                  // fontWeight: 700,
+                {
+                  title: {text: date_arr[1].slice(0, 2) + "月" + date_arr[1].slice(-2) + "日"},
+                  series: [
+                    {data: tempdataTrend[date_arr[1]]},
+                    {data: tempdataLong[date_arr[1]]},
+                    {data: tempdataShort[date_arr[1]]},
+                    {data: tempdataTrend[date_arr[1]]},
+                  ],
                 },
-                data: this.name,
-                splitLine: { show: true ,
-                  lineStyle: {
-                    width: 0.35,
+                {
+                  title: {text: date_arr[2].slice(0, 2) + "月" + date_arr[2].slice(-2) + "日"},
+                  series: [
+                    {data: tempdataTrend[date_arr[2]]},
+                    {data: tempdataLong[date_arr[2]]},
+                    {data: tempdataShort[date_arr[2]]},
+                    {data: tempdataTrend[date_arr[2]]},
+                  ],
+                },
+                {
+                  title: {text: date_arr[3].slice(0, 2) + "月" + date_arr[3].slice(-2) + "日"},
+                  series: [
+                    {data: tempdataTrend[date_arr[3]]},
+                    {data: tempdataLong[date_arr[3]]},
+                    {data: tempdataShort[date_arr[3]]},
+                    {data: tempdataTrend[date_arr[3]]},
+                  ],
+                },
+                {
+                  title: {text: date_arr[4].slice(0, 2) + "月" + date_arr[4].slice(-2) + "日"},
+                  series: [
+                    {data: tempdataTrend[date_arr[4]]},
+                    {data: tempdataLong[date_arr[4]]},
+                    {data: tempdataShort[date_arr[4]]},
+                    {data: tempdataTrend[date_arr[4]]},
+                  ],
+                },
+                {
+                  title: {text: date_arr[5].slice(0, 2) + "月" + date_arr[5].slice(-2) + "日"},
+                  series: [
+                    {data: tempdataTrend[date_arr[5]]},
+                    {data: tempdataLong[date_arr[5]]},
+                    {data: tempdataShort[date_arr[5]]},
+                    {data: tempdataTrend[date_arr[5]]},
+                  ],
+                },
+                {
+                  title: {text: date_arr[6].slice(0, 2) + "月" + date_arr[6].slice(-2) + "日"},
+                  series: [
+                    {data: tempdataTrend[date_arr[6]]},
+                    // { data: tempdataTrend[date_arr[4]] },
+                    {data: tempdataLong[date_arr[6]]},
+                    {data: tempdataShort[date_arr[6]]},
+                    {data: tempdataTrend[date_arr[6]]},
+                  ],
+                },
+                {
+                  title: {text: date_arr[7].slice(0, 2) + "月" + date_arr[7].slice(-2) + "日"},
+                  series: [
+                    {data: tempdataTrend[date_arr[7]]},
+                    // { data: tempdataTrend[date_arr[4]] },
+                    {data: tempdataLong[date_arr[7]]},
+                    {data: tempdataShort[date_arr[7]]},
+                    {
+                      data: tempdataTrend[date_arr[7]],
+                    },
+                  ],
+                },
+                {
+                  title: {text: date_arr[8].slice(0, 2) + "月" + date_arr[8].slice(-2) + "日"},
+                  series: [
+                    {data: tempdataTrend[date_arr[8]]},
+                    // { data: tempdataTrend[date_arr[4]] },
+                    {data: tempdataLong[date_arr[8]]},
+                    {data: tempdataShort[date_arr[8]]},
+                    {data: tempdataTrend[date_arr[8]]},
+                  ],
+                },
+                {
+                  title: {text: date_arr[9].slice(0, 2) + "月" + date_arr[9].slice(-2) + "日"},
+                  series: [
+                    {data: tempdataTrend[date_arr[9]]},
+                    // { data: tempdataTrend[date_arr[4]] },
+                    {data: tempdataLong[date_arr[9]]},
+                    {data: tempdataShort[date_arr[9]]},
+                    {data: tempdataTrend[date_arr[9]]},
+                  ],
+                },
+                {
+                  title: {text: date_arr[10].slice(0, 2) + "月" + date_arr[10].slice(-2) + "日"},
+                  series: [
+                    {data: tempdataTrend[date_arr[10]]},
+                    // { data: tempdataTrend[date_arr[4]] },
+                    {data: tempdataLong[date_arr[10]]},
+                    {data: tempdataShort[date_arr[10]]},
+                    {data: tempdataTrend[date_arr[10]]},
+                  ],
+                },
+                {
+                  title: {text: date_arr[11].slice(0, 2) + "月" + date_arr[11].slice(-2) + "日"},
+                  series: [
+                    {data: tempdataTrend[date_arr[11]]},
+                    // { data: tempdataTrend[date_arr[4]] },
+                    {data: tempdataLong[date_arr[11]]},
+                    {data: tempdataShort[date_arr[11]]},
+                    {data: tempdataTrend[date_arr[11]]},
+                  ],
+                },
+                {
+                  title: {
+                    text: date_arr[12].slice(0, 2) + "月" + date_arr[12].slice(-2) + "日"
                   },
+                  series: [
+                    {data: tempdataTrend[date_arr[12]]},
+                    // { data: tempdataTrend[date_arr[4]] },
+                    {data: tempdataLong[date_arr[12]]},
+                    {data: tempdataShort[date_arr[12]]},
+                    {data: tempdataTrend[date_arr[12]]},
+                  ],
                 },
-              },
-            ],
-            yAxis: [
-              {
-                type: "value",
-                name: "增长数量（条）",
-                nameTextStyle:{
-                  // fontSize:14,
-                  // fontWeight: 700,
+                {
+                  title: {text: date_arr[13].slice(0, 2) + "月" + date_arr[13].slice(-2) + "日"},
+                  series: [
+                    {data: tempdataTrend[date_arr[13]]},
+                    // { data: tempdataTrend[date_arr[4]] },
+                    {data: tempdataLong[date_arr[13]]},
+                    {data: tempdataShort[date_arr[13]]},
+                    {data: tempdataTrend[date_arr[13]]},
+                  ],
                 },
-                splitLine: {
-                  show: true,
-                  lineStyle: {
-                    width: 0.35,
-                  },
-                },
-              },
-            ],
-            series: [
-              {
-                name: "主题总数",
-                type: "bar" ,
-                barWidth : 10,
-              },
-              {
-                name: "长文本数量",
-                type: "bar" ,
-                barWidth : 10,
-              },
-              {
-                name: "短文本数量",
-                type: "bar" ,
-                barWidth : 10,
-              },
-              {
-                name: "各主题总数占比",
-                title:{text:"各主题总数占比"},
-                type: "pie",
-                center: ['1030px', "45%"],
-                // radius: "50%",
-                radius: [20, 110],
-                roseType: 'radius',
-                z: 100,
-              },
-            ],
-          },
-          options:
-          // function () {
-          //   let temp = [];
-          //   console.log("data option:",temp)
-          //   for (let i = 0;i < 14;i++)
-          //   {
-          //     temp[i] = {
-          //       title: { text: date_arr[i] + "各个主题增长" },
-          //       series: [
-          //         { data: tempdataTrend[date_arr[i]] },
-          //         { data: tempdataLong[date_arr[i]] },
-          //         { data: tempdataShort[date_arr[i]] },
-          //         {
-          //           data: tempdataTrend[date_arr[i]],
-          //         },
-          //       ],
-          //     };
-          //
-          //   }
-          //   console.log("data formatter suc55:",temp)
-          //   return temp;
-          // }
-            [
-              {
-                title: { text: date_arr[0].slice(0,2) + "月"+date_arr[0].slice(-2)+"日" },
-                series: [
-                  { data: tempdataTrend[date_arr[0]] },
-                  { data: tempdataLong[date_arr[0]] },
-                  { data: tempdataShort[date_arr[0]] },
-                  {
-                    data: tempdataTrend[date_arr[0]],
-                  },
-                ],
-              },
-              {
-                title: { text: date_arr[1].slice(0,2) + "月"+date_arr[1].slice(-2)+"日" },
-                series: [
-                  { data: tempdataTrend[date_arr[1]] },
-                  { data: tempdataLong[date_arr[1]] },
-                  { data: tempdataShort[date_arr[1]] },
-                  { data: tempdataTrend[date_arr[1]] },
-                ],
-              },
-              {
-                title: { text: date_arr[2].slice(0,2) + "月"+date_arr[2].slice(-2)+"日" },
-                series: [
-                  { data: tempdataTrend[date_arr[2]] },
-                  { data: tempdataLong[date_arr[2]] },
-                  { data: tempdataShort[date_arr[2]] },
-                  { data: tempdataTrend[date_arr[2]] },
-                ],
-              },
-              {
-                title: { text: date_arr[3].slice(0,2) + "月"+date_arr[3].slice(-2)+"日" },
-                series: [
-                  { data: tempdataTrend[date_arr[3]] },
-                  { data: tempdataLong[date_arr[3]] },
-                  { data: tempdataShort[date_arr[3]] },
-                  { data: tempdataTrend[date_arr[3]] },
-                ],
-              },
-              {
-                title: { text: date_arr[4].slice(0,2) + "月"+date_arr[4].slice(-2)+"日" },
-                series: [
-                  { data: tempdataTrend[date_arr[4]] },
-                  { data: tempdataLong[date_arr[4]] },
-                  { data: tempdataShort[date_arr[4]] },
-                  { data: tempdataTrend[date_arr[4]] },
-                ],
-              },
-              {
-                title: { text: date_arr[5].slice(0,2) + "月"+date_arr[5].slice(-2)+"日" },
-                series: [
-                  { data: tempdataTrend[date_arr[5]] },
-                  { data: tempdataLong[date_arr[5]] },
-                  { data: tempdataShort[date_arr[5]] },
-                  { data: tempdataTrend[date_arr[5]] },
-                ],
-              },
-              {
-                title: { text: date_arr[6].slice(0,2) + "月"+date_arr[6].slice(-2)+"日" },
-                series: [
-                  { data: tempdataTrend[date_arr[6]] },
-                  // { data: tempdataTrend[date_arr[4]] },
-                  { data: tempdataLong[date_arr[6]] },
-                  { data: tempdataShort[date_arr[6]] },
-                  { data: tempdataTrend[date_arr[6]] },
-                ],
-              },
-              {
-                title: { text: date_arr[7].slice(0,2) + "月"+date_arr[7].slice(-2)+"日" },
-                series: [
-                  { data: tempdataTrend[date_arr[7]] },
-                  // { data: tempdataTrend[date_arr[4]] },
-                  { data: tempdataLong[date_arr[7]] },
-                  { data: tempdataShort[date_arr[7]] },
-                  {
-                    data: tempdataTrend[date_arr[7]],
-                  },
-                ],
-              },
-              {
-                title: { text: date_arr[8].slice(0,2) + "月"+date_arr[8].slice(-2)+"日" },
-                series: [
-                  { data: tempdataTrend[date_arr[8]] },
-                  // { data: tempdataTrend[date_arr[4]] },
-                  { data: tempdataLong[date_arr[8]] },
-                  { data: tempdataShort[date_arr[8]] },
-                  { data: tempdataTrend[date_arr[8]] },
-                ],
-              },
-              {
-                title: { text: date_arr[9].slice(0,2) + "月"+date_arr[9].slice(-2)+"日" },
-                series: [
-                  { data: tempdataTrend[date_arr[9]] },
-                  // { data: tempdataTrend[date_arr[4]] },
-                  { data: tempdataLong[date_arr[9]] },
-                  { data: tempdataShort[date_arr[9]] },
-                  { data: tempdataTrend[date_arr[9]] },
-                ],
-              },
-              {
-                title: { text: date_arr[10].slice(0,2) + "月"+date_arr[10].slice(-2)+"日" },
-                series: [
-                  { data: tempdataTrend[date_arr[10]] },
-                  // { data: tempdataTrend[date_arr[4]] },
-                  { data: tempdataLong[date_arr[10]] },
-                  { data: tempdataShort[date_arr[10]] },
-                  { data: tempdataTrend[date_arr[10]] },
-                ],
-              },
-              {
-                title: { text: date_arr[11].slice(0,2) + "月"+date_arr[11].slice(-2)+"日" },
-                series: [
-                  { data: tempdataTrend[date_arr[11]] },
-                  // { data: tempdataTrend[date_arr[4]] },
-                  { data: tempdataLong[date_arr[11]] },
-                  { data: tempdataShort[date_arr[11]] },
-                  { data: tempdataTrend[date_arr[11]] },
-                ],
-              },
-              {
-                title: {
-                  text: date_arr[12].slice(0,2) + "月"+date_arr[12].slice(-2)+"日"
-                },
-                series: [
-                  { data: tempdataTrend[date_arr[12]] },
-                  // { data: tempdataTrend[date_arr[4]] },
-                  { data: tempdataLong[date_arr[12]] },
-                  { data: tempdataShort[date_arr[12]] },
-                  { data: tempdataTrend[date_arr[12]] },
-                ],
-              },
-              {
-                title: { text: date_arr[13].slice(0,2) + "月"+date_arr[13].slice(-2)+"日" },
-                series: [
-                  { data: tempdataTrend[date_arr[13]] },
-                  // { data: tempdataTrend[date_arr[4]] },
-                  { data: tempdataLong[date_arr[13]] },
-                  { data: tempdataShort[date_arr[13]] },
-                  { data: tempdataTrend[date_arr[13]] },
-                ],
-              },
-            ],
-        };
+              ],
+          };
+
+
         this.chart.setOption(option);
         // window.addEventListener("resize", () => {
         //     this.chart.resize();
         // });
-        window.onresize = () => {
-          this.chart.resize();
-          // this.percentCharts.resize();
-        };
+        // window.onresize = () => {
+        //   this.chart.resize();
+        //   // this.percentCharts.resize();
+        // };
       },
       init() {
         const self = this; //因为箭头函数会改变this指向，指向windows。所以先把this保存
@@ -1659,6 +1673,7 @@
           });
         }, 10);
       },
+
     },
   };
 </script>
