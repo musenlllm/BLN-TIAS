@@ -243,7 +243,7 @@
               >
                 <div id="hot_key_words1" style="width:30%;min-height:400px;"></div>
                 <div id="hot_freq_words1" style="width:30%;height:400px;"></div>
-                <div id="today_hot_distribution1" style="width:38%;height:400px;"></div>
+                <div id="today_hot_distribution1" style="width:38%;height:380px;margin-bottom:20px"></div>
 
                 <!--<div>{{this.freq_words2_list}}</div>-->
               </div>
@@ -256,7 +256,7 @@
               >
                 <div id="hot_key_words3" style="width:30%;min-height:400px;"></div>
                 <div id="hot_freq_words3" style="width:30%;min-height:400px;"></div>
-                <div id="today_hot_distribution3" style="width:38%;height:400px;"></div>
+                <div id="today_hot_distribution3" style="width:38%;height:380px;margin-bottom:20px"></div>
                 <!--<div>{{this.key_words2_list}}</div>-->
               </div>
             </el-tab-pane>
@@ -303,6 +303,51 @@ import { fetchData } from "../../api/index";
 import "echarts-wordcloud/dist/echarts-wordcloud";
 import "echarts-wordcloud/dist/echarts-wordcloud.min";
 const hotspoturl = "http://115.236.52.123:6012/api/hotspot";
+
+const type2color = [
+  "rgb(151, 94, 109)",
+  "rgb(224, 113, 156 )",
+  "rgb( 221, 76, 81)",
+  "rgb(201, 74, 68 )",
+  "rgb(221, 76, 81 )",
+  "rgb(247, 161, 40 )",
+  "rgb(225, 195, 21 )",
+  "rgb(176, 151, 51 )",
+  "rgb(162, 176, 41 )",
+  "rgb(113, 137, 51 )",
+  "rgb(58, 162, 85 )",
+  "rgb(94, 154, 128 )",
+  "rgb(157, 178, 183 )",
+  "rgb( 118, 192, 203)",
+  "rgb(202, 164, 101 )",
+  "rgb(223, 189, 126 )",
+  "rgb(190, 134, 99 )",
+  "rgb(221, 175, 97 )",
+  "rgb(121, 71, 82 )",
+  "rgb(204, 61, 65 )",
+  "rgb(177, 77, 87 )",
+  "rgb(199, 136, 105 )",
+  "rgb(187, 118, 76 )",
+  "rgb( )",
+  "rgb( )",
+  "rgb( )",
+  "rgb( )",
+];
+const cloudcolor = [
+  "#F56C6C",
+  "pink",
+  "#A39391",
+  "#D45246",
+  "#FFCC99",
+  "#9999CC",
+  "#3366CC",
+  "#E6A23C",
+  "#FB3C3C",
+  "#203643",
+  "#74C2E1",
+  "#84CF96",
+  "#67C23A",
+];
 
 export default {
   name: "basetable",
@@ -393,10 +438,8 @@ export default {
       image4:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABU0lEQVQ4T6WTsUsCYRjGf9/daXfnFu1N1RoFESQJLf0DBU39Bw5KChY0OHgStdTQ1iAELo2NDhYZtBXhEm0RlNGUnEl3X5yinJJ60jd9vB/83ud93ucTUkqVfxwxLmD5nMjjO9NfCape37EBSo47CQt6iFU7RaUHED5g23FYUVVummkK/ZMZeWINl1KnLqDcBfgfFUHWyZDtB5iHLNlNKp16WGNT6JZc+3Y5kjALmH66oZOoJ3mInmHevrHjSvZ90GrEYKulQOT4GbKIDwEvEuZbpkHZNIh7d8/IFkDJUZIQC7pNuYvWVeoBJvJsNF2KQQFmiMV6ivueNY4DUQTHTobkwByoVtusPtO6AhXBqZNp+zAwSEMU1aZ0orUkzyOTqFgUBbxKyZyEdQEXYY1CI81lj4mjzAtZ7Gkq13aaK288f8gC/YWZEyaf4nz+1SgQYJjCXzBWkv34rjyaAAAAAElFTkSuQmCC",
       image5:
-      "data:image/png;base64,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"
-
-
-      ,};
+        "data:image/png;base64,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",
+    };
   },
   created() {},
   mounted() {
@@ -453,6 +496,9 @@ export default {
         let obj = {};
         obj.name = freq_words[i].word;
         obj.value = freq_words[i].frequency;
+        obj.itemStyle = {
+          color: type2color[i % 20],
+        };
         this.freq_words_list[i] = obj;
       }
       this.$nextTick(() => {
@@ -531,7 +577,7 @@ export default {
       maskImage.src = this.image5;
       //maskImage.src = this.image2;
       var option = {
-        colorArr: [
+        /*colorArr: [
           "#fda67e",
           "#81cacc",
           "#cca8ba",
@@ -543,7 +589,7 @@ export default {
           "#6e7074",
           "#546570",
           "#c4ccd3",
-        ],
+        ],*/
         title: {
           text: title,
           x: "center",
@@ -576,7 +622,7 @@ export default {
             //用来调整字的大小范围
             // Text size range which the value in data will be mapped to.
             // Default to have minimum 12px and maximum 60px size.
-            sizeRange: [9, 30],
+            sizeRange: [9, 38],
             // Text rotation range and step in degree. Text will be rotated randomly in range [-90,                                                                             90] by rotationStep 45
             //用来调整词的旋转方向，，[0,0]--代表着没有角度，也就是词为水平方向，需要设置角度参考注释内容
             rotationRange: [-40, 0, 45, 90],
@@ -587,7 +633,10 @@ export default {
             textStyle: {
               normal: {
                 color: function () {
-                  var colorArr = [
+                  var colorArr = cloudcolor.slice(
+                    0,
+                    10
+                  ); /*[
                     "#7db5e2",
                     "#81cacc",
                     "#cca8ba",
@@ -599,7 +648,7 @@ export default {
                     "#909399",
                     "#c4ccd3",
                     "#67C23A",
-                  ];
+                  ]*/
                   var flag = parseInt(Math.random() * 10);
                   return colorArr[flag];
                 },
@@ -897,7 +946,7 @@ export default {
             fontSize: 15, //主题文字字体大小，默认为18px
           },
         },
-        color: ["#3398DB"],
+        color: ["rgb(218, 29, 35)"],
         tooltip: {
           trigger: "axis",
           axisPointer: {
@@ -922,7 +971,6 @@ export default {
         yAxis: [
           {
             type: "category",
-            name: "主题",
             nameTextStyle: {
               fontSize: "10",
             },
