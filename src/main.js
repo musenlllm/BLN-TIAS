@@ -16,7 +16,15 @@ import './assets/icon/iconfont.css';
 import './components/common/directives';
 import 'babel-polyfill';
 // import "@/assets/icon";
-// import "./assets/icon";
+import "./assets/icon/index";
+
+// requires and returns all modules that match
+const requireAll = requireContext => requireContext.keys().map(requireContext);
+
+// import all svg
+const req = require.context('./assets/icon/svg', true, /\.svg$/);
+requireAll(req);
+
 
 
 Vue.config.productionTip = false;
