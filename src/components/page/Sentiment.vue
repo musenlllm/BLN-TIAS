@@ -2,18 +2,14 @@
   <div>
     <el-container>
       <el-header style="height: max-content;text-align: center;padding:0">
-        <!--<h1 style="color: gray">情感分析</h1>-->
-
         <el-card
           class="noBorderInput"
           style="border: 0px;border-radius: 0;max-height: 275px;
-        background-color: #fff;
-        box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+                background-color: #fff;
+                box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
         >
-          <h1
-            style=" letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px"
+          <h1 style=" letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px"
           >情感分析</h1>
-          <!--<el-card style="text-align: center;">-->
           <el-input
             type="textarea"
             placeholder="请输入文本"
@@ -29,25 +25,24 @@
               v-on:click="ResultofSentiment"
               type="primary"
               style="background: #242f42; border: 0px;font-size: 15px; letter-spacing: 5px"
-            >开始分析</el-button>
+            >开始分析
+            </el-button>
           </el-row>
         </el-card>
       </el-header>
+
       <el-main
         ref="mainContainer"
         style="text-align: center;margin-top: 20px;height: 100%;padding:0"
       >
-        <el-row style="max-height: 480px;max-width: 100%">
-          <el-card
+        <el-card
             class="box-card"
-            style="height: 240px;background-color: #fff;
-      box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+            style="height: 240px;background-color: #fff;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
             v-loading="resloading"
           >
-            <div slot="header" class="clearfix" style="font-size: 18px">
-              <span>本次分析结果</span>
-            </div>
-            <el-row>
+              <div slot="header" class="clearfix" style="font-size: 18px">
+                <span>本次分析结果</span>
+              </div>
               <span :style="style_sen">{{this.classification}}</span>
               <div
                 id="wrap"
@@ -74,9 +69,7 @@
                   >负面情绪</span>
                 </div>
               </div>
-            </el-row>
           </el-card>
-        </el-row>
 
         <el-row style="max-width: 100%;margin-top: 20px">
           <el-card
@@ -93,25 +86,25 @@
               <el-aside
                 width="50%"
                 style="margin-top:-1px;margin-right: 10px;margin-left: 11px;height:100%"
+                align="center"
               >
-                <el-row :gutter="0">
+                <el-row :gutter="0" style="margin-bottom: 0;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
                   <el-col
                     :span="24"
-                    style="padding: 0px;margin-top:-2px;margin-left: -1px;margin-right: 1px"
+                    style="padding: 0px;margin-top:-2px;margin-bottom:0;margin-left: -1px;margin-right: 1px;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
                   >
                     <el-card
                       :body-style="{padding: '0px',shadow:'never'}"
-                      style="border-radius: 0;"
+                      style="border-radius: 0;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
                       shadow="never"
                     >
                       <div class="grid-content grid-con-1" style="color:#E47470 ">
-                        <div class="grid-con-text">
+                        <div class="grid-con-text1">
                           <div class="grid-num">今日检测总数</div>
                           <div
                             class="grid-num"
                           >{{today_num = today_negative_count+today_positive_count}} 条</div>
                         </div>
-
                         <el-divider direction="vertical" class="el-div"></el-divider>
                         <div class="grid-cont-right1">
                           <div class="right-text">
@@ -128,8 +121,9 @@
                   </el-col>
                 </el-row>
                 <!--今日小时曲线图-->
-                <div id="today_emotionLevel" style="width:100%;height:390px;margin-top: -2%"></div>
+                <div id="today_emotionLevel" style="width:100%;min-height:390px;"></div>
               </el-aside>
+
               <el-main style="margin: -20px;margin-bottom: -20px;margin-right: 0px">
                 <el-tabs
                   type="border-card"
@@ -248,126 +242,125 @@
           </el-card>
         </el-row>
 
-        <el-row style="margin-bottom:20px">
-          <el-card
-            class="box-card"
-            style="height:520px;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);align-items: center"
-            v-loading="resloading"
-            align="center"
-          >
-            <div slot="header" class="clearfix" style="color: black;font-size: 18px">
-              <span>
-                <i class="iconfont iconxinwen"></i>
-                历史新闻分析结果
-              </span>
-              <div class="showupdatetime">更新时间：{{lastupdatetime}}</div>
-            </div>
-            <el-row :gutter="10" style="width: 100%;margin-top: -10px;margin-left: 0.1px">
-              <el-col :span="8" style>
-                <el-card
-                  :body-style="{padding: '0px',shadow:'never'}"
-                  style="box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+        <el-card
+          class="box-card"
+          style="height:520px;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);align-items: center"
+          v-loading="resloading"
+          align="center"
+        >
+          <div slot="header" class="clearfix" style="color: black;font-size: 18px">
+            <span>
+              <i class="iconfont iconxinwen"></i>
+              历史新闻分析结果
+            </span>
+            <div class="showupdatetime">更新时间：{{lastupdatetime}}</div>
+          </div>
+          <el-row :gutter="10" style="width: 100%;margin-top: -10px;margin-left: 0.1px">
+            <el-col :span="8" style="padding-left: 30px;padding-right: 10px">
+              <el-card
+                :body-style="{padding: '0px',shadow:'never'}"
+                style="box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+              >
+                <div
+                  class="grid-content grid-con-1"
+                  style="height:80px;color:#E47470;background-color: white "
                 >
-                  <div
-                    class="grid-content grid-con-1"
-                    style="height:80px;color:#E47470;background-color: white "
-                  >
-                    <div class="grid-con-text" style>
-                      <div
-                        class="iconof1"
-                        style="margin-left:10%;border-radius:5px;align-items: center"
-                      >
-                        <span style="color: #ffffff">
-                          <i class="el-icon-s-data" style="font-size: 45px;margin-top:8%;"></i>
-                        </span>
-                      </div>
-                    </div>
-                    <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
-                    <div class="grid-cont-right1" style="margin-left: -180px;width:70%;">
-                      <!--<div class="right-text" style="color: #35363b;margin: 0px">-->
-                      <div class="right-text">
-                        <span
-                          class="grid-num"
-                          style="font-size: 26px;font-weight: bold;color: #35363b;"
-                        >{{today_num = history_pos_count+history_neg_count}} 条</span>
-                      </div>
-                      <!--<div class="right-text" style="color: #35363b;margin: 0px">-->
-                      <div class="right-text">
-                        <!--<span class="grid-num">{{today_num = today_negative_count+today_positive_count}} 条</span>-->
-                        <span
-                          class="grid-text"
-                          style="font-size: 14px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;"
-                        >历史检测新闻总数</span>
-                      </div>
-                      <!--<div class="grid-num"></div>-->
+                  <div class="grid-con-text" align="center" style="text-align: center;display: flex;align-content: center">
+                    <div
+                      class="iconof1"
+                      style="background-color: #589ef8;border-radius:5px;align-items: center"
+                    >
+                      <span style="color: #ffffff">
+                        <i class="el-icon-s-data" style="font-size: 50px;margin-top:8px;"></i>
+                      </span>
                     </div>
                   </div>
-                </el-card>
-              </el-col>
-              <!--<el-col :span="8" style="padding: 0px;margin-top:-2px;margin-left: -1%;margin-right: -1%;">-->
-              <el-col :span="8" style>
-                <el-card
-                  :body-style="{padding: '0px',shadow:'never'}"
-                  style="border-radius: 0;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+                  <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
+                  <div class="grid-cont-right1" style="">
+                    <!--<div class="right-text" style="color: #35363b;margin: 0px">-->
+                    <div class="right-text">
+                      <span
+                        class="grid-num"
+                        style="font-size: 26px;font-weight: bold;color: #35363b;"
+                      >{{today_num = history_pos_count+history_neg_count}} 条</span>
+                    </div>
+                    <!--<div class="right-text" style="color: #35363b;margin: 0px">-->
+                    <div class="right-text">
+                      <!--<span class="grid-num">{{today_num = today_negative_count+today_positive_count}} 条</span>-->
+                      <span
+                        class="grid-text"
+                        style="font-size: 14px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;"
+                      >历史检测新闻总数</span>
+                    </div>
+                    <!--<div class="grid-num"></div>-->
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+            <!--<el-col :span="8" style="padding: 0px;margin-top:-2px;margin-left: -1%;margin-right: -1%;">-->
+            <el-col :span="8" style="padding-left: 10px;padding-right: 10px">
+              <el-card
+                :body-style="{padding: '0px',shadow:'never'}"
+                style="border-radius: 0;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+              >
+                <div
+                  class="grid-content grid-con-1"
+                  style="height:80px;color:#E47470;background-color: white;align-items: center" align="center"
                 >
+                  <div class="grid-con-text" style="">
+                    <div
+                      class="iconof1"
+                      style="background-color: #e47470;align-items: center;border-radius:5px;"
+                    >
+                      <span style="color: #ffffff">
+                        <i class="el-icon-top" style="font-size: 50px;margin-top:8px;"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
+                  <div class="grid-cont-right1" style="">
+                    <div class="right-text">
+                      <span
+                        class="grid-num"
+                        style="font-size: 26px;color: #35363b;"
+                      >{{history_pos_count}} 条</span>
+                    </div>
+                    <div class="right-text">
+                      <span
+                        class="grid-text"
+                        style="font-size: 14px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;"
+                      >历史检测正面新闻总数</span>
+                      <!--<span class="grid-num">{{today_negative_count}} 条</span>-->
+                    </div>
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+            <!--<el-col :span="8" style="padding: 0px;margin-top:-2px;margin-left: -1%;margin-right: -1%;">-->
+            <el-col :span="8" style="padding-left: 10px;padding-right: 30px">
+              <el-card
+                :body-style="{padding: '0px',shadow:'never'}"
+                style="border-radius: 0;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
+              >
+
                   <div
-                    class="grid-content grid-con-1"
-                    style="height:80px;color:#E47470;background-color: white "
+                    class="grid-content grid-con-1" align="center"
+                    style="height:80px;color:#E47470;background-color: white; "
                   >
-                    <div class="grid-con-text">
+                    <div class="grid-con-text" style="">
                       <div
                         class="iconof1"
-                        style="margin-left:10%;background-color: #e47470;align-items: center;border-radius:5px;"
+                        style="background-color: #8dbf6a;border-radius:5px;"
                       >
                         <span style="color: #ffffff">
-                          <i class="el-icon-top" style="font-size: 45px;margin-top:8%;"></i>
+                          <i class="el-icon-bottom" style="font-size: 50px;margin-top:5px;"></i>
                         </span>
                       </div>
                     </div>
 
                     <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
-                    <div class="grid-cont-right1" style="margin-left: -180px;width:50px;">
-                      <div class="right-text">
-                        <span
-                          class="grid-num"
-                          style="font-size: 26px;color: #35363b;"
-                        >{{history_pos_count}} 条</span>
-                      </div>
-                      <div class="right-text">
-                        <span
-                          class="grid-text"
-                          style="font-size: 14px;font-weight:normal ;color: #35363b;margin-left: 10%;margin: 10%;"
-                        >历史检测正面新闻总数</span>
-                        <!--<span class="grid-num">{{today_negative_count}} 条</span>-->
-                      </div>
-                    </div>
-                  </div>
-                </el-card>
-              </el-col>
-              <!--<el-col :span="8" style="padding: 0px;margin-top:-2px;margin-left: -1%;margin-right: -1%;">-->
-              <el-col :span="8" style>
-                <el-card
-                  :body-style="{padding: '0px',shadow:'never'}"
-                  style="border-radius: 0;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);"
-                  shadow="never"
-                >
-                  <div
-                    class="grid-content grid-con-1"
-                    style="height:80px;color:#E47470;background-color: white "
-                  >
-                    <div class="grid-con-text">
-                      <div
-                        class="iconof1"
-                        style="margin-left:10%;background-color: #8dbf6a;border-radius:5px;"
-                      >
-                        <span style="color: #ffffff">
-                          <i class="el-icon-bottom" style="font-size: 45px;margin-top:8%;"></i>
-                        </span>
-                      </div>
-                    </div>
-
-                    <!--<el-divider direction="vertical" class="el-div"></el-divider>-->
-                    <div class="grid-cont-right1" style="margin-left: -180px;width:50px;">
+                    <div class="grid-cont-right1" style="">
                       <div class="right-text">
                         <span
                           class="grid-num"
@@ -382,23 +375,21 @@
                       </div>
                     </div>
                   </div>
-                </el-card>
-              </el-col>
-            </el-row>
-            <el-row :gutter="20" align="center" style="margin-top:35px;align-items: center">
-              <!--<el-col :span="4">-->
-              <!--<div id="history_sum" style="width:300px;height:400px;">-->
-              <!--</div>-->
-              <!--</el-col>-->
-              <el-col :span="10">
-                <div id="history_trend" align="center" style="width:800px;height:400px;"></div>
-              </el-col>
-              <el-col :span="14">
-                <div id="hot_theme_sen_dis" align="center" style="width:800px;min-height:400px;"></div>
-              </el-col>
-            </el-row>
-          </el-card>
-        </el-row>
+
+              </el-card>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="0" align="center" style="width: 100%">
+            <el-col :span="12" style="padding: 0">
+              <div id="history_trend" align="center" style="width:100%;min-height:400px;"></div>
+            </el-col>
+            <el-col :span="12" style="padding: 0">
+              <div id="hot_theme_sen_dis" align="center" style="width:100%;min-height:400px;"></div>
+            </el-col>
+          </el-row>
+        </el-card>
+
       </el-main>
     </el-container>
   </div>
@@ -762,238 +753,12 @@ export default {
           });
         }
       });
-      // var option = {
-      //     title: {
-      //         text: '近期币值走势'
-      //     },
-      //     tooltip: {
-      //         trigger: 'axis', //坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表中使用。
-      //     },
-      //     xAxis: {
-      //         type: 'category',//类目轴，适用于离散的类目数据，为该类型时必须通过 data 设置类目数据。
-      //         name: '日期',//坐标轴名称
-      //         boundaryGap: false,
-      //         data: one_week_time.reverse(),
-      //         nameGap: 7,//坐标轴名称与轴线之间的距离。
-      //         axisTick: {//是否显示坐标轴刻度。
-      //             inside: true//坐标轴刻度是否朝内，默认朝外。
-      //         }
-      //     },
-      //     yAxis: {
-      //         type: 'value',
-      //         name: '元/币',
-      //         splitLine: {
-      //             show: false//是否显示分隔线。默认数值轴显示，类目轴不显示。
-      //         },
-      //         nameGap: 15,
-      //         axisTick: {
-      //             inside: true
-      //         }
-      //     },
-      //     series: [{
-      //         type: 'line',//线条
-      //         name: '币值',//系列名称，用于tooltip的显示
-      //         data: [0.2, 0.5, 0.8, 1, 1.5, 2],
-      //         symbol: 'circle',//标记的类型：圆圈
-      //         itemStyle: {
-      //             normal: {
-      //                 shadowBlur: 50,//文字块的背景阴影长度。
-      //                 shadowColor: 'red',//文字块的背景阴影颜色。
-      //                 color: 'red',//图形的颜色
-      //                 lineStyle: {
-      //                     color: '#4d6dfd',//线的颜色
-      //                     width: 1//线的宽度
-      //                 }
-      //             }
-      //         }
-      //     }],
-      // };
       this.charts.setOption(option);
       window.addEventListener("resize", function () {
         this.charts.resize();
       });
     },
-    // drawPie(id) {
-    //   this.charts = echarts.init(document.getElementById(id));
-    //   var option = {
-    //       legend: {},
-    //       tooltip: {
-    //           trigger: 'axis',
-    //           showContent: false
-    //       },
-    //       dataset: {
-    //           source: [
-    //               ['product', '2012', '2013', '2014', '2015', '2016', '2017'],
-    //               ['Matcha Latte', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7],
-    //               ['Milk Tea', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
-    //               ['Cheese Cocoa', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5],
-    //               ['Walnut Brownie', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
-    //           ]
-    //       },
-    //       xAxis: {type: 'category'},
-    //       yAxis: {gridIndex: 0},
-    //       grid: {top: '55%'},
-    //       series: [
-    //           {type: 'line', smooth: true, seriesLayoutBy: 'row'},
-    //           {type: 'line', smooth: true, seriesLayoutBy: 'row'},
-    //           {type: 'line', smooth: true, seriesLayoutBy: 'row'},
-    //           {type: 'line', smooth: true, seriesLayoutBy: 'row'},
-    //           {
-    //               type: 'pie',
-    //               id: 'pie',
-    //               radius: '30%',
-    //               center: ['50%', '25%'],
-    //               label: {
-    //                   formatter: '{b}: {@2012} ({d}%)'
-    //               },
-    //               encode: {
-    //                   itemName: 'product',
-    //                   value: '2012',
-    //                   tooltip: '2012'
-    //               }
-    //           }
-    //       ]
-    //     }
-    //   this.charts.on('updateAxisPointer', event =>  {
-    //         var xAxisInfo = event.axesInfo[0];
-    //         if (xAxisInfo) {
-    //             var dimension = xAxisInfo.value + 1;
-    //             this.charts.setOption({
-    //                 series: {
-    //                     id: 'pie',
-    //                     label: {
-    //                         formatter: '{b}: {@[' + dimension + ']} ({d}%)'
-    //                     },
-    //                     encode: {
-    //                         value: dimension,
-    //                         tooltip: dimension
-    //                     }
-    //                 }
-    //             });
-    //         }
-    //   });
-    //   this.charts.setOption(option);
-    //   window.addEventListener("resize", function() {
-    //       this.charts.resize()
-    //   })
-    //
-    //   // this.charts.setOption({
-    //   //   tooltip: {
-    //   //     trigger: "item",
-    //   //     formatter: "{a}<br/>{b}:{c} ({d}%)"
-    //   //   },
-    //   //   legend: {
-    //   //     bottom: 10,
-    //   //     left: "center",
-    //   //     data: this.opinion
-    //   //   },
-    //   //   series: [
-    //   //     {
-    //   //       name: "状态",
-    //   //       type: "pie",
-    //   //       radius: "65%",
-    //   //       center: ["50%", "50%"],
-    //   //       avoidLabelOverlap: false,
-    //   //       itemStyle: {
-    //   //         emphasis: {
-    //   //           shadowBlur: 10,
-    //   //           shadowOffsetX: 0,
-    //   //           shadowColor: "rgba(0, 0, 0, 0.5)"
-    //   //         },
-    //   //         color: function(params) {
-    //   //           //自定义颜色
-    //   //           var colorList = ["#4bb375", "#d24c47"];
-    //   //           return colorList[params.dataIndex];
-    //   //         }
-    //   //       },
-    //   //       data: this.opinionData
-    //   //     }
-    //   //   ]
-    //   // });
-    // },
-    drawDashboard(id, score, classf) {
-      // this.charts = echarts.init(document.getElementById(id));
-      // if (classf == '负面'){
-      //     score = -score
-      // };
-      // var option = {
-      //     // color:['#E47470','#7EBF50', '#589EF8'],
-      //     tooltip: {
-      //         formatter: '{a} <br/>{b} : {c}%'
-      //     },
-      //     toolbox: {
-      //         feature: {
-      //             restore: {},
-      //             saveAsImage: {}
-      //         }
-      //     },
-      //     series: [
-      //         {
-      //             name: '分类置信度',
-      //             type: 'gauge',
-      //             min: -1,
-      //             max: 1,
-      //             startAngle: 180,
-      //             endAngle: 0,
-      //             detail: {
-      //                 // formatter: Math.abs(score)*100+'%',
-      //                 formatter: Math.abs(score)*100+'%',
-      //                 textStyle:{
-      //                     fontSize:20
-      //                 },
-      //                 fontWeight: 'bolder'
-      //             },
-      //             data: [{
-      //                 value: score,
-      //                 name: '置信度',
-      //
-      //             }],
-      //             title : {
-      //                 textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-      //                     fontWeight: 'bolder',
-      //                     fontSize: 20,
-      //                     fontStyle: 'italic',
-      //                     color:'gray'
-      //                 }
-      //             },
-      //             axisLine: {            // 坐标轴线
-      //                  lineStyle: {       // 属性lineStyle控制线条样式
-      //                      color: [[0.5, '#E47470'], [1, '#7EBF50']],
-      //                      width:20
-      //                  },
-      //
-      //
-      //             },
-      //             axisLabel:{
-      //                 formatter: function (v){
-      //                     switch (v + '') {
-      //                         case '-1' : return '100';
-      //                         case '0' : return '0';
-      //                         case '1' : return '100';
-      //                     }
-      //                 },
-      //
-      //                 distance:-65,
-      //                 textStyle:{
-      //                     fontSize:15
-      //                 }
-      //             }
-      //
-      //         }
-      //
-      //     ]
-      // };
-      // this.charts.setOption(option);
-      //
-      // // setInterval(event =>  {
-      // //     option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-      // //     this.charts.setOption(option, true);
-      // // },2000);
-      // window.addEventListener("resize", () =>
-      // {
-      //     this.charts.resize();
-      // });
-    },
+
     drawProgress(id, score) {
       this.charts = echarts.init(document.getElementById(id));
       // if (classf == '负面'){
@@ -1176,15 +941,16 @@ export default {
         },
         grid: {
           x: 50,
-          y: 30,
+          y: 38,
           x2: 40,
-          y2: 80,
+          y2: 70,
           borderWidth: 10,
         },
         legend: {
           data: ["正面新闻", "负面新闻"],
 
           // orient: 'vertical',
+          top:"2%",
           right: "6%",
         },
         xAxis: {
@@ -1264,184 +1030,6 @@ export default {
       //     this.charts.resize();
       // });
     },
-    drawWeek(id, pos, neg, week) {
-      this.charts = echarts.init(document.getElementById(id));
-      var option = {
-        color: ["#8dbf6a", "#eb7777"],
-        title: {
-          text: "近七天增长图",
-          textAlign: "center",
-          left: "260px",
-        },
-        tooltip: {
-          trigger: "axis",
-        },
-        legend: {
-          data: ["正面新闻", "负面新闻"],
-          orient: "vertical",
-          right: "10%",
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: {},
-          },
-        },
-        xAxis: {
-          type: "category",
-          name: "日期",
-          data: hour,
-          axisLabel: {
-            interval: 0,
-            rotate: 90,
-            formatter: "{value}:00",
-            fontSize: "14",
-            fontFamily: "微软雅黑",
-            marginleft: "15px",
-            show: true,
-          },
-        },
-        yAxis: {
-          // splitLine: {
-          //     show: false
-          // }
-          type: "value",
-          name: "增长数量",
-        },
-        series: [
-          {
-            name: "正面新闻",
-            type: "line",
-            data: pos,
-            smooth: true,
-          },
-          {
-            name: "负面新闻",
-            type: "line",
-            data: neg,
-            smooth: true,
-          },
-        ],
-      };
-      this.charts.setOption(option);
-      window.addEventListener("resize", () => {
-        this.charts.resize();
-      });
-    },
-    drawSum(id, pos, neg) {
-      this.charts = echarts.init(document.getElementById(id));
-      var option = {
-        color: ["#8dbf6a", "#eb7777"],
-        title: {
-          text: "历史分析总数",
-          left: "center",
-        },
-        grid: {
-          width: "200px",
-          left: "6%",
-          right: "10%",
-          top: "30%",
-          containLabel: true,
-        },
-        tooltip: {
-          trigger: "item",
-          formatter: "<br/>{b} : {c} ({d}%)",
-        },
-        // legend: {
-        //     orient: 'vertical',
-        //     left: 'left',
-        //     top: '15%',
-        //     data: ['正面新闻', '负面新闻']
-        // },
-        series: [
-          {
-            type: "pie",
-            radius: ["20%", "70%"],
-            center: ["50%", "60%"],
-            roseType: "radius",
-            // roseType: 'area',
-            data: [
-              { value: pos, name: "正面新闻" },
-              { value: neg, name: "负面新闻" },
-            ],
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: "rgba(0, 0, 0, 0.5)",
-              },
-            },
-          },
-        ],
-      };
-      this.charts.setOption(option);
-      window.onresize = () => {
-        this.charts.resize();
-      };
-    },
-    drawSum_TWO(id) {
-      this.charts = echarts.init(document.getElementById(id));
-      var option = {
-        legend: {},
-        tooltip: {
-          trigger: "axis",
-          showContent: false,
-        },
-        dataset: {
-          source: [
-            ["product", "2012", "2013", "2014", "2015", "2016", "2017"],
-            ["Matcha Latte", 41.1, 30.4, 65.1, 53.3, 83.8, 98.7],
-            ["Milk Tea", 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
-            ["Cheese Cocoa", 24.1, 67.2, 79.5, 86.4, 65.2, 82.5],
-            ["Walnut Brownie", 55.2, 67.1, 69.2, 72.4, 53.9, 39.1],
-          ],
-        },
-        xAxis: { type: "category" },
-        yAxis: { gridIndex: 0 },
-        grid: { top: "55%" },
-        series: [
-          { type: "line", smooth: true, seriesLayoutBy: "row" },
-          { type: "line", smooth: true, seriesLayoutBy: "row" },
-          { type: "line", smooth: true, seriesLayoutBy: "row" },
-          { type: "line", smooth: true, seriesLayoutBy: "row" },
-          {
-            type: "pie",
-            id: "pie",
-            radius: "30%",
-            center: ["50%", "25%"],
-            label: {
-              formatter: "{b}: {@2012} ({d}%)",
-            },
-            encode: {
-              itemName: "product",
-              value: "2012",
-              tooltip: "2012",
-            },
-          },
-        ],
-      };
-      this.charts.on("updateAxisPointer", function (event) {
-        var xAxisInfo = event.axesInfo[2];
-        if (xAxisInfo) {
-          var dimension = xAxisInfo.value + 1;
-          this.charts.setOption({
-            series: {
-              id: "pie",
-              label: {
-                formatter: "{b}: {@[" + dimension + "]} ({d}%)",
-              },
-              encode: {
-                value: dimension,
-                tooltip: dimension,
-              },
-            },
-          });
-        }
-      });
-      this.charts.setOption(option);
-      window.addEventListener("resize", () => {
-        this.charts.resize();
-      });
-    },
     drawTrend(id, pos, neg, date_arr) {
       this.charts = echarts.init(document.getElementById(id));
       var option = {
@@ -1483,18 +1071,13 @@ export default {
         },
         legend: {
           data: ["正面新闻", "负面新闻"],
-          left: "50%",
+          left: "65%",
         },
-        // toolbox: {
-        //   feature: {
-        //     saveAsImage: {}
-        //   }
-        // },
 
         grid: {
-          x: 50,
+          x: '12%',
           y: 30,
-          x2: 260,
+          x2: '10%',
           y2: 115,
           borderWidth: 10,
         },
@@ -1600,9 +1183,9 @@ export default {
         },
         // dataset: {data},
         grid: {
-          x: 180,
+          x: '15%',
           y: 30,
-          x2: 175,
+          x2: '17%',
           y2: 115,
           borderWidth: 10,
         },
@@ -1619,7 +1202,7 @@ export default {
         //图例-每一条数据的名字叫销量
         legend: {
           data: ["正面", "负面"],
-          left: "63%",
+          left: "68%",
         },
         //x轴没有显式设置，根据值自动生成x轴
         xAxis: [
@@ -1711,83 +1294,23 @@ export default {
           },
         ],
       };
-      // var option = {
-      //       tooltip: {
-      //           trigger: 'axis',
-      //           axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-      //               type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-      //           }
-      //       },
-      //       legend: {
-      //           data: ['利润', '支出', '收入']
-      //       },
-      //       grid: {
-      //           left: '3%',
-      //           right: '4%',
-      //           bottom: '3%',
-      //           containLabel: true
-      //       },
-      //       xAxis: [
-      //           {
-      //               type: 'value'
-      //           }
-      //       ],
-      //       yAxis: [
-      //           {
-      //               type: 'category',
-      //               axisTick: {
-      //                   show: false
-      //               },
-      //               data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-      //           }
-      //       ],
-      //       series: [
-      //           {
-      //               name: '利润',
-      //               type: 'bar',
-      //               label: {
-      //                   show: true,
-      //                   position: 'inside'
-      //               },
-      //               data: [200, 170, 240, 244, 200, 220, 210]
-      //           },
-      //           {
-      //               name: '收入',
-      //               type: 'bar',
-      //               stack: '总量',
-      //               label: {
-      //                   show: true
-      //               },
-      //               data: [320, 302, 341, 374, 390, 450, 420]
-      //           },
-      //           {
-      //               name: '支出',
-      //               type: 'bar',
-      //               stack: '总量',
-      //               label: {
-      //                   show: true,
-      //                   position: 'left'
-      //               },
-      //               data: [-120, -132, -101, -134, -190, -230, -210]
-      //           }
-      //       ]
-      //   };
+
       //防止越界，重绘canvas
       // window.onresize = this.chart.resize;
       this.chart.setOption(option);
-      window.onresize = () => {
-        this.chart.resize();
-        // this.percentCharts.resize();
-
-        // let height = this.$refs.asideContainer.offsetHeight;
-        // this.$refs.mainContainer.offsetHeight = height;
-
-        //如果有多个表变动在下方依次写下去就可以了
-      };
-      // window.addEventListener("resize", () =>
-      // {
-      //     this.chart.resize();
-      // });
+      // window.onresize = () => {
+      //   this.chart.resize();
+      //   // this.percentCharts.resize();
+      //
+      //   // let height = this.$refs.asideContainer.offsetHeight;
+      //   // this.$refs.mainContainer.offsetHeight = height;
+      //
+      //   //如果有多个表变动在下方依次写下去就可以了
+      // };
+      window.addEventListener("resize", () =>
+      {
+          this.chart.resize();
+      });
     },
 
     init() {
@@ -1911,10 +1434,10 @@ export default {
   background: #589ef8;
 }
 .iconof1 {
-  width: 76px;
-  height: 60px;
-  background-color: #589ef8;
-  text-align: center;
+  width:70px;
+  height: 65px;
+  /*width:60px;*/
+  /*text-align: center;*/
 }
 .grid-cont-right1 {
   flex: 1;
@@ -1946,7 +1469,7 @@ export default {
 }
 
 .grid-con-1 .grid-con-text {
-  flex: 1;
+  /*flex: 1;*/
   /*width: 30px;*/
 
   /*flex-direction: row;*/
@@ -1954,7 +1477,7 @@ export default {
   font-size: 20px;
   /*width: 50%;*/
   /*height: 100%;*/
-  text-align: center;
+  /*text-align: center;*/
   /*color: #35363b;*/
 
   /*line-height: 100%;*/
@@ -1967,55 +1490,34 @@ export default {
   margin-left: 5%;
   margin: 5%;
 }
+.grid-con-text1 .grid-num {
+  font-size: 20px;
+  font-weight: bolder;
+  margin-left: 5%;
+  margin: 5%;
+}
 
 .grid-con-text {
-  /*width: 30px;*/
   /*flex: 1;*/
-  /*!*flex-direction: row;*!*/
-  /*!*font-weight:bolder;*!*/
-  /*font-size:10px;*/
-  /*!*width: 50%;*!*/
-  /*!*height: 100%;*!*/
-  /*text-align: center;*/
-  /*!*line-height: 100%;*!*/
-  /*!*justify-content: center;*!*/
-  /*color: #35363b;*/
-  flex: 1;
-  /*flex-direction: row;*/
-  /*font-weight:bolder;*/
   font-size: 10px;
-  /*width: 50%;*/
-  /*height: 100%;*/
+  color: #fff;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
   text-align: center;
-  /*line-height: 100%;*/
-  /*justify-content: center;*/
+  display: flex;
+  align-content: center
+}
+
+.grid-con-text1 {
+  flex: 1;
+  font-size: 10px;
   color: #fff;
 }
 .el-icon-s-data {
   font-size: 60px;
   margin-top: 10%;
-}
-.grid-text2 {
-  text-align: left;
-  font-weight: bold;
-  /*text-align: left;*/
-  font-size: 18px;
-  text-align: left;
-  color: #f3fbf8;
-}
-.grid-num2 {
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-  margin-left: 20%;
-}
-.div-text2 {
-  margin-bottom: 5px;
-  margin-left: 10%;
-  text-align: left;
-}
-.bg-purple-light {
-  background: #e5e9f2;
 }
 .grid-content {
   flex-direction: row;
@@ -2039,6 +1541,12 @@ export default {
   display: flex;
   height: 400px;
   justify-content: flex-start;
+}
+.wrap {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align: middle;
 }
 #pos_emoji {
   display: flex;
