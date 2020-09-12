@@ -50,6 +50,6 @@ export default {
 </script>
 <style>
   .content-box{
-    margin-left: -50px;
+    min-width: 1000px;
   }
 </style>

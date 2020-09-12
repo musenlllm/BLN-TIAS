@@ -129,6 +129,9 @@ export default {
 .sidebar-el-menu:not(.el-menu--collapse) {
     width: 250px;
 }
+.sidebar-el-menu .el-menu--collapse {
+    width: 50px;
+}
 .sidebar > ul {
     height: 100%;
 }

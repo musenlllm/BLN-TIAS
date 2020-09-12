@@ -208,7 +208,7 @@
                     >
                       <template slot-scope="scope" v-if="scope.row.url">
                         <div style="display: flex; margin-top: 1%; margin-bottom: 1%">
-                          <img :href="scope.row.url" src="../../assets/icon/svg/new.svg" style="width: 10%; height: 12%;transform: scale(1.4);mar"></img>
+                          <img :href="scope.row.url" src="../../assets/icon/svg/new.svg" style="width: 10%; height: 12%;transform: scale(1.4);"></img>
                           <a
                             :href="scope.row.url"
                             target="_blank"
