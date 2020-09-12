@@ -1375,6 +1375,13 @@
               label: {},
               bottom: 20,
             },
+            tooltip: {
+              trigger: "axis",
+              axisPointer: {
+                // 坐标轴指示器，坐标轴触发有效
+                type: "shadow", // 默认为直线，可选为：'line' | 'shadow'
+                },
+            },
             title: {
               // subtext: "数据更新于：" + date_arr[6],
               top: '10px',
@@ -1404,31 +1411,7 @@
                   align: 'left'
                 },
               },
-              // legend: {
-              //     left: '50%',
-              //     data: ['主题'],
-              //     // selected: {
-              //     //     'GDP': true, '金融': false, '房地产': false,'第一产业': false, '第二产业': false, '第三产业': false
-              //     // }
-              // },
-              // calculable: true,
-              // grid: {
-              //   x: 90,
-              //   y: 50,
-              //   x2: 400,
-              //   y2: 120,
-              //   tooltip: {
-              //     trigger: "axis",
-              //     axisPointer: {
-              //       type: "shadow",
-              //       label: {
-              //         show: true,
-              //         formatter: function (params) {
-              //           return params.value.replace("\n", "");
-              //         },
-              //       },
-              //     },
-              //   },
+
               },
               xAxis: [
                 {
@@ -1483,9 +1466,13 @@
                   barWidth: 10,
                 },
                 {
-                  name: "各主题总数占比",
-                  title: {text: "各主题总数占比"},
+                  name: "各主题总数",
+                  title: {text: "各主题总数"},
                   type: "pie",
+                  tooltip: {
+                    trigger: "item",
+                    // formatter: "{a} <br/>{b} : {c} ({d}%)",
+                  },
                   center: ['85%', "45%"],
                   // radius: "50%",
                   radius: [20, 110],
