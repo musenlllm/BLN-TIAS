@@ -655,6 +655,9 @@
           ],
         };
         this.chart.setOption(option);
+        window.addEventListener("resize", function () {
+          this.chart.resize();
+        });
         // window.addEventListener("resize", function() {
         //   this.chart.resize()
         // })
@@ -1662,6 +1665,9 @@
         // window.addEventListener("resize", () => {
         //     this.chart.resize();
         // });
+        window.addEventListener("resize", function () {
+          this.chart.resize();
+        });
         // window.onresize = () => {
         //   this.chart.resize();
         //   // this.percentCharts.resize();
