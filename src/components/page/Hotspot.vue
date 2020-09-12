@@ -275,7 +275,7 @@
                 v-if="isChildUpdate1"
                 style="display: flex; justify-content: space-around;align-items: center"
               >
-                <div id="hot_key_words1" style="width:33%;min-height:360px;"></div>
+                <div id="hot_key_words1" style="width:33%;min-height:360px;margin-left: 10px"></div>
                 <div id="hot_freq_words1" style="width:33%;min-height:360px;"></div>
                 <div id="today_hot_distribution1" style="width:34%;height:360px;margin-bottom:0px;margin-left: 20px"></div>
 
