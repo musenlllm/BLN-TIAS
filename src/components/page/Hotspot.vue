@@ -65,7 +65,8 @@
                         width="80%"
                       >
                         <div slot-scope="scope" v-if="scope.row.rank<4">
-                          <i class="iconfont iconmingcheng-huobao-t"></i>
+                          <!--<i class="iconfont iconmingcheng-huobao-t"></i>-->
+                          <img :href="scope.row.url" src="../../assets/icon/svg/hot.svg" style="width: 25%; height: 25%;margin-bottom:-3px;transform: scale(1.4);"></img>
 
                           <!--<span class="Uiconfont ldmcmingcheng-huobao-t" v-html="iconTag"></span>-->
                           <!--<svg class="icon" aria-hidden="true">-->
@@ -141,7 +142,8 @@
                         width="80%"
                       >
                         <div slot-scope="scope" v-if="scope.row.rank<4">
-                          <i class="iconfont iconmingcheng-huobao-t"></i>
+                          <!--<i class="iconfont iconmingcheng-huobao-t"></i>-->
+                          <img :href="scope.row.url" src="../../assets/icon/svg/hot.svg" style="width: 25%; height: 25%;margin-bottom:-3px;transform: scale(1.4);"></img>
                         </div>
                         <div slot-scope="scope" v-else>{{scope.row.rank}}</div>
                       </el-table-column>
@@ -205,10 +207,11 @@
                       label="新闻话题"
                       :show-overflow-tooltip="true"
                       width="220%"
+                      style="padding: 0"
                     >
                       <template slot-scope="scope" v-if="scope.row.url">
-                        <div style="display: flex; margin-top: 1%; margin-bottom: 1%">
-                          <img :href="scope.row.url" src="../../assets/icon/svg/new.svg" style="width: 10%; height: 12%;transform: scale(1.4);"></img>
+                        <div style="display: flex; margin-top: 1%; ">
+                          <img :href="scope.row.url" src="../../assets/icon/svg/new.svg" style="width: 10%; height: 12%;margin-bottom:-5px;transform: scale(1.4);"></img>
                           <a
                             :href="scope.row.url"
                             target="_blank"
@@ -259,9 +262,9 @@
                 v-if="isChildUpdate3"
                 style="display: flex; justify-content: space-around;align-items: center"
               >
-                <div id="hot_key_words3" style="width:33%;min-height:360px;margin-left: 20px"></div>
+                <div id="hot_key_words3" style="width:33%;min-height:360px;margin-left: 10px"></div>
                 <div id="hot_freq_words3" style="width:33%;min-height:360px;"></div>
-                <div id="today_hot_distribution3" style="width:34%;height:360px;margin-bottom:0px"></div>
+                <div id="today_hot_distribution3" style="width:34%;height:360px;margin-bottom:0px;margin-left: 30px"></div>
                 <!--<div>{{this.key_words2_list}}</div>-->
               </div>
             </el-tab-pane>
@@ -274,7 +277,7 @@
               >
                 <div id="hot_key_words1" style="width:33%;min-height:360px;"></div>
                 <div id="hot_freq_words1" style="width:33%;min-height:360px;"></div>
-                <div id="today_hot_distribution1" style="width:34%;height:360px;margin-bottom:0px"></div>
+                <div id="today_hot_distribution1" style="width:34%;height:360px;margin-bottom:0px;margin-left: 20px"></div>
 
                 <!--<div>{{this.freq_words2_list}}</div>-->
               </div>
@@ -961,8 +964,8 @@
             source: this.source,
           },
           grid: {
-            left: "3%",
-            right: "4%",
+            left: "2%",
+            right: "7%",
             bottom: "10%",
             containLabel: true,
           },

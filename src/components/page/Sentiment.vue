@@ -121,7 +121,10 @@
                   </el-col>
                 </el-row>
                 <!--今日小时曲线图-->
-                <div id="today_emotionLevel" style="width:100%;min-height:390px;"></div>
+                <!--<div style="display:flex;align-items:center;width: 100%">-->
+                  <div id="today_emotionLevel" align="center" style="width:100%;min-height:390px;"></div>
+                <!--</div>-->
+
               </el-aside>
 
               <el-main style="margin: -20px;margin-bottom: -20px;margin-right: 0px">
@@ -244,7 +247,7 @@
 
         <el-card
           class="box-card"
-          style="height:520px;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);align-items: center"
+          style="height:520px;box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);align-items: center;margin-bottom: 20px"
           v-loading="resloading"
           align="center"
         >
@@ -397,6 +400,7 @@
 <script>
 import "echarts/dist/extension/dataTool";
 import echarts from "echarts";
+import elementResize from 'element-resize-detector' ;
 Date.prototype.Format = function (fmt) {
   // author: meizz
   var o = {
@@ -671,94 +675,6 @@ export default {
           //
         });
     },
-    drawHistory(id) {
-      // 基于准备好的dom，初始化echarts实例
-      this.charts = echarts.init(document.getElementById(id));
-      // 初始化数据 && 设置窗口自适应大小
-      // this.lineChart.setOption(this.echartOption, window.onresize = this.lineChart.resize);
-      var option = {
-        color: ["#E47470", "#7EBF50", "#589EF8"],
-        legend: {},
-        tooltip: {
-          trigger: "axis",
-          showContent: false,
-        },
-        dataset: {
-          source: [
-            [
-              "sentiment",
-              "周一",
-              "周二",
-              "周三",
-              "周四",
-              "周五",
-              "周六",
-              "周日",
-            ],
-            ["积极", 41.1, 30.4, 65.1, 53.3, 83.8, 98.7, 90],
-            ["消极", 86.5, 92.1, 85.7, 83.1, 73.4, 55.1, 10],
-
-            // ['未知', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
-          ],
-        },
-        xAxis: { type: "category" },
-        yAxis: {
-          gridIndex: 0,
-          // type: 'value',
-          //   name: '元/币',
-          //   splitLine: {
-          //       show: false//是否显示分隔线。默认数值轴显示，类目轴不显示。
-          //   },
-          //   nameGap: 15,
-          //   axisTick: {
-          //       inside: true
-          //   }
-        },
-        grid: { top: "55%" },
-        series: [
-          { type: "line", smooth: true, seriesLayoutBy: "row" },
-          { type: "line", smooth: true, seriesLayoutBy: "row" },
-          { type: "line", smooth: true, seriesLayoutBy: "row" },
-          {
-            type: "pie",
-            id: "pie",
-            radius: "30%",
-            center: ["50%", "25%"],
-            label: {
-              formatter: "{b}: {@周一} ({d}%)",
-            },
-            encode: {
-              itemName: "sentiment",
-              value: "周一",
-              tooltip: "周一",
-            },
-          },
-        ],
-      };
-      this.charts.on("updateAxisPointer", (event) => {
-        var xAxisInfo = event.axesInfo[0];
-        if (xAxisInfo) {
-          var dimension = xAxisInfo.value + 1;
-          this.charts.setOption({
-            series: {
-              id: "pie",
-              label: {
-                formatter: "{b}: {@[" + dimension + "]} ({d}%)",
-              },
-              encode: {
-                value: dimension,
-                tooltip: dimension,
-              },
-            },
-          });
-        }
-      });
-      this.charts.setOption(option);
-      window.addEventListener("resize", function () {
-        this.charts.resize();
-      });
-    },
-
     drawProgress(id, score) {
       this.charts = echarts.init(document.getElementById(id));
       // if (classf == '负面'){
@@ -1016,15 +932,23 @@ export default {
       //防止越界，重绘canvas
       // window.onresize = this.charts.resize;
       this.charts.setOption(option);
-      window.onresize = () => {
-        this.charts.resize();
-        // this.percentCharts.resize();
-
-        // let height = this.$refs.asideContainer.offsetHeight;
-        // this.$refs.mainContainer.offsetHeight = height;
-
-        //如果有多个表变动在下方依次写下去就可以了
-      };
+       window.addEventListener("resize", () =>
+      {
+          this.charts = echarts.init(document.getElementById(id));
+          this.charts.resize();
+          // let width= this.$refs.init.$el.offsetWidth;
+          // this.$refs.mainCont
+      });
+      // this.charts = echarts.init(document.getElementById(id));
+      // let mainChart = document.getElementById(id)
+      // let elementResize = elementResize({
+		  //     strategy: 'scroll', // <- 推荐监听滚动，提升性能
+		  //     callOnAdd: true // 添加侦听器时是否应调用,默认true
+      // })
+      // elementResize.listenTo(mainChart, function(element) {
+      //     this.charts = echarts.init(document.getElementById(id));
+		  //     this.charts.resize();// 当元素尺寸发生改变是会触发此事件，刷新图表
+      // });
       // window.addEventListener("resize", () =>
       // {
       //     this.charts.resize();
@@ -1077,7 +1001,7 @@ export default {
         grid: {
           x: '12%',
           y: 30,
-          x2: '10%',
+          x2: '7%',
           y2: 115,
           borderWidth: 10,
         },
@@ -1136,6 +1060,7 @@ export default {
 
       window.addEventListener("resize", () =>
       {
+          this.charts = echarts.init(document.getElementById(id));
           this.charts.resize();
       });
     },
@@ -1185,7 +1110,7 @@ export default {
         grid: {
           x: '15%',
           y: 30,
-          x2: '17%',
+          x2: '7%',
           y2: 115,
           borderWidth: 10,
         },
