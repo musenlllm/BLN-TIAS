@@ -225,6 +225,7 @@ export default {
       lastupdatetime: new Date().Format("yyyy-MM-dd hh:mm:ss"),
       newslist: [],
       type2color: type2color,
+      currentIndex: 0,
     };
   },
   methods: {
@@ -344,7 +345,7 @@ export default {
       window.onresize = myChart.resize;
       myChart.setOption(option);
 
-      var currentIndex = -1;
+      let self = this;
 
       setInterval(function () {
         var dataLen = option.series[0].data.length;
@@ -352,20 +353,20 @@ export default {
         myChart.dispatchAction({
           type: "downplay",
           seriesIndex: 0,
-          dataIndex: currentIndex,
+          dataIndex: self.currentIndex,
         });
-        currentIndex = (currentIndex + 1) % dataLen;
+        self.currentIndex = (self.currentIndex + 1) % dataLen;
         // 高亮当前图形
         myChart.dispatchAction({
           type: "highlight",
           seriesIndex: 0,
-          dataIndex: currentIndex,
+          dataIndex: self.currentIndex,
         });
         // 显示 tooltip
         myChart.dispatchAction({
           type: "showTip",
           seriesIndex: 0,
-          dataIndex: currentIndex,
+          dataIndex: self.currentIndex,
         });
       }, 1000);
     },
