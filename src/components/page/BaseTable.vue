@@ -6,11 +6,8 @@
           background-color: #fff;
           box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);">
 
-                <!--<div slot="header" class="diyCardHead" >-->
                 <h1 style="color: black; letter-spacing: 10px; font-weight: normal; font-size: 25px; margin-top: -20px">文本摘要</h1>
-                <!--<el-divider style="width: 30px"></el-divider>-->
-                <!--</div>-->
-                <!--<h1 style="color: gray">实体识别</h1>-->
+
                 <el-input
                   type="textarea"
                   placeholder="请输入内容"
@@ -20,6 +17,7 @@
                   :autosize="{ minRows: 5, maxRows: 8}"
                   clearable
                   style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); font-size: 15px;"
+                  id="summaryInput"
                 >
                 </el-input>
 
@@ -125,6 +123,13 @@ export default {
         // 获取 easy-mock 的模拟数据
         getData() {
             var tempText = this.clearText(this.summaryText)
+
+            //check the input length
+          if(tempText.length<30){
+            this.open3();
+            return
+          }
+
             // this.summaryText = this.clearText(this.summaryText)
             this.loading=true;
             var tempRes;
@@ -165,7 +170,14 @@ export default {
                 resultStr = resultStr.slice(0,resultStr.length-7)
             }
             return resultStr;
-        }
+        },
+        open3() {
+          this.$message({
+            showClose: true,
+            message: '摘要的输入长度不能小于30字',
+            type: 'warning'
+          });
+      },
 
 
     }

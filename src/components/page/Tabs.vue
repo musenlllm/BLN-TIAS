@@ -492,7 +492,7 @@ export default {
             top: "1%",
             left: "15%",
             bottom: "1%",
-            right: "20%",
+            right: "30%",
 
             symbolSize: 10,
 
