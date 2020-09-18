@@ -71,10 +71,16 @@
         <el-row style="max-width:100%;margin-top:20px">
           <el-card class="box-card">
             <div slot="header" class="clearfix" style="color: black;font-size: 18px">
-              <span>
-                <i class="iconfont iconxinwen"></i>
-                实时主题新闻分类结果
-              </span>
+              <el-row>
+                <el-col :span="8"><div style="min-height:10px"></div></el-col>
+                <el-col :span="8">
+                  <span style="max-width:210px">
+                    <i class="iconfont iconxinwen"></i>
+                    实时主题新闻分类结果
+                  </span>
+                </el-col>
+                <el-col :span="8"><div style="min-height:10px"></div></el-col>
+              </el-row>
               <div class="showupdatetime">更新时间：{{lastupdatetime}}</div>
             </div>
             <el-row style="text-align:left">
@@ -373,15 +379,26 @@ export default {
     onClick(value) {
       //alert("你点击了 " + value);
     },
+    clearText(testStr) {
+        var resultStr = testStr.replace(/\ +/g, "");
+        resultStr = resultStr.replace(/\s+/g, "");
+        resultStr = resultStr.replace(/[ ]/g, "");    //去掉空格
+        resultStr = resultStr.replace(/[\r\n]/g, ""); //去掉回车换行
+        if(this.content.indexOf("（请输入文本）")!=-1){
+          resultStr = resultStr.slice(0,resultStr.length-7)
+        }
+        return resultStr;
+    },
     submit() {
       this.form.type = "";
+      let textData = this.clearText(this.content);
       fetch(tpclassurl, {
         method: "POST",
         body: JSON.stringify({
           docs: [
             {
               id: 123,
-              doc: this.content,
+              doc: textData,
             },
           ],
         }),
