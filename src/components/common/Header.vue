@@ -5,7 +5,7 @@
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo" style="width: max-content">LDMC-文本智能分析系统</div>
+        <div class="logo" style="width: max-content">LDMC-智能文本分析系统</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->

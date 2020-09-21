@@ -2,7 +2,7 @@
     <div class="login-wrap">
         <div class="bg"></div>
         <div class="ms-login">
-            <div class="ms-title">LDMC-NLP文本智能分析系统</div>
+            <div class="ms-title">LDMC-NLP智能文本分析系统</div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
                 <el-form-item prop="username">
                     <el-input v-model="param.username" placeholder="username">
