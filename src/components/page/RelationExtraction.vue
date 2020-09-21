@@ -584,8 +584,19 @@ export default {
         return { nodes: nodelist, links: linklist, showRelation: showRelation };
       }
     },
+    clearText(testStr) {
+        var resultStr = testStr.replace(/\ +/g, "");
+        resultStr = resultStr.replace(/\s+/g, "");
+        resultStr = resultStr.replace(/[ ]/g, "");    //去掉空格
+        resultStr = resultStr.replace(/[\r\n]/g, ""); //去掉回车换行
+        if(this.content.indexOf("（请输入文本）")!=-1){
+          resultStr = resultStr.slice(0,resultStr.length-7)
+        }
+        return resultStr;
+    },
     // 获取 easy-mock 的模拟数据
     getData() {
+      let textData = this.clearText(this.content);
       this.items = [];
       fetch(relationUrl, {
         method: "POST",
@@ -593,7 +604,7 @@ export default {
           docs: [
             {
               id: 123,
-              doc: this.content,
+              doc: textData,
             },
           ],
         }),
