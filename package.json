@@ -25,10 +25,10 @@
     "vuedraggable": "^2.17.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.9.0",
-    "@vue/cli-service": "^4.5.4",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
     "css-loader": "^4.3.0",
-    "svg-sprite-loader": "^5.0.0",
+    "svg-sprite-loader": "^5.2.1",
     "svgo-loader": "^2.2.1",
     "vue-template-compiler": "^2.6.10"
   },
